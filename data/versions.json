@@ -1,5 +1,7 @@
 {
   "items": [
+    {"version":"1.0.9","code":109,"date":"2026-08-28","notes":"根治安装新版后仍弹更新提示（版本号唯一真源）；开屏动画不可跳过；月度选举当选名单可见","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.9.apk"},
+    {"version":"1.0.8","code":108,"date":"2026-08-28","notes":"问卷系统修复：导入解析更聪明、发布通知更高效、好评评语提交不再报错","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.8.apk"},
     {"version":"1.0.7","code":107,"date":"2026-08-27","notes":"星夜/水墨开屏动画 · 聊天准实时同步 · 私信全局红点 · 权限引导页 · 十二篇规则中心阅读器 · 全量权限声明与修复","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.7.apk"},
     {"version":"1.0.6","code":106,"date":"2026-08-27","notes":"新增私信/聊天功能（限流、表情、图片）、修复版本号显示、全链路加载动画","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.6.apk"},
     {"version":"1.0.3","code":103,"date":"2026-08-26","notes":"修复关注/粉丝页白屏 · 降低加载延迟 · 私信入口打通 · 切换账号功能","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.3.apk"},

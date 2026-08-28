@@ -6,7 +6,7 @@
 <title>尚贤圈 · 校园信息交流社区</title>
 <meta name="description" content="尚贤圈，见贤思齐，以文会友。校园半匿名信息交流平台：树洞倾诉、求助问答、二手流转、社团招新、学习共享。官方下载与规则中心。">
 <meta name="keywords" content="尚贤圈,校园社区,树洞,匿名交流,校园二手,社团招新,学习互助,校园信息">
-<meta name="author" content="Kernthal Stuido">
+<meta name="author" content="Kernthal Studio">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://kernthal.github.io/shangxianquan-official/">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -36,17 +36,17 @@
       "description": "校园半匿名信息交流平台，提供树洞倾诉、求助问答、二手流转、社团招新与学习共享六大版块。",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
       "inLanguage": "zh-CN",
-      "author": { "@type": "Organization", "name": "Kernthal Stuido" },
-      "publisher": { "@type": "Organization", "name": "SX Compus Community" }
+      "author": { "@type": "Organization", "name": "Kernthal Studio" },
+      "publisher": { "@type": "Organization", "name": "SX Campus Community" }
     },
     {
       "@type": "Organization",
-      "name": "Kernthal Stuido",
+      "name": "Kernthal Studio",
       "description": "独立软件工作室，负责尚贤圈的产品工程与设计系统。"
     },
     {
       "@type": "Organization",
-      "name": "SX Compus Community",
+      "name": "SX Campus Community",
       "description": "校园社区运营方，尚贤圈产品主体，负责社区治理与规则体系。"
     }
   ]
@@ -826,14 +826,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
     <div class="makers">
       <article class="maker">
         <div class="maker-mono" style="background:linear-gradient(135deg,#c8401f,#9e3015)">KS</div>
-        <h3>Kernthal Stuido</h3>
+        <h3>Kernthal Studio</h3>
         <div class="maker-en">Independent Software Studio</div>
         <p>一支由学生与独立开发者组成的产品工程团队，专注于校园场景的数字产品设计、前端工程与系统架构。尚贤圈的产品形态、交互语言与规则中心均由本工作室从零打磨，坚持代码整洁、体验克制、可长期维护。</p>
         <div class="maker-tags"><span class="maker-tag">产品工程</span><span class="maker-tag">设计系统</span><span class="maker-tag">全栈开发</span></div>
       </article>
       <article class="maker">
         <div class="maker-mono" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)">SX</div>
-        <h3>SX Compus Community</h3>
+        <h3>SX Campus Community</h3>
         <div class="maker-en">Campus Community Operator</div>
         <p>尚贤圈的产品主体与社区治理方，专注校园内容生态的运营与秩序维护。负责六大专区的内容规范、违规处置、月度选举与十二篇规则体系的持续修订，让每一位校园用户都能安心表达、有据可依。</p>
         <div class="maker-tags"><span class="maker-tag">社区运营</span><span class="maker-tag">内容治理</span><span class="maker-tag">规则体系</span></div>
@@ -955,9 +955,9 @@ function renderVersions(items){
     });
   });
 }
-// 版本数据多路径容错：data/ → 根 → 远端 storage
+// 版本数据多路径容错：CI 维护的 Supabase CDN 优先（发版即自动同步），本地 data/ 兜底
 (function loadVersions(){
-  const V_PATHS=['./data/versions.json','./versions.json','assets/versions.json',SB_PUBLIC+'site/versions.json'];
+  const V_PATHS=[SB_PUBLIC+'site/versions.json','./data/versions.json','./versions.json','assets/versions.json'];
   let vi=0;
   (function tryV(i){
     if(i>=V_PATHS.length){renderVersions(FALLBACK);return}
