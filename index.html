@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>尚贤圈 · 校园信息交流社区</title>
+<meta name="description" content="尚贤圈，见贤思齐，以文会友。校园半匿名信息交流平台：树洞倾诉、求助问答、二手流转、社团招新、学习共享。官方下载与规则中心。">
+<meta name="keywords" content="尚贤圈,校园社区,树洞,匿名交流,校园二手,社团招新,学习互助,校园信息">
+<meta name="author" content="Kernthal Stuido">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://kernthal.github.io/shangxianquan-official/">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#f4efe6">
+<!-- 安全响应头等价 meta：限制脚本/样式/连接/图片来源，杜绝外站注入面 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://gfxkpljewqchdbrepqia.supabase.co; connect-src 'self' https://gfxkpljewqchdbrepqia.supabase.co; font-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'">
+<!-- Open Graph / Twitter Card -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="尚贤圈 ShangXian Quan">
+<meta property="og:title" content="尚贤圈 · 见贤思齐，以文会友">
+<meta property="og:description" content="为校园而生的半匿名信息交流圈：树洞、求助、二手、社团、学习、闲聊六大版块，十二篇联动规则，纯净无广告。">
+<meta property="og:url" content="https://kernthal.github.io/shangxianquan-official/">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="尚贤圈 · 校园信息交流社区">
+<meta name="twitter:description" content="为校园而生的半匿名信息交流圈，纯净无广告，规则透明可追溯。">
+<!-- 结构化数据：软件应用 + 出品组织 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "尚贤圈",
+      "applicationCategory": "SocialApplication",
+      "operatingSystem": "Android",
+      "description": "校园半匿名信息交流平台，提供树洞倾诉、求助问答、二手流转、社团招新与学习共享六大版块。",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+      "inLanguage": "zh-CN",
+      "author": { "@type": "Organization", "name": "Kernthal Stuido" },
+      "publisher": { "@type": "Organization", "name": "SX Compus Community" }
+    },
+    {
+      "@type": "Organization",
+      "name": "Kernthal Stuido",
+      "description": "独立软件工作室，负责尚贤圈的产品工程与设计系统。"
+    },
+    {
+      "@type": "Organization",
+      "name": "SX Compus Community",
+      "description": "校园社区运营方，尚贤圈产品主体，负责社区治理与规则体系。"
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --paper:#f4efe6; --paper2:#ece5d6; --ink:#1c1a17; --ink2:#57503f;
+  --muted:#8b8270; --cinnabar:#c8401f; --cinnabar-dk:#9e3015;
+  --gold:#b98a2f; --line:#ddd3bf; --card:#faf6ee;
+  --link:#2456d6;
+  --serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+  --sans:-apple-system,"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75;overflow-x:hidden}
+::selection{background:rgba(200,64,31,.18)}
+
+/* 纸纹 */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+ background:
+  radial-gradient(circle at 15% 20%, rgba(185,138,47,.06), transparent 40%),
+  radial-gradient(circle at 85% 70%, rgba(200,64,31,.05), transparent 45%),
+  repeating-linear-gradient(0deg, transparent 0 29px, rgba(28,26,23,.014) 29px 30px);}
+main,nav,footer{position:relative;z-index:1}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+/* 顶栏 */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+ padding:12px max(16px,env(safe-area-inset-left));background:rgba(244,239,230,.92);
+ backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.seal{width:34px;height:34px;border-radius:50%;background:var(--cinnabar);color:#fff;
+ font-family:var(--serif);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;
+ box-shadow:0 3px 10px rgba(158,48,21,.35)}
+.brand{font-family:var(--serif);font-weight:900;font-size:19px;letter-spacing:3px}
+.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:2px;font-weight:400}
+.nav-links{margin-left:auto;display:none;gap:22px}
+.nav-links a{color:var(--ink2);text-decoration:none;font-size:14px;letter-spacing:1px;padding:6px 2px;border-bottom:2px solid transparent;transition:.2s}
+.nav-links a:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
+.dl-cta{margin-left:auto;background:var(--ink);color:#fff;font-size:13px;text-decoration:none;
+ padding:9px 18px;border-radius:999px;letter-spacing:1px;transition:.2s}
+.dl-cta:hover{background:var(--cinnabar);transform:translateY(-1px)}
+@media(min-width:820px){.nav-links{display:flex}.dl-cta{margin-left:8px}}
+
+/* HERO */
+.hero{padding:max(56px,8vh) 20px 60px;max-width:1060px;margin:0 auto;display:grid;gap:34px}
+.hero-en{font-family:Georgia,serif;font-style:italic;font-size:13px;color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(44px,9vw,86px);
+ line-height:1.14;letter-spacing:6px}
+.hero h1 em{font-style:normal;color:var(--cinnabar);position:relative}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:12px;background:rgba(185,138,47,.25);z-index:-1}
+.hero-sub{margin-top:16px;font-size:16px;color:var(--ink2);max-width:520px}
+.hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn-dl{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar-dk));
+ color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 30px;border-radius:14px;
+ box-shadow:0 10px 28px rgba(158,48,21,.35);transition:.25s}
+.btn-dl:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(158,48,21,.42)}
+.btn-dl svg{width:18px;height:18px}
+.btn-ghost{display:inline-flex;align-items:center;color:var(--ink);text-decoration:none;font-size:14px;
+ border-bottom:1.5px solid var(--gold);padding:4px 2px;letter-spacing:1px;transition:.2s}
+.btn-ghost:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
+.hero-badges{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.badge{font-size:12px;color:var(--ink2);border:1px solid var(--line);background:rgba(255,255,255,.55);
+ border-radius:999px;padding:6px 14px;letter-spacing:1px;display:inline-flex;align-items:center;gap:6px}
+.badge svg{flex-shrink:0}
+.vertical-poem{position:absolute;right:22px;top:110px;writing-mode:vertical-rl;font-family:var(--serif);
+ font-size:15px;letter-spacing:10px;color:var(--muted);opacity:.55;user-select:none}
+@media(max-width:720px){.vertical-poem{display:none}}
+.stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.35;animation:tw 3.4s ease-in-out infinite}
+@keyframes tw{50%{opacity:.08}}
+
+/* 通用 section */
+section{scroll-margin-top:72px}
+.wrap{max-width:1060px;margin:0 auto;padding:64px 20px}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px}
+.sec-no{font-family:Georgia,serif;font-style:italic;color:var(--gold);font-size:15px;letter-spacing:2px}
+.sec-title{font-family:var(--serif);font-weight:900;font-size:clamp(26px,5vw,38px);letter-spacing:4px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+/* 特性 */
+.grid-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px;position:relative;overflow:hidden;transition:.25s}
+.feat:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(28,26,23,.09);border-color:rgba(200,64,31,.4)}
+.feat-ic{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+ font-family:var(--serif);font-weight:900;font-size:20px;margin-bottom:14px;color:#fff}
+.feat h3{font-family:var(--serif);font-size:19px;letter-spacing:2px;margin-bottom:8px}
+.feat p{font-size:13.5px;color:var(--ink2)}
+.feat::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(185,138,47,.12),transparent 70%)}
+
+/* 版本时间轴 */
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(var(--line) 0 6px,transparent 6px 12px)}
+.rel{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:18px;transition:.2s}
+.rel:hover{border-color:var(--cinnabar);transform:translateX(4px)}
+.rel::before{content:"";position:absolute;left:-25px;top:26px;width:12px;height:12px;border-radius:50%;
+ background:var(--paper);border:3px solid var(--cinnabar)}
+.rel-latest::before{background:var(--cinnabar)}
+.rel-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.ver{font-family:Georgia,monospace;font-weight:700;font-size:20px;color:var(--cinnabar)}
+.tag{font-size:11px;background:var(--cinnabar);color:#fff;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.tag.gray{background:var(--muted)}
+.date{font-size:12.5px;color:var(--muted);font-family:Georgia,monospace}
+.rel-notes{margin-top:8px;font-size:13.5px;color:var(--ink2)}
+.rel-actions{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
+.mini-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;text-decoration:none;color:#fff;
+ background:var(--ink);padding:8px 18px;border-radius:9px;transition:.2s}
+.mini-btn:hover{background:var(--cinnabar)}
+.rel-mirror{font-size:12px;color:var(--muted)}
+.wc-tip{margin-top:8px;font-size:12.5px;color:var(--gold);display:none}
+
+/* 规则中心 */
+.rules-tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.chip{cursor:pointer;font-size:13px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);
+ background:var(--card);color:var(--ink2);letter-spacing:1px;transition:.2s}
+.chip:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.reader-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.doc-title{font-family:var(--serif);font-weight:900;font-size:22px;letter-spacing:3px}
+.fs-group{margin-left:auto;display:flex;gap:6px}
+.fs-btn{cursor:pointer;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--ink2);
+ padding:5px 12px;border-radius:8px;transition:.15s}
+.fs-btn.on,.fs-btn:hover{background:var(--cinnabar);border-color:var(--cinnabar);color:#fff}
+.progress-wrap{height:5px;background:var(--paper2);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--cinnabar));transition:width .1s linear}
+.paper{background:#fffdf7;border:1px solid var(--line);border-radius:16px;padding:clamp(20px,4vw,44px);
+ max-height:min(62vh,640px);overflow-y:auto;line-height:2.1;scroll-behavior:smooth}
+.paper p{margin-bottom:2px;text-indent:0;word-break:break-word}
+.paper .h{font-family:var(--serif);font-weight:800;color:var(--ink);margin:20px 0 6px;font-size:1.12em;scroll-margin-top:16px}
+.paper .a{color:#4a4436}
+.paper .xlink{color:var(--link);font-weight:600;cursor:pointer;border-bottom:1.5px dashed rgba(36,86,214,.5)}
+.paper .xlink:hover{background:rgba(36,86,214,.08)}
+.rules-note{margin-top:14px;font-size:12.5px;color:var(--muted)}
+
+/* FAQ */
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;transition:.2s}
+details[open]{border-color:rgba(200,64,31,.5)}
+summary{cursor:pointer;font-weight:700;font-size:15px;letter-spacing:.5px;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:20px;color:var(--cinnabar);transition:.2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin-top:12px;font-size:13.5px;color:var(--ink2)}
+
+/* 页脚 */
+footer{background:var(--ink);color:#cdc6b4;margin-top:40px}
+.ft{max-width:1060px;margin:0 auto;padding:52px 20px calc(40px + env(safe-area-inset-bottom));display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:820px){.ft{grid-template-columns:1.4fr 1fr 1fr}}
+.ft h4{color:#fff;font-family:var(--serif);letter-spacing:3px;margin-bottom:12px;font-size:16px}
+.ft a,.ft p{font-size:13px;color:#a89f8a;text-decoration:none;line-height:2.1}
+.ft a:hover{color:var(--gold)}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:12px;color:#7a7260;padding:18px}
+/* 联系方式高亮卡片 */
+.ft-contacts{margin:14px 0;display:flex;flex-direction:column;gap:8px}
+.ft-contact{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 12px}
+.ft-c-tag{flex-shrink:0;font-size:11px;color:#0e0d0b;background:var(--gold);padding:3px 9px;border-radius:6px;font-weight:700}
+.ft-c-mail{color:#ffd9b0;font-weight:600;font-size:13.5px;word-break:break-all}
+.ft-c-mail:hover{color:#fff;text-decoration:underline}
+.ft-c-note{margin-top:2px;font-size:11px;color:#8a8270}
+
+/* 微信提示浮层 */
+.mask{position:fixed;inset:0;background:rgba(20,18,14,.75);z-index:99;display:none;align-items:flex-end;justify-content:center;padding-bottom:20vh}
+.mask.show{display:flex}
+.wc-card{background:#fffdf7;border-radius:18px;padding:26px;max-width:340px;margin:0 20px;text-align:center;animation:up .25s ease}
+@keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.wc-card strong{font-family:var(--serif);font-size:18px;letter-spacing:2px;display:block;margin-bottom:10px}
+.wc-card p{font-size:13.5px;color:var(--ink2)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:.7s cubic-bezier(.19,1,.29,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ===== 回顶按钮 ===== */
+#backTop{position:fixed;right:18px;bottom:calc(24px + env(safe-area-inset-bottom));width:52px;height:52px;border-radius:50%;
+ background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar-dk));color:#fff;border:none;cursor:pointer;z-index:70;
+ display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(158,48,21,.4);
+ opacity:0;transform:scale(0) translateY(24px);pointer-events:none;transition:.3s cubic-bezier(.19,1,.29,1)}
+#backTop.show{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+#backTop:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(158,48,21,.5)}
+#backTop svg{width:22px;height:22px}
+/* 页面滚动进度条(顶部) */
+#scrollProg{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+ background:linear-gradient(90deg,var(--gold),var(--cinnabar));box-shadow:0 0 8px rgba(200,64,31,.5)}
+
+/* ===== 区块联动：特性卡片光晕跟随鼠标 ===== */
+.grid-feat{position:relative}
+.feat::before{content:"";position:absolute;inset:0;border-radius:18px;opacity:0;transition:opacity .3s;
+ background:radial-gradient(120px circle at var(--mx,50%) var(--my,50%),rgba(200,64,31,.12),transparent 60%)}
+.feat:hover::before{opacity:1}
+
+/* ===== 社区数据统计 ===== */
+.grid-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 12px;text-align:center;transition:.25s}
+.stat:hover{transform:translateY(-3px);border-color:rgba(200,64,31,.4);box-shadow:0 12px 26px rgba(28,26,23,.08)}
+.stat-n{font-family:Georgia,serif;font-weight:800;font-size:clamp(26px,5vw,38px);color:var(--cinnabar)}
+.stat-l{margin-top:6px;font-size:12.5px;color:var(--muted);letter-spacing:1px}
+.stat-sub{margin-top:2px;font-size:11px;color:var(--gold)}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ===== 核心优势对比 ===== */
+.compare{display:grid;grid-template-columns:1fr;gap:14px}
+.cmp{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--cinnabar);border-radius:14px;padding:20px 22px;transition:.25s}
+.cmp:hover{transform:translateX(6px);box-shadow:0 12px 26px rgba(28,26,23,.08)}
+.cmp-ic{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:900;font-size:18px;color:#fff}
+.cmp h3{font-family:var(--serif);font-size:18px;letter-spacing:1px;margin-bottom:5px}
+.cmp p{font-size:13px;color:var(--ink2)}
+@media(min-width:720px){.compare{grid-template-columns:1fr 1fr}}
+.cmp-wide{grid-column:1/-1}
+
+/* ===== 三步上手 ===== */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;overflow:hidden}
+.step-no{font-family:Georgia,serif;font-style:italic;font-size:56px;color:rgba(200,64,31,.14);position:absolute;top:-6px;right:10px;font-weight:800}
+.step h3{font-family:var(--serif);font-size:18px;letter-spacing:1px;margin-bottom:8px}
+.step p{font-size:13.5px;color:var(--ink2)}
+.step-arrow{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%) rotate(45deg);width:26px;height:26px;background:var(--card);border-right:1px solid var(--line);border-bottom:1px solid var(--line);z-index:2}
+@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}.steps .step:not(:last-child):after{content:"";position:absolute;right:-14px;top:42%;width:26px;height:26px;border-top:2px solid var(--gold);border-right:2px solid var(--gold);transform:rotate(45deg);z-index:3}}
+
+/* hero 滚动提示 */
+.scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:11px;letter-spacing:2px}
+.mouse{width:22px;height:34px;border:2px solid var(--muted);border-radius:12px;position:relative}
+.mouse::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:3px;background:var(--cinnabar);animation:wheel 1.6s ease-in-out infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(11px);opacity:0}100%{transform:translateY(0);opacity:0}}
+.hero{padding-bottom:84px}
+
+/* FAQ 扩展多列 */
+.details-grid{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:760px){.details-grid{grid-template-columns:1fr 1fr;column-gap:16px}}
+.details-grid details{break-inside:avoid}
+
+/* ============ 常驻全局动画（入场即动，永不静止） ============ */
+/* 全页水墨粒子漂移（不随滚动中断） */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.p{position:absolute;border-radius:50%;background:var(--ink);opacity:.05;animation:float ease-in-out infinite}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(var(--dx,20px),var(--dy,-30px)) scale(1.15)}}
+
+/* hero 标题呼吸 */
+.hero h1{animation:hero-pulse 6s ease-in-out infinite}
+@keyframes hero-pulse{0%,100%{letter-spacing:6px;text-shadow:0 0 0 rgba(200,64,31,0)}50%{letter-spacing:8px;text-shadow:0 8px 30px rgba(200,64,31,.14)}}
+
+/* 区块标题下划线常驻流光 */
+.sec-title{position:relative}
+.sec-title::after{content:"";position:absolute;left:0;bottom:-6px;width:44px;height:3px;background:var(--cinnabar);border-radius:2px;animation:secflow 3.2s ease-in-out infinite}
+@keyframes secflow{0%,100%{width:34px;opacity:.55;transform:translateX(0)}50%{width:56px;opacity:1;transform:translateX(10px)}}
+
+/* 特性卡 / 优势卡 / 数据卡：常驻微浮（入场后再叠加） */
+.feat{animation:card-float 7s ease-in-out infinite}
+.feat:nth-child(2n){animation-duration:8.5s;animation-delay:.6s}
+.feat:nth-child(3n){animation-duration:9.5s;animation-delay:1.2s}
+@keyframes card-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+.cmp .cmp-bodywrap{display:block}
+.cmp{animation:cmp-float 8s ease-in-out infinite}
+.cmp:nth-child(2n){animation-duration:9.4s;animation-delay:.5s}
+@keyframes cmp-float{0%,100%{box-shadow:0 0 0 rgba(200,64,31,0);border-left-color:var(--cinnabar)}50%{box-shadow:0 10px 26px rgba(28,26,23,.1)}}
+
+.stat{animation:stat-float 6s ease-in-out infinite}
+.stat:nth-child(2n){animation-duration:7.2s;animation-delay:.4s}
+@keyframes stat-float{0%,100%{box-shadow:0 0 0 rgba(28,26,23,0)}50%{box-shadow:0 12px 26px rgba(28,26,23,.1)}}
+
+/* 下载图标常驻指针环 */
+.mini-btn svg{animation:dl-ring 2.4s ease-in-out infinite}
+@keyframes dl-ring{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+
+/* 回顶按钮常驻呼吸 */
+#backTop{animation:backtop-breathe 3s ease-in-out infinite}
+@keyframes backtop-breathe{0%,100%{box-shadow:0 10px 26px rgba(158,48,21,.4)}50%{box-shadow:0 14px 40px rgba(158,48,21,.6)}}
+
+/* 顶部滚动进度条常驻微光 */
+#scrollProg{animation:prog-glow 2.6s ease-in-out infinite}
+@keyframes prog-glow{0%,100%{box-shadow:0 0 6px rgba(200,64,31,.4)}50%{box-shadow:0 0 16px rgba(200,64,31,.75)}}
+
+/* 移动端尊重减动效偏好 */
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001s!important;transition:none!important}}
+
+/* ============================================================
+   无障碍基座：跳转链接 / 键盘焦点环 / 触控目标尺寸
+   ============================================================ */
+.skip-link{position:absolute;left:-999px;top:8px;z-index:200;background:var(--ink);color:#fff;
+ padding:10px 18px;border-radius:8px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px}
+a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.fs-btn:focus-visible{
+ outline:3px solid var(--cinnabar);outline-offset:2px;border-radius:6px}
+.tabbtn:focus-visible,.vnav-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ============================================================
+   伍 · 运行数据看板
+   ============================================================ */
+#dashboard{position:relative;overflow:hidden}
+.dash-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.dash-grid{grid-template-columns:1.25fr 1fr;align-items:stretch}}
+.dash-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;position:relative;overflow:hidden}
+.dash-card h3{font-family:var(--serif);font-size:17px;letter-spacing:2px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.dash-card h3 svg{width:18px;height:18px;color:var(--cinnabar)}
+/* 状态灯（真实语义状态：服务健康） */
+.live-dot{width:9px;height:9px;border-radius:50%;background:#2f7a54;box-shadow:0 0 0 0 rgba(47,122,84,.5);animation:livePing 2s ease-out infinite}
+@keyframes livePing{0%{box-shadow:0 0 0 0 rgba(47,122,84,.55)}100%{box-shadow:0 0 0 12px rgba(47,122,84,0)}}
+.live-label{font-size:12px;color:var(--muted);letter-spacing:1px}
+/* 看板指标行 */
+.dash-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:10px;margin-bottom:18px}
+.kpi{background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:12px;padding:14px 12px;text-align:center}
+.kpi-v{font-family:Georgia,serif;font-weight:800;font-size:clamp(20px,3.4vw,28px);color:var(--cinnabar)}
+.kpi-v small{font-size:12px;color:var(--ink2);font-weight:400;margin-left:2px}
+.kpi-l{margin-top:4px;font-size:11.5px;color:var(--muted);letter-spacing:1px}
+/* 时间范围 Tab（role=tablist） */
+.dash-tabs{display:inline-flex;background:var(--paper2);border-radius:999px;padding:5px;margin-bottom:18px;gap:4px}
+.tabbtn{border:none;background:transparent;color:var(--ink2);font-size:13px;padding:7px 20px;border-radius:999px;cursor:pointer;letter-spacing:2px;transition:.2s}
+.tabbtn:hover{color:var(--cinnabar)}
+.tabbtn[aria-selected="true"]{background:var(--ink);color:#fff;font-weight:700}
+/* 条形图（版块热度）：纯 div 生长动画 */
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar-row{display:grid;grid-template-columns:64px 1fr 44px;align-items:center;gap:10px}
+.bar-name{font-size:13px;color:var(--ink2);letter-spacing:1px}
+.bar-track{height:12px;background:var(--paper2);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--cinnabar));transition:width 1.1s cubic-bezier(.19,1,.29,1)}
+.bar-val{font-family:Georgia,monospace;font-size:12px;color:var(--muted);text-align:right}
+/* 环形图（处置构成）：SVG stroke 动画 */
+.donut-wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.donut{width:150px;height:150px;flex-shrink:0}
+.donut circle{fill:none;stroke-width:16;stroke-linecap:round;transition:stroke-dasharray 1s cubic-bezier(.19,1,.29,1)}
+.donut-legend{display:flex;flex-direction:column;gap:8px}
+.legend-row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)}
+.legend-swatch{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.legend-v{font-family:Georgia,monospace;font-size:12px;color:var(--muted);margin-left:auto}
+
+/* ============================================================
+   陆 · 功能交互导览（步进器 + 实感演示面板）
+   ============================================================ */
+#tour{position:relative;overflow:hidden}
+.tour-layout{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:860px){.tour-layout{grid-template-columns:300px 1fr}}
+.tour-steps{display:flex;flex-direction:column;gap:10px}
+.tour-step{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+ border-radius:14px;padding:16px 18px;cursor:pointer;text-align:left;transition:.25s;width:100%}
+.tour-step:hover{border-color:rgba(200,64,31,.5)}
+.tour-step[aria-current="true"]{border-color:var(--cinnabar);background:#fffdf7;box-shadow:0 10px 26px rgba(158,48,21,.12)}
+.tour-step-no{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);
+ display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;color:var(--muted);transition:.25s}
+.tour-step[aria-current="true"] .tour-step-no{background:var(--cinnabar);border-color:var(--cinnabar);color:#fff}
+.tour-step h4{font-family:var(--serif);font-size:16px;letter-spacing:1px;margin-bottom:3px}
+.tour-step p{font-size:12.5px;color:var(--muted)}
+/* 演示面板 */
+.tour-stage{background:linear-gradient(160deg,#fffdf7 0%,var(--card) 100%);border:1px solid var(--line);border-radius:18px;
+ padding:28px;min-height:300px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.tour-stage::after{content:"";position:absolute;right:-60px;bottom:-60px;width:200px;height:200px;border-radius:50%;
+ background:radial-gradient(circle,rgba(185,138,47,.1),transparent 70%)}
+.tour-demo{position:relative;z-index:2}
+.demo-title{font-family:var(--serif);font-weight:800;font-size:20px;letter-spacing:2px;margin-bottom:6px}
+.demo-sub{font-size:13px;color:var(--ink2);margin-bottom:20px}
+/* 演示1：匿名额度 */
+.demo-quota{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.quota-pip{width:52px;height:52px;border-radius:14px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;
+ font-family:Georgia,serif;font-size:22px;font-weight:700;color:var(--gold);transition:.35s}
+.quota-pip.used{background:var(--paper2);color:var(--line);border-color:var(--paper2);transform:scale(.86)}
+.demo-btn{border:none;background:var(--ink);color:#fff;font-size:14px;padding:12px 26px;border-radius:999px;cursor:pointer;letter-spacing:2px;transition:.2s}
+.demo-btn:hover{background:var(--cinnabar)}
+.demo-btn:active{transform:scale(.95)}
+.demo-hint{margin-top:16px;font-size:12.5px;color:var(--muted)}
+/* 演示2：私信限流状态机 */
+.demo-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.flow-node{padding:10px 18px;border-radius:12px;border:2px solid var(--line);font-size:13px;color:var(--ink2);transition:.35s;letter-spacing:1px}
+.flow-node.on{border-color:var(--cinnabar);color:var(--cinnabar);background:rgba(200,64,31,.06);transform:translateY(-2px)}
+.flow-arrow{color:var(--gold);font-size:15px}
+/* 演示3：规则互链 */
+.demo-xlink{font-size:16px;line-height:2.3;color:#4a4436}
+.demo-xlink .xk{color:var(--link);font-weight:600;cursor:pointer;border-bottom:1.5px dashed rgba(36,86,214,.5)}
+.demo-xlink .xk:hover{background:rgba(36,86,214,.08)}
+.demo-toast{margin-top:14px;font-size:12.5px;color:var(--gold);min-height:20px}
+
+/* ============================================================
+   柒 · 用户之声（评价墙）
+   ============================================================ */
+#voices{position:relative;overflow:hidden}
+.voices-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.voices-hint{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.voice-track{display:flex;gap:16px;transition:transform .55s cubic-bezier(.19,1,.29,1);will-change:transform}
+.voices-viewport{overflow:hidden;padding:6px 2px}
+.voice-card{flex:0 0 calc(33.333% - 11px);background:var(--card);border:1px solid var(--line);border-radius:16px;
+ padding:22px;display:flex;flex-direction:column;gap:10px;min-height:190px}
+@media(max-width:860px){.voice-card{flex:0 0 calc(50% - 8px)}}
+@media(max-width:560px){.voice-card{flex:0 0 100%}}
+.voice-stars{display:flex;gap:3px;color:var(--gold)}
+.voice-stars svg{width:14px;height:14px}
+.voice-text{font-size:13.5px;color:var(--ink2);line-height:1.85;flex:1}
+.voice-meta{display:flex;align-items:center;gap:10px;border-top:1px dashed var(--line);padding-top:12px}
+.voice-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+ font-family:var(--serif);font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.voice-name{font-size:13px;font-weight:700;color:var(--ink)}
+.voice-role{font-size:11.5px;color:var(--muted)}
+.voice-badge{margin-left:auto;font-size:10.5px;padding:3px 9px;border-radius:99px;letter-spacing:1px;flex-shrink:0}
+.voice-badge.official{background:rgba(185,138,47,.14);color:var(--gold);border:1px solid rgba(185,138,47,.4)}
+.voice-badge.user{background:rgba(200,64,31,.08);color:var(--cinnabar);border:1px solid rgba(200,64,31,.35)}
+.voices-ctrl{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:22px}
+.vnav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;
+ display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:.2s}
+.vnav-btn:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+.vnav-btn:active{transform:scale(.92)}
+.voices-dots{display:flex;gap:7px}
+.vdot{width:8px;height:8px;border-radius:99px;background:var(--line);border:none;cursor:pointer;padding:0;transition:.3s}
+.vdot.on{width:22px;background:var(--cinnabar)}
+
+/* ============================================================
+   捌 · 路线图时间轴
+   ============================================================ */
+#roadmap{position:relative;overflow:hidden}
+.rm-list{position:relative;padding-left:34px}
+.rm-list::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--paper2);border-radius:2px}
+.rm-progress{position:absolute;left:11px;top:8px;width:2px;background:linear-gradient(180deg,var(--gold),var(--cinnabar));
+ border-radius:2px;height:0;transition:height .25s linear}
+.rm-item{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:16px;
+ display:grid;grid-template-columns:1fr;gap:6px;transition:.25s}
+@media(min-width:720px){.rm-item{grid-template-columns:150px 1fr auto;align-items:center;gap:20px}}
+.rm-item:hover{border-color:rgba(200,64,31,.45);transform:translateX(4px)}
+.rm-item::before{content:"";position:absolute;left:-29px;top:26px;width:12px;height:12px;border-radius:50%;
+ background:var(--paper);border:3px solid var(--line)}
+.rm-item.done::before{background:var(--gold);border-color:var(--gold)}
+.rm-item.doing::before{background:var(--cinnabar);border-color:var(--cinnabar);animation:livePing 2s ease-out infinite}
+.rm-when{font-family:Georgia,monospace;font-size:13px;color:var(--muted)}
+.rm-what h4{font-family:var(--serif);font-size:16.5px;letter-spacing:1px;margin-bottom:3px}
+.rm-what p{font-size:12.5px;color:var(--ink2)}
+.rm-state{justify-self:start;font-size:11px;letter-spacing:2px;padding:4px 14px;border-radius:99px;border:1px solid}
+.rm-state.done{color:var(--gold);border-color:rgba(185,138,47,.45);background:rgba(185,138,47,.07)}
+.rm-state.doing{color:#fff;border-color:var(--cinnabar);background:var(--cinnabar)}
+.rm-state.plan{color:var(--muted);border-color:var(--line);background:transparent}
+
+/* ============================================================
+   拾贰 · 出品方双牌 + 邮件直达
+   ============================================================ */
+.makers{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:860px){.makers{grid-template-columns:1fr 1fr}}
+.maker{position:relative;border-radius:22px;padding:38px 34px;overflow:hidden;color:#efe9db;
+ background:linear-gradient(155deg,#262019 0%,#171310 60%,#1c1610 100%);border:1px solid #3a3226;min-height:280px;
+ display:flex;flex-direction:column;transition:.3s}
+.maker:hover{transform:translateY(-5px);box-shadow:0 24px 54px rgba(20,16,10,.4)}
+.maker::before{content:"";position:absolute;right:-70px;top:-70px;width:240px;height:240px;border-radius:50%;
+ background:radial-gradient(circle,rgba(200,64,31,.16),transparent 65%)}
+.maker::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+ background:linear-gradient(90deg,var(--cinnabar),var(--gold),transparent)}
+.maker-mono{width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+ font-family:var(--serif);font-weight:900;font-size:24px;color:#fff;margin-bottom:20px;position:relative;z-index:2}
+.maker h3{font-family:var(--serif);font-size:clamp(22px,3.6vw,28px);letter-spacing:2px;margin-bottom:6px;position:relative;z-index:2}
+.maker-en{font-family:Georgia,serif;font-style:italic;font-size:12.5px;color:#a89f8a;letter-spacing:3px;margin-bottom:16px}
+.maker p{font-size:13.5px;color:#b5ac97;line-height:1.95;position:relative;z-index:2;max-width:46ch}
+.maker-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:22px;position:relative;z-index:2}
+.maker-tag{font-size:11.5px;letter-spacing:1px;color:#d8cdb4;border:1px solid rgba(216,205,180,.28);border-radius:99px;padding:5px 14px}
+/* 邮件直达区（紧随出品方之下） */
+.mails{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 28px}
+.mails h3{font-family:var(--serif);font-size:19px;letter-spacing:3px;margin-bottom:6px}
+.mails-sub{font-size:13px;color:var(--ink2);margin-bottom:18px}
+.mail-rows{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:760px){.mail-rows{grid-template-columns:repeat(3,1fr)}}
+.mail-cell{display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.65);border:1px solid var(--line);
+ border-radius:14px;padding:18px;text-decoration:none;transition:.25s}
+.mail-cell:hover{border-color:var(--cinnabar);transform:translateY(-3px);box-shadow:0 14px 30px rgba(28,26,23,.1)}
+.mail-role{font-size:11.5px;letter-spacing:2px;color:#fff;background:var(--cinnabar);border-radius:6px;padding:3px 10px;align-self:flex-start}
+.mail-addr{font-family:Georgia,monospace;font-weight:700;font-size:15px;color:var(--ink);word-break:break-all}
+.mail-use{font-size:12px;color:var(--muted)}
+
+/* ============================================================
+   视差装饰层（桌面端启用，移动端与减动效关闭）
+   ============================================================ */
+.para-layer{position:absolute;left:0;right:0;pointer-events:none;z-index:0;will-change:transform}
+.para-mountain{position:absolute;bottom:-20px;height:200px;left:-5%;right:-5%;
+ background:radial-gradient(120% 130% at 50% 100%,rgba(28,26,23,.10),transparent 68%)}
+.para-moon{position:absolute;top:36px;right:8%;width:130px;height:130px;border-radius:50%;
+ border:1.5px solid rgba(185,138,47,.35);
+ background:radial-gradient(circle at 38% 34%,rgba(185,138,47,.12),rgba(185,138,47,.02) 70%)}
+.para-cloud{position:absolute;top:64px;left:4%;width:200px;height:60px;border-radius:99px;
+ background:linear-gradient(90deg,transparent,rgba(28,26,23,.05),transparent);filter:blur(2px)}
+@media(max-width:860px),(prefers-reduced-motion:reduce){.para-layer{display:none}}
+.wrap{position:relative;z-index:2}
+
+/* ============================================================
+   移动端框架：底部 Tab 导航（<768px 专属，几百行体系核心）
+   ============================================================ */
+.mtab{position:fixed;left:0;right:0;bottom:0;z-index:80;display:none;
+ background:rgba(250,246,238,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ border-top:1px solid var(--line);
+ padding:6px max(8px,env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom))}
+.mtab-items{display:grid;grid-template-columns:repeat(5,1fr);max-width:520px;margin:0 auto}
+.mtab-item{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;
+ padding:7px 2px;border-radius:12px;transition:.2s;min-height:50px;justify-content:center}
+.mtab-item svg{width:21px;height:21px;color:var(--muted);transition:.2s}
+.mtab-item span{font-size:10.5px;color:var(--muted);letter-spacing:1px}
+.mtab-item.on svg{color:var(--cinnabar)}
+.mtab-item.on span{color:var(--cinnabar);font-weight:700}
+.mtab-item:active{transform:scale(.92)}
+@media(max-width:767px){
+  .mtab{display:block}
+  body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+  #backTop{bottom:calc(84px + env(safe-area-inset-bottom));right:14px;width:46px;height:46px}
+  .dl-cta{display:none}
+  .wrap{padding:48px 16px}
+  .sec-head{margin-bottom:26px;flex-wrap:wrap}
+  /* 看板移动端：单列堆叠，指标二列 */
+  .dash-grid{grid-template-columns:1fr}
+  .dash-kpis{grid-template-columns:repeat(2,1fr)}
+  /* 导览移动端：步骤横向滑动条 */
+  .tour-steps{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -16px;padding-left:16px;padding-right:16px}
+  .tour-step{flex:0 0 78%;scroll-snap-align:center}
+  /* 心声移动端：卡片全宽 + 触控滑动 */
+  .voices-viewport{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .voices-viewport::-webkit-scrollbar{display:none}
+  .voice-track{transition:none}
+  .voice-card{scroll-snap-align:center}
+  .voices-ctrl .vnav-btn{display:none}
+  /* 路线图移动端：紧凑排布 */
+  .rm-item{padding:16px 18px}
+  /* 出品方移动端 */
+  .maker{padding:28px 22px;min-height:auto}
+  /* 顶栏字号收紧 */
+  .brand{font-size:17px}
+  /* FAQ 单列 */
+  .details-grid{grid-template-columns:1fr}
+}
+/* 触控目标统一不小于 44px（移动端） */
+@media(hover:none) and (pointer:coarse){
+  .chip,.fs-btn,.vdot{min-height:44px;min-width:44px}
+  .chip,.fs-btn{display:inline-flex;align-items:center}
+  .vdot{height:10px}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">跳到主要内容</a>
+<div id="particles"></div>
+<nav class="topbar" aria-label="主导航">
+  <div class="seal">贤</div>
+  <div class="brand">尚贤圈<small>SHANGXIAN QUAN</small></div>
+  <div class="nav-links">
+    <a href="#features">特性</a><a href="#dashboard">看板</a><a href="#voices">心声</a><a href="#versions">下载</a><a href="#rules">规则中心</a><a href="#faq">答疑</a>
+  </div>
+  <a class="dl-cta" href="#versions">立即下载</a>
+</nav>
+
+<main id="main">
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero" id="top">
+  <div class="stars">
+    <span class="star" style="left:12%;top:18%"></span><span class="star" style="left:78%;top:12%;animation-delay:.6s"></span>
+    <span class="star" style="left:63%;top:32%;animation-delay:1.2s"></span><span class="star" style="left:33%;top:8%;animation-delay:1.8s"></span>
+    <span class="star" style="left:88%;top:44%;animation-delay:2.2s"></span>
+  </div>
+  <div class="vertical-poem">见贤思齐焉 · 见不贤而内自省也</div>
+  <div>
+    <p class="hero-en">ShangXian Quan · Campus Community</p>
+    <h1>见<em>贤</em>思齐<br>以文会友</h1>
+    <p class="hero-sub">为校园而生的半匿名信息交流圈。树洞里安放心事，求助区收获回应，二手角流转闲置，社团页遇见同好。</p>
+    <div class="hero-actions">
+      <a class="btn-dl" href="#versions">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        安卓客户端下载
+      </a>
+      <a class="btn-ghost" href="#rules">先读一读规则中心 →</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#c8401f" stroke-width="2"/></svg>半匿名保护壳</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="#b98a2f" stroke-width="2" stroke-linejoin="round"/></svg>私信准实时同步</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#2f7a54" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#2f7a54" stroke-width="2"/></svg>十二篇联动规则</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#c8401f" stroke-width="2"/><path d="M5 5l14 14" stroke="#c8401f" stroke-width="2"/></svg>永不做广告分发</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#3a6dd0" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="#3a6dd0" stroke-width="2" stroke-linecap="round"/></svg>未成年特别防护</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#7a54c8" stroke-width="2" stroke-linecap="round"/></svg>极简无广告 · 无氪金</span>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="mouse"></div><span>向下探索</span></div>
+</header>
+
+<!-- ═══════════ 特性 ═══════════ -->
+<section id="features" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">壹</span><h2 class="sec-title">这里有什么</h2><div class="sec-line"></div></div>
+    <div class="grid-feat">
+      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#c8401f,#9e3015)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3c-3-1-7 1-7 6v1c0 5 3 8.5 7 10 4-1.5 7-5 7-10V9c0-5-4-7-7-6z" stroke="#fff" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>树洞 · 匿名有额度</h3><p>匿名发布每日常设两条、评论五条，把保护留给真正需要倾诉的话语。识别码仅在违规追责时启用，日常无人能够破译匿名身份。</p></div>
+      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#2f7a54,#1e5940)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.8"/><path d="M9.5 9a2.5 2.5 0 015 0c0 1.5-2.5 2-2.5 3.5M12 16h.01" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>求助 · 有问必答</h3><p>作业疑难、办事流程、失物招领皆有回应。善用背景、目标、尝试、卡点四句话，回答质量与效率自会显著提升。</p></div>
+      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v13H4V7zM4 7l2-3h12l2 3" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 11a3 3 0 016 0" stroke="#fff" stroke-width="1.8"/></svg></div><h3>二手 · 让闲置流动</h3><p>教材、生活用具与电子设备明码标价、当面验货。平台仅作信息之桥，交易安全守则全程为您护航。</p></div>
+      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#3a6dd0,#274ba0)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4a8 8 0 108 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M12 8v4l3 2M16 3l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#fff"/></svg></div><h3>社团 · 找到同好</h3><p>招新与活动信息一手呈现，报名截止一目了然。平台拒绝一切隐形收费与商业套路。</p></div>
+      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#7a54c8,#55378f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v10H9l-5 4V6z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>私信 · 准实时同步</h3><p>互关畅聊、陌生日限一条以防骚扰。未读红点约十五秒全站点亮，两分钟内长按即可撤回。</p></div>
+      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#d06a8a,#a84a68)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#fff" stroke-width="1.8"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>规则中心 · 十二篇联动</h3><p>悬浮目录、进度可视化、四档字号一应俱全；文中书名号短语一键跳转互链，条款之间再无迷途。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 社区数据 ═══════════ -->
+<section id="stats" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">贰</span><h2 class="sec-title">社区一览</h2><div class="sec-line"></div></div>
+    <div class="grid-stats">
+      <div class="stat"><div class="stat-n" data-count="6">0</div><div class="stat-l">校园版块</div><div class="stat-sub">洞/助/市/社/学/聊</div></div>
+      <div class="stat"><div class="stat-n" data-count="12">0</div><div class="stat-l">联动规则文件</div><div class="stat-sub">互链同等效力</div></div>
+      <div class="stat"><div class="stat-n" data-count="100">0</div><div class="stat-l">匿名额度保护</div><div class="stat-sub">发布2条/日</div></div>
+      <div class="stat"><div class="stat-n" data-count="5">0</div><div class="stat-l">私信实时同步</div><div class="stat-sub">秒级刷新</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 核心优势 ═══════════ -->
+<section id="why" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">叁</span><h2 class="sec-title">为什么选尚贤圈</h2><div class="sec-line"></div></div>
+    <div class="compare">
+      <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#c8401f,#9e3015)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8l6-4 6 4 6-4v12l-6 4-6-4-6 4V8z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 4v12M15 8v12" stroke="#fff" stroke-width="1.6"/></svg></div><div><h3>半匿名，而不失序</h3><p>匿名是表达的护甲，而非伤害的通行证。识别码仅用于违规追责，展示层彻底隐去身份，同时保留对不当内容的处置能力。自由与责任，始终并行。</p></div></div>
+      <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#2f7a54,#1e5940)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="7" r="2" fill="#fff"/><circle cx="15" cy="12" r="2" fill="#fff"/></svg></div><div><h3>纯净而无商业侵扰</h3><p>无开屏广告、无信息流穿插、无个性化推送、无任何付费入口。整座平台只为校园对话而设，绝不向流量与利润低头。</p></div></div>
+      <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V7l7-3z" stroke="#fff" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h3>规则可查而可追溯</h3><p>十二篇规则文件互相引用、公开备查。每一次管理处置皆留存于操作日志，处罚必依条款，申诉自有完整途径。</p></div></div>
+      <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#3a6dd0,#274ba0)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#fff" stroke-width="1.6"/><path d="M12 9v6M9 12h6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h3>未成年人的特别守护</h3><p>涉未成年内容零容忍、冲突冷静期、夜间推送静默等层层设防，从产品逻辑与规则条文两个维度护佑学生身心。</p></div></div>
+      <div class="cmp cmp-wide"><div class="cmp-ic" style="background:linear-gradient(135deg,#7a54c8,#55378f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V5l5 3 3-2 3 2 5-3v16H4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 21h16" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h3>学生自营 · 写实校园</h3><p>由学生开发者独立维护，体量小而响应快，无资本俯仰。每一条反馈都被郑重对待，每一条规则皆源自真实校园的反复打磨。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 三步上手 ═══════════ -->
+<section id="how" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">肆</span><h2 class="sec-title">三步上手</h2><div class="sec-line"></div></div>
+    <div class="steps">
+      <div class="step"><span class="step-no">1</span><h3>注册登录</h3><p>邮箱+密码一键注册，登录即分配唯一贤圈ID与匿名识别码，无需任何实名信息。</p></div>
+      <div class="step"><span class="step-no">2</span><h3>完善资料</h3><p>选个称呼、设个头像，可留签名与选填联系方式；之后在任意版块自由发布或匿名倾诉。</p></div>
+      <div class="step"><span class="step-no">3</span><h3>交流互动</h3><p>评论、点赞、收藏、关注，私信好友；遇到问题随时查看规则中心或联系官方邮箱。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 伍 · 运行数据看板 ═══════════ -->
+<section id="dashboard" class="reveal">
+  <div class="para-layer"><div class="para-moon"></div><div class="para-cloud"></div><div class="para-mountain"></div></div>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">伍</span><h2 class="sec-title">运行数据看板</h2><div class="sec-line"></div></div>
+    <div class="dash-grid">
+      <div class="dash-card">
+        <h3><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>社区运转概览
+          <span style="margin-left:auto;display:inline-flex;align-items:center;gap:7px"><span class="live-dot"></span><span class="live-label">服务健康</span></span>
+        </h3>
+        <div class="dash-kpis">
+          <div class="kpi"><div class="kpi-v" data-count="128" data-suffix="">0</div><div class="kpi-l">累计注册用户</div></div>
+          <div class="kpi"><div class="kpi-v" data-count="46" data-suffix="">0</div><div class="kpi-l">本周发帖</div></div>
+          <div class="kpi"><div class="kpi-v" data-count="8" data-suffix="">0</div><div class="kpi-l">月均举报量</div></div>
+          <div class="kpi"><div class="kpi-v" data-count="31" data-suffix="">0</div><div class="kpi-l">内容被下架</div></div>
+        </div>
+        <div class="dash-tabs" role="tablist" aria-label="时间范围">
+          <button class="tabbtn" role="tab" aria-selected="false" data-range="week" id="tab-week">本周</button>
+          <button class="tabbtn" role="tab" aria-selected="false" data-range="month" id="tab-month">本月</button>
+          <button class="tabbtn" role="tab" aria-selected="true" data-range="all" id="tab-all">累计</button>
+        </div>
+        <div class="bars" id="dashBars" aria-label="各版块热度占比"></div>
+      </div>
+      <div class="dash-card">
+        <h3><svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 109 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 9a3 3 0 100 6 3 3 0 000-6z" stroke="currentColor" stroke-width="1.8"/></svg>内容处置构成</h3>
+        <div class="donut-wrap">
+          <svg class="donut" viewBox="0 0 120 120" role="img" aria-label="内容处置比例环形图">
+            <circle cx="60" cy="60" r="46" stroke="#ece5d6"></circle>
+            <circle id="donutOk" cx="60" cy="60" r="46" stroke="#2f7a54" transform="rotate(-90 60 60)"></circle>
+            <circle id="donutDel" cx="60" cy="60" r="46" stroke="#c8401f" transform="rotate(-90 60 60)"></circle>
+            <circle id="donutWarn" cx="60" cy="60" r="46" stroke="#b98a2f" transform="rotate(-90 60 60)"></circle>
+            <text id="donutCenter" x="60" y="62" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1a17" font-family="Georgia,serif">0</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-row"><span class="legend-swatch" style="background:#2f7a54"></span>合规通过<span class="legend-v" id="lgOk">0</span></div>
+            <div class="legend-row"><span class="legend-swatch" style="background:#c8401f"></span>已下架<span class="legend-v" id="lgDel">0</span></div>
+            <div class="legend-row"><span class="legend-swatch" style="background:#b98a2f"></span>警告整改<span class="legend-v" id="lgWarn">0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 陆 · 功能交互导览 ═══════════ -->
+<section id="tour" class="reveal">
+  <div class="para-layer"><div class="para-mountain"></div></div>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">陆</span><h2 class="sec-title">功能交互导览</h2><div class="sec-line"></div></div>
+    <div class="tour-layout">
+      <div class="tour-steps" id="tourSteps" role="tablist" aria-orientation="vertical">
+        <button class="tour-step" role="tab" aria-selected="true" data-demo="quota" id="step-quota">
+          <span class="tour-step-no">1</span>
+          <span><h4>匿名额度机制</h4><p>每日发布两条 · 评论五条，匿名是保护而非滥用</p></span>
+        </button>
+        <button class="tour-step" role="tab" aria-selected="false" data-demo="flow" id="step-flow">
+          <span class="tour-step-no">2</span>
+          <span><h4>私信限流状态机</h4><p>未互关日限一条 · 回复后当天畅聊 · 互关不限</p></span>
+        </button>
+        <button class="tour-step" role="tab" aria-selected="false" data-demo="link" id="step-link">
+          <span class="tour-step-no">3</span>
+          <span><h4>规则中心互链</h4><p>书名号短语一键跳转，十二篇文档交叉引用</p></span>
+        </button>
+      </div>
+      <div class="tour-stage">
+        <div class="tour-demo" id="demoPane"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 柒 · 用户之声 ═══════════ -->
+<section id="voices" class="reveal">
+  <div class="para-layer"><div class="para-cloud"></div><div class="para-moon"></div></div>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">柒</span><h2 class="sec-title">用户之声</h2><div class="sec-line"></div></div>
+    <div class="voices-tools">
+      <div class="dash-tabs" id="voiceFilter" role="tablist" aria-label="评价筛选">
+        <button class="tabbtn" role="tab" aria-selected="true" data-vf="all">全部</button>
+        <button class="tabbtn" role="tab" aria-selected="false" data-vf="official">体验官</button>
+        <button class="tabbtn" role="tab" aria-selected="false" data-vf="user">真实用户</button>
+      </div>
+      <span class="voices-hint">评分满四星以上且获得公示授权</span>
+    </div>
+    <div class="voices-viewport">
+      <div class="voice-track" id="voiceTrack"></div>
+    </div>
+    <div class="voices-ctrl">
+      <button class="vnav-btn" id="voicePrev" aria-label="上一页"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="voices-dots" id="voiceDots"></div>
+      <button class="vnav-btn" id="voiceNext" aria-label="下一页"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 捌 · 路线图时间轴 ═══════════ -->
+<section id="roadmap" class="reveal">
+  <div class="para-layer"><div class="para-mountain"></div><div class="para-moon"></div></div>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">捌</span><h2 class="sec-title">发展路线图</h2><div class="sec-line"></div></div>
+    <div class="rm-list" id="roadmapList"><div class="rm-progress" id="rmProgress"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ 版本下载 ═══════════ -->
+<section id="versions" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">玖</span><h2 class="sec-title">版本发布 &amp; 下载</h2><div class="sec-line"></div></div>
+    <div class="timeline" id="timeline"></div>
+    <p style="margin-top:8px;font-size:12.5px;color:var(--muted)" id="mirrorNote"></p>
+  </div>
+</section>
+
+<!-- ═══════════ 规则中心 ═══════════ -->
+<section id="rules" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">拾</span><h2 class="sec-title">规则中心</h2><div class="sec-line"></div></div>
+    <div class="rules-tools" id="docChips"></div>
+    <div class="reader-toolbar">
+      <div class="doc-title" id="docTitle">用户服务协议</div>
+      <div class="fs-group" id="fsGroup">
+        <button class="fs-btn" data-fs="0">小</button>
+        <button class="fs-btn on" data-fs="1">中</button>
+        <button class="fs-btn" data-fs="2">大</button>
+        <button class="fs-btn" data-fs="3">特大</button>
+      </div>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="rprog"></div></div>
+    <div class="paper" id="paper"><p>正在加载规则全文…</p></div>
+    <p class="rules-note">十二份文件互相引用、同等效力。蓝色虚线短语可在文档间直接跳转。页面内滚动时顶部进度条实时更新。</p>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">拾壹</span><h2 class="sec-title">常见疑问</h2><div class="sec-line"></div></div>
+    <div class="details-grid">
+      <details><summary>覆盖安装失败提示「未安装」怎么办？</summary><p>v1.0.7 起启用永久稳定签名。从旧版升级需手动卸载后重装一次；此后所有新版本都可直接覆盖安装。若仍失败请确认下载的是完整 APK 而非被截断的临时文件。</p></details>
+      <details><summary>收不到私信提醒？</summary><p>请确认系统设置允许尚贤圈发送通知。应用在前台时未读红点最迟十五秒刷新；进入「消息」分栏或会话列表也可即时查看。</p></details>
+      <details><summary>匿名真的不会暴露身份吗？</summary><p>展示层强制剥离账号标识，任何人日常都无法查询匿名与账号的对应关系；识别码仅在处理违法违规的法定情形下经程序正义调用，详见《隐私政策》第三章。</p></details>
+      <details><summary>如何参与管理员月度选举？</summary><p>按自然月统计全站热度（点赞+评论），前 5% 自动当选并收到站内通知；每月仅进行一次，当选信息记入公开操作日志。</p></details>
+      <details><summary>私信有发送限制吗？</summary><p>未互关的两人，每日可发送一条首条消息，对方回复后当天畅聊；互关后不限量。此举旨在杜绝陌生骚扰，同时保留开启对话的可能。</p></details>
+      <details><summary>为什么我的关注数一直是 0？</summary><p>旧版本存在统计获取异常，v1.0.7 已修复：进入个人主页会自动刷新关注与粉丝数，不再永远为 0。请更新到最新版。</p></details>
+      <details><summary>如何删除自己发的内容？</summary><p>帖子详情页可删除自己的帖子；评论长按可删除自己的评论。管理员对违规内容也执行相同删除逻辑并同步计数。</p></details>
+      <details><summary>iOS 版什么时候上线？</summary><p>iOS 正在按 App Store 审核要求调整合规细节，计划随下一个大版本同步公布，敬请期待。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 拾贰 · 出品方双牌 + 邮件直达 ═══════════ -->
+<section id="makers" class="reveal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">拾贰</span><h2 class="sec-title">出品方</h2><div class="sec-line"></div></div>
+    <div class="makers">
+      <article class="maker">
+        <div class="maker-mono" style="background:linear-gradient(135deg,#c8401f,#9e3015)">KS</div>
+        <h3>Kernthal Stuido</h3>
+        <div class="maker-en">Independent Software Studio</div>
+        <p>一支由学生与独立开发者组成的产品工程团队，专注于校园场景的数字产品设计、前端工程与系统架构。尚贤圈的产品形态、交互语言与规则中心均由本工作室从零打磨，坚持代码整洁、体验克制、可长期维护。</p>
+        <div class="maker-tags"><span class="maker-tag">产品工程</span><span class="maker-tag">设计系统</span><span class="maker-tag">全栈开发</span></div>
+      </article>
+      <article class="maker">
+        <div class="maker-mono" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)">SX</div>
+        <h3>SX Compus Community</h3>
+        <div class="maker-en">Campus Community Operator</div>
+        <p>尚贤圈的产品主体与社区治理方，专注校园内容生态的运营与秩序维护。负责六大专区的内容规范、违规处置、月度选举与十二篇规则体系的持续修订，让每一位校园用户都能安心表达、有据可依。</p>
+        <div class="maker-tags"><span class="maker-tag">社区运营</span><span class="maker-tag">内容治理</span><span class="maker-tag">规则体系</span></div>
+      </article>
+    </div>
+    <div class="mails">
+      <h3>官方联系通道</h3>
+      <p class="mails-sub">所有合作、反馈、申诉与紧急事务均通过以下任一渠道直达，平台会在能力范围内尽快响应。</p>
+      <div class="mail-rows">
+        <a class="mail-cell" href="mailto:3982206481@qq.com">
+          <span class="mail-role">用户联系</span>
+          <span class="mail-addr">3982206481@qq.com</span>
+          <span class="mail-use">日常咨询 · 功能建议 · 合作洽谈</span>
+        </a>
+        <a class="mail-cell" href="mailto:sxemergency@outlook.com">
+          <span class="mail-role">紧急联系</span>
+          <span class="mail-addr">sxemergency@outlook.com</span>
+          <span class="mail-use">安全事件 · 内容举报 · 紧急处置</span>
+        </a>
+        <a class="mail-cell" href="mailto:sxcommunity@outlook.com">
+          <span class="mail-role">全站公务</span>
+          <span class="mail-addr">sxcommunity@outlook.com</span>
+          <span class="mail-use">社区治理 · 规则申诉 · 机构对接</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ft">
+    <div>
+      <h4>尚贤圈</h4>
+      <p>见贤思齐 · 以文会友。<br>由学生开发者独立维护的非商业化校园工具。</p>
+      <div class="ft-contacts">
+        <div class="ft-contact"><span class="ft-c-tag">用户联系</span><a class="ft-c-mail" href="mailto:3982206481@qq.com">3982206481@qq.com</a></div>
+        <div class="ft-contact"><span class="ft-c-tag">紧急联系</span><a class="ft-c-mail" href="mailto:sxemergency@outlook.com">sxemergency@outlook.com</a></div>
+        <div class="ft-contact"><span class="ft-c-tag">全站公务</span><a class="ft-c-mail" href="mailto:sxcommunity@outlook.com">sxcommunity@outlook.com</a></div>
+        <div class="ft-c-note">以上邮箱为官方唯一联系渠道</div>
+      </div>
+    </div>
+    <div>
+      <h4>快速导航</h4>
+      <a href="#features">产品特性</a><br><a href="#versions">版本下载</a><br><a href="#rules">规则中心</a><br><a href="#faq">常见疑问</a>
+    </div>
+    <div>
+      <h4>核心法律文件</h4>
+      <a href="#" data-doc="agreement">用户服务协议</a><br><a href="#" data-doc="privacy">隐私政策</a><br>
+      <a href="#" data-doc="minorReg">未成年人保护条例</a><br><a href="#" data-doc="appeal">用户权益与申诉制度</a>
+    </div>
+  </div>
+  <div class="ft-bottom">© 尚贤圈 ShangXian Quan · 本页面为静态官网，不收集任何访客信息 · 联系邮箱已如上公示，遇到问题请优先通过以上任一渠道反馈</div>
+</footer>
+
+<!-- 移动端底部 Tab 导航（<768px 显示，桌面端隐藏） -->
+<nav class="mtab" id="mtab" aria-label="底部导航">
+  <div class="mtab-items">
+    <a class="mtab-item on" href="#top" data-target="top" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>首页</span>
+    </a>
+    <a class="mtab-item" href="#features" data-target="features">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>特性</span>
+    </a>
+    <a class="mtab-item" href="#versions" data-target="versions">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 20h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载</span>
+    </a>
+    <a class="mtab-item" href="#rules" data-target="rules">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="currentColor" stroke-width="1.8"/><path d="M9 9h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>规则</span>
+    </a>
+    <a class="mtab-item" href="#faq" data-target="faq">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9a2.5 2.5 0 015 0c0 1.5-2.5 2-2.5 3.5M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>答疑</span>
+    </a>
+  </div>
+</nav>
+
+<div class="mask" id="wcMask">
+  <div class="wc-card">
+    <strong>微信内暂不支持下载</strong>
+    <p>请点击右上角「···」选择<b>在浏览器打开</b>，再回到本页点击下载即可。</p>
+  </div>
+</div>
+
+<!-- 页面顶部滚动进度条 + 右下角回顶按钮 -->
+<div id="scrollProg"></div>
+<button id="backTop" title="回到顶部" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5m0 0l-6 6m6-6l6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+/* ---------- 数据加载（版本 + 法务） ---------- */
+const SB_PUBLIC = 'https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/';
+const FALLBACK = [{version:'1.0.7',code:107,date:'2026-08-27',notes:'星夜开屏动画 · 聊天准实时同步 · 权限引导页 · 十二篇规则中心阅读器 · 全量权限声明',url:SB_PUBLIC+'SXQ1.0.7.apk'}];
+let DOCS=null;
+
+function renderVersions(items){
+  const tl=document.getElementById('timeline');tl.innerHTML='';
+  items.forEach((v,i)=>{
+    const el=document.createElement('article');
+    el.className='rel'+(i===0?' rel-latest':'');
+    el.innerHTML=`<div class="rel-head">
+      <span class="ver">v${v.version}</span>
+      ${i===0?'<span class="tag">最新稳定版</span>':'<span class="tag gray">历史版本</span>'}
+      <span class="date">${v.date||''}</span></div>
+      <p class="rel-notes">${v.notes||''}</p>
+      <div class="rel-actions">
+        <a class="mini-btn" data-apk="${v.url}" href="${v.url}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          直接下载 APK（${((v.size||13400000)/1048576).toFixed(1)}MB）
+        </a>
+        <span class="rel-mirror">Supabase 全球 CDN 直链</span>
+      </div>
+      <p class="wc-tip">提示：微信内无法下载，请在系统浏览器中打开本页后重试。</p>`;
+    tl.appendChild(el);
+  });
+  document.querySelectorAll('[data-apk]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      if(/MicroMessenger/i.test(navigator.userAgent)){e.preventDefault();document.getElementById('wcMask').classList.add('show');}
+    });
+  });
+}
+// 版本数据多路径容错：data/ → 根 → 远端 storage
+(function loadVersions(){
+  const V_PATHS=['./data/versions.json','./versions.json','assets/versions.json',SB_PUBLIC+'site/versions.json'];
+  let vi=0;
+  (function tryV(i){
+    if(i>=V_PATHS.length){renderVersions(FALLBACK);return}
+    fetch(V_PATHS[i],{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{
+      const items=(d&&Array.isArray(d.items))?d.items:FALLBACK;
+      items.sort((a,b)=>(b.code||0)-(a.code||0));
+      renderVersions(items);
+    }).catch(()=>tryV(i+1));
+  })(vi);
+})();
+document.getElementById('wcMask').addEventListener('click',()=>document.getElementById('wcMask').classList.remove('show'));
+
+/* ---------- 规则中心阅读器 ---------- */
+const ALIAS=[['用户服务协议','agreement'],['隐私政策','privacy'],['文明公约','conduct'],['举报与处罚细则','enforcement'],['未成年人保护说明','minor'],['社区准则','community'],['内容审核与处置规则','moderation'],['私信与隐私保护细则','dmPrivacy'],['账号安全守则','accountSafety'],['知识产权声明','ip'],['未成年人保护条例','minorReg'],['用户权益与申诉制度','appeal']];
+const FS=['15.5px','17px','19.5px','22.5px'];
+let curDoc='agreement';
+
+function docKeyOf(phrase){for(const[n,k]of ALIAS)if(phrase.includes(n))return k;return null}
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function renderPara(line){
+  let out='',last=0,re=/《[^》]{2,14}》/g,m;
+  while((m=re.exec(line))){
+    if(m.index>last)out+=esc(line.slice(last,m.index));
+    const k=docKeyOf(m[0]);
+    const target=(k&&k!==curDoc)?k:(docKeyOf(m[0])===null?null:curDoc===k?null:k);
+    const kk=docKeyOf(m[0]);
+    if(kk&&kk!==curDoc)out+=`<span class="xlink" data-go="${kk}">${esc(m[0])}</span>`;
+    else out+=esc(m[0]);
+    last=m.index+m[0].length;
+  }
+  if(last<line.length)out+=esc(line.slice(last));
+  return out;
+}
+function showDoc(key){
+  if(!DOCS[key])return;
+  curDoc=key;
+  document.getElementById('docTitle').textContent='《尚贤圈'+DOCS[key].title+'》';
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.key===key));
+  const paper=document.getElementById('paper');
+  paper.innerHTML='';
+  DOCS[key].body.split('\n').forEach(raw=>{
+    const line=raw.trim();if(!line)return;
+    const p=document.createElement('p');
+    if(/^第[一二三四五六七八九十百零]+章/.test(line))p.className='h';
+    else if(/^第[一二三四五六七八九十百零]+条|^（[一二三四五六七八九十]+）/.test(line))p.className='a';
+    p.innerHTML=renderPara(line);
+    paper.appendChild(p);
+  });
+  paper.scrollTop=0;updateProg();
+}
+function loadDocs(){
+  // 多路径容错：本地 data/ → 根目录 → 远端 storage，确保规则永不因路径缺失而加载失败
+  const LEGAL_PATHS=['./data/legal.json','./legal.json','assets/legal.json',SB_PUBLIC+'site/legal.json'];
+  function tryLegal(i){
+    if(i>=LEGAL_PATHS.length){document.getElementById('paper').innerHTML='<p>规则暂无法加载，请稍后刷新或联系官方邮箱。</p>';return}
+    fetch(LEGAL_PATHS[i],{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{
+      const m={};d.docs.forEach(x=>m[x.key]=x);DOCS=m;
+      const chips=document.getElementById('docChips');
+      d.docs.forEach(x=>{const c=document.createElement('button');c.className='chip';c.dataset.key=x.key;c.textContent=x.title;
+        c.onclick=()=>showDoc(x.key);chips.appendChild(c)});
+      document.querySelectorAll('[data-doc]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showDoc(a.dataset.doc);document.getElementById('rules').scrollIntoView({behavior:'smooth'})}));
+      const want=location.hash.replace('#doc-','');
+      showDoc(want&&DOCS[want]?want:'agreement');
+    }).catch(()=>tryLegal(i+1));
+  }
+  tryLegal(0);
+}
+loadDocs();
+
+/* 字号 */
+document.getElementById('fsGroup').addEventListener('click',e=>{
+  const b=e.target.closest('.fs-btn');if(!b)return;
+  document.querySelectorAll('.fs-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.getElementById('paper').style.fontSize=FS[b.dataset.fs];
+});
+
+/* 进度条（阅读区滚动） */
+const paper=document.getElementById('paper');
+function updateProg(){
+  const r=paper.scrollTop/(Math.max(paper.scrollHeight-paper.clientHeight,1));
+  document.getElementById('rprog').style.width=Math.round(r*100)+'%';
+}
+paper.addEventListener('scroll',updateProg);
+
+/* 互链委托 */
+document.getElementById('paper').addEventListener('click',e=>{
+  const t=e.target.closest('.xlink');if(!t)return;
+  showDoc(t.dataset.go);
+});
+
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===== 回顶按钮 + 顶部滚动进度条联动 ===== */
+const backTop=document.getElementById('backTop');
+const scrollProg=document.getElementById('scrollProg');
+function onScroll(){
+  const h=document.documentElement;
+  const max=h.scrollHeight-h.clientHeight;
+  const r=h.scrollTop/Math.max(max,1);
+  scrollProg.style.width=(r*100)+'%';
+  backTop.classList.toggle('show',h.scrollTop>400);
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ===== 特性卡片鼠标光晕跟随联动 ===== */
+document.querySelectorAll('.feat').forEach(f=>{
+  f.addEventListener('mousemove',e=>{
+    const r=f.getBoundingClientRect();
+    f.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    f.style.setProperty('--my',(e.clientY-r.top)+'px');
+  });
+});
+
+/* ===== Hero 文案逐行入场 + 子标题打字机动效 ===== */
+const heroSub=document.querySelector('.hero-sub');
+if(heroSub){
+  const full=heroSub.textContent.trim();
+  heroSub.textContent='';
+  let i=0;const typer=setInterval(()=>{
+    heroSub.textContent=full.slice(0,i);
+    i++;
+    if(i>full.length){clearInterval(typer);heroSub.classList.add('done')}
+  },38);
+}
+
+/* ===== 区块标题装饰线伸展（section 进入视口时） ===== */
+const lineIo=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){en.target.style.width='100%';lineIo.unobserve(en.target)}
+}),{threshold:.5});
+document.querySelectorAll('.sec-line').forEach(l=>{l.style.transition='width 1s cubic-bezier(.19,1,.29,1)';l.style.width='0';lineIo.observe(l)});
+
+/* ===== 版本卡片交错跃现 ===== */
+const relIo=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){
+    const row=en.target;
+    row.style.transition='opacity .6s ease, transform .6s cubic-bezier(.19,1,.29,1)';
+    row.style.opacity='0';
+    requestAnimationFrame(()=>{row.style.opacity='1';row.style.transform='none';});
+    relIo.unobserve(row);
+  }
+}),{threshold:.2});
+document.querySelectorAll('.rel').forEach(r=>{r.style.opacity='0';r.style.transform='translateY(20px)';relIo.observe(r)});
+
+/* ===== 社区数据数字滚动 ===== */
+function countUp(el){
+  const target=parseInt(el.dataset.count,10)||0;const dur=1200;const start=performance.now();
+  const fmt=target>=100?n=>Math.floor(n):n=>Math.floor(n)*1;
+  function tick(now){
+    const p=Math.min((now-start)/dur,1);
+    const eased=1-Math.pow(1-p,3);
+    el.textContent=fmt(eased*target);
+    if(p<1)requestAnimationFrame(tick);else el.textContent=target;
+  }
+  requestAnimationFrame(tick);
+}
+const stIo=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){countUp(en.target);stIo.unobserve(en.target)}
+}),{threshold:.6});
+document.querySelectorAll('.stat-n').forEach(el=>stIo.observe(el));
+
+/* ===== 优势卡片 stagger 入场 ===== */
+const cmpIo=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){
+    en.target.style.animation='countUp .6s ease both';
+    cmpIo.unobserve(en.target);
+  }
+}),{threshold:.15});
+document.querySelectorAll('.cmp').forEach((c,i)=>{c.style.animationDelay=(i*.08)+'s';cmpIo.observe(c)});
+
+/* ===== 三步卡片 stagger ===== */
+const stepIo=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){
+    en.target.style.animation='countUp .6s ease both';
+    stepIo.unobserve(en.target);
+  }
+}),{threshold:.15});
+document.querySelectorAll('.step').forEach((s,i)=>{s.style.animationDelay=(i*.12)+'s';stepIo.observe(s)});
+
+/* ===== 常驻水墨粒子（入场即飘，永不静止） ===== */
+(function makeParticles(){
+  const box=document.getElementById('particles');if(!box)return;
+  const n=window.innerWidth<720?14:26;
+  for(let i=0;i<n;i++){
+    const p=document.createElement('span');
+    const sz=6+Math.random()*16;
+    p.className='p';
+    p.style.left=(Math.random()*100)+'%';
+    p.style.top=(Math.random()*100)+'%';
+    p.style.width=sz+'px';p.style.height=sz+'px';
+    p.style.animationDuration=(7+Math.random()*9)+'s';
+    p.style.animationDelay=(-Math.random()*10)+'s';
+    p.style.setProperty('--dx',((Math.random()*2-1)*40)+'px');
+    p.style.setProperty('--dy',((Math.random()*2-1)*50)+'px');
+    box.appendChild(p);
+  }
+})();
+
+/* ============================================================
+   JS 分层：安全层 / 数据层 / 渲染层 / 交互层 / 动画层
+   ============================================================ */
+
+/* ---------- 安全层：统一 XSS 转义入口 ---------- */
+function xss(s){
+  return String(s==null?'':s).replace(/[&<>"'`]/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'
+  }[c]));
+}
+/* 外链统一加固 */
+function secureLink(url){
+  return String(url).replace(/"/g,'%22').replace(/'/g,'%27');
+}
+
+/* ---------- 数据层（静态内嵌，零外部依赖） ---------- */
+const DASH_DATA = {
+  week:  { bars: [['树洞', 24],['求助', 19],['二手', 16],['社团', 14],['学习', 13],['闲聊', 11]], total: 97, ok: 62, del: 18, warn: 17 },
+  month: { bars: [['树洞', 34],['求助', 27],['二手', 22],['社团', 18],['学习', 16],['闲聊', 12]], total: 129, ok: 84, del: 24, warn: 21 },
+  all:   { bars: [['树洞', 41],['求助', 32],['二手', 25],['社团', 19],['学习', 17],['闲聊', 13]], total: 147, ok: 103, del: 28, warn: 16 }
+};
+const TOUR_DEMOS = {
+  quota: { title:'匿名额度机制', sub:'每日发布上限两条，评论上限五条，额度由数据库触发器强制执行且不累积。',
+    kind:'quota', hint:'点击下方按钮模拟一次匿名发布，观察额度扣减与保护状态。' },
+  flow: { title:'私信限流状态机', sub:'未互关时每日仅可发送一条首条消息，对方回复后当日畅聊；建立互关后完全解除限制。',
+    kind:'flow', hint:'点击按钮模拟「对方回复」，观察限制解除。' },
+  link: { title:'规则中心互链', sub:'凡是文中出现的《文件名》短语均可直接点击，在十二篇规则文档间交叉跳转。',
+    kind:'link', hint:'点击下方蓝色短语体验跨篇跳转。' }
+};
+const ROADMAP = [
+  { when:'已上线', state:'done', what:'尚贤圈 v1.0 基础版', desc:'六大版块、匿名额度、举报与规则体系上线。' },
+  { when:'已上线', state:'done', what:'私信与聊天体系', desc:'限流状态机、图片发送、两分钟撤回、全局未读红点。' },
+  { when:'进行中', state:'doing', what:'问卷与用户之声', desc:'App 内问卷板块、管理员导入解析、好评自动上墙与轮播。' },
+  { when:'规划中', state:'plan', what:'iOS 版本与跨端', desc:'按应用商店审核要求完善合规细节，随新版本公布。' },
+  { when:'规划中', state:'plan', what:'社区共建机制', desc:'月度选举、用户提案采纳、荣誉标识体系持续迭代。' }
+];
+
+/* ---------- 渲染层：看板 ---------- */
+const dashBarsEl=document.getElementById('dashBars');
+function renderBars(range){
+  const d=DASH_DATA[range]; if(!d||!dashBarsEl)return;
+  const max=Math.max.apply(null,d.bars.map(b=>b[1]));
+  dashBarsEl.innerHTML=d.bars.map(b=>{
+    const pct=Math.round(b[1]/max*100);
+    return `<div class="bar-row"><span class="bar-name">${xss(b[0])}</span><div class="bar-track"><div class="bar-fill" data-w="${pct}"></div></div><span class="bar-val">${b[1]}</span></div>`;
+  }).join('');
+}
+function renderDonut(range){
+  const d=DASH_DATA[range]; if(!d)return;
+  const R=46, C=2*Math.PI*R;
+  const seg=[['donutOk',d.ok],['donutDel',d.del],['donutWarn',d.warn]];
+  const total=Math.max(d.ok+d.del+d.warn,1);
+  let offset=0;
+  seg.forEach(([id,val])=>{
+    const el=document.getElementById(id); if(!el)return;
+    const len=val/total*C;
+    const dasharray=`${len} ${C-len}`;
+    el.style.strokeDasharray='0 '+C;
+    requestAnimationFrame(()=>{el.style.strokeDasharray=dasharray;});
+    el.style.strokeDashoffset=-offset;
+    offset+=len;
+  });
+  const c=document.getElementById('donutCenter'); if(c)c.textContent=total;
+  const lg={lgOk:d.ok,lgDel:d.del,lgWarn:d.warn};
+  Object.keys(lg).forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=lg[id];});
+}
+/* 看板 Tab 交互 */
+document.querySelectorAll('.dash-tabs .tabbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.dash-tabs .tabbtn').forEach(b=>b.setAttribute('aria-selected','false'));
+    btn.setAttribute('aria-selected','true');
+    renderBars(btn.dataset.range); renderDonut(btn.dataset.range);
+  });
+});
+function animateBars(){
+  document.querySelectorAll('#dashBars .bar-fill').forEach(el=>{
+    const w=parseInt(el.dataset.w,10)||0; el.style.width='0';
+    requestAnimationFrame(()=>{el.style.width=w+'%';});
+  });
+}
+/* 看板进入视口：驱动条形生长 + KPI 数字滚动 */
+const kpiIo=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){
+    renderBars(document.querySelector('.dash-tabs .tabbtn[aria-selected="true"]')?.dataset.range||'all');
+    animateBars();
+    document.querySelectorAll('.kpi .kpi-v').forEach(el=>{ if(!el.dataset.done){el.dataset.done='1'; countUp(el);} });
+    const sel=document.querySelector('.dash-tabs .tabbtn[aria-selected="true"]');
+    if(sel)renderDonut(sel.dataset.range);
+    kpiIo.unobserve(en.target);
+  }
+}),{threshold:.25});
+document.querySelector('#dashboard')&&kpiIo.observe(document.querySelector('#dashboard'));
+renderBars('all'); renderDonut('all');
+
+/* ---------- 渲染层：交互导览 ---------- */
+const demoPane=document.getElementById('demoPane');
+function renderDemo(kind){
+  const d=TOUR_DEMOS[kind]; if(!d||!demoPane)return;
+  let body='';
+  if(kind==='quota'){
+    body=`<div class="demo-quota">
+      <div class="quota-pip" data-pip="1">1</div>
+      <div class="quota-pip" data-pip="2">2</div>
+      <button class="demo-btn" data-demo-btn="quota">模拟匿名发布</button>
+    </div><p class="demo-hint">${xss(d.hint)}</p>`;
+  } else if(kind==='flow'){
+    body=`<div class="demo-flow">
+      <span class="flow-node" data-fn="a">未互关 · 日限一条</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" data-fn="b">对方已回复</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" data-fn="c">当天畅聊</span>
+    </div><button class="demo-btn" data-demo-btn="flow">模拟对方回复</button><p class="demo-hint">${xss(d.hint)}</p>`;
+  } else {
+    body=`<p class="demo-xlink">依据《尚贤圈举报与处罚细则》第四章，处理匿名内容时应经程序正义调用识别码，详见《尚贤圈隐私政策》第三章。</p>
+      <button class="demo-btn" data-demo-btn="link">体验跨篇跳转</button><p class="demo-hint">${xss(d.hint)}</p>`;
+  }
+  demoPane.innerHTML=`<div class="demo-title">${xss(d.title)}</div><div class="demo-sub">${xss(d.sub)}</div>${body}`;
+  bindDemo(kind);
+}
+function bindDemo(kind){
+  const btn=demoPane.querySelector('[data-demo-btn]');
+  if(!btn)return;
+  btn.addEventListener('click',()=>{
+    if(kind==='quota'){
+      const pips=demoPane.querySelectorAll('.quota-pip');
+      const unused=[...pips].filter(p=>!p.classList.contains('used'));
+      if(unused.length)unused[0].classList.add('used');
+      const left=pips.length-[...pips].filter(p=>p.classList.contains('used')).length;
+      if(left===0){btn.textContent='今日额度已用尽';btn.disabled=true;}
+    } else if(kind==='flow'){
+      const b=demoPane.querySelector('[data-fn="b"]');
+      if(b)b.classList.add('on');
+      const c=demoPane.querySelector('[data-fn="c"]');
+      if(c)c.classList.add('on');
+      btn.textContent='已模拟回复，当日畅聊';
+      btn.disabled=true;
+    } else {
+      demoPane.querySelectorAll('.xk').forEach(x=>x.classList.add('xlink'));
+      const toast=demoPane.querySelector('.demo-hint');
+      if(toast)toast.textContent='已识别跨篇引用，可跳转《隐私政策》。';
+    }
+  });
+}
+document.querySelectorAll('.tour-step').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tour-step').forEach(b=>b.setAttribute('aria-selected','false'));
+    btn.setAttribute('aria-selected','true');
+    renderDemo(btn.dataset.demo);
+  });
+});
+renderDemo('quota');
+
+/* ---------- 渲染层：用户之声（31 条体验官 + 真实用户） ---------- */
+const VOICES=[
+  { name:'林知夏', role:'在校生 · 树洞常客', type:'official', text:'匿名让我能把那些没人说的心事放下来。发完就轻松了，第二天照常上课。', stars:5 },
+  { name:'陈屿', role:'大二 · 求助区活跃者', type:'official', text:'在求助区问过三次高数，每次都有人认真写过程，比问室友还快。', stars:5 },
+  { name:'苏晚晴', role:'毕业班 · 二手区卖家', type:'official', text:'教材挂了两天就转出去了，当面验货很顺畅，没有遇到离谱砍价。', stars:4 },
+  { name:'周叙', role:'社团负责人', type:'official', text:'招新帖发出去当晚就有人报名，后台一目了然，比在群里刷屏强太多。', stars:5 },
+  { name:'许见', role:'新生 · 学习区', type:'official', text:'开学找不到方向，看学长学姐的经验帖少走了很多弯路，很实用。', stars:4 },
+  { name:'顾言', role:'匿名用户', type:'official', text:'自由度刚好：能说真话，又有额度管着，不至于刷屏。', stars:5 },
+  { name:'程木', role:'大三 · 闲聊常驻', type:'official', text:'版块分得细，找帖子很省事，不会一进来全是卖东西的。', stars:4 },
+  { name:'江离', role:'在校生', type:'official', text:'规则写得清楚。第一次被警告时直接能查到是哪一条，服气。', stars:5 },
+  { name:'陆时', role:'研一', type:'official', text:'当成一个安静的校园角落。没有广告，没有推流，很舒服。', stars:5 },
+  { name:'叶蓁', role:'大一新生', type:'official', text:'头像和称呼设好就能用了，不强制填手机，这一点很友好。', stars:4 },
+  { name:'沈牧', role:'二手买家', type:'official', text:'砍价礼貌，交易守则也讲了风险，第一次买寝室用品没踩坑。', stars:4 },
+  { name:'温言', role:'匿名倾诉者', type:'official', text:'树洞里的人没有judge，只给安慰。这版氛围我很喜欢。', stars:5 },
+  { name:'白露', role:'学习区', type:'official', text:'有一篇讲考研经验的长文，收藏了，写得特别实在，没有营销味。', stars:5 },
+  { name:'韩奕', role:'社团成员', type:'official', text:'面试不靠颜值靠实力，这里更没有那种比拼的场域，聊得很纯粹。', stars:4 },
+  { name:'纪然', role:'毕业生', type:'official', text:'离开前把帖子都看了一遍，像收拾自己的数字抽屉，很安心。', stars:5 },
+  { name:'曲航', role:'在校生', type:'official', text:'私信不会被人打扰到烦，限流设计是真的考虑到了社恐。', stars:4 },
+  { name:'秦朗', role:'求助者', type:'official', text:'失物招领帖很快就有了线索，同学回复得又细又热心。', stars:5 },
+  { name:'宋则', role:'大三', type:'official', text:'首页没有乱推的广告，隔一阵回来帖子还都在，很稳。', stars:4 },
+  { name:'叶栖', role:'新生', type:'official', text:'室友推荐我来的，说这里是认真做校园交流的。用了几天确实是的。', stars:5 },
+  { name:'闻澜', role:'匿名用户', type:'official', text:'额度不大，但够用了。所谓保护，就是让人敢说出真话。', stars:4 },
+  { name:'陆沉', role:'在校生', type:'official', text:'举报处理得挺快，没过几天那条引战的帖子就看不到了。', stars:5 },
+  { name:'明澈', role:'学习区', type:'official', text:'资料板块很干净，没看到卖课的，都是学长学姐的真心分享。', stars:4 },
+  { name:'林间', role:'大一', type:'official', text:'刚来什么都不懂，在求助区问了好几个问题，没人笑我。', stars:5 },
+  { name:'周澄', role:'二手区', type:'official', text:'成色描述写得明白，当面交易流畅，没有虚标。', stars:4 },
+  { name:'顾北', role:'在校生', type:'official', text:'像一杯温水，不作妖，不打扰，需要的时候它就在。', stars:5 },
+  { name:'苏引', role:'毕业生', type:'official', text:'把大学四年的足迹都留在这里了，很值得。', stars:5 },
+  { name:'陈默', role:'匿名用户', type:'official', text:'有些话只敢对着树洞说。它接住了。', stars:5 },
+  { name:'江月', role:'在校生', type:'official', text:'没有乱码的系统通知，每一条都看得懂，能直接跳转处理。', stars:4 },
+  { name:'程空', role:'学习区', type:'official', text:'想找的考研资料，在搜索框一敲就出来了，效率很高。', stars:5 },
+  { name:'许未', role:'社团', type:'official', text:'招新材料的模板很清楚，照着填就不会漏信息。', stars:4 },
+  { name:'商陆', role:'在校生', type:'official', text:'一个可以不用设防的地方。说话不用字斟句酌，很自在。', stars:5 },
+  { name:'匿名同学', role:'大一 · 匿名用户', type:'user', text:'刚开学那阵子心情很差，树洞里有人回了一句加油，挺暖的。', stars:5 },
+  { name:'王同学', role:'毕业生 · 学习区', type:'user', text:'考研经验帖整理得有条理，按时间线一步步来，少踩很多坑。', stars:4 },
+  { name:'李同学', role:'大二 · 二手区', type:'user', text:'教材转手很快，当面交易提前看了成色，和描述一致。', stars:4 }
+];
+const voiceTrack=document.getElementById('voiceTrack');
+const voiceDots=document.getElementById('voiceDots');
+let voiceFilter='all', voiceIdx=0, vPerView=3;
+function starStr(n){
+  let s=''; for(let i=0;i<5;i++){ s+=`<svg viewBox="0 0 24 24" fill="${i<n?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.9 6.6 19.4l1.3-6L3.4 9.3l6-.7L12 3z"/></svg>`; } return s;
+}
+function renderVoices(){
+  const list=VOICES.filter(v=>voiceFilter==='all'||v.type===voiceFilter);
+  if(!voiceTrack)return;
+  voiceTrack.innerHTML=list.map(v=>{
+    const isOfficial=v.type==='official';
+    return `<article class="voice-card">
+      <div class="voice-stars">${starStr(v.stars)}</div>
+      <p class="voice-text">${xss(v.text)}</p>
+      <div class="voice-meta">
+        <span class="voice-avatar" style="background:${isOfficial?'linear-gradient(135deg,#b98a2f,#8f6a1f)':'linear-gradient(135deg,#c8401f,#9e3015)'}">${xss(v.name.slice(0,1))}</span>
+        <div><div class="voice-name">${xss(v.name)}</div><div class="voice-role">${xss(v.role)}</div></div>
+        <span class="voice-badge ${isOfficial?'official':'user'}">${isOfficial?'体验官':'真实用户'}</span>
+      </div>
+    </article>`;
+  }).join('');
+  vPerView=window.innerWidth<=560?1:(window.innerWidth<=860?2:3);
+  const pages=Math.max(1,Math.ceil(list.length/vPerView));
+  voiceIdx=Math.min(voiceIdx,pages-1);
+  renderDots(pages);
+  updateTrack();
+}
+function renderDots(pages){
+  if(!voiceDots)return;
+  voiceDots.innerHTML='';
+  for(let i=0;i<pages;i++){
+    const b=document.createElement('button');
+    b.className='vdot'+(i===voiceIdx?' on':'');
+    b.setAttribute('aria-label','第 '+(i+1)+' 页');
+    b.addEventListener('click',()=>{voiceIdx=i;renderDots(pages);updateTrack();});
+    voiceDots.appendChild(b);
+  }
+}
+function updateTrack(){
+  if(!voiceTrack)return;
+  const cards=voiceTrack.children;
+  if(!cards.length)return;
+  const w=cards[0].getBoundingClientRect().width+16;
+  voiceTrack.style.transform=`translateX(${-voiceIdx*vPerView*w}px)`;
+}
+document.getElementById('voicePrev')?.addEventListener('click',()=>{ if(voiceIdx>0){voiceIdx--;renderVoices();} });
+document.getElementById('voiceNext')?.addEventListener('click',()=>{ voiceIdx++;renderVoices(); });
+document.querySelectorAll('#voiceFilter .tabbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#voiceFilter .tabbtn').forEach(b=>b.setAttribute('aria-selected','false'));
+    btn.setAttribute('aria-selected','true');
+    voiceFilter=btn.dataset.vf; voiceIdx=0; renderVoices();
+  });
+});
+window.addEventListener('resize',()=>{renderVoices();});
+renderVoices();
+
+/* ---------- 渲染层：路线图 ---------- */
+const rmList=document.getElementById('roadmapList');
+if(rmList){
+  ROADMAP.forEach(item=>{
+    const el=document.createElement('article');
+    el.className='rm-item '+item.state;
+    el.innerHTML=`<span class="rm-when">${xss(item.when)}</span>
+      <div class="rm-what"><h4>${xss(item.what)}</h4><p>${xss(item.desc)}</p></div>
+      <span class="rm-state ${item.state}">${item.state==='done'?'已完成':(item.state==='doing'?'进行中':'规划中')}</span>`;
+    rmList.appendChild(el);
+  });
+  const rmProg=document.getElementById('rmProgress');
+  if(rmProg){
+    const done=ROADMAP.filter(r=>r.state==='done').length;
+    const total=ROADMAP.length;
+    rmProg.style.height=(done/total*100)+'%';
+  }
+}
+
+/* ---------- 动画层：视差滚动（移动端与减动效关闭，requestAnimationFrame 节流） ---------- */
+const paraEls=document.querySelectorAll('.para-layer');
+if(paraEls.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth>860){
+  let ticking=false;
+  window.addEventListener('scroll',()=>{
+    if(ticking)return; ticking=true;
+    requestAnimationFrame(()=>{
+      const y=window.scrollY||0;
+      paraEls.forEach((layer,idx)=>{
+        const speed=0.12+idx*0.06;
+        layer.style.transform=`translateY(${y*speed}px)`;
+      });
+      ticking=false;
+    });
+  },{passive:true});
+}
+
+/* ---------- 移动端底部 Tab scrollspy ---------- */
+const mtabItems=document.querySelectorAll('.mtab-item');
+if(mtabItems.length){
+  const secIds=['top','features','versions','rules','faq'].map(id=>document.getElementById(id));
+  const spyIo=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        mtabItems.forEach(it=>{
+          const on=it.dataset.target===en.target.id;
+          it.classList.toggle('on',on);
+          if(on)it.setAttribute('aria-current','page');else it.removeAttribute('aria-current');
+        });
+      }
+    });
+  },{rootMargin:'-40% 0px -50% 0px'});
+  secIds.forEach(el=>el&&spyIo.observe(el));
+}
+</script>
+</body>
+</html>

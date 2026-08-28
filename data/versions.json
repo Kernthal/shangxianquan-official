@@ -1,0 +1,10 @@
+{
+  "items": [
+    {"version":"1.0.7","code":107,"date":"2026-08-27","notes":"星夜/水墨开屏动画 · 聊天准实时同步 · 私信全局红点 · 权限引导页 · 十二篇规则中心阅读器 · 全量权限声明与修复","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.7.apk"},
+    {"version":"1.0.6","code":106,"date":"2026-08-27","notes":"新增私信/聊天功能（限流、表情、图片）、修复版本号显示、全链路加载动画","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.6.apk"},
+    {"version":"1.0.3","code":103,"date":"2026-08-26","notes":"修复关注/粉丝页白屏 · 降低加载延迟 · 私信入口打通 · 切换账号功能","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.3.apk"},
+    {"version":"1.0.2","code":102,"date":"2026-08-25","notes":"加载动画全链路 · 自动更新系统 · 版本号同步","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.2.apk"},
+    {"version":"1.0.1","code":101,"date":"2026-08-24","notes":"登录/注册右偏修复 · 平板适配 · 验证码倒计时 · 开屏冷启动动画","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.1.apk"},
+    {"version":"1.0.0","code":100,"date":"2026-08-22","notes":"尚贤圈首个正式版本上线","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.0.apk"}
+  ]
+}
