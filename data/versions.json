@@ -1,5 +1,7 @@
 {
   "items": [
+    {"version":"1.0.12","code":112,"date":"2026-08-28","notes":"规则中心修复（此前一直加载失败）；问卷支持 txt/md/docx 文件导入；会员体系（贤士卡）与增量权益包后端上线","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.12.apk"},
+    {"version":"1.0.11","code":111,"date":"2026-08-28","notes":"系统级推送上线（极光）：收到私信/全站通知时手机通知栏提醒，点击直达；服务端 pg_net 直连极光 REST，密钥零代码","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.11.apk"},
     {"version":"1.0.10","code":110,"date":"2026-08-28","notes":"聊天全面对齐微信：消息Tab+红点、图片多选9张、原图比例发送、emoji与自制表情包（文字/字号/色板，本地+云端同步）","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.10.apk"},
     {"version":"1.0.9","code":109,"date":"2026-08-28","notes":"根治安装新版后仍弹更新提示（版本号唯一真源）；开屏动画不可跳过；月度选举当选名单可见","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.9.apk"},
     {"version":"1.0.8","code":108,"date":"2026-08-28","notes":"问卷系统修复：导入解析更聪明、发布通知更高效、好评评语提交不再报错","url":"https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.8.apk"},
