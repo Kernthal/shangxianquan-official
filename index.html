@@ -877,11 +877,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         <ul class="afd-list">
           <li>贤士卡：月 6 元 · 季 13 元 · 年 46.8 元（身份标识、额度提升、每月 8 号会员日翻倍）</li>
           <li>增量权益包：匿名额度、表情扩容、图片张数，1-3 元起，买多少叠多少</li>
-          <li>赞助者支持「鸡腿加鸡腿」：按档位额外返送平台鸡腿</li>
+          <li>下单时可额外「加鸡腿」——性质同给创作者的打赏小费，直接用于服务器与持续开发</li>
         </ul>
-        <p class="afd-key">★ 下单时请在「留言」填写你的<strong>贤圈ID</strong>（App「设置 → 关于」可查），系统每小时自动同步到账，无需人工审核。</p>
+        <p class="afd-key">★ 下单时请在「留言」填写你的<strong>贤圈ID</strong>（App「设置 → 关于」可查），付款后自动识别到账，无需人工审核。</p>
         <div class="afd-acts">
-          <a class="afd-btn" href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">前往爱发电 · 支持 KernthalStudio</a>
+          <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=052a1724a2f511f1a9855254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·月 ¥6</a>
+          <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=218168a0a2f511f1b3255254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·季 ¥13</a>
+          <a class="afd-btn hot" href="https://ifdian.net/order/create?plan_id=b1a15b58a2f411f18a1052540025c377&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·年 ¥46.8 超值</a>
+        </div>
+        <div class="afd-acts">
+          <a class="afd-more" href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">或前往爱发电主页 · 任意金额支持 / 加鸡腿 →</a>
         </div>
         <p class="afd-minor">未成年人应在监护人同意下进行赞助；《会员服务协议》约定数字内容一经到账不予退款，下单前请仔细阅读。</p>
       </div>
@@ -1502,9 +1507,11 @@ if(mtabItems.length){
 .afd-list{margin:0 0 14px;padding-left:20px;font-size:14.5px;line-height:2.0;color:#5c5041}
 .afd-key{background:rgba(214,72,47,.07);border-left:3px solid #d6482f;padding:10px 14px;border-radius:0 10px 10px 0;font-size:14px;color:#8a3a22}
 .afd-key strong{color:#d6482f}
-.afd-acts{margin:18px 0 10px}
-.afd-btn{display:inline-block;background:linear-gradient(135deg,#9b6ce0,#7b4fd1);color:#fff;font-weight:700;font-size:15px;padding:13px 30px;border-radius:999px;text-decoration:none;box-shadow:0 8px 22px rgba(123,79,209,.35);transition:transform .15s}
+.afd-acts{margin:18px 0 10px;display:flex;flex-wrap:wrap;gap:12px}
+.afd-btn{display:inline-block;background:linear-gradient(135deg,#9b6ce0,#7b4fd1);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:999px;text-decoration:none;box-shadow:0 8px 22px rgba(123,79,209,.35);transition:transform .15s}
 .afd-btn:hover{transform:translateY(-2px)}
+.afd-btn.hot{background:linear-gradient(135deg,#e9a13c,#d6482f);box-shadow:0 8px 22px rgba(214,72,47,.35)}
+.afd-more{display:inline-block;font-size:14px;color:#7b4fd1;text-decoration:underline}
 .afd-minor{font-size:12.5px;color:#a2937f}
 @media (max-width:860px){.afd-grid{grid-template-columns:1fr}.afd-card{max-width:340px;margin:0 auto}}
 /* 页脚 GitHub */
