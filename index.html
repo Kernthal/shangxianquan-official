@@ -1659,16 +1659,5 @@ if(mtabItems.length){
 .ft-gh{display:inline-flex;align-items:center;gap:9px;color:#8d8271;text-decoration:none;font-size:14px;border:1px solid #d8d0c0;border-radius:999px;padding:9px 22px;transition:all .2s}
 .ft-gh:hover{color:#3b2f25;border-color:#8d8271;transform:translateY(-1px)}
 </style>
-<script>
-(function(){
-  // 主页大卡三图轮播（月/季/年，5 秒一换）
-  var poster=document.querySelector('.afd-poster');
-  if(poster){
-    var cycle=['./img/afdian-card.png','./img/afd-plan-year.png','./img/afd-plan-month.png'],ci=0;
-    poster.style.transition='opacity .26s ease';
-    setInterval(function(){ ci=(ci+1)%cycle.length; poster.style.opacity=0; setTimeout(function(){ poster.src=cycle[ci]; poster.style.opacity=1; },260); },5000);
-  }
-})();
-</script>
 </body>
 </html>
