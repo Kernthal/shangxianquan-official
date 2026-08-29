@@ -887,9 +887,18 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         </ul>
         <p class="afd-key">★ 下单时请在「留言」填写你的<strong>贤圈ID</strong>（App「设置 → 关于」可查），付款后自动识别到账，无需人工审核。</p>
         <div class="afd-acts">
-          <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=052a1724a2f511f1a9855254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·月 ¥6</a>
-          <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=218168a0a2f511f1b3255254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·季 ¥13</a>
-          <a class="afd-btn hot" href="https://ifdian.net/order/create?plan_id=b1a15b58a2f411f18a1052540025c377&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·年 ¥46.8 超值</a>
+          <span class="afd-item">
+            <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=052a1724a2f511f1a9855254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·月 ¥6</a>
+            <span class="afd-pop"><img src="./img/afd-plan-month.png" alt="贤士卡·月方案卡" loading="lazy"><i>月卡 · ¥6/月 · 随时停</i></span>
+          </span>
+          <span class="afd-item">
+            <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=218168a0a2f511f1b3255254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·季 ¥13</a>
+            <span class="afd-pop"><img src="./img/afd-plan-quarter.png" alt="贤士卡·季方案卡" loading="lazy"><i>季卡 · ¥13/季 · 立省 5 元</i></span>
+          </span>
+          <span class="afd-item afd-item-right">
+            <a class="afd-btn hot" href="https://ifdian.net/order/create?plan_id=b1a15b58a2f411f18a1052540025c377&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·年 ¥46.8 超值</a>
+            <span class="afd-pop"><img src="./img/afd-plan-year.png" alt="贤士卡·年方案卡" loading="lazy"><i>年卡 · ¥46.8/年 · 立省 25 元</i></span>
+          </span>
         </div>
         <div class="afd-acts">
           <a class="afd-more" href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">或前往爱发电主页 · 任意金额支持 / 加鸡腿 →</a>
@@ -1601,21 +1610,28 @@ if(mtabItems.length){
 .afd-key{background:rgba(214,72,47,.07);border-left:3px solid #d6482f;padding:10px 14px;border-radius:0 10px 10px 0;font-size:14px;color:#8a3a22}
 .afd-key strong{color:#d6482f}
 .afd-acts{margin:18px 0 10px;display:flex;flex-wrap:wrap;gap:12px}
-.afd-btn{position:relative;overflow:hidden;display:inline-block;background:linear-gradient(135deg,#9b6ce0,#7b4fd1);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:999px;text-decoration:none;box-shadow:0 8px 22px rgba(123,79,209,.35);transition:transform .3s cubic-bezier(.2,.9,.3,1.45),box-shadow .3s ease}
+.afd-btn{position:relative;overflow:hidden;display:inline-block;background:linear-gradient(135deg,#d0492a,#a53517);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:999px;text-decoration:none;box-shadow:0 8px 22px rgba(168,53,23,.35);transition:transform .3s cubic-bezier(.2,.9,.3,1.45),box-shadow .3s ease}
 .afd-btn::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .55s ease}
-.afd-btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 16px 34px rgba(123,79,209,.5)}
+.afd-btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 16px 34px rgba(168,53,23,.5)}
 .afd-btn:hover::after{left:125%}
 .afd-btn:active{transform:translateY(-1px) scale(.97)}
 .afd-btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:afdRipple .55s ease-out forwards;pointer-events:none}
 @keyframes afdRipple{to{transform:scale(3.2);opacity:0}}
-.afd-btn.hot{background:linear-gradient(135deg,#e9a13c,#d6482f);box-shadow:0 8px 22px rgba(214,72,47,.35)}
-.afd-btn.hot:hover{box-shadow:0 16px 34px rgba(214,72,47,.5)}
+.afd-btn.hot{background:linear-gradient(135deg,#332d24,#191611);border:1.5px solid rgba(185,138,47,.7);box-shadow:0 8px 22px rgba(25,22,17,.4)}
+.afd-btn.hot:hover{box-shadow:0 16px 34px rgba(25,22,17,.55),0 0 0 4px rgba(185,138,47,.15)}
 .afd-more{display:inline-block;font-size:14px;color:#7b4fd1;text-decoration:underline}
 .afd-minor{font-size:12.5px;color:#a2937f}
-/* 悬浮图片预览：月/季/年按钮分别浮现对应贤士卡 */
-.afd-preview{position:fixed;z-index:1200;width:250px;border-radius:22px;box-shadow:0 24px 60px rgba(40,25,10,.4);pointer-events:none;opacity:0;transform:translateY(10px) scale(.93);transition:opacity .2s ease,transform .28s cubic-bezier(.2,.9,.3,1.35);overflow:hidden;background:#fff}
-.afd-preview.show{opacity:1;transform:translateY(0) scale(1)}
-.afd-preview img{width:100%;display:block}
+/* 悬停按钮 → 下方展开对应的一张方案卡（大图，不跟鼠标，不遮按钮） */
+.afd-item{position:relative;display:inline-block}
+.afd-pop{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px) scale(.95);width:min(340px,78vw);z-index:60;pointer-events:none;opacity:0;transition:opacity .22s ease,transform .3s cubic-bezier(.2,.9,.3,1.3);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 22px 54px rgba(40,25,10,.32)}
+.afd-item:hover .afd-pop{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+.afd-item-right .afd-pop{left:auto;right:0;transform:translateY(8px) scale(.95)}
+.afd-item-right:hover .afd-pop{transform:translateY(0) scale(1)}
+.afd-pop::before{content:"";position:absolute;top:-10px;left:50%;width:70px;height:12px;transform:translateX(-50%)}
+.afd-item-right .afd-pop::before{left:auto;right:34px}
+.afd-pop img{width:100%;display:block}
+.afd-pop i{display:block;font-style:normal;text-align:center;font-size:13px;font-weight:700;color:#7a5c1e;background:#fffdf7;border-top:1px solid #f2ead8;padding:9px 8px;letter-spacing:1px}
+@media (hover:none){.afd-pop{display:none}}
 /* 章节目录侧栏 */
 .reader-body{display:grid;grid-template-columns:216px minmax(0,1fr);gap:18px;align-items:start}
 .ch-toc{position:sticky;top:86px;max-height:66vh;overflow:auto;background:var(--paper2);border-radius:16px;padding:14px 10px;scrollbar-width:thin}
@@ -1637,41 +1653,22 @@ if(mtabItems.length){
 .sec-rail a.on .dot{background:var(--cinnabar);transform:scale(1.45);box-shadow:0 0 0 4px rgba(200,64,31,.15)}
 .sec-rail a.on .rl{opacity:1;transform:none;color:var(--cinnabar);font-weight:700}
 @media (max-width:1180px){.sec-rail{display:none}}
-@media (max-width:860px){.afd-grid{grid-template-columns:1fr}.afd-card{max-width:340px;margin:0 auto}.afd-preview{display:none}}
+@media (max-width:860px){.afd-grid{grid-template-columns:1fr}.afd-card{max-width:340px;margin:0 auto}}
 /* 页脚 GitHub */
 .ft-gh-row{display:flex;justify-content:center;padding:6px 0 26px}
 .ft-gh{display:inline-flex;align-items:center;gap:9px;color:#8d8271;text-decoration:none;font-size:14px;border:1px solid #d8d0c0;border-radius:999px;padding:9px 22px;transition:all .2s}
 .ft-gh:hover{color:#3b2f25;border-color:#8d8271;transform:translateY(-1px)}
 </style>
-<!-- 爱发电卡片悬浮预览 -->
-<div class="afd-preview" id="afdPreview"><img src="./img/afdian-card.png" alt="贤士卡预览"></div>
 <script>
 (function(){
-  var pv=document.getElementById('afdPreview'),img=pv?pv.querySelector('img'):null;if(!pv)return;
-  var MAP=[['052a1724','./img/afd-plan-month.png'],['218168a0','./img/afd-plan-quarter.png'],['b1a15b58','./img/afd-plan-year.png']];
-  document.querySelectorAll('.afd-btn').forEach(function(b){
-    b.addEventListener('mouseenter',function(e){
-      var href=b.getAttribute('href')||'';
-      img.src='./img/afdian-card.png';
-      for(var i=0;i<MAP.length;i++){ if(href.indexOf(MAP[i][0])>=0){ img.src=MAP[i][1]; break; } }
-      pv.classList.add('show');
-    });
-    b.addEventListener('mousemove',function(e){
-      var x=e.clientX+18,y=e.clientY+14;
-      if(x+270>window.innerWidth)x=e.clientX-270;
-      if(y+320>window.innerHeight)y=e.clientY-320;
-      pv.style.left=x+'px';pv.style.top=y+'px';
-    });
-    b.addEventListener('mouseleave',function(){pv.classList.remove('show');});
-  });
-  // 主页大卡也换三图轮播（月/季/年，5 秒一换）
+  // 主页大卡三图轮播（月/季/年，5 秒一换）
   var poster=document.querySelector('.afd-poster');
   if(poster){
     var cycle=['./img/afdian-card.png','./img/afd-plan-year.png','./img/afd-plan-month.png'],ci=0;
-    setInterval(function(){ ci=(ci+1)%cycle.length; poster.style.opacity=0; setTimeout(function(){ poster.src=cycle[ci]; poster.style.opacity=1; },260); },5000);
     poster.style.transition='opacity .26s ease';
+    setInterval(function(){ ci=(ci+1)%cycle.length; poster.style.opacity=0; setTimeout(function(){ poster.src=cycle[ci]; poster.style.opacity=1; },260); },5000);
   }
-});
+})();
 </script>
 </body>
 </html>
