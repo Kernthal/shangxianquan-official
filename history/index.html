@@ -9,35 +9,75 @@
 <link rel="canonical" href="https://kernthal.github.io/shangxianquan-official/history/">
 <meta name="theme-color" content="#f4efe6">
 <style>
-:root{--paper:#f4efe6;--paper2:#ece5d6;--ink:#1c1a17;--ink2:#57503f;--muted:#8d8271;--line:#e2dbcb;--cinnabar:#c8401f;--gold:#b98a2f;--serif:"Source Han Serif SC","Noto Serif SC","Songti SC","STSong",serif;--sans:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+:root{--paper:#f4efe6;--paper2:#ece5d6;--ink:#1c1a17;--ink2:#57503f;--muted:#8d8271;--line:#e2dbcb;--cinnabar:#c8401f;--cinnabar2:#a53517;--gold:#b98a2f;--serif:"Source Han Serif SC","Noto Serif SC","Songti SC","STSong",serif;--sans:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75;overflow-x:hidden}
 a{color:inherit}
-.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;background:rgba(244,239,230,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 22px}
-.seal{width:34px;height:34px;border-radius:10px;background:var(--cinnabar);color:#fff;font-family:var(--serif);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center}
+/* 常驻氛围：极光纸纹背景缓慢游移 */
+body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(38% 30% at 18% 22%,rgba(200,64,31,.06),transparent 70%),
+    radial-gradient(42% 34% at 82% 18%,rgba(185,138,47,.08),transparent 70%),
+    radial-gradient(40% 32% at 50% 88%,rgba(90,110,160,.06),transparent 70%);
+  animation:aurora 26s ease-in-out infinite alternate}
+@keyframes aurora{0%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(2.4%,-1.6%) rotate(1.2deg)}100%{transform:translate(-2%,1.8%) rotate(-1deg)}}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;background:rgba(244,239,230,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 22px}
+.seal{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar2));color:#fff;font-family:var(--serif);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(168,53,23,.3);animation:sealFloat 5s ease-in-out infinite}
+@keyframes sealFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-2.5px) rotate(-2deg)}}
 .brand{font-family:var(--serif);font-weight:900;font-size:18px;letter-spacing:3px}
 .brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:2px;font-weight:400}
-.back{margin-left:auto;font-size:13px;color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 18px;transition:.2s}
-.back:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
-.wrap{max-width:860px;margin:0 auto;padding:38px 20px 80px}
-h1{font-family:var(--serif);font-weight:900;font-size:clamp(26px,5vw,38px);letter-spacing:4px;margin:0 0 6px}
-.sub{color:var(--ink2);font-size:14px;margin:0 0 26px}
-.notice{background:rgba(185,138,47,.08);border:1px solid rgba(185,138,47,.3);border-radius:12px;padding:12px 16px;font-size:13px;color:#7a5c1e;margin-bottom:26px}
-.ver{border:1px solid var(--line);border-radius:18px;background:#fffdf7;padding:22px 24px;margin-bottom:16px;transition:box-shadow .25s ease,transform .25s ease}
-.ver:hover{box-shadow:0 14px 36px rgba(60,40,20,.1);transform:translateY(-2px)}
-.ver.latest{border-color:rgba(200,64,31,.4);background:linear-gradient(150deg,#fffdf8,#faf1e4)}
+.back{margin-left:auto;font-size:13px;color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 18px;transition:.25s}
+.back:hover{color:#fff;background:var(--cinnabar);border-color:var(--cinnabar);transform:translateY(-1px)}
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:40px 20px 90px}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(26px,5vw,38px);letter-spacing:4px;margin:0 0 6px;display:inline-block}
+h1::after{content:"";display:block;width:56px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--cinnabar),var(--gold));margin-top:10px;animation:linePulse 3.2s ease-in-out infinite}
+@keyframes linePulse{0%,100%{opacity:.55;transform:scaleX(.86)}50%{opacity:1;transform:scaleX(1)}}
+.sub{color:var(--ink2);font-size:14px;margin:12px 0 24px}
+.notice{background:rgba(185,138,47,.09);border:1px solid rgba(185,138,47,.32);border-radius:14px;padding:12px 16px;font-size:13px;color:#7a5c1e;margin-bottom:30px;display:flex;gap:10px;align-items:flex-start}
+.notice .bell{animation:bellSwing 3.4s ease-in-out infinite;transform-origin:top center}
+@keyframes bellSwing{0%,100%{transform:rotate(0)}8%{transform:rotate(9deg)}16%{transform:rotate(-8deg)}24%{transform:rotate(5deg)}32%{transform:rotate(0)}}
+/* 版本卡 + 信封展开特效：更新说明默认封存，悬停像拆信一样展开 */
+.ver{position:relative;border:1px solid var(--line);border-radius:20px;background:#fffdf7;padding:22px 24px 18px;margin-bottom:18px;transition:box-shadow .3s ease,transform .3s cubic-bezier(.2,.9,.3,1.15),border-color .3s ease}
+.ver:hover{box-shadow:0 18px 44px rgba(60,40,20,.13);transform:translateY(-3px);border-color:rgba(200,64,31,.35)}
+.ver.latest{border-color:rgba(200,64,31,.45);background:linear-gradient(150deg,#fffdf8,#faf1e4)}
 .ver-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .v{font-family:Georgia,monospace;font-weight:700;font-size:20px;color:var(--cinnabar)}
-.tag{font-size:11px;background:var(--cinnabar);color:#fff;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.tag{font-size:11px;background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar2));color:#fff;padding:3px 10px;border-radius:999px;letter-spacing:1px}
 .tag.gray{background:var(--paper2);color:var(--muted)}
 .date{font-size:12.5px;color:var(--muted);font-family:Georgia,monospace;margin-left:auto}
-.size{font-size:12px;color:var(--gold);border:1px dashed rgba(185,138,47,.5);border-radius:999px;padding:2px 10px}
-.notes{margin:10px 0 0;font-size:13.5px;color:var(--ink2)}
-.dl{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;text-decoration:none;color:#fff;background:var(--ink);border-radius:999px;padding:9px 20px;transition:.25s cubic-bezier(.2,.9,.3,1.3)}
-.dl:hover{background:var(--cinnabar);transform:translateY(-2px)}
+.size{font-size:12px;color:var(--gold);border:1px dashed rgba(185,138,47,.55);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.env{margin-top:14px;perspective:900px}
+.env-cover{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(135deg,#f7f1e3,#efe6d0);border:1px solid var(--line);border-radius:12px;padding:11px 16px;overflow:hidden;transition:opacity .35s ease,transform .35s ease;cursor:pointer}
+.env-cover::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-18deg);animation:coverSheen 4.2s ease-in-out infinite}
+@keyframes coverSheen{0%,55%,100%{left:-60%}75%,85%{left:120%}}
+.env-cover .env-k{font-size:13px;font-weight:800;color:#7a5c1e;letter-spacing:2px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.env-cover .env-hint{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.env-stamp{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d8583a,var(--cinnabar2));color:#fff;font-family:var(--serif);font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 9px rgba(168,53,23,.4);flex-shrink:0;animation:stampWobble 3.8s ease-in-out infinite}
+@keyframes stampWobble{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg) scale(1.05)}}
+.ver:hover .env-cover{opacity:0;transform:translateY(-10px) scale(.97)}
+.env-letter{overflow:hidden;max-height:0;opacity:0;transform:rotateX(-62deg);transform-origin:top center;transition:max-height .55s cubic-bezier(.2,.85,.3,1.05),opacity .4s ease .08s,transform .55s cubic-bezier(.2,.85,.3,1.05);border:1px dashed rgba(185,138,47,.5);border-radius:12px;background:#fffef9;margin-top:-1px}
+.ver:hover .env-letter{max-height:420px;opacity:1;transform:rotateX(0)}
+.env-letter .paper-in{padding:16px 18px 14px;font-size:13.5px;color:var(--ink2);line-height:1.9;position:relative}
+.env-letter .paper-in::before{content:"更新说明";position:absolute;top:-9px;left:16px;background:var(--gold);color:#fff;font-size:10.5px;letter-spacing:2px;padding:2px 12px;border-radius:999px}
+.env-seal-line{display:flex;align-items:center;margin-top:12px}
+.env-seal-line::before,.env-seal-line::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line));animation:lineBreath 3s ease-in-out infinite}
+.env-seal-line::after{background:linear-gradient(90deg,var(--line),transparent)}
+.env-seal-line .mini-seal{width:8px;height:8px;border-radius:50%;background:var(--gold);margin:0 10px;animation:miniPulse 3s ease-in-out infinite}
+@keyframes lineBreath{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes miniPulse{0%,100%{transform:scale(.8);opacity:.6}50%{transform:scale(1.25);opacity:1}}
+.dl{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar2));border-radius:999px;padding:10px 24px;transition:.3s cubic-bezier(.2,.9,.3,1.35);box-shadow:0 8px 20px rgba(168,53,23,.28)}
+.dl::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:coverSheen 4.2s ease-in-out infinite;animation-delay:.9s}
+.dl:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 28px rgba(168,53,23,.4)}
 .loading{text-align:center;color:var(--muted);padding:60px 0}
-footer{border-top:1px solid var(--line);padding:26px;text-align:center;font-size:12.5px;color:var(--muted)}
+.loading .spin{display:inline-block;width:26px;height:26px;border:3px solid var(--paper2);border-top-color:var(--cinnabar);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+footer{border-top:1px solid var(--line);padding:26px;text-align:center;font-size:12.5px;color:var(--muted);position:relative;z-index:1}
+/* 入场：卡片交错浮现 */
+.ver{opacity:0;transform:translateY(14px)}
+.ver.in{animation:cardIn .55s cubic-bezier(.2,.9,.3,1.1) forwards}
+@keyframes cardIn{to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.ver{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -48,9 +88,9 @@ footer{border-top:1px solid var(--line);padding:26px;text-align:center;font-size
 </div>
 <div class="wrap">
   <h1>全部历史版本</h1>
-  <p class="sub">每一个发布过的版本都在这里：实测安装包大小、发布日期与完整更新说明，永久公开、不可篡改。</p>
-  <div class="notice">大小均为对官方 CDN 直链 HTTP 实测的字节数（非估算）。微信内无法直接下载，请在系统浏览器打开。</div>
-  <div id="list"><div class="loading">正在加载版本档案…</div></div>
+  <p class="sub">每一个发布过的版本都在这里：实测安装包大小、发布日期与信封封存的完整更新说明，永久公开、不可篡改。</p>
+  <div class="notice"><span class="bell">🔔</span><span>大小均为对官方 CDN 直链 HTTP 实测的字节数（非估算）。把鼠标停在卡片上，信封会自动展开当版更新说明；移开后重新封存。微信内无法直接下载，请在系统浏览器打开。</span></div>
+  <div id="list"><div class="loading"><div><span class="spin"></span></div>正在加载版本档案…</div></div>
 </div>
 <footer>尚贤圈 · Kernthal Studio 出品 · 构建流水线自动维护本页数据</footer>
 <script>
@@ -67,26 +107,32 @@ function render(d){
   const total=items.reduce((n,x)=>n+(x.size||0),0);
   const list=document.getElementById('list');
   list.innerHTML=items.map((v,i)=>{
-    const size=v.size?(v.size/1048576).toFixed(1)+' MB':'实测中…';
-    return '<article class="ver'+(i===0?' latest':'')+'">'+
+    const size=v.size?(v.size/1048576).toFixed(1)+' MB · 实测':'实测中…';
+    const short=(v.notes||'').slice(0,26)+'…';
+    return '<article class="ver'+(i===0?' latest':'')+'" style="animation-delay:'+(i*70)+'ms">'+
       '<div class="ver-head"><span class="v">v'+v.version+'</span>'+
       (i===0?'<span class="tag">最新稳定版</span>':'<span class="tag gray">历史版本</span>')+
       '<span class="size">'+size+'</span>'+
       '<span class="date">'+(v.date||'')+'</span></div>'+
-      '<p class="notes">'+(v.notes||'')+'</p>'+
+      '<div class="env">'+
+        '<div class="env-cover"><span class="env-k">✉ 更新说明<span class="env-hint">（悬停展开 · 移开封存）</span></span><span class="env-hint">'+short.replace(/</g,'&lt;')+'</span><span class="env-stamp">贤</span></div>'+
+        '<div class="env-letter"><div class="paper-in">'+(v.notes||'暂无说明')+'</div></div>'+
+      '</div>'+
+      '<div class="env-seal-line"><span class="mini-seal"></span></div>'+
       '<a class="dl" href="'+v.url+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>下载 APK（'+v.version+'）</a>'+
     '</article>';
   }).join('');
-  document.querySelectorAll('.ver .size').forEach(async(el,i)=>{
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ document.querySelectorAll('.ver').forEach(function(el){el.classList.add('in')}); }); });
+  document.querySelectorAll('.ver .size').forEach(async function(el,i){
     if(items[i].size)return;
     try{
       const r=await fetch(items[i].url,{method:'HEAD'});
       const len=parseInt(r.headers.get('content-length')||'0');
-      if(len>0)el.textContent=(len/1048576).toFixed(1)+' MB';
+      if(len>0)el.textContent=(len/1048576).toFixed(1)+' MB · 实测';
     }catch(e){}
   });
   const sub=document.querySelector('.sub');
-  if(sub)sub.textContent='共 '+items.length+' 个版本，累计发布 '+Math.round(total/1048576)+' MB。每个版本都有实测安装包大小、发布日期与完整更新说明，永久公开、不可篡改。';
+  if(sub)sub.textContent='共 '+items.length+' 个版本，累计发布 '+Math.round(total/1048576)+' MB。每个版本都有实测安装包大小、发布日期与信封封存的完整更新说明，永久公开、不可篡改。';
 }
 </script>
 </body>
