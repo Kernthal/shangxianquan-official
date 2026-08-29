@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="尚贤圈 ShangXian Quan">
 <meta property="og:title" content="尚贤圈 · 见贤思齐，以文会友">
-<meta property="og:description" content="为校园而生的半匿名信息交流圈：树洞、求助、二手、社团、学习、闲聊六大版块，十二篇联动规则，纯净无广告。">
+<meta property="og:description" content="为校园而生的半匿名信息交流圈：树洞、求助、二手、社团、学习、闲聊六大版块，二二十二篇联动规则，纯净无广告。">
 <meta property="og:url" content="https://kernthal.github.io/shangxianquan-official/">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary">
@@ -86,6 +86,7 @@ main,nav,footer{position:relative;z-index:1}
 .brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:2px;font-weight:400}
 .nav-links{margin-left:auto;display:none;gap:22px}
 .nav-links a{color:var(--ink2);text-decoration:none;font-size:14px;letter-spacing:1px;padding:6px 2px;border-bottom:2px solid transparent;transition:.2s}
+.nav-links a.on{color:var(--cinnabar);border-bottom-color:var(--cinnabar);font-weight:700}
 .nav-links a:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
 .dl-cta{margin-left:auto;background:var(--ink);color:#fff;font-size:13px;text-decoration:none;
  padding:9px 18px;border-radius:999px;letter-spacing:1px;transition:.2s}
@@ -578,11 +579,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
   <div class="seal">贤</div>
   <div class="brand">尚贤圈<small>SHANGXIAN QUAN</small></div>
   <div class="nav-links">
-    <a href="#features">特性</a><a href="#dashboard">看板</a><a href="#voices">心声</a><a href="#versions">下载</a><a href="#rules">规则中心</a><a href="#faq">答疑</a>
+    <a href="#features" data-spy="features">特性</a><a href="#dashboard" data-spy="dashboard">看板</a><a href="#voices" data-spy="voices">心声</a><a href="#versions" data-spy="versions">下载</a><a href="#rules" data-spy="rules">规则中心</a><a href="#faq" data-spy="faq">答疑</a>
   </div>
   <a class="dl-cta" href="#versions">立即下载</a>
 </nav>
 
+<nav class="sec-rail" id="secRail" aria-label="全区块快速导航"></nav>
 <main id="main">
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero" id="top">
@@ -606,7 +608,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
     <div class="hero-badges">
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#c8401f" stroke-width="2"/></svg>半匿名保护壳</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="#b98a2f" stroke-width="2" stroke-linejoin="round"/></svg>私信准实时同步</span>
-      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#2f7a54" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#2f7a54" stroke-width="2"/></svg>十二篇联动规则</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#2f7a54" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#2f7a54" stroke-width="2"/></svg>二二十二篇联动规则</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#c8401f" stroke-width="2"/><path d="M5 5l14 14" stroke="#c8401f" stroke-width="2"/></svg>永不做广告分发</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#3a6dd0" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="#3a6dd0" stroke-width="2" stroke-linecap="round"/></svg>未成年特别防护</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#7a54c8" stroke-width="2" stroke-linecap="round"/></svg>极简无广告 · 无氪金</span>
@@ -625,7 +627,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
       <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v13H4V7zM4 7l2-3h12l2 3" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 11a3 3 0 016 0" stroke="#fff" stroke-width="1.8"/></svg></div><h3>二手 · 让闲置流动</h3><p>教材、生活用具与电子设备明码标价、当面验货。平台仅作信息之桥，交易安全守则全程为您护航。</p></div>
       <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#3a6dd0,#274ba0)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4a8 8 0 108 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M12 8v4l3 2M16 3l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#fff"/></svg></div><h3>社团 · 找到同好</h3><p>招新与活动信息一手呈现，报名截止一目了然。平台拒绝一切隐形收费与商业套路。</p></div>
       <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#7a54c8,#55378f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v10H9l-5 4V6z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>私信 · 准实时同步</h3><p>互关畅聊、陌生日限一条以防骚扰。未读红点约十五秒全站点亮，两分钟内长按即可撤回。</p></div>
-      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#d06a8a,#a84a68)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#fff" stroke-width="1.8"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>规则中心 · 十二篇联动</h3><p>悬浮目录、进度可视化、四档字号一应俱全；文中书名号短语一键跳转互链，条款之间再无迷途。</p></div>
+      <div class="feat"><div class="feat-ic" style="background:linear-gradient(135deg,#d06a8a,#a84a68)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#fff" stroke-width="1.8"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>规则中心 · 二十二篇联动</h3><p>悬浮目录、进度可视化、四档字号一应俱全；文中书名号短语一键跳转互链，条款之间再无迷途。</p></div>
     </div>
   </div>
 </section>
@@ -650,7 +652,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
     <div class="compare">
       <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#c8401f,#9e3015)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8l6-4 6 4 6-4v12l-6 4-6-4-6 4V8z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 4v12M15 8v12" stroke="#fff" stroke-width="1.6"/></svg></div><div><h3>半匿名，而不失序</h3><p>匿名是表达的护甲，而非伤害的通行证。识别码仅用于违规追责，展示层彻底隐去身份，同时保留对不当内容的处置能力。自由与责任，始终并行。</p></div></div>
       <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#2f7a54,#1e5940)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="7" r="2" fill="#fff"/><circle cx="15" cy="12" r="2" fill="#fff"/></svg></div><div><h3>纯净而无商业侵扰</h3><p>无开屏广告、无信息流穿插、无个性化推送、无任何付费入口。整座平台只为校园对话而设，绝不向流量与利润低头。</p></div></div>
-      <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V7l7-3z" stroke="#fff" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h3>规则可查而可追溯</h3><p>十二篇规则文件互相引用、公开备查。每一次管理处置皆留存于操作日志，处罚必依条款，申诉自有完整途径。</p></div></div>
+      <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V7l7-3z" stroke="#fff" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h3>规则可查而可追溯</h3><p>二十二篇规则文件互相引用、公开备查。每一次管理处置皆留存于操作日志，处罚必依条款，申诉自有完整途径。</p></div></div>
       <div class="cmp"><div class="cmp-ic" style="background:linear-gradient(135deg,#3a6dd0,#274ba0)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#fff" stroke-width="1.6"/><path d="M12 9v6M9 12h6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h3>未成年人的特别守护</h3><p>涉未成年内容零容忍、冲突冷静期、夜间推送静默等层层设防，从产品逻辑与规则条文两个维度护佑学生身心。</p></div></div>
       <div class="cmp cmp-wide"><div class="cmp-ic" style="background:linear-gradient(135deg,#7a54c8,#55378f)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V5l5 3 3-2 3 2 5-3v16H4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 21h16" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></div><div><h3>学生自营 · 写实校园</h3><p>由学生开发者独立维护，体量小而响应快，无资本俯仰。每一条反馈都被郑重对待，每一条规则皆源自真实校园的反复打磨。</p></div></div>
     </div>
@@ -730,7 +732,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         </button>
         <button class="tour-step" role="tab" aria-selected="false" data-demo="link" id="step-link">
           <span class="tour-step-no">3</span>
-          <span><h4>规则中心互链</h4><p>书名号短语一键跳转，十二篇文档交叉引用</p></span>
+          <span><h4>规则中心互链</h4><p>书名号短语一键跳转，二十二篇文档交叉引用</p></span>
         </button>
       </div>
       <div class="tour-stage">
@@ -777,6 +779,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 <section id="versions" class="reveal">
   <div class="wrap">
     <div class="sec-head"><span class="sec-no">玖</span><h2 class="sec-title">版本发布 &amp; 下载</h2><div class="sec-line"></div></div>
+    <div style="text-align:right;margin-bottom:10px"><a class="his-link" href="./history/">查看全部历史版本（含每版实测大小与更新说明） →</a></div>
     <div class="timeline" id="timeline"></div>
     <p style="margin-top:8px;font-size:12.5px;color:var(--muted)" id="mirrorNote"></p>
   </div>
@@ -797,8 +800,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
       </div>
     </div>
     <div class="progress-wrap"><div class="progress-bar" id="rprog"></div></div>
-    <div class="paper" id="paper"><p>正在加载规则全文…</p></div>
-    <p class="rules-note">十二份文件互相引用、同等效力。蓝色虚线短语可在文档间直接跳转。页面内滚动时顶部进度条实时更新。</p>
+    <div class="reader-body">
+      <aside class="ch-toc" id="chTocBox"><div class="ch-toc-t">本篇目录</div><div id="chToc"></div></aside>
+      <div class="paper" id="paper"><p>正在加载规则全文…</p></div>
+    </div>
+    <p class="rules-note" id="rulesNote">文件互相引用、同等效力。蓝色虚线短语可在文档间直接跳转；左侧目录可跳任意章，读到哪亮到哪。</p>
   </div>
 </section>
 
@@ -835,7 +841,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         <div class="maker-mono" style="background:linear-gradient(135deg,#b98a2f,#8f6a1f)">SX</div>
         <h3>SX Campus Community</h3>
         <div class="maker-en">Campus Community Operator</div>
-        <p>尚贤圈的产品主体与社区治理方，专注校园内容生态的运营与秩序维护。负责六大专区的内容规范、违规处置、月度选举与十二篇规则体系的持续修订，让每一位校园用户都能安心表达、有据可依。</p>
+        <p>尚贤圈的产品主体与社区治理方，专注校园内容生态的运营与秩序维护。负责六大专区的内容规范、违规处置、月度选举与二十二篇规则体系的持续修订，让每一位校园用户都能安心表达、有据可依。</p>
         <div class="maker-tags"><span class="maker-tag">社区运营</span><span class="maker-tag">内容治理</span><span class="maker-tag">规则体系</span></div>
       </article>
     </div>
@@ -963,7 +969,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 <script>
 /* ---------- 数据加载（版本 + 法务） ---------- */
 const SB_PUBLIC = 'https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/';
-const FALLBACK = [{version:'1.0.7',code:107,date:'2026-08-27',notes:'星夜开屏动画 · 聊天准实时同步 · 权限引导页 · 十二篇规则中心阅读器 · 全量权限声明',url:SB_PUBLIC+'SXQ1.0.7.apk'}];
+const FALLBACK = [{version:'1.0.7',code:107,date:'2026-08-27',notes:'星夜开屏动画 · 聊天准实时同步 · 权限引导页 · 二十二篇规则中心阅读器 · 全量权限声明',url:SB_PUBLIC+'SXQ1.0.7.apk'}];
 let DOCS=null;
 
 function renderVersions(items){
@@ -979,7 +985,7 @@ function renderVersions(items){
       <div class="rel-actions">
         <a class="mini-btn" data-apk="${v.url}" href="${v.url}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-          直接下载 APK（${((v.size||13400000)/1048576).toFixed(1)}MB）
+          直接下载 APK（<span class="rel-size" data-url="${v.url}" data-size="${v.size||''}">${v.size?((v.size)/1048576).toFixed(1)+'MB · 实测':'获取实际大小…'}</span>）
         </a>
         <span class="rel-mirror">Supabase 全球 CDN 直链</span>
       </div>
@@ -992,6 +998,17 @@ function renderVersions(items){
     });
   });
 }
+/* 真实大小兜底：对缺 size 的版本逐一 HEAD 实测 CDN 字节数，杜绝虚标 */
+(function fillSizes(){
+  document.querySelectorAll('.rel-size[data-url]').forEach(async el=>{
+    if(el.dataset.size) return;
+    try{
+      const r=await fetch(el.dataset.url,{method:'HEAD'});
+      const len=parseInt(r.headers.get('content-length')||'0');
+      el.textContent = len>0 ? (len/1048576).toFixed(1)+'MB · 实测' : '直链下载';
+    }catch(e){ el.textContent='直链下载'; }
+  });
+})();
 // 版本数据多路径容错：CI 维护的 Supabase CDN 优先（发版即自动同步），本地 data/ 兜底
 (function loadVersions(){
   const V_PATHS=[SB_PUBLIC+'site/versions.json','./data/versions.json','./versions.json','assets/versions.json'];
@@ -1008,7 +1025,7 @@ function renderVersions(items){
 document.getElementById('wcMask').addEventListener('click',()=>document.getElementById('wcMask').classList.remove('show'));
 
 /* ---------- 规则中心阅读器 ---------- */
-const ALIAS=[['用户服务协议','agreement'],['隐私政策','privacy'],['文明公约','conduct'],['举报与处罚细则','enforcement'],['未成年人保护说明','minor'],['社区准则','community'],['内容审核与处置规则','moderation'],['私信与隐私保护细则','dmPrivacy'],['账号安全守则','accountSafety'],['知识产权声明','ip'],['未成年人保护条例','minorReg'],['用户权益与申诉制度','appeal']];
+const ALIAS=[['用户服务协议','agreement'],['隐私政策','privacy'],['文明公约','conduct'],['举报与处罚细则','enforcement'],['未成年人保护说明','minor'],['社区准则','community'],['内容审核与处置规则','moderation'],['私信与隐私保护细则','dmPrivacy'],['账号安全守则','accountSafety'],['知识产权声明','ip'],['未成年人保护条例','minorReg'],['用户权益与申诉制度','appeal'],['会员服务协议','membership'],['社区治理与仲裁细则','governance'],['数据安全与隐私白皮书','datapaper'],['原创保护与知识产权实施细则','copyrightRules'],['功能迭代与用户参与公约','iterationPact'],['付费与退款政策','paidRefund'],['订单识别与异常处理细则','orderIdent'],['权益与额度总则','perkQuota'],['打赏与消费提示','tipConsume'],['未尽事宜与解释权公约','miscSupp']];
 const FS=['15.5px','17px','19.5px','22.5px'];
 let curDoc='agreement';
 
@@ -1043,7 +1060,33 @@ function showDoc(key){
     p.innerHTML=renderPara(line);
     paper.appendChild(p);
   });
+  buildChToc();
   paper.scrollTop=0;updateProg();
+}
+/* 章节目录：读到哪亮到哪，点击丝滑跳章 */
+let chHeads=[];
+function buildChToc(){
+  const paper=document.getElementById('paper');
+  const box=document.getElementById('chToc');
+  if(!box)return;box.innerHTML='';
+  chHeads=[...paper.querySelectorAll('.h')];
+  chHeads.forEach((el,i)=>{
+    el.id='ch-'+i;
+    const b=document.createElement('button');
+    b.className='ch-it';b.type='button';b.textContent=el.textContent;
+    b.onclick=()=>paper.scrollTo({top:el.offsetTop-10,behavior:'smooth'});
+    box.appendChild(b);
+  });
+}
+function spyChToc(){
+  const heads=chHeads;if(!heads.length)return;
+  const box=document.getElementById('chToc');if(!box)return;
+  const st=document.getElementById('paper').scrollTop+90;
+  let cur=0;
+  for(let i=0;i<heads.length;i++){ if(heads[i].offsetTop<=st)cur=i; else break; }
+  [...box.children].forEach((c,i)=>c.classList.toggle('on',i===cur));
+  const act=box.children[cur];
+  if(act&&act.scrollIntoView){ const r=act.getBoundingClientRect(),br=box.getBoundingClientRect(); if(r.top<br.top+8||r.bottom>br.bottom-8) act.scrollIntoView({block:'nearest'}); }
 }
 function loadDocs(){
   // 多路径容错：本地 data/ → 根目录 → 远端 storage，确保规则永不因路径缺失而加载失败
@@ -1077,7 +1120,7 @@ function updateProg(){
   const r=paper.scrollTop/(Math.max(paper.scrollHeight-paper.clientHeight,1));
   document.getElementById('rprog').style.width=Math.round(r*100)+'%';
 }
-paper.addEventListener('scroll',updateProg);
+paper.addEventListener('scroll',()=>{updateProg();spyChToc();});
 
 /* 互链委托 */
 document.getElementById('paper').addEventListener('click',e=>{
@@ -1222,7 +1265,7 @@ const TOUR_DEMOS = {
     kind:'quota', hint:'点击下方按钮模拟一次匿名发布，观察额度扣减与保护状态。' },
   flow: { title:'私信限流状态机', sub:'未互关时每日仅可发送一条首条消息，对方回复后当日畅聊；建立互关后完全解除限制。',
     kind:'flow', hint:'点击按钮模拟「对方回复」，观察限制解除。' },
-  link: { title:'规则中心互链', sub:'凡是文中出现的《文件名》短语均可直接点击，在十二篇规则文档间交叉跳转。',
+  link: { title:'规则中心互链', sub:'凡是文中出现的《文件名》短语均可直接点击，在二十二篇规则文档间交叉跳转。',
     kind:'link', hint:'点击下方蓝色短语体验跨篇跳转。' }
 };
 const ROADMAP = [
@@ -1479,6 +1522,54 @@ if(paraEls.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matc
   },{passive:true});
 }
 
+/* ---------- 顶部导航 + 右侧全区块导航 scrollspy ---------- */
+(function(){
+  const SECTIONS=[
+    ['top','顶部'],['features','这里有什么'],['stats','社区一览'],['why','为什么选尚贤圈'],['how','三步上手'],
+    ['dashboard','运行数据看板'],['tour','功能交互导览'],['voices','用户之声'],['roadmap','发展路线图'],
+    ['versions','版本下载'],['rules','规则中心'],['faq','常见疑问'],['makers','出品方'],['afdian','为爱发电']
+  ];
+  // 14 个锚点（top + 13 区块）建右侧栏
+  const rail=document.getElementById('secRail');
+  if(rail){
+    rail.innerHTML=SECTIONS.map(([id,name])=>'<a href="#'+id+'" data-sec="'+id+'"><span class="rl">'+name+'</span><span class="dot"></span></a>').join('');
+  }
+  const navMap=[...document.querySelectorAll('.nav-links a[data-spy]')].map(a=>[a.dataset.spy,a]);
+  const order=SECTIONS.map(s=>s[0]);
+  let cur='top';
+  function onScroll(){
+    const y=window.scrollY+window.innerHeight*0.35;
+    let c='top';
+    for(const [id] of SECTIONS){ const el=document.getElementById(id); if(el && el.offsetTop<=y) c=id; }
+    if(c!==cur){
+      cur=c;
+      // 右侧栏高亮
+      if(rail) rail.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.sec===c));
+      // 顶部导航：当前区块高亮，非导航区块则高亮其前方最近的导航项
+      const ci=order.indexOf(c);
+      let active=null;
+      for(const [id,a] of navMap){ if(order.indexOf(id)<=ci) active=a; }
+      navMap.forEach(([id,a])=>a.classList.toggle('on',a===active));
+    }
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  // 下单按钮点击涟漪
+  document.querySelectorAll('.afd-btn').forEach(b=>{
+    b.addEventListener('click',e=>{
+      const r=document.createElement('span');
+      const rect=b.getBoundingClientRect();
+      const d=Math.max(rect.width,rect.height);
+      r.className='ripple';
+      r.style.width=r.style.height=d+'px';
+      r.style.left=(e.clientX-rect.left-d/2)+'px';
+      r.style.top=(e.clientY-rect.top-d/2)+'px';
+      b.appendChild(r);
+      setTimeout(()=>r.remove(),600);
+    });
+  });
+})();
+
 /* ---------- 移动端底部 Tab scrollspy ---------- */
 const mtabItems=document.querySelectorAll('.mtab-item');
 if(mtabItems.length){
@@ -1500,24 +1591,87 @@ if(mtabItems.length){
 <style>
 /* 拾叁 · 为爱发电 */
 .afd-grid{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:38px;align-items:start}
-.afd-card{background:#fff;border:1px solid #e8e2d6;border-radius:18px;padding:14px;box-shadow:0 12px 34px rgba(60,40,20,.10)}
-.afd-poster{width:100%;display:block;border-radius:10px}
+.afd-card{background:transparent;border:none;border-radius:28px;padding:0;box-shadow:0 18px 48px rgba(60,40,20,.16);overflow:hidden;transition:transform .35s cubic-bezier(.2,.9,.3,1.2),box-shadow .35s ease}
+.afd-card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(60,40,20,.2)}
+.afd-poster{width:100%;display:block;border-radius:28px;transition:transform .5s cubic-bezier(.19,1,.29,1)}
+.afd-card:hover .afd-poster{transform:scale(1.015)}
 .afd-info h3{font-size:22px;margin:0 0 12px;color:#3b2f25}
 .afd-info p{font-size:15px;line-height:1.9;color:#6a5d4d;margin:0 0 12px}
 .afd-list{margin:0 0 14px;padding-left:20px;font-size:14.5px;line-height:2.0;color:#5c5041}
 .afd-key{background:rgba(214,72,47,.07);border-left:3px solid #d6482f;padding:10px 14px;border-radius:0 10px 10px 0;font-size:14px;color:#8a3a22}
 .afd-key strong{color:#d6482f}
 .afd-acts{margin:18px 0 10px;display:flex;flex-wrap:wrap;gap:12px}
-.afd-btn{display:inline-block;background:linear-gradient(135deg,#9b6ce0,#7b4fd1);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:999px;text-decoration:none;box-shadow:0 8px 22px rgba(123,79,209,.35);transition:transform .15s}
-.afd-btn:hover{transform:translateY(-2px)}
+.afd-btn{position:relative;overflow:hidden;display:inline-block;background:linear-gradient(135deg,#9b6ce0,#7b4fd1);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:999px;text-decoration:none;box-shadow:0 8px 22px rgba(123,79,209,.35);transition:transform .3s cubic-bezier(.2,.9,.3,1.45),box-shadow .3s ease}
+.afd-btn::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .55s ease}
+.afd-btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 16px 34px rgba(123,79,209,.5)}
+.afd-btn:hover::after{left:125%}
+.afd-btn:active{transform:translateY(-1px) scale(.97)}
+.afd-btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:afdRipple .55s ease-out forwards;pointer-events:none}
+@keyframes afdRipple{to{transform:scale(3.2);opacity:0}}
 .afd-btn.hot{background:linear-gradient(135deg,#e9a13c,#d6482f);box-shadow:0 8px 22px rgba(214,72,47,.35)}
+.afd-btn.hot:hover{box-shadow:0 16px 34px rgba(214,72,47,.5)}
 .afd-more{display:inline-block;font-size:14px;color:#7b4fd1;text-decoration:underline}
 .afd-minor{font-size:12.5px;color:#a2937f}
-@media (max-width:860px){.afd-grid{grid-template-columns:1fr}.afd-card{max-width:340px;margin:0 auto}}
+/* 悬浮图片预览：月/季/年按钮分别浮现对应贤士卡 */
+.afd-preview{position:fixed;z-index:1200;width:250px;border-radius:22px;box-shadow:0 24px 60px rgba(40,25,10,.4);pointer-events:none;opacity:0;transform:translateY(10px) scale(.93);transition:opacity .2s ease,transform .28s cubic-bezier(.2,.9,.3,1.35);overflow:hidden;background:#fff}
+.afd-preview.show{opacity:1;transform:translateY(0) scale(1)}
+.afd-preview img{width:100%;display:block}
+/* 章节目录侧栏 */
+.reader-body{display:grid;grid-template-columns:216px minmax(0,1fr);gap:18px;align-items:start}
+.ch-toc{position:sticky;top:86px;max-height:66vh;overflow:auto;background:var(--paper2);border-radius:16px;padding:14px 10px;scrollbar-width:thin}
+.ch-toc-t{font-size:12px;letter-spacing:2px;color:var(--muted);padding:0 10px 8px;font-weight:700}
+.ch-it{display:block;width:100%;text-align:left;padding:7px 10px;border:none;background:transparent;border-radius:9px;font-size:12.5px;line-height:1.5;color:var(--ink2);cursor:pointer;transition:background .18s ease,color .18s ease}
+.ch-it:hover{background:rgba(214,72,47,.08);color:var(--cinnabar)}
+.ch-it.on{background:rgba(214,72,47,.12);color:var(--cinnabar);font-weight:700}
+.paper{position:relative}
+@media (max-width:980px){.reader-body{display:block}.ch-toc{position:static;max-height:38vh;margin-bottom:14px}}
+/* 历史版本入口 */
+.his-link{font-size:13px;color:var(--cinnabar);text-decoration:none;border-bottom:1.5px dashed rgba(200,64,31,.5);padding-bottom:2px}
+.his-link:hover{opacity:.75}
+/* 右侧全区块导航栏（13 区块进度高亮） */
+.sec-rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:9px}
+.sec-rail a{display:flex;align-items:center;justify-content:flex-end;gap:8px;text-decoration:none}
+.sec-rail .rl{font-size:11px;color:var(--muted);background:rgba(255,253,247,.92);border:1px solid var(--line);border-radius:8px;padding:2px 8px;opacity:0;transform:translateX(6px);transition:.2s ease;pointer-events:none}
+.sec-rail a:hover .rl{opacity:1;transform:none}
+.sec-rail .dot{width:8px;height:8px;border-radius:50%;background:var(--line);transition:.25s ease;flex-shrink:0}
+.sec-rail a.on .dot{background:var(--cinnabar);transform:scale(1.45);box-shadow:0 0 0 4px rgba(200,64,31,.15)}
+.sec-rail a.on .rl{opacity:1;transform:none;color:var(--cinnabar);font-weight:700}
+@media (max-width:1180px){.sec-rail{display:none}}
+@media (max-width:860px){.afd-grid{grid-template-columns:1fr}.afd-card{max-width:340px;margin:0 auto}.afd-preview{display:none}}
 /* 页脚 GitHub */
 .ft-gh-row{display:flex;justify-content:center;padding:6px 0 26px}
 .ft-gh{display:inline-flex;align-items:center;gap:9px;color:#8d8271;text-decoration:none;font-size:14px;border:1px solid #d8d0c0;border-radius:999px;padding:9px 22px;transition:all .2s}
 .ft-gh:hover{color:#3b2f25;border-color:#8d8271;transform:translateY(-1px)}
 </style>
+<!-- 爱发电卡片悬浮预览 -->
+<div class="afd-preview" id="afdPreview"><img src="./img/afdian-card.png" alt="贤士卡预览"></div>
+<script>
+(function(){
+  var pv=document.getElementById('afdPreview'),img=pv?pv.querySelector('img'):null;if(!pv)return;
+  var MAP=[['052a1724','./img/afd-plan-month.png'],['218168a0','./img/afd-plan-quarter.png'],['b1a15b58','./img/afd-plan-year.png']];
+  document.querySelectorAll('.afd-btn').forEach(function(b){
+    b.addEventListener('mouseenter',function(e){
+      var href=b.getAttribute('href')||'';
+      img.src='./img/afdian-card.png';
+      for(var i=0;i<MAP.length;i++){ if(href.indexOf(MAP[i][0])>=0){ img.src=MAP[i][1]; break; } }
+      pv.classList.add('show');
+    });
+    b.addEventListener('mousemove',function(e){
+      var x=e.clientX+18,y=e.clientY+14;
+      if(x+270>window.innerWidth)x=e.clientX-270;
+      if(y+320>window.innerHeight)y=e.clientY-320;
+      pv.style.left=x+'px';pv.style.top=y+'px';
+    });
+    b.addEventListener('mouseleave',function(){pv.classList.remove('show');});
+  });
+  // 主页大卡也换三图轮播（月/季/年，5 秒一换）
+  var poster=document.querySelector('.afd-poster');
+  if(poster){
+    var cycle=['./img/afdian-card.png','./img/afd-plan-year.png','./img/afd-plan-month.png'],ci=0;
+    setInterval(function(){ ci=(ci+1)%cycle.length; poster.style.opacity=0; setTimeout(function(){ poster.src=cycle[ci]; poster.style.opacity=1; },260); },5000);
+    poster.style.transition='opacity .26s ease';
+  }
+});
+</script>
 </body>
 </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>全部历史版本 · 尚贤圈</title>
+<meta name="description" content="尚贤圈全部历史版本存档：每个版本的实测安装包大小、发布日期与完整更新说明，永久公开可查。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://kernthal.github.io/shangxianquan-official/history/">
+<meta name="theme-color" content="#f4efe6">
+<style>
+:root{--paper:#f4efe6;--paper2:#ece5d6;--ink:#1c1a17;--ink2:#57503f;--muted:#8d8271;--line:#e2dbcb;--cinnabar:#c8401f;--gold:#b98a2f;--serif:"Source Han Serif SC","Noto Serif SC","Songti SC","STSong",serif;--sans:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;background:rgba(244,239,230,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 22px}
+.seal{width:34px;height:34px;border-radius:10px;background:var(--cinnabar);color:#fff;font-family:var(--serif);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center}
+.brand{font-family:var(--serif);font-weight:900;font-size:18px;letter-spacing:3px}
+.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:2px;font-weight:400}
+.back{margin-left:auto;font-size:13px;color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 18px;transition:.2s}
+.back:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
+.wrap{max-width:860px;margin:0 auto;padding:38px 20px 80px}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(26px,5vw,38px);letter-spacing:4px;margin:0 0 6px}
+.sub{color:var(--ink2);font-size:14px;margin:0 0 26px}
+.notice{background:rgba(185,138,47,.08);border:1px solid rgba(185,138,47,.3);border-radius:12px;padding:12px 16px;font-size:13px;color:#7a5c1e;margin-bottom:26px}
+.ver{border:1px solid var(--line);border-radius:18px;background:#fffdf7;padding:22px 24px;margin-bottom:16px;transition:box-shadow .25s ease,transform .25s ease}
+.ver:hover{box-shadow:0 14px 36px rgba(60,40,20,.1);transform:translateY(-2px)}
+.ver.latest{border-color:rgba(200,64,31,.4);background:linear-gradient(150deg,#fffdf8,#faf1e4)}
+.ver-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.v{font-family:Georgia,monospace;font-weight:700;font-size:20px;color:var(--cinnabar)}
+.tag{font-size:11px;background:var(--cinnabar);color:#fff;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.tag.gray{background:var(--paper2);color:var(--muted)}
+.date{font-size:12.5px;color:var(--muted);font-family:Georgia,monospace;margin-left:auto}
+.size{font-size:12px;color:var(--gold);border:1px dashed rgba(185,138,47,.5);border-radius:999px;padding:2px 10px}
+.notes{margin:10px 0 0;font-size:13.5px;color:var(--ink2)}
+.dl{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;text-decoration:none;color:#fff;background:var(--ink);border-radius:999px;padding:9px 20px;transition:.25s cubic-bezier(.2,.9,.3,1.3)}
+.dl:hover{background:var(--cinnabar);transform:translateY(-2px)}
+.loading{text-align:center;color:var(--muted);padding:60px 0}
+footer{border-top:1px solid var(--line);padding:26px;text-align:center;font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="seal">贤</div>
+  <div class="brand">尚贤圈<small>版本档案馆</small></div>
+  <a class="back" href="../">← 返回官网</a>
+</div>
+<div class="wrap">
+  <h1>全部历史版本</h1>
+  <p class="sub">每一个发布过的版本都在这里：实测安装包大小、发布日期与完整更新说明，永久公开、不可篡改。</p>
+  <div class="notice">大小均为对官方 CDN 直链 HTTP 实测的字节数（非估算）。微信内无法直接下载，请在系统浏览器打开。</div>
+  <div id="list"><div class="loading">正在加载版本档案…</div></div>
+</div>
+<footer>尚贤圈 · Kernthal Studio 出品 · 构建流水线自动维护本页数据</footer>
+<script>
+const SB_PUBLIC='https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/';
+const PATHS=[SB_PUBLIC+'site/versions.json','../data/versions.json'];
+let vi=0;
+(function tryLoad(){
+  if(vi>=PATHS.length){document.getElementById('list').innerHTML='<div class="loading">版本数据暂时无法加载，请稍后刷新。</div>';return}
+  fetch(PATHS[vi],{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(render).catch(()=>{vi++;tryLoad()});
+})();
+function render(d){
+  const items=(d&&Array.isArray(d.items))?d.items.slice().sort((a,b)=>(b.code||0)-(a.code||0)):[];
+  if(!items.length){document.getElementById('list').innerHTML='<div class="loading">暂无版本数据。</div>';return}
+  const total=items.reduce((n,x)=>n+(x.size||0),0);
+  const list=document.getElementById('list');
+  list.innerHTML=items.map((v,i)=>{
+    const size=v.size?(v.size/1048576).toFixed(1)+' MB':'实测中…';
+    return '<article class="ver'+(i===0?' latest':'')+'">'+
+      '<div class="ver-head"><span class="v">v'+v.version+'</span>'+
+      (i===0?'<span class="tag">最新稳定版</span>':'<span class="tag gray">历史版本</span>')+
+      '<span class="size">'+size+'</span>'+
+      '<span class="date">'+(v.date||'')+'</span></div>'+
+      '<p class="notes">'+(v.notes||'')+'</p>'+
+      '<a class="dl" href="'+v.url+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>下载 APK（'+v.version+'）</a>'+
+    '</article>';
+  }).join('');
+  document.querySelectorAll('.ver .size').forEach(async(el,i)=>{
+    if(items[i].size)return;
+    try{
+      const r=await fetch(items[i].url,{method:'HEAD'});
+      const len=parseInt(r.headers.get('content-length')||'0');
+      if(len>0)el.textContent=(len/1048576).toFixed(1)+' MB';
+    }catch(e){}
+  });
+  const sub=document.querySelector('.sub');
+  if(sub)sub.textContent='共 '+items.length+' 个版本，累计发布 '+Math.round(total/1048576)+' MB。每个版本都有实测安装包大小、发布日期与完整更新说明，永久公开、不可篡改。';
+}
+</script>
+</body>
+</html>
