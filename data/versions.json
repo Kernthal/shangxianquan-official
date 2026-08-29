@@ -1,10 +1,18 @@
 {
   "items": [
     {
+      "version": "1.0.17",
+      "code": 117,
+      "date": "2026-08-29",
+      "notes": "会员中心全新改版：暖纸哑金风格、权益对比表、到期提醒、会员日倒计时与会员FAQ；规则中心扩至22篇（新增付费退款/订单识别/权益总则/打赏提示/未尽事宜五篇，重写四篇章节乱序文档）；爱发电到账提速至约1分钟、同步订单即时出结果、留言贤圈ID识别更聪明（中文冒号/裸ID都行）；内置思源黑体宋体全量字体与柔和界面音效（默认关闭，设置页可开）；管理面板手动赠送支持搜索选人、额度补偿/组合礼包快捷档与赠送原因留痕",
+      "size": 75793497,
+      "url": "https://github.com/jiangtengqiao/shangxianquan/releases/download/v1.0.17/SXQ1.0.17.apk"
+    },
+    {
       "version": "1.0.16",
       "code": 116,
-      "date": "2026-08-28",
-      "notes": "Realtime 毫秒级推送上线（私信/发帖/评论/订单落库即刷新）；开屏行草大字+品牌图标加大；鸡腿性质文案更正；官网三卡直达下单",
+      "date": "2026-08-29",
+      "notes": "Realtime 毫秒级推送上线：私信、发帖、评论、订单落库即时刷新界面，不再需要手动下拉刷新（轮询降级为兜底）；开屏动画换行草艺术字、品牌图标加大；鸡腿打赏性质文案更正；官网新增三张贤士卡直达下单按钮",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.16.apk",
       "size": 13497396
     },
@@ -20,7 +28,7 @@
       "version": "1.0.14",
       "code": 114,
       "date": "2026-08-28",
-      "notes": "爱发电主页地址更正；会员中心与规则细节优化",
+      "notes": "爱发电主页地址更正（afdian.com/a/kernthal-sxquan）；会员中心与规则细节优化",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.14.apk",
       "size": 13487220
     },
@@ -28,7 +36,7 @@
       "version": "1.0.13",
       "code": 113,
       "date": "2026-08-28",
-      "notes": "移除推送模块（精简安装包）；会员中心上线；账号页支持更换邮箱与重认证；规则中心新增五篇文档",
+      "notes": "移除推送模块（精简安装包）；「我的」页新增会员中心：贤士卡状态、金框徽章、专属头衔、权益额度一览、爱发电下单自动回填贤圈ID；账号页支持更换邮箱与发送重认证邮件、一键邀请同学；规则中心新增五篇文档：会员服务协议（数字内容一律不退款）、社区治理与仲裁细则、数据安全与隐私白皮书、原创保护与知识产权实施细则、功能迭代与用户参与公约",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.13.apk",
       "size": 13487208
     },
@@ -36,7 +44,7 @@
       "version": "1.0.12",
       "code": 112,
       "date": "2026-08-28",
-      "notes": "规则中心修复；问卷支持 txt/md/docx 导入；会员体系后端上线",
+      "notes": "规则中心修复：此前进入规则中心一直提示加载失败（历史代码变量初始化顺序问题），现已修复，12 篇规则全部可读；问卷管理支持 txt/md/docx 文件导入解析；会员体系（贤士卡）后端上线：月 6 / 季 13 / 年 46.8，匿名额度、表情容量等权益服务端生效，爱发电订单每小时自动同步到账",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.12.apk",
       "size": 15696666
     },
@@ -44,7 +52,7 @@
       "version": "1.0.11",
       "code": 111,
       "date": "2026-08-28",
-      "notes": "系统级推送上线（极光）",
+      "notes": "系统级推送上线（极光 JPush）：收到私信或全站通知时，手机通知中心显示「谁 · 说了什么」，点击直达对应会话；登录绑定设备、退出自动解绑；服务端经 Supabase pg_net 直连极光 REST，密钥不入代码库",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.11.apk",
       "size": 15697078
     },
@@ -52,7 +60,7 @@
       "version": "1.0.10",
       "code": 110,
       "date": "2026-08-28",
-      "notes": "聊天全面对齐微信：消息Tab+红点、图片多选9张、原图比例发送、emoji与自制表情包",
+      "notes": "聊天全面对齐微信：底部新增「消息」Tab 与红点、会话列表常驻可达；输入栏贴合键盘（加号+笑脸+输入框+发送）；相册图片多选一次9张；聊天图片按原图比例与像素发送；emoji 面板 + 自制表情包（上传图片可加文字，多字号、九色色板，保持原图比例像素，保存到手机并跟随账号云端同步）；聊天时间分割线",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.10.apk",
       "size": 13468302
     },
@@ -60,7 +68,7 @@
       "version": "1.0.9",
       "code": 109,
       "date": "2026-08-28",
-      "notes": "根治更新误弹；开屏不可跳过；月度选举当选名单可见",
+      "notes": "根治安装新版后仍弹更新提示（版本号唯一真源）；开屏动画不可跳过；月度选举当选名单可见",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.9.apk",
       "size": 13463101
     },
@@ -68,7 +76,7 @@
       "version": "1.0.8",
       "code": 108,
       "date": "2026-08-28",
-      "notes": "问卷系统修复：导入解析更聪明、发布通知更高效、好评评语提交不再报错",
+      "notes": "体验优化与问题修复",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.8.apk",
       "size": 13462917
     },
@@ -76,49 +84,9 @@
       "version": "1.0.7",
       "code": 107,
       "date": "2026-08-27",
-      "notes": "星夜开屏 · 聊天准实时同步 · 私信全局红点 · 规则中心阅读器",
+      "notes": "星夜开屏动画 · 聊天实时同步 · 权限引导页 · 十二篇规则中心阅读器 · 全量权限声明",
       "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.7.apk",
       "size": 13462881
-    },
-    {
-      "version": "1.0.6",
-      "code": 106,
-      "date": "2026-08-27",
-      "notes": "新增私信/聊天功能、修复版本号显示、全链路加载动画",
-      "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.6.apk",
-      "size": 14987245
-    },
-    {
-      "version": "1.0.3",
-      "code": 103,
-      "date": "2026-08-26",
-      "notes": "修复白屏 · 降低加载延迟 · 私信入口打通 · 切换账号",
-      "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.3.apk",
-      "size": 14980702
-    },
-    {
-      "version": "1.0.2",
-      "code": 102,
-      "date": "2026-08-25",
-      "notes": "加载动画全链路 · 自动更新系统 · 版本号同步",
-      "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.2.apk",
-      "size": 14977413
-    },
-    {
-      "version": "1.0.1",
-      "code": 101,
-      "date": "2026-08-24",
-      "notes": "登录/注册右偏修复 · 平板适配 · 验证码倒计时 · 开屏冷启动动画",
-      "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.1.apk",
-      "size": 14970267
-    },
-    {
-      "version": "1.0.0",
-      "code": 100,
-      "date": "2026-08-22",
-      "notes": "尚贤圈首个正式版本上线",
-      "url": "https://gfxkpljewqchdbrepqia.supabase.co/storage/v1/object/public/uploads/SXQ1.0.0.apk",
-      "size": 88
     }
   ]
 }
