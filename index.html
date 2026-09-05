@@ -332,9 +332,9 @@ footer .ft-out:hover{color:#fff}
 .skip-link{position:absolute;left:-999px;top:8px;z-index:200;background:var(--ink);color:#fff;
  padding:10px 18px;border-radius:8px;font-size:14px;text-decoration:none}
 .skip-link:focus{left:8px}
-a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.fs-btn:focus-visible{
+a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.fs-btn:focus-visible,.pay-chip:focus-visible,.plan-card:focus-visible{
  outline:3px solid var(--cinnabar);outline-offset:2px;border-radius:6px}
-.tabbtn:focus-visible,.vnav-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.tabbtn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 /* ============================================================
    伍 · 运行数据看板
@@ -426,12 +426,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 #voices{position:relative;overflow:hidden}
 .voices-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
 .voices-hint{margin-left:auto;font-size:12.5px;color:var(--muted)}
-.voice-track{display:flex;gap:16px;transition:transform .55s cubic-bezier(.19,1,.29,1);will-change:transform}
-.voices-viewport{overflow:hidden;padding:6px 2px}
-.voice-card{flex:0 0 calc(33.333% - 11px);background:var(--card);border:1px solid var(--line);border-radius:16px;
- padding:22px;display:flex;flex-direction:column;gap:10px;min-height:190px}
-@media(max-width:860px){.voice-card{flex:0 0 calc(50% - 8px)}}
-@media(max-width:560px){.voice-card{flex:0 0 100%}}
 .voice-stars{display:flex;gap:3px;color:var(--gold)}
 .voice-stars svg{width:14px;height:14px}
 .voice-text{font-size:13.5px;color:var(--ink2);line-height:1.85;flex:1}
@@ -443,14 +437,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .voice-badge{margin-left:auto;font-size:10.5px;padding:3px 9px;border-radius:99px;letter-spacing:1px;flex-shrink:0}
 .voice-badge.official{background:rgba(185,138,47,.14);color:var(--gold);border:1px solid rgba(185,138,47,.4)}
 .voice-badge.user{background:rgba(200,64,31,.08);color:var(--cinnabar);border:1px solid rgba(200,64,31,.35)}
-.voices-ctrl{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:22px}
-.vnav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;
- display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:.2s}
-.vnav-btn:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
-.vnav-btn:active{transform:scale(.92)}
-.voices-dots{display:flex;gap:7px}
-.vdot{width:8px;height:8px;border-radius:99px;background:var(--line);border:none;cursor:pointer;padding:0;transition:.3s}
-.vdot.on{width:22px;background:var(--cinnabar)}
 
 /* ============================================================
    捌 · 路线图时间轴
@@ -520,11 +506,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
  background:rgba(250,246,238,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
  border-top:1px solid var(--line);
  padding:6px max(8px,env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom))}
-.mtab-items{display:grid;grid-template-columns:repeat(5,1fr);max-width:520px;margin:0 auto}
+.mtab-items{display:grid;grid-template-columns:repeat(6,1fr);max-width:560px;margin:0 auto}
 .mtab-item{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;
  padding:7px 2px;border-radius:12px;transition:.2s;min-height:50px;justify-content:center}
 .mtab-item svg{width:21px;height:21px;color:var(--muted);transition:.2s}
-.mtab-item span{font-size:10.5px;color:var(--muted);letter-spacing:1px}
+.mtab-item span{font-size:10px;color:var(--muted);letter-spacing:1px}
 .mtab-item.on svg{color:var(--cinnabar)}
 .mtab-item.on span{color:var(--cinnabar);font-weight:700}
 .mtab-item:active{transform:scale(.92)}
@@ -541,14 +527,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
   /* 导览移动端：步骤横向滑动条 */
   .tour-steps{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -16px;padding-left:16px;padding-right:16px}
   .tour-step{flex:0 0 78%;scroll-snap-align:center}
-  /* 心声移动端：卡片全宽 + 触控滑动 */
-  .voices-viewport{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
-  .voices-viewport::-webkit-scrollbar{display:none}
-  .voice-track{transition:none}
-  .voice-card{scroll-snap-align:center}
-  .voices-ctrl .vnav-btn{display:none}
-  /* 路线图移动端：紧凑排布 */
-    /* 出品方移动端 */
+  /* 心声移动端：弹幕卡收窄 */
+  .dm-card{flex:0 0 76vw}
+  /* 出品方移动端 */
   .maker{padding:28px 22px;min-height:auto}
   /* 顶栏字号收紧 */
   .brand{font-size:17px}
@@ -557,39 +538,107 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 }
 /* 触控目标统一不小于 44px（移动端） */
 @media(hover:none) and (pointer:coarse){
-  .chip,.fs-btn,.vdot{min-height:44px;min-width:44px}
-  .chip,.fs-btn{display:inline-flex;align-items:center}
-  .vdot{height:10px}
+  .chip,.fs-btn{min-height:44px;min-width:44px}
+  .chip,.fs-btn,.pay-chip{display:inline-flex;align-items:center}
+  .pay-chip{min-height:44px}
 }
 
-/* ── 支付协议门 + 在线二维码 ── */
-.afd-agree{margin:18px 0 14px;padding:14px 16px;border:1px dashed rgba(185,138,47,.45);
-  border-radius:12px;background:rgba(185,138,47,.06);display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
-.agree-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.75;color:var(--ink-2);cursor:pointer;flex:1;min-width:260px}
-.agree-row input{width:18px;height:18px;margin-top:3px;accent-color:var(--red);flex-shrink:0}
-.agree-doc{font-size:13px;color:var(--red);white-space:nowrap;align-self:center}
-.afd-qr{position:relative;display:grid;grid-template-columns:220px 1fr;gap:20px;padding:20px;
-  border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 10px 30px rgba(31,28,24,.06);margin-bottom:20px}
-@media(max-width:720px){.afd-qr{grid-template-columns:1fr}}
-.qr-canvas{width:200px;height:200px;display:grid;place-items:center;background:#fbfaf7;border-radius:14px;
-  border:1px solid var(--line);overflow:hidden}
-.qr-canvas canvas,.qr-canvas img{width:184px;height:184px}
-.qr-mask{position:absolute;inset:0;border-radius:18px;backdrop-filter:blur(6px);
-  background:repeating-linear-gradient(135deg,rgba(247,246,242,.95) 0 14px,rgba(238,235,228,.95) 14px 28px);
-  display:grid;place-items:center;text-align:center;gap:8px;
-  transition:opacity .45s ease,transform .45s cubic-bezier(.16,1,.3,1);z-index:3}
-.qr-mask p{font-size:14px;color:var(--ink-2);line-height:1.8}
-.qr-lock{width:44px;height:44px;border-radius:12px;background:var(--ink);position:relative}
-.qr-lock::before{content:'';position:absolute;left:50%;top:12px;width:18px;height:12px;
-  border:3px solid var(--gold);border-bottom:none;border-radius:6px 6px 0 0;transform:translateX(-50%)}
-.qr-mask.hide{opacity:0;transform:translateY(-8px);pointer-events:none}
-.qr-tip{font-size:14px;color:var(--ink-2);margin-bottom:10px}
-.qr-acts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.qr-btn{font-size:13px;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 16px;
-  background:#fff;transition:all .25s}
-.qr-btn:hover{border-color:var(--red);color:var(--red)}
-.qr-note{font-size:12px;color:var(--ink-3);line-height:1.8}
-.afd-btn.locked{opacity:.45;pointer-events:none;filter:grayscale(.6)}
+/* ── 支付向导（选档 → 明细协议 → 随机付款码） ── */
+.pay-step{margin:20px 0 6px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.6);padding:20px 22px}
+.pay-step-t{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.pay-step-no{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--cinnabar);color:#fff;font-family:Georgia,serif;font-weight:800;font-size:15px;display:grid;place-items:center;box-shadow:0 4px 12px rgba(200,64,31,.35)}
+.pay-step-t h4{font-family:var(--serif);font-size:17px;letter-spacing:2px}
+.pay-step-t small{margin-left:auto;font-size:12px;color:var(--muted);letter-spacing:1px}
+.plan-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.plan-cards{grid-template-columns:1fr}}
+.plan-card{position:relative;cursor:pointer;background:#fff;border:2px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;transition:transform .25s cubic-bezier(.2,.9,.3,1.2),border-color .25s,box-shadow .25s;overflow:hidden}
+.plan-card:hover{transform:translateY(-4px);border-color:rgba(200,64,31,.5);box-shadow:0 12px 28px rgba(28,26,23,.1)}
+.plan-card.sel{border-color:var(--cinnabar);background:#fffdf7;box-shadow:0 0 0 4px rgba(200,64,31,.12),0 12px 28px rgba(158,48,21,.14)}
+.plan-card.hot{border-color:rgba(185,138,47,.55);background:linear-gradient(165deg,#fffdf7,rgba(185,138,47,.08))}
+.plan-card.hot.sel{border-color:var(--gold);box-shadow:0 0 0 4px rgba(185,138,47,.16),0 12px 28px rgba(158,119,24,.16)}
+.plan-hot-tag{position:absolute;top:10px;right:-30px;transform:rotate(38deg);background:linear-gradient(135deg,#d9a83c,#a87718);color:#fff;font-size:10px;letter-spacing:2px;padding:3px 34px;box-shadow:0 3px 8px rgba(168,119,24,.4)}
+.plan-name{font-family:var(--serif);font-weight:800;font-size:16px;letter-spacing:2px}
+.plan-price{margin-top:6px;font-family:Georgia,serif;font-weight:800;font-size:clamp(22px,3.6vw,30px);color:var(--cinnabar)}
+.plan-price small{font-size:13px;color:var(--ink2);font-weight:400}
+.plan-sub{margin-top:5px;font-size:12px;color:var(--muted)}
+.plan-check{position:absolute;top:10px;left:10px;width:22px;height:22px;border-radius:50%;background:var(--cinnabar);color:#fff;display:none;place-items:center;font-size:13px;font-weight:800}
+.plan-card.sel .plan-check{display:grid}
+.pay-group-t{margin:16px 0 8px;font-size:13px;font-weight:800;letter-spacing:1px;color:#7a5c1e}
+.pay-chips{display:flex;flex-wrap:wrap;gap:9px}
+.pay-chip{cursor:pointer;position:relative;font-size:13.5px;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;background:#fff;padding:9px 17px;transition:all .22s;user-select:none}
+.pay-chip:hover{border-color:rgba(200,64,31,.55);transform:translateY(-2px)}
+.pay-chip.sel{border-color:var(--cinnabar);background:rgba(200,64,31,.07);color:var(--cinnabar);font-weight:700;box-shadow:0 0 0 3px rgba(200,64,31,.1)}
+.pay-chip .pc-price{color:var(--cinnabar);font-weight:800;font-family:Georgia,serif}
+.pay-next{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pay-next-btn{border:none;cursor:pointer;background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar-dk));color:#fff;font-weight:700;font-size:15px;letter-spacing:2px;padding:13px 30px;border-radius:999px;box-shadow:0 8px 22px rgba(158,48,21,.35);transition:transform .25s cubic-bezier(.2,.9,.3,1.45),box-shadow .25s,opacity .2s}
+.pay-next-btn:hover:not(:disabled){transform:translateY(-3px) scale(1.03);box-shadow:0 14px 32px rgba(158,48,21,.45)}
+.pay-next-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.pay-sel-hint{font-size:13px;color:var(--muted)}
+/* 明细协议模态 */
+.pay-modal{position:fixed;inset:0;z-index:1200;background:rgba(28,26,23,.66);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px}
+.pay-modal.show{display:flex;animation:pmFade .25s ease both}
+@keyframes pmFade{from{opacity:0}to{opacity:1}}
+.pm-card{background:#fffdf7;border-radius:22px;width:100%;max-width:560px;max-height:88vh;overflow-y:auto;box-shadow:0 30px 80px rgba(20,16,10,.4);animation:pmPop .35s cubic-bezier(.2,.8,.3,1.1) both;padding:26px 28px}
+@keyframes pmPop{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:none}}
+.pm-head{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.pm-seal{flex-shrink:0;width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar-dk));color:#fff;font-family:var(--serif);font-weight:900;font-size:20px;display:grid;place-items:center}
+.pm-head h3{font-family:var(--serif);font-size:19px;letter-spacing:2px}
+.pm-close{margin-left:auto;border:none;background:none;font-size:22px;color:var(--muted);cursor:pointer;line-height:1;padding:4px 8px;border-radius:8px}
+.pm-close:hover{color:var(--cinnabar);background:rgba(200,64,31,.07)}
+.pm-sub{margin-top:8px;font-size:13.5px;color:var(--ink2)}
+.pm-sub b{color:var(--cinnabar)}
+.pd-list{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.pd-item{display:flex;gap:11px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;align-items:flex-start}
+.pd-ic{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:rgba(185,138,47,.14);color:var(--gold);display:grid;place-items:center;font-weight:800;font-size:13px;margin-top:1px}
+.pd-item b{display:block;font-size:13.5px;letter-spacing:.5px}
+.pd-item span{display:block;margin-top:2px;font-size:12.5px;color:var(--ink2);line-height:1.75}
+.pm-agree{margin-top:14px;padding:13px 15px;border:1.5px dashed rgba(185,138,47,.5);border-radius:12px;background:rgba(185,138,47,.06);display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.75;cursor:pointer}
+.pm-agree input{width:18px;height:18px;margin-top:3px;accent-color:var(--cinnabar);flex-shrink:0;cursor:pointer}
+.pm-agree .agree-doc{color:var(--cinnabar);white-space:nowrap;font-weight:600}
+.pm-acts{margin-top:16px;display:flex;gap:10px}
+.pm-btn{flex:1;border:none;cursor:pointer;border-radius:999px;padding:13px 0;font-size:14.5px;font-weight:700;letter-spacing:2px;transition:all .22s}
+.pm-btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink2)}
+.pm-btn.ghost:hover{border-color:var(--muted);color:var(--ink)}
+.pm-btn.go{background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar-dk));color:#fff;box-shadow:0 8px 20px rgba(158,48,21,.32)}
+.pm-btn.go:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 28px rgba(158,48,21,.42)}
+.pm-btn.go:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+/* 付款码展示区 */
+.pay-qr{display:none;margin-top:18px;border:1px solid var(--line);border-radius:20px;background:#fff;padding:22px;box-shadow:0 14px 40px rgba(31,28,24,.08)}
+.pay-qr.show{display:grid;grid-template-columns:240px 1fr;gap:22px;animation:pmPop .4s cubic-bezier(.2,.8,.3,1.1) both}
+@media(max-width:720px){.pay-qr.show{grid-template-columns:1fr}}
+.pqr-left{display:flex;flex-direction:column;align-items:center;gap:12px}
+.pqr-ring{position:relative;width:224px;height:224px}
+.pqr-ring svg.ring{position:absolute;inset:0;transform:rotate(-90deg)}
+.pqr-ring .ring-bg{fill:none;stroke:#ece5d6;stroke-width:6}
+.pqr-ring .ring-fg{fill:none;stroke:url(#ringGrad);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.pqr-box{position:absolute;inset:16px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.pqr-box canvas,.pqr-box img{width:176px;height:176px}
+.pqr-count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:Georgia,monospace;font-weight:700;font-size:14px;border-radius:999px;padding:5px 16px;letter-spacing:2px;box-shadow:0 6px 16px rgba(28,26,23,.3)}
+.pqr-session{font-size:11.5px;color:var(--muted);font-family:Georgia,monospace;letter-spacing:1px}
+.pay-qr.expired .pqr-box{filter:grayscale(1) opacity(.45)}
+.pqr-expired-tip{display:none;text-align:center;font-size:13px;color:var(--cinnabar);font-weight:700;letter-spacing:1px}
+.pay-qr.expired .pqr-expired-tip{display:block}
+.pqr-right{display:flex;flex-direction:column;gap:10px;min-width:0}
+.pqr-title{font-family:var(--serif);font-weight:800;font-size:18px;letter-spacing:1px}
+.pqr-title .pqr-price{color:var(--cinnabar);font-family:Georgia,serif}
+.pqr-desc{font-size:13px;color:var(--ink2);line-height:1.85}
+.pqr-acts{display:flex;gap:10px;flex-wrap:wrap}
+.pqr-btn{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:10px 18px;background:#fff;cursor:pointer;text-decoration:none;transition:all .22s}
+.pqr-btn:hover{border-color:var(--cinnabar);color:var(--cinnabar);transform:translateY(-2px)}
+.pqr-btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.pqr-btn.primary:hover{background:var(--cinnabar);border-color:var(--cinnabar)}
+.pqr-xid{border:1px dashed rgba(36,86,214,.4);background:rgba(36,86,214,.05);border-radius:12px;padding:10px 14px;font-size:12.5px;color:var(--ink2);line-height:1.8}
+.pqr-xid b{color:var(--link)}
+/* 通用 QR 模态（QQ群/贤圈中心扫码） */
+.qr-layer{position:fixed;inset:0;z-index:1300;background:rgba(28,26,23,.72);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px}
+.qr-layer.show{display:flex;animation:pmFade .25s ease both}
+.qrl-card{background:#fffdf7;border-radius:20px;padding:26px;text-align:center;max-width:330px;width:100%;box-shadow:0 30px 80px rgba(20,16,10,.4);animation:pmPop .35s cubic-bezier(.2,.8,.3,1.1) both}
+.qrl-card h4{font-family:var(--serif);font-size:17px;letter-spacing:2px;margin-bottom:4px}
+.qrl-card p{font-size:12.5px;color:var(--ink2);margin-bottom:14px}
+.qrl-qr{display:grid;place-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin:0 auto 14px;width:236px}
+.qrl-qr canvas,.qrl-qr img{width:212px;height:212px}
+.qrl-close{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 26px;font-size:13.5px;cursor:pointer;color:var(--ink2)}
+.qrl-close:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
 
 /* ── 滚动进度条 ── */
 #pgBar{position:fixed;top:0;left:0;height:3px;width:0;z-index:99;
@@ -650,7 +699,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
     <div class="hero-badges">
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#c8401f" stroke-width="2"/></svg>半匿名保护壳</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="#b98a2f" stroke-width="2" stroke-linejoin="round"/></svg>私信准实时同步</span>
-      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#2f7a54" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#2f7a54" stroke-width="2"/></svg>二二十二篇联动规则</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3z" stroke="#2f7a54" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#2f7a54" stroke-width="2"/></svg>二十二篇联动规则</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#c8401f" stroke-width="2"/><path d="M5 5l14 14" stroke="#c8401f" stroke-width="2"/></svg>永不做广告分发</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#3a6dd0" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="#3a6dd0" stroke-width="2" stroke-linecap="round"/></svg>未成年特别防护</span>
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#7a54c8" stroke-width="2" stroke-linecap="round"/></svg>极简无广告 · 无氪金</span>
@@ -747,9 +796,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
             <text id="donutCenter" x="60" y="62" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1a17" font-family="Georgia,serif">0</text>
           </svg>
           <div class="donut-legend">
-            <div class="legend-row"><span class="legend-swatch" style="background:#2f7a54"></span>合规通过<span class="legend-v" id="lgOk">0</span></div>
+            <div class="legend-row"><span class="legend-swatch" style="background:#2f7a54"></span>正常内容<span class="legend-v" id="lgOk">0</span></div>
             <div class="legend-row"><span class="legend-swatch" style="background:#c8401f"></span>已下架<span class="legend-v" id="lgDel">0</span></div>
-            <div class="legend-row"><span class="legend-swatch" style="background:#b98a2f"></span>警告整改<span class="legend-v" id="lgWarn">0</span></div>
+            <div class="legend-row"><span class="legend-swatch" style="background:#b98a2f"></span>举报核查<span class="legend-v" id="lgWarn">0</span></div>
           </div>
         </div>
       </div>
@@ -795,16 +844,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         <button class="tabbtn" role="tab" aria-selected="false" data-vf="official">体验官</button>
         <button class="tabbtn" role="tab" aria-selected="false" data-vf="user">真实用户</button>
       </div>
-      <span class="voices-hint">评分满四星以上且获得公示授权</span>
+      <span class="voices-hint">实时拉取问卷好评（评分满四星且公示授权）· 悬停暂停</span>
     </div>
-    <div class="voices-viewport">
-      <div class="voice-track" id="voiceTrack"></div>
-    </div>
-    <div class="voices-ctrl">
-      <button class="vnav-btn" id="voicePrev" aria-label="上一页"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <div class="voices-dots" id="voiceDots"></div>
-      <button class="vnav-btn" id="voiceNext" aria-label="下一页"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-    </div>
+    <div class="dm-wall" id="dmWall" aria-label="用户心声弹幕墙"></div>
   </div>
 </section>
 
@@ -814,7 +856,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 <!-- ═══════════ 版本下载 ═══════════ -->
 <section id="versions" class="reveal">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-no">玖</span><h2 class="sec-title">版本发布 &amp; 下载</h2><div class="sec-line"></div></div>
+    <div class="sec-head"><span class="sec-no">捌</span><h2 class="sec-title">版本发布 &amp; 下载</h2><div class="sec-line"></div></div>
+    <div class="install-guide">
+      <div class="ig-step">
+        <span class="ig-no">1</span>
+        <div class="ig-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v11m0 0l-4.2-4.2M12 14l4.2-4.2M4.5 18.5h15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><b>下载安装包</b><span>点击下方任意下载按钮，等待进度完成；微信内请先「在浏览器打开」。</span></div>
+      </div>
+      <div class="ig-step">
+        <span class="ig-no">2</span>
+        <div class="ig-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z" stroke="currentColor" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><b>允许安装未知应用</b><span>首次安装若提示「未知来源」，在系统弹窗里对本浏览器允许一次即可，仅影响本次安装。</span></div>
+      </div>
+      <div class="ig-step">
+        <span class="ig-no">3</span>
+        <div class="ig-ic"><svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M10.8 17.6h2.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 9.5l1.8 1.8 3.4-3.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><b>安装并登录</b><span>打开尚贤圈，邮箱注册或登录，完善资料后即可进入六大版块。旧版可直接覆盖安装。</span></div>
+      </div>
+    </div>
     <div style="text-align:right;margin-bottom:10px"><a class="his-link" href="./history/">查看全部历史版本（含每版实测大小与更新说明） →</a></div>
     <div class="timeline" id="timeline"></div>
     <p style="margin-top:8px;font-size:12.5px;color:var(--muted)" id="mirrorNote"></p>
@@ -914,7 +973,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 <!-- ═══════════ 拾叁 · 支持尚贤圈（赞助支持） ═══════════ -->
 <section id="afdian" class="reveal">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-no">拾叁</span><h2 class="sec-title">支持尚贤圈</h2><div class="sec-line"></div></div>
+    <div class="sec-head"><span class="sec-no">拾贰</span><h2 class="sec-title">支持尚贤圈</h2><div class="sec-line"></div></div>
     <div class="afd-grid">
       <div class="afd-card">
         <img class="afd-poster" src="./img/afdian-card.png" alt="爱发电 · KernthalStudio 主页卡片" loading="lazy">
@@ -929,71 +988,61 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         </ul>
         <p class="afd-key">★ 下单时请在「留言」填写你的<strong>贤圈ID</strong>（App「设置 → 关于」可查），付款后自动识别到账，无需人工审核。</p>
 
-        <div class="afd-agree">
-          <label class="agree-row">
-            <input type="checkbox" id="afdAgree" />
-            <span>我已阅读并同意《尚贤圈会员服务协议》与《支付与退款说明》，理解虚拟权益类商品下单后不支持退款；下单时会在留言处填写我的贤圈ID。</span>
-          </label>
-          <a class="agree-doc" href="#" data-doc="agreement">查看协议全文</a>
-        </div>
-        <div class="afd-qr" id="afdQr">
-          <div class="qr-mask" id="qrMask">
-            <span class="qr-lock"></span>
-            <p>请先勾选上方协议<br />协议生效后自动解锁支付二维码</p>
+        <!-- 第一步 · 选档 -->
+        <div class="pay-step">
+          <div class="pay-step-t"><span class="pay-step-no">壹</span><h4>第一步 · 选择支持档位</h4><small>全部档位经爱发电渠道 · 平台不经手资金</small></div>
+          <div class="pay-group-t">贤士卡（身份标识 · 额度提升 · 每月 8 号会员日翻倍）</div>
+          <div class="plan-cards" id="planCards"></div>
+          <div class="pay-group-t">增量权益包（叠加在现有额度上 · 永久有效）</div>
+          <div class="pay-chips" id="perkChips"></div>
+          <div class="pay-group-t">加鸡腿（打赏小费 · 性同请客 · 不对应权益）</div>
+          <div class="pay-chips" id="tipChips"></div>
+          <div class="pay-sel-hint" id="paySelDesc" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:12px">选择任意档位后，这里会显示它的说明。</div>
+          <div class="pay-next">
+            <button class="pay-next-btn" id="payNextBtn" disabled>第二步 · 查看购买明细 →</button>
+            <span class="pay-sel-hint" id="paySelHint">请先选择一个档位</span>
           </div>
-          <div class="qr-body">
-            <div id="qrCanvas" class="qr-canvas"></div>
-            <div class="qr-meta">
-              <div class="qr-tip" id="qrTip">勾选协议后，点击右侧任意档位即可生成付款码</div>
-              <div class="qr-acts" id="qrActs" hidden>
-                <a class="qr-btn" id="qrOpen" target="_blank" rel="noopener">在手机/新窗口打开</a>
-                <button class="qr-btn" id="qrCopy" type="button">复制付款链接</button>
-              </div>
-              <div class="qr-note">扫码后在手机浏览器完成下单；请在留言填写贤圈ID（App「设置 → 关于」可查），付款后自动到账。</div>
+        </div>
+
+        <!-- 第三步 · 付款码（生成后显示） -->
+        <div class="pay-qr" id="payQr">
+          <div class="pqr-left">
+            <div class="pqr-ring">
+              <svg class="ring" viewBox="0 0 224 224" aria-hidden="true">
+                <defs>
+                  <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#b98a2f"/><stop offset="100%" stop-color="#d6482f"/>
+                  </linearGradient>
+                </defs>
+                <circle class="ring-bg" cx="112" cy="112" r="104"></circle>
+                <circle class="ring-fg" id="ringFg" cx="112" cy="112" r="104"></circle>
+              </svg>
+              <div class="pqr-box" id="pqrBox"></div>
+              <div class="pqr-count" id="pqrCount">03:00</div>
             </div>
+            <div class="pqr-session" id="pqrSession"></div>
+            <div class="pqr-expired-tip">二维码已过期（超过 3 分钟）· 请重新生成</div>
+          </div>
+          <div class="pqr-right">
+            <div class="pqr-title" id="pqrTitle"></div>
+            <div class="pqr-desc">使用手机相机或微信「扫一扫」扫码，在浏览器完成下单；付款码 3 分钟内有效，过期可免费重新生成。</div>
+            <div class="pqr-acts">
+              <a class="pqr-btn primary" id="pqrOpen" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-8.5 8.5M10 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                在手机/新窗口打开</a>
+              <button class="pqr-btn" id="pqrCopy" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2" stroke="currentColor" stroke-width="2"/></svg>
+                复制付款链接</button>
+              <button class="pqr-btn" id="pqrRegen" type="button" style="display:none">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 10-2.34 5.66M20 12V7m0 5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                重新生成</button>
+            </div>
+            <div class="pqr-xid">下单时请在「留言」填写你的<b>贤圈ID</b>（App「设置 → 关于」可查）；填错或不填将无法自动匹配，需人工核对，最迟 24 小时内补齐。</div>
+            <div class="pqr-desc"><b style="color:var(--ink)">到账说明：</b>付款后系统每分钟自动拉取订单并匹配，一般 1 分钟内到账，最迟不超过 24 小时；到账后权益即时生效，App 内打开会员中心刷新即可看到。</div>
           </div>
         </div>
-        <div class="afd-acts">
-          <span class="afd-item">
-            <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=052a1724a2f511f1a9855254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·月 ¥6</a>
-            <span class="afd-pop"><img src="./img/afd-plan-month.png" alt="贤士卡·月方案卡" loading="lazy"><i>月卡 · ¥6/月 · 随时停</i></span>
-          </span>
-          <span class="afd-item">
-            <a class="afd-btn" href="https://ifdian.net/order/create?plan_id=218168a0a2f511f1b3255254001e7c00&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·季 ¥13</a>
-            <span class="afd-pop"><img src="./img/afd-plan-quarter.png" alt="贤士卡·季方案卡" loading="lazy"><i>季卡 · ¥13/季 · 立省 5 元</i></span>
-          </span>
-          <span class="afd-item afd-item-right">
-            <a class="afd-btn hot" href="https://ifdian.net/order/create?plan_id=b1a15b58a2f411f18a1052540025c377&product_type=0&month=1" target="_blank" rel="noopener">贤士卡·年 ¥46.8 超值</a>
-            <span class="afd-pop"><img src="./img/afd-plan-year.png" alt="贤士卡·年方案卡" loading="lazy"><i>年卡 · ¥46.8/年 · 立省 25 元</i></span>
-          </span>
-        </div>
-        <div class="afd-acts afd-sub-t">增量权益包（叠加在现有额度上，永久有效）</div>
-        <div class="afd-acts">
-          <a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=5b3ba49ea37b11f1b27c52540025c377&sku=%5B%7B%22sku_id%22%3A%225b443032a37b11f1866052540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">匿名帖 +5 · ¥1</a>
-          <a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=832a9ff0a37b11f18c1652540025c377&sku=%5B%7B%22sku_id%22%3A%2283325146a37b11f1a3a152540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">匿名评论 +10 · ¥1</a>
-          <a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=ad6e1c60a37b11f1a8ad52540025c377&sku=%5B%7B%22sku_id%22%3A%22ad7656d2a37b11f1908752540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">表情扩容 +50 · ¥2</a>
-          <a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=c1d3ca60a37b11f188c15254001e7c00&sku=%5B%7B%22sku_id%22%3A%22c1dc8d76a37b11f1a4eb5254001e7c00%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">发帖图片 +3 · ¥3</a>
-        </div>
-        <div class="afd-acts afd-sub-t">加鸡腿（打赏小费 · 性同请客 · 不对应权益）<span class="afd-sub-hint">悬停按钮可弹出扫码下单二维码</span></div>
-        <div class="tip-list">
-          <div class="tip-row"><span class="afd-item"><a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=661c70e0a38111f1a0785254001e7c00&sku=%5B%7B%22sku_id%22%3A%226625a3d6a38111f186445254001e7c00%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">初级 · ¥1</a><span class="afd-pop"><img src="./img/qr-tip-1.png" alt="初级鸡腿下单二维码" loading="lazy"><i>扫码下单 · 初级鸡腿 ¥1</i></span></span><span class="tip-desc">请创作者吃一根棒棒糖。</span></div>
-          <div class="tip-row"><span class="afd-item"><a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=b6238132a38111f1a8ea52540025c377&sku=%5B%7B%22sku_id%22%3A%22b62c2f58a38111f1a6ce52540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">标准 · ¥3</a><span class="afd-pop"><img src="./img/qr-tip-3.png" alt="标准鸡腿下单二维码" loading="lazy"><i>扫码下单 · 标准鸡腿 ¥3</i></span></span><span class="tip-desc">请创作者喝一瓶“国窖”。</span></div>
-          <div class="tip-row"><span class="afd-item"><a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=110c1514a38211f1b15652540025c377&sku=%5B%7B%22sku_id%22%3A%2211141c28a38211f18ef652540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">中级 · ¥15</a><span class="afd-pop"><img src="./img/qr-tip-15.png" alt="中级鸡腿下单二维码" loading="lazy"><i>扫码下单 · 中级鸡腿 ¥15</i></span></span><span class="tip-desc">请运营者吃一顿饭。</span></div>
-          <div class="tip-row"><span class="afd-item"><a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=344e82faa38211f1afc752540025c377&sku=%5B%7B%22sku_id%22%3A%2234560340a38211f193cd52540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">高级 · ¥30</a><span class="afd-pop"><img src="./img/qr-tip-30.png" alt="高级鸡腿下单二维码" loading="lazy"><i>扫码下单 · 高级鸡腿 ¥30</i></span></span><span class="tip-desc">感谢你请创作者和运营者的馈赠。</span></div>
-          <div class="tip-row"><span class="afd-item"><a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=a32d0a70a38211f18b0352540025c377&sku=%5B%7B%22sku_id%22%3A%22a336526aa38211f1b38752540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">皇级 · ¥50</a><span class="afd-pop"><img src="./img/qr-tip-50.png" alt="皇级鸡腿下单二维码" loading="lazy"><i>扫码下单 · 皇级鸡腿 ¥50</i></span></span><span class="tip-desc">您的名字（贤圈ID或尚贤圈昵称，系统自动选择）将在每月进行致谢陈列。</span></div>
-          <div class="tip-row"><span class="afd-item"><a class="afd-btn afd-sm" href="https://ifdian.net/order/create?product_type=1&plan_id=ed092444a38211f1b62852540025c377&sku=%5B%7B%22sku_id%22%3A%22ed117f04a38211f1a12352540025c377%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">星级 · ¥100</a><span class="afd-pop"><img src="./img/qr-tip-100.png" alt="星级鸡腿下单二维码" loading="lazy"><i>扫码下单 · 星级鸡腿 ¥100</i></span></span><span class="tip-desc">感谢您为尚贤圈的运营和维护提供自己的一份绵薄之力！您的名字将被罗列在「尚贤圈运营&维护致谢用户名单」中。</span></div>
-          <div class="tip-row"><span class="afd-item"><a class="afd-btn afd-sm hot" href="https://ifdian.net/order/create?product_type=1&plan_id=c3e33536a38311f1b3b35254001e7c00&sku=%5B%7B%22sku_id%22%3A%22c3ec1fb6a38311f197485254001e7c00%22,%22count%22%3A1%7D%5D" target="_blank" rel="noopener">钻级 · ¥200</a><span class="afd-pop"><img src="./img/qr-tip-200.png" alt="钻级鸡腿下单二维码" loading="lazy"><i>扫码下单 · 钻级鸡腿 ¥200</i></span></span><span class="tip-desc">您的名字将在尚贤圈大家庭中名垂千古；永久保留于「运营&维护致谢用户名单」；并获得专属铭牌（头像框）。</span></div>
-        </div>
-                <div class="qr-wall" id="qrWall">
-          <div class="qr-c"><img src="./img/qr-tip-1.png" alt="初级鸡腿二维码" loading="lazy"><span>初级 ¥1</span></div>
-          <div class="qr-c"><img src="./img/qr-tip-3.png" alt="标准鸡腿二维码" loading="lazy"><span>标准 ¥3</span></div>
-          <div class="qr-c"><img src="./img/qr-tip-15.png" alt="中级鸡腿二维码" loading="lazy"><span>中级 ¥15</span></div>
-          <div class="qr-c"><img src="./img/qr-tip-30.png" alt="高级鸡腿二维码" loading="lazy"><span>高级 ¥30</span></div>
-          <div class="qr-c"><img src="./img/qr-tip-50.png" alt="皇级鸡腿二维码" loading="lazy"><span>皇级 ¥50</span></div>
-          <div class="qr-c"><img src="./img/qr-tip-100.png" alt="星级鸡腿二维码" loading="lazy"><span>星级 ¥100</span></div>
-          <div class="qr-c"><img src="./img/qr-tip-200.png" alt="钻级鸡腿二维码" loading="lazy"><span>钻级 ¥200</span></div>
-        </div>
-        <p class="afd-tipnote">上方二维码可直接长按/右键保存后扫码下单；点击可放大。鸡腿金额三成以上（普遍五到八成）用于平台开发维护；App 内下单留言自动填贤圈ID。付款与赠与相关权责见<a class="afd-disc" href="./disclosure/">《免责声明 · 付款与赠与须知》</a>（含免责声明、付款与支付须知、赠与虚拟道具与权益说明三份文件）。</p>
+
+        <p class="afd-tipnote">每个付款码均为本次会话在线生成、3 分钟内有效（防截图冒用）；鸡腿金额三成以上（普遍五到八成）用于平台开发维护；App 内下单留言自动填贤圈ID。付款与赠与相关权责见<a class="afd-disc" href="./disclosure/">《免责声明 · 付款与赠与须知》</a>（含免责声明、付款与支付须知、赠与虚拟道具与权益说明三份文件）。</p>
         <div class="afd-acts">
           <a class="afd-more" href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">或前往爱发电主页 · 任意金额支持 / 加鸡腿 →</a>
         </div>
@@ -1002,6 +1051,37 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
     </div>
   </div>
 </section>
+
+<!-- 明细协议模态（第二步） -->
+<div class="pay-modal" id="payModal" role="dialog" aria-modal="true" aria-label="购买明细确认">
+  <div class="pm-card">
+    <div class="pm-head">
+      <div class="pm-seal">贤</div>
+      <h3>购买确认 · 请逐条阅读</h3>
+      <button class="pm-close" id="pmClose" aria-label="关闭">×</button>
+    </div>
+    <p class="pm-sub" id="pmSub"></p>
+    <div class="pd-list" id="pdList"></div>
+    <label class="pm-agree">
+      <input type="checkbox" id="pmAgree" />
+      <span>我已逐条阅读并知悉上述全部明细，同意<a class="agree-doc" data-doc="membership">《尚贤圈会员服务协议》</a>与<a class="agree-doc" data-doc="paidRefund">《付费与退款政策》</a>，理解虚拟权益类商品一经到账不支持退款。</span>
+    </label>
+    <div class="pm-acts">
+      <button class="pm-btn ghost" id="pmCancel" type="button">再想想</button>
+      <button class="pm-btn go" id="pmGo" type="button" disabled>确认并生成付款码</button>
+    </div>
+  </div>
+</div>
+
+<!-- 通用扫码模态（QQ群 / 贤圈中心） -->
+<div class="qr-layer" id="qrLayer" role="dialog" aria-modal="true" aria-label="扫码">
+  <div class="qrl-card">
+    <h4 id="qrlTitle"></h4>
+    <p id="qrlSub"></p>
+    <div class="qrl-qr" id="qrlQr"></div>
+    <button class="qrl-close" id="qrlClose" type="button">关闭</button>
+  </div>
+</div>
 </main>
 
 <footer>
@@ -1013,12 +1093,25 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         <div class="ft-contact"><span class="ft-c-tag">用户联系</span><a class="ft-c-mail" href="mailto:3982206481@qq.com">3982206481@qq.com</a></div>
         <div class="ft-contact"><span class="ft-c-tag">紧急联系</span><a class="ft-c-mail" href="mailto:sxemergency@outlook.com">sxemergency@outlook.com</a></div>
         <div class="ft-contact"><span class="ft-c-tag">全站公务</span><a class="ft-c-mail" href="mailto:sxcommunity@outlook.com">sxcommunity@outlook.com</a></div>
-        <div class="ft-c-note">以上邮箱为官方唯一联系渠道</div>
+        <div class="ft-qq">
+          <div class="ft-qq-pen" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="26" height="26"><path d="M24 6c-7.2 0-12.4 4.9-12.4 11.6 0 1.5.3 3 .8 4.3-1.9 1.4-3.1 3.4-3.1 5.2 0 2.5 2.1 4.1 4.4 4.1 1.1 0 2.2-.4 3-1.1.4 1.5 1.2 2.9 2.3 4-.9.5-1.5 1.3-1.5 2.2 0 1.5 1.6 2.7 3.6 2.7 1.3 0 2.5-.5 3.1-1.3h3.6c.6.8 1.8 1.3 3.1 1.3 2 0 3.6-1.2 3.6-2.7 0-.9-.6-1.7-1.5-2.2 1.1-1.1 1.9-2.5 2.3-4 .8.7 1.9 1.1 3 1.1 2.3 0 4.4-1.6 4.4-4.1 0-1.8-1.2-3.8-3.1-5.2.5-1.3.8-2.8.8-4.3C36.4 10.9 31.2 6 24 6z" fill="#fff"/><circle cx="18.6" cy="17.5" r="2" fill="#0d8fd6"/><circle cx="29.4" cy="17.5" r="2" fill="#0d8fd6"/><path d="M20 25.5c1.2 1 2.5 1.5 4 1.5s2.8-.5 4-1.5" stroke="#0d8fd6" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <div class="ft-qq-body">
+            <div class="ft-qq-t">QQ 交流群 · 尚贤圈 1 群 <span class="ft-qq-no">1107098079</span></div>
+            <div class="ft-qq-sub">交流反馈 · 问题求助 · 版本更新通知（官方群，谨防仿冒）</div>
+          </div>
+          <div class="ft-qq-acts">
+            <a class="ft-qq-btn join" href="https://qm.qq.com/q/GAEg8ODOQU" target="_blank" rel="noopener">加入群聊</a>
+            <button class="ft-qq-btn scan" type="button" data-qr="qq">扫码加群</button>
+          </div>
+        </div>
+        <div class="ft-c-note">以上邮箱与 QQ 群为官方唯一联系渠道</div>
       </div>
     </div>
     <div>
       <h4>快速导航</h4>
-      <a href="#features">产品特性</a><br><a href="#versions">版本下载</a><br><a href="#rules">规则中心</a><br><a href="#faq">常见疑问</a><br><a href="#afdian">支持尚贤圈</a><br><a class="ft-out" href="https://sxcommunity.github.io/xq-center/" target="_blank" rel="noopener">贤圈中心（网页版）↗</a><br><a class="ft-out" href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">爱发电主页 ↗</a><br><a class="ft-out" href="./disclosure/index.html" target="_blank" rel="noopener">信息披露中心 ↗</a>
+      <a href="#features">产品特性</a><br><a href="#versions">版本下载</a><br><a href="#rules">规则中心</a><br><a href="#faq">常见疑问</a><br><a href="#afdian">支持尚贤圈</a><br><a class="ft-out" href="https://sxcommunity.github.io/xq-center/" target="_blank" rel="noopener">贤圈中心（网页版）↗</a> <span class="ft-scan-mini" data-qr="xq">扫码打开</span><br><a class="ft-out" href="./history/" target="_blank" rel="noopener">版本档案馆 ↗</a><br><a class="ft-out" href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">爱发电主页 ↗</a><br><a class="ft-out" href="./disclosure/index.html" target="_blank" rel="noopener">信息披露中心 ↗</a>
     </div>
     <div>
       <h4>核心法律文件</h4>
@@ -1526,62 +1619,113 @@ const VOICES=[
   { name:'匿名同学', role:'用户', type:'user', text:'考研经验帖整理得有条理，按时间线一步步来，少踩很多坑。', stars:4 },
   { name:'匿名同学', role:'用户', type:'user', text:'教材转手很快，当面交易提前看了成色，和描述一致。', stars:4 }
 ];
-const voiceTrack=document.getElementById('voiceTrack');
-const voiceDots=document.getElementById('voiceDots');
-let voiceFilter='all', voiceIdx=0, vPerView=3;
+let voiceFilter='all';
 function starStr(n){
   let s=''; for(let i=0;i<5;i++){ s+=`<svg viewBox="0 0 24 24" fill="${i<n?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.9 6.6 19.4l1.3-6L3.4 9.3l6-.7L12 3z"/></svg>`; } return s;
 }
-function renderVoices(){
-  const list=VOICES.filter(v=>voiceFilter==='all'||v.type===voiceFilter);
-  if(!voiceTrack)return;
-  voiceTrack.innerHTML=list.map(v=>{
-    const isOfficial=v.type==='official';
-    return `<article class="voice-card">
-      <div class="voice-stars">${starStr(v.stars)}</div>
-      <p class="voice-text">${xss(v.text)}</p>
-      <div class="voice-meta">
-        <span class="voice-avatar" style="background:${isOfficial?'linear-gradient(135deg,#b98a2f,#8f6a1f)':'linear-gradient(135deg,#c8401f,#9e3015)'}">${xss(v.name.slice(0,1))}</span>
-        <div><div class="voice-name">${xss(v.name)}</div><div class="voice-role">${xss(v.role)}</div></div>
-        <span class="voice-badge ${isOfficial?'official':'user'}">${isOfficial?'体验官':'真实用户'}</span>
-      </div>
-    </article>`;
-  }).join('');
-  vPerView=window.innerWidth<=560?1:(window.innerWidth<=860?2:3);
-  const pages=Math.max(1,Math.ceil(list.length/vPerView));
-  voiceIdx=Math.min(voiceIdx,pages-1);
-  renderDots(pages);
-  updateTrack();
+/* ---------- 用户之声：弹幕横滑墙（三轨双向，常驻流动） ---------- */
+const MAIN_URL='https://gfxkpljewqchdbrepqia.supabase.co';
+const MAIN_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdmeGtwbGpld3FjaGRicmVwcWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2MjA2NDIsImV4cCI6MjEwMzE5NjY0Mn0.VWr_iNA25QTviaFiwYMvTV43ZK3I7kEKXSYO5jHZrBY';
+let VOICE_REAL=null; /* 远程真实好评（拉取成功后填充） */
+function dmCard(v){
+  const isOfficial=v.type==='official';
+  return `<article class="dm-card">
+    <div class="voice-stars">${starStr(v.stars)}</div>
+    <p class="voice-text">${xss(v.text)}</p>
+    <div class="voice-meta">
+      <span class="voice-avatar" style="background:${isOfficial?'linear-gradient(135deg,#b98a2f,#8f6a1f)':'linear-gradient(135deg,#c8401f,#9e3015)'}">${xss(v.name.slice(0,1))}</span>
+      <div><div class="voice-name">${xss(v.name)}</div><div class="voice-role">${xss(v.role)}</div></div>
+      <span class="voice-badge ${isOfficial?'official':'user'}">${isOfficial?'体验官':'真实用户'}</span>
+    </div>
+  </article>`;
 }
-function renderDots(pages){
-  if(!voiceDots)return;
-  voiceDots.innerHTML='';
-  for(let i=0;i<pages;i++){
-    const b=document.createElement('button');
-    b.className='vdot'+(i===voiceIdx?' on':'');
-    b.setAttribute('aria-label','第 '+(i+1)+' 页');
-    b.addEventListener('click',()=>{voiceIdx=i;renderDots(pages);updateTrack();});
-    voiceDots.appendChild(b);
+function renderDm(){
+  const wall=document.getElementById('dmWall'); if(!wall)return;
+  const remote=(VOICE_REAL||[]).filter(v=>voiceFilter==='all'||voiceFilter==='user');
+  const official=VOICES.filter(v=>voiceFilter==='all'||voiceFilter==='official');
+  let list;
+  if(voiceFilter==='user'){ list=remote.length?remote:[{name:'匿名同学',role:'用户',type:'user',text:'问卷好评正在路上——在 App 问卷中心打分满四星并同意公示，你的话就会出现在这里。',stars:5}]; }
+  else if(voiceFilter==='official'){ list=official; }
+  else { list=official.concat(remote); }
+  if(!list.length){ wall.innerHTML='<div class="dm-empty-track">暂无内容</div>'; return; }
+  const lanes=3, per=Math.ceil(list.length/lanes);
+  let html='';
+  for(let i=0;i<lanes;i++){
+    const seg=list.slice(i*per,(i+1)*per);
+    if(!seg.length)continue;
+    const cards=seg.map(dmCard).join('');
+    const dur=(40+i*9)+(seg.length%3)*4;
+    html+=`<div class="dm-lane${i%2?' rev':''}"><div class="dm-track" style="--dm-dur:${dur}s">${cards}${cards}</div></div>`;
   }
+  wall.innerHTML=html;
 }
-function updateTrack(){
-  if(!voiceTrack)return;
-  const cards=voiceTrack.children;
-  if(!cards.length)return;
-  const w=cards[0].getBoundingClientRect().width+16;
-  voiceTrack.style.transform=`translateX(${-voiceIdx*vPerView*w}px)`;
-}
-document.getElementById('voicePrev')?.addEventListener('click',()=>{ if(voiceIdx>0){voiceIdx--;renderVoices();} });
-document.getElementById('voiceNext')?.addEventListener('click',()=>{ voiceIdx++;renderVoices(); });
+/* 真实好评拉取：主库问卷公示评价（10 分钟缓存，失败静默回落官方文案） */
+(function loadVoices(){
+  try{
+    const c=JSON.parse(localStorage.getItem('sxq_voices')||'null');
+    if(c && Date.now()-c.at<600000){ VOICE_REAL=c.data; renderDm(); return; }
+  }catch(e){}
+  fetch(MAIN_URL+'/rest/v1/rpc/rpc_survey_voices_public',{
+    method:'POST',
+    headers:{'apikey':MAIN_ANON,'Content-Type':'application/json'},
+    body:'{"payload":{}}'
+  }).then(r=>{if(!r.ok)throw 0;return r.json();}).then(d=>{
+    const list=(d&&d.data&&Array.isArray(d.data.list))?d.data.list.filter(x=>x&&x.content):[];
+    if(!list.length)return;
+    VOICE_REAL=list.map(x=>({name:x.nickName||'匿名同学',role:x.role||'用户',type:'user',text:x.content,stars:x.stars||5}));
+    try{localStorage.setItem('sxq_voices',JSON.stringify({at:Date.now(),data:VOICE_REAL}));}catch(e){}
+    renderDm();
+  }).catch(()=>{});
+})();
 document.querySelectorAll('#voiceFilter .tabbtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('#voiceFilter .tabbtn').forEach(b=>b.setAttribute('aria-selected','false'));
     btn.setAttribute('aria-selected','true');
-    voiceFilter=btn.dataset.vf; voiceIdx=0; renderVoices();
+    voiceFilter=btn.dataset.vf; renderDm();
   });
 });
-window.addEventListener('resize',()=>{renderVoices();});
-renderVoices();
+renderDm();
+
+/* ---------- 看板真实数据（主库 rpc_public_stats，10 分钟缓存，失败回落演示数据） ---------- */
+(function loadRealStats(){
+  let apply=null;
+  try{
+    const c=JSON.parse(localStorage.getItem('sxq_stats')||'null');
+    if(c && Date.now()-c.at<600000){ apply=c.data; }
+  }catch(e){}
+  function use(d){
+    if(!d)return;
+    const kpi=document.querySelectorAll('.dash-kpis .kpi-v');
+    const vals=[d.users,d.weekPosts,d.monthReports,d.removed];
+    kpi.forEach((el,i)=>{
+      if(vals[i]==null)return;
+      el.dataset.count=vals[i];
+      if(el.dataset.done){ countUp(el); } /* 已滚过静态值：重滚到真实值 */
+    });
+    const bars=d.bars&&d.bars[document.querySelector('.dash-tabs .tabbtn[aria-selected="true"]')?.dataset.range||'all'];
+    if(bars&&bars.length){
+      DASH_DATA[document.querySelector('.dash-tabs .tabbtn[aria-selected="true"]')?.dataset.range||'all'].bars=bars.map(b=>[b.name,b.count]);
+      renderBars(document.querySelector('.dash-tabs .tabbtn[aria-selected="true"]')?.dataset.range||'all');
+      animateBars();
+    }
+    if(d.donut){
+      const r=document.querySelector('.dash-tabs .tabbtn[aria-selected="true"]')?.dataset.range||'all';
+      DASH_DATA[r].ok=d.donut.ok;DASH_DATA[r].del=d.donut.del;DASH_DATA[r].warn=d.donut.warn;
+      renderDonut(r);
+    }
+  }
+  if(apply){ use(apply); return; }
+  fetch(MAIN_URL+'/rest/v1/rpc/rpc_public_stats',{
+    method:'POST',
+    headers:{'apikey':MAIN_ANON,'Content-Type':'application/json'},
+    body:'{"payload":{}}'
+  }).then(r=>{if(!r.ok)throw 0;return r.json();}).then(d=>{
+    if(!d||d.ok===false||!d.data)return;
+    apply=d.data;
+    try{localStorage.setItem('sxq_stats',JSON.stringify({at:Date.now(),data:apply}));}catch(e){}
+    use(apply);
+  }).catch(()=>{});
+})();
 
 /* 路线图板块已移除 */
 
@@ -1636,7 +1780,7 @@ renderVoices();
 /* ---------- 移动端底部 Tab scrollspy ---------- */
 const mtabItems=document.querySelectorAll('.mtab-item');
 if(mtabItems.length){
-  const secIds=['top','features','versions','rules','faq'].map(id=>document.getElementById(id));
+  const secIds=['top','features','versions','rules','faq','afdian'].map(id=>document.getElementById(id));
   const spyIo=new IntersectionObserver(entries=>{
     entries.forEach(en=>{
       if(en.isIntersecting){
@@ -1673,37 +1817,122 @@ if(mtabItems.length){
 .afd-btn.hot:hover{box-shadow:0 16px 34px rgba(168,119,24,.55),0 0 0 4px rgba(217,168,60,.18)}
 .afd-btn.afd-sm{font-size:13px;padding:10px 18px}
 .afd-sub-hint{font-weight:400;color:var(--muted);letter-spacing:0;margin-left:10px;font-size:12px}
-.qr-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:14px;margin:14px 0 4px}
-.qr-c{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center;cursor:zoom-in;transition:transform .25s ease,box-shadow .25s ease}
-.qr-c:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(60,40,20,.14)}
-.qr-c img{width:100%;display:block;border-radius:8px}
-.qr-c span{display:block;margin-top:8px;font-size:12.5px;font-weight:700;color:#7a5c1e}
-.qr-mask{position:fixed;inset:0;z-index:1300;background:rgba(28,26,23,.72);display:none;align-items:center;justify-content:center;cursor:zoom-out}
-.qr-mask.show{display:flex}
-.qr-mask img{width:min(420px,86vw);border-radius:16px;background:#fff;padding:10px}
-.tip-list{display:flex;flex-direction:column;gap:10px;margin:8px 0 4px}
-.tip-row{display:flex;align-items:center;gap:16px;background:rgba(255,253,247,.6);border:1px solid var(--line);border-radius:14px;padding:10px 14px;transition:border-color .25s ease,transform .25s ease}
-.tip-row:hover{border-color:rgba(200,64,31,.35);transform:translateX(3px)}
-.tip-row .afd-item{flex-shrink:0}
-.tip-desc{font-size:13px;color:var(--ink2);line-height:1.8}
 .afd-disc{color:var(--cinnabar);text-decoration:none;border-bottom:1.5px dashed rgba(200,64,31,.5)}
 .afd-disc:hover{opacity:.75}
-@media (max-width:640px){.tip-row{flex-direction:column;align-items:flex-start;gap:8px}}
 .afd-sub-t{font-size:13px;font-weight:800;color:#7a5c1e;letter-spacing:1px;margin:16px 0 2px}
 .afd-tipnote{font-size:12px;color:#a2937f;line-height:1.8;margin:10px 0 4px}
 .afd-more{display:inline-block;font-size:14px;color:var(--cinnabar);text-decoration:underline}
 .afd-minor{font-size:12.5px;color:#a2937f}
-/* 悬停按钮 → 下方展开对应的一张方案卡（大图，不跟鼠标，不遮按钮） */
-.afd-item{position:relative;display:inline-block}
-.afd-pop{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px) scale(.95);width:min(340px,78vw);z-index:60;pointer-events:none;opacity:0;transition:opacity .22s ease,transform .3s cubic-bezier(.2,.9,.3,1.3);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 22px 54px rgba(40,25,10,.32)}
-.afd-item:hover .afd-pop{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-.afd-item-right .afd-pop{left:auto;right:0;transform:translateY(8px) scale(.95)}
-.afd-item-right:hover .afd-pop{transform:translateY(0) scale(1)}
-.afd-pop::before{content:"";position:absolute;top:-10px;left:50%;width:70px;height:12px;transform:translateX(-50%)}
-.afd-item-right .afd-pop::before{left:auto;right:34px}
-.afd-pop img{width:100%;display:block}
-.afd-pop i{display:block;font-style:normal;text-align:center;font-size:13px;font-weight:700;color:#7a5c1e;background:#fffdf7;border-top:1px solid #f2ead8;padding:9px 8px;letter-spacing:1px}
-@media (hover:none){.afd-pop{display:none}}
+
+/* ═══ 弹幕心声墙（三轨横滑，常驻流动） ═══ */
+.dm-wall{display:flex;flex-direction:column;gap:14px;--dm-gap:16px}
+.dm-lane{position:relative;overflow:hidden;border-radius:16px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.dm-track{display:inline-flex;gap:var(--dm-gap);white-space:nowrap;will-change:transform;
+  animation:dmL2R var(--dm-dur,42s) linear infinite;padding:4px 0}
+.dm-lane.rev .dm-track{animation-name:dmR2L}
+.dm-lane:hover .dm-track{animation-play-state:paused}
+@keyframes dmL2R{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes dmR2L{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.dm-lane:not(.rev) .dm-track{animation-name:dmL2R}
+.dm-lane.rev .dm-track{animation-name:dmR2L;animation-direction:reverse}
+.dm-card{flex:0 0 300px;display:flex;flex-direction:column;gap:8px;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;padding:18px 20px;min-height:150px;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+.dm-card:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(200,64,31,.45);box-shadow:0 14px 32px rgba(28,26,23,.12)}
+@media(max-width:560px){.dm-card{flex:0 0 82vw}}
+.dm-empty-track{height:170px;display:grid;place-items:center;color:var(--muted);font-size:14px}
+
+/* ═══ 出品方恒动 + 区块恒动动效 ═══ */
+/* 双牌卡：旋转流光描边 + 印章呼吸 + 顶线流光常驻 */
+.maker{--mk-spin:14s}
+.maker::after{background:linear-gradient(90deg,transparent 0%,var(--gold) 25%,var(--cinnabar) 50%,var(--gold) 75%,transparent 100%);
+  background-size:220% 100%;animation:mkLineFlow 5.5s linear infinite}
+@keyframes mkLineFlow{from{background-position:120% 0}to{background-position:-120% 0}}
+.maker-mono{animation:mkMonoBreathe 4.6s ease-in-out infinite}
+@keyframes mkMonoBreathe{0%,100%{transform:translateY(0) rotate(-2deg);box-shadow:0 0 0 0 rgba(200,64,31,.0)}
+  50%{transform:translateY(-5px) rotate(2deg);box-shadow:0 14px 30px rgba(200,64,31,.28)}}
+.maker{animation:mkAuraDrift 12s ease-in-out infinite}
+.maker:nth-child(2){animation-delay:2.4s;animation-duration:14s}
+@keyframes mkAuraDrift{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.maker .maker-tag{animation:mkTagTwinkle 3.8s ease-in-out infinite}
+.maker .maker-tag:nth-child(2n){animation-delay:1.3s}
+@keyframes mkTagTwinkle{0%,100%{border-color:rgba(216,205,180,.28)}50%{border-color:rgba(216,205,180,.65)}}
+/* 邮件卡：常驻微浮+边框呼吸 */
+.mail-cell{animation:mailFloat 6.5s ease-in-out infinite}
+.mail-cell:nth-child(2){animation-delay:.8s}
+.mail-cell:nth-child(3){animation-delay:1.6s}
+@keyframes mailFloat{0%,100%{transform:translateY(0);box-shadow:0 0 0 rgba(28,26,23,0)}
+  50%{transform:translateY(-4px);box-shadow:0 12px 26px rgba(28,26,23,.09)}}
+/* KPI 呼吸与条形流光 */
+.kpi{animation:kpiBreathe 5.5s ease-in-out infinite}
+.kpi:nth-child(2n){animation-delay:.9s}
+@keyframes kpiBreathe{0%,100%{box-shadow:0 0 0 rgba(200,64,31,0)}50%{box-shadow:0 8px 22px rgba(200,64,31,.1)}}
+.bar-fill{position:relative;overflow:hidden}
+.bar-fill::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.55) 50%,transparent 80%);
+  background-size:220% 100%;animation:barShimmer 2.6s linear infinite}
+@keyframes barShimmer{from{background-position:130% 0}to{background-position:-130% 0}}
+/* 中国风：#how 之后区块标题印章角标 + 角落水墨晕染 */
+#dashboard .sec-title,#tour .sec-title,#voices .sec-title,#versions .sec-title,
+#rules .sec-title,#faq .sec-title,#makers .sec-title,#afdian .sec-title{padding-left:16px}
+#dashboard .sec-title::before,#tour .sec-title::before,#voices .sec-title::before,#versions .sec-title::before,
+#rules .sec-title::before,#faq .sec-title::before,#makers .sec-title::before,#afdian .sec-title::before{
+  content:"";position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(-6deg);
+  width:9px;height:22px;border-radius:3px;background:linear-gradient(180deg,var(--cinnabar),var(--cinnabar-dk));
+  box-shadow:0 2px 8px rgba(158,48,21,.35);animation:sealInk 4.8s ease-in-out infinite}
+@keyframes sealInk{0%,100%{opacity:.85;transform:translateY(-50%) rotate(-6deg)}50%{opacity:1;transform:translateY(-50%) rotate(-2deg)}}
+#versions::after,#faq::after,#makers::after,#afdian::after{content:"";position:absolute;right:4%;bottom:6%;
+  width:120px;height:120px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(28,26,23,.05) 0%,rgba(28,26,23,.028) 38%,transparent 68%);
+  animation:inkPulse 9s ease-in-out infinite}
+#faq::after{animation-delay:2.2s}#makers::after{animation-delay:4.4s}#afdian::after{animation-delay:1.1s}
+@keyframes inkPulse{0%,100%{transform:scale(1) rotate(0deg);opacity:.85}50%{transform:scale(1.22) rotate(10deg);opacity:1}}
+/* 3D 倾斜跟随（E）：仅桌面精确指针 + 未开启减动效 */
+.tilt{transform-style:preserve-3d;will-change:transform}
+.tilt .tilt-inner{transform:translateZ(18px)}
+
+/* ═══ 安装引导三步图 ═══ */
+.install-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 22px}
+@media(max-width:720px){.install-guide{grid-template-columns:1fr}}
+.ig-step{position:relative;display:flex;gap:13px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;padding:17px 18px;overflow:hidden;
+  transition:transform .25s,box-shadow .25s,border-color .25s}
+.ig-step:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(28,26,23,.1);border-color:rgba(200,64,31,.4)}
+.ig-ic{flex-shrink:0;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(150deg,rgba(200,64,31,.1),rgba(185,138,47,.14));color:var(--cinnabar)}
+.ig-ic svg{width:24px;height:24px}
+.ig-step b{display:block;font-size:14.5px;letter-spacing:1px;font-family:var(--serif)}
+.ig-step span{display:block;margin-top:3px;font-size:12.5px;color:var(--ink2);line-height:1.75}
+.ig-no{position:absolute;right:8px;top:2px;font-family:Georgia,serif;font-style:italic;font-weight:800;
+  font-size:44px;color:rgba(200,64,31,.1)}
+.ig-step:not(:last-child)::after{content:"";position:absolute;right:-13px;top:50%;width:22px;height:22px;
+  border-top:2.5px solid var(--gold);border-right:2.5px solid var(--gold);transform:translateY(-50%) rotate(45deg);z-index:3}
+@media(max-width:720px){.ig-step:not(:last-child)::after{display:none}}
+.rel-actions .mini-btn.alt{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.rel-actions .mini-btn.alt:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+
+/* ═══ 页脚 QQ 群卡 ═══ */
+.ft-qq{margin-top:10px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);
+  border:1px solid rgba(96,170,255,.25);border-radius:12px;padding:10px 12px}
+.ft-qq-pen{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(160deg,#12b7f5,#0d8fd6);
+  display:grid;place-items:center;box-shadow:0 4px 12px rgba(18,183,245,.35)}
+.ft-qq-body{flex:1;min-width:0}
+.ft-qq-t{display:flex;align-items:center;gap:8px;font-size:13px;color:#9fd3ff;font-weight:700;letter-spacing:1px}
+.ft-qq-no{font-family:Georgia,monospace;font-size:14px;color:#ffd9b0;font-weight:700;letter-spacing:1px}
+.ft-qq-sub{margin-top:2px;font-size:11px;color:#8a8270}
+.ft-qq-acts{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.ft-qq-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:12px;letter-spacing:1px;
+  border-radius:999px;padding:7px 14px;cursor:pointer;text-decoration:none;transition:all .2s;white-space:nowrap}
+.ft-qq-btn.join{background:linear-gradient(135deg,#12b7f5,#0d8fd6);color:#fff;font-weight:700;box-shadow:0 4px 12px rgba(18,183,245,.3)}
+.ft-qq-btn.join:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(18,183,245,.45)}
+.ft-qq-btn.scan{background:transparent;border:1px solid rgba(159,211,255,.4);color:#9fd3ff}
+.ft-qq-btn.scan:hover{border-color:#9fd3ff;background:rgba(18,183,245,.12)}
+.ft-scan-mini{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#9fd3ff;cursor:pointer;
+  border:1px dashed rgba(159,211,255,.35);border-radius:8px;padding:4px 10px;margin-top:6px;transition:all .2s}
+.ft-scan-mini:hover{border-style:solid;background:rgba(18,183,245,.1)}
+
 /* 章节目录侧栏 */
 .reader-body{display:grid;grid-template-columns:216px minmax(0,1fr);gap:18px;align-items:start}
 .ch-toc{position:sticky;top:86px;max-height:66vh;overflow:auto;background:var(--paper2);border-radius:16px;padding:14px 10px;scrollbar-width:thin}
@@ -1731,16 +1960,6 @@ if(mtabItems.length){
 .ft-gh{display:inline-flex;align-items:center;gap:9px;color:#8d8271;text-decoration:none;font-size:14px;border:1px solid #d8d0c0;border-radius:999px;padding:9px 22px;transition:all .2s}
 .ft-gh:hover{color:#3b2f25;border-color:#8d8271;transform:translateY(-1px)}
 </style>
-<div class="qr-mask" id="qrMask"><img alt="二维码放大"></div>
-<script>
-(function(){
-  var qm=document.getElementById("qrMask");if(!qm)return;
-  qm.addEventListener("click",function(){qm.classList.remove("show")});
-  document.querySelectorAll(".qr-c img").forEach(function(im){
-    im.addEventListener("click",function(){qm.querySelector("img").src=im.src;qm.classList.add("show")});
-  });
-})();
-</script>
 <script>
 /* data-count 数字滚动 + 卡片交错渐入 */
 (function(){
@@ -1764,7 +1983,7 @@ if(mtabItems.length){
       en.target.classList.add("st-in");st.unobserve(en.target);
     });
   },{threshold:.25});
-  document.querySelectorAll(".stat,.kpi,.tip-row").forEach(function(el,i){ el.classList.add("st-anim"); el.dataset.sti=(i%4)*70; st.observe(el); });
+  document.querySelectorAll(".stat,.kpi").forEach(function(el,i){ el.classList.add("st-anim"); el.dataset.sti=(i%4)*70; st.observe(el); });
 })();
 </script>
 <style>
@@ -1773,7 +1992,7 @@ if(mtabItems.length){
 </style>
 
 <div id="pgBar"></div>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="./assets/qrcode.min.js"></script>
 <script>
 (function(){
   var bar=document.getElementById('pgBar');
@@ -1805,44 +2024,217 @@ if(mtabItems.length){
     });
   }
 
-  // 支付协议门 + 在线生成付款二维码
-  var agree=document.getElementById('afdAgree'),mask=document.getElementById('qrMask'),
-      box=document.getElementById('qrCanvas'),tip=document.getElementById('qrTip'),
-      acts=document.getElementById('qrActs'),open=document.getElementById('qrOpen'),
-      copy=document.getElementById('qrCopy');
-  if(!agree||!box)return;
-  var btnSel='.afd-btn[href*="ifdian.net"]';
-  function sync(){
-    var on=agree.checked;
-    mask.classList.toggle('hide',on);
-    document.querySelectorAll(btnSel).forEach(function(b){b.classList.toggle('locked',!on)});
-    if(!on){box.innerHTML='';acts.hidden=true;tip.textContent='勾选上方协议后即可生成付款码';}
-    else if(!box.firstChild){tip.textContent='点击任意档位按钮，生成专属付款码';}
-  }
-  agree.addEventListener('change',sync);sync();
-  document.querySelectorAll(btnSel).forEach(function(b){
-    b.addEventListener('click',function(e){
-      if(!agree.checked){
-        e.preventDefault();
-        mask.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:420});
-        agree.focus();return;
-      }
-      e.preventDefault();
-      var url=b.getAttribute('href'),name=(b.textContent||'该档位').trim();
-      box.innerHTML='';
-      try{ new QRCode(box,{text:url,width:184,height:184,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }
-      catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:20px;text-align:center">二维码生成失败<br />请点击下方按钮直接打开</div>'; }
-      tip.textContent='已生成：'+name;
-      open.href=url;acts.hidden=false;
+  // ═══ 支付向导：选档 → 8项明细协议门 → 随机付款码（3分钟倒计时） ═══
+  var PAY={sel:null,timer:null,deadline:0};
+  var PLANS=[
+    {key:'month',name:'贤士卡 · 月卡',price:6,priceT:'¥6',unit:'/月',desc:'月卡 · ¥6/月 · 随时停',type:'plan',
+     url:'https://ifdian.net/order/create?plan_id=052a1724a2f511f1a9855254001e7c00&product_type=0&month=1'},
+    {key:'quarter',name:'贤士卡 · 季卡',price:13,priceT:'¥13',unit:'/季',desc:'季卡 · ¥13/季 · 立省 5 元',type:'plan',
+     url:'https://ifdian.net/order/create?plan_id=218168a0a2f511f1b3255254001e7c00&product_type=0&month=1'},
+    {key:'year',name:'贤士卡 · 年卡',price:46.8,priceT:'¥46.8',unit:'/年',desc:'年卡 · ¥46.8/年 · 立省 25 元 · 会员日翻倍',type:'plan',hot:true,
+     url:'https://ifdian.net/order/create?plan_id=b1a15b58a2f411f18a1052540025c377&product_type=0&month=1'},
+    {key:'perk1',name:'增量包 · 匿名帖 +5',price:1,priceT:'¥1',unit:'',desc:'匿名帖每日额度 +5，叠加在现有额度上，永久有效',type:'perk',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=5b3ba49ea37b11f1b27c52540025c377&sku=%5B%7B%22sku_id%22%3A%225b443032a37b11f1866052540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'perk2',name:'增量包 · 匿名评论 +10',price:1,priceT:'¥1',unit:'',desc:'匿名评论每日额度 +10，叠加永久有效',type:'perk',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=832a9ff0a37b11f18c1652540025c377&sku=%5B%7B%22sku_id%22%3A%2283325146a37b11f1a3a152540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'perk3',name:'增量包 · 表情扩容 +50',price:2,priceT:'¥2',unit:'',desc:'自制表情包容量 +50，叠加永久有效',type:'perk',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=ad6e1c60a37b11f1a8ad52540025c377&sku=%5B%7B%22sku_id%22%3A%22ad7656d2a37b11f1908752540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'perk4',name:'增量包 · 发帖图片 +3',price:3,priceT:'¥3',unit:'',desc:'每帖图片张数 +3，叠加永久有效',type:'perk',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=c1d3ca60a37b11f188c15254001e7c00&sku=%5B%7B%22sku_id%22%3A%22c1dc8d76a37b11f1a4eb5254001e7c00%22,%22count%22%3A1%7D%5D'},
+    {key:'tip1',name:'加鸡腿 · 初级',price:1,priceT:'¥1',unit:'',desc:'请创作者吃一根棒棒糖。',type:'tip',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=661c70e0a38111f1a0785254001e7c00&sku=%5B%7B%22sku_id%22%3A%226625a3d6a38111f186445254001e7c00%22,%22count%22%3A1%7D%5D'},
+    {key:'tip2',name:'加鸡腿 · 标准',price:3,priceT:'¥3',unit:'',desc:'请创作者喝一瓶「国窖」。',type:'tip',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=b6238132a38111f1a8ea52540025c377&sku=%5B%7B%22sku_id%22%3A%22b62c2f58a38111f1a6ce52540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'tip3',name:'加鸡腿 · 中级',price:15,priceT:'¥15',unit:'',desc:'请运营者吃一顿饭。',type:'tip',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=110c1514a38211f1b15652540025c377&sku=%5B%7B%22sku_id%22%3A%2211141c28a38211f18ef652540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'tip4',name:'加鸡腿 · 高级',price:30,priceT:'¥30',unit:'',desc:'感谢你请创作者和运营者的馈赠。',type:'tip',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=344e82faa38211f1afc752540025c377&sku=%5B%7B%22sku_id%22%3A%2234560340a38211f193cd52540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'tip5',name:'加鸡腿 · 皇级',price:50,priceT:'¥50',unit:'',desc:'您的名字（贤圈ID或昵称，系统自动选择）将在每月进行致谢陈列。',type:'tip',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=a32d0a70a38211f18b0352540025c377&sku=%5B%7B%22sku_id%22%3A%22a336526aa38211f1b38752540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'tip6',name:'加鸡腿 · 星级',price:100,priceT:'¥100',unit:'',desc:'感谢您为尚贤圈的运营和维护提供绵薄之力！名字将罗列在「运营&维护致谢用户名单」。',type:'tip',
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=ed092444a38211f1b62852540025c377&sku=%5B%7B%22sku_id%22%3A%22ed117f04a38211f1a12352540025c377%22,%22count%22%3A1%7D%5D'},
+    {key:'tip7',name:'加鸡腿 · 钻级',price:200,priceT:'¥200',unit:'',desc:'名字名垂千古：永久保留于致谢名单，并获专属铭牌（头像框）。',type:'tip',hot:true,
+     url:'https://ifdian.net/order/create?product_type=1&plan_id=c3e33536a38311f1b3b35254001e7c00&sku=%5B%7B%22sku_id%22%3A%22c3ec1fb6a38311f197485254001e7c00%22,%22count%22%3A1%7D%5D'}
+  ];
+  function payInit(){
+    var pc=document.getElementById('planCards');if(!pc)return;
+    // 三卡并排
+    pc.innerHTML=PLANS.filter(function(p){return p.type==='plan'}).map(function(p){
+      return '<div class="plan-card'+(p.hot?' hot':'')+'" data-k="'+p.key+'" role="button" tabindex="0" aria-pressed="false">'+
+        (p.hot?'<span class="plan-hot-tag">超值</span>':'')+
+        '<span class="plan-check">✓</span>'+
+        '<div class="plan-name">'+p.name.split(' · ')[1]+'</div>'+
+        '<div class="plan-price">'+p.priceT+'<small>'+p.unit+'</small></div>'+
+        '<div class="plan-sub">'+p.desc.split(' · ').slice(1).join(' · ')+'</div></div>';
+    }).join('');
+    // 增量包胶囊
+    document.getElementById('perkChips').innerHTML=PLANS.filter(function(p){return p.type==='perk'}).map(function(p){
+      return '<span class="pay-chip" data-k="'+p.key+'" role="button" tabindex="0" aria-pressed="false">'+p.name.replace('增量包 · ','')+' <span class="pc-price">'+p.priceT+'</span></span>';
+    }).join('');
+    // 鸡腿胶囊
+    document.getElementById('tipChips').innerHTML=PLANS.filter(function(p){return p.type==='tip'}).map(function(p){
+      return '<span class="pay-chip'+(p.hot?' hot':'')+'" data-k="'+p.key+'" role="button" tabindex="0" aria-pressed="false">'+p.name.replace('加鸡腿 · ','')+' <span class="pc-price">'+p.priceT+'</span></span>';
+    }).join('');
+    // 选档
+    document.querySelectorAll('[data-k]').forEach(function(el){
+      var pick=function(){
+        document.querySelectorAll('.plan-card.sel,.pay-chip.sel').forEach(function(x){x.classList.remove('sel');x.setAttribute('aria-pressed','false')});
+        el.classList.add('sel');el.setAttribute('aria-pressed','true');
+        PAY.sel=PLANS.filter(function(p){return p.key===el.dataset.k})[0]||null;
+        var hint=document.getElementById('paySelHint'),desc=document.getElementById('paySelDesc');
+        if(PAY.sel){
+          document.getElementById('payNextBtn').disabled=false;
+          hint.textContent='已选：'+PAY.sel.name+' '+PAY.sel.priceT+' — 点击下一步查看购买明细';
+          desc.innerHTML='<b style="color:var(--cinnabar)">'+PAY.sel.name+' '+PAY.sel.priceT+'</b> · '+PAY.sel.desc;
+        }else{
+          document.getElementById('payNextBtn').disabled=true;
+          hint.textContent='请先选择一个档位';
+        }
+      };
+      el.addEventListener('click',pick);
+      el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
     });
+    // 第二步：明细模态
+    document.getElementById('payNextBtn').addEventListener('click',function(){
+      if(!PAY.sel)return;
+      var p=PAY.sel;
+      document.getElementById('pmSub').innerHTML='你正在购买：<b>'+p.name+' · '+p.priceT+(p.unit||'')+'</b>（'+p.desc+'）';
+      var details=[
+        ['壹','商品与价格',p.name+' · '+p.priceT+(p.unit||'')+'。'+(p.type==='tip'?'本档为纯赠与打赏，不对应任何权益。':'权益与服务细则见《尚贤圈会员服务协议》。')],
+        ['贰','到账与生效','付款后系统每分钟自动拉取订单并匹配，一般 1 分钟内到账，最迟不超过 24 小时；到账后权益即时生效，会员按购买时长顺延。'],
+        ['叁','不退款','数字内容一经到账即产生权益或赠与完成，依据《付费与退款政策》不予退款。下单前请想清楚，量力而行。'],
+        ['肆','贤圈ID 必填','下单时请在「留言」填写你的贤圈ID（App「设置 → 关于」可查）；填错或不填将无法自动匹配，需等待人工核对，最迟 24 小时内补齐。'],
+        ['伍','未成年人','未满 18 周岁应在监护人同意并陪同下购买；监护人有权要求中止后续消费。'],
+        ['陆','资金用途','鸡腿与赞助金额三成以上（普遍五到八成）直接投入平台开发与维护，用途在鸣谢墙与信息披露中心公示。'],
+        ['柒','平台责任边界','交易通过爱发电渠道完成并结算，尚贤圈平台不经手、不代付、不担保交易资金；支付问题请先联系爱发电。'],
+        ['捌','争议处理','付款与赠与相关争议请通过官方邮箱或页脚 QQ 交流群联系，参照《付费与退款政策》《免责声明 · 付款与赠与须知》处理。']
+      ];
+      document.getElementById('pdList').innerHTML=details.map(function(d){
+        return '<div class="pd-item"><span class="pd-ic">'+d[0]+'</span><div><b>'+d[1]+'</b><span>'+d[2]+'</span></div></div>';
+      }).join('');
+      document.getElementById('pmAgree').checked=false;
+      document.getElementById('pmGo').disabled=true;
+      document.getElementById('payModal').classList.add('show');
+    });
+    document.getElementById('pmClose').addEventListener('click',payCloseModal);
+    document.getElementById('pmCancel').addEventListener('click',payCloseModal);
+    document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)payCloseModal();});
+    document.getElementById('pmAgree').addEventListener('change',function(){
+      document.getElementById('pmGo').disabled=!this.checked;
+    });
+    document.getElementById('pmGo').addEventListener('click',function(){
+      payCloseModal();
+      payGen();
+    });
+    // 付款码操作
+    document.getElementById('pqrCopy').addEventListener('click',function(){
+      var url=document.getElementById('pqrOpen').href||'';
+      if(!url)return;
+      var btn=this;
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(function(){btn.textContent='已复制';setTimeout(function(){btn.textContent='复制付款链接';},1600);});
+      }
+    });
+    document.getElementById('pqrRegen').addEventListener('click',payGen);
+  }
+  function payCloseModal(){document.getElementById('payModal').classList.remove('show');}
+  function payGen(){
+    if(!PAY.sel||typeof QRCode==='undefined')return;
+    var p=PAY.sel;
+    // 随机会话号 + 时间戳（fragment 附加：二维码内容每次唯一，扫码仍进爱发电正常下单页）
+    var sess=Array.from({length:5},function(){return 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*31)];}).join('');
+    var url=p.url+'#sxq='+sess+'-'+Date.now();
+    var box=document.getElementById('pqrBox');
+    box.innerHTML='';
+    try{ new QRCode(box,{text:url,width:352,height:352,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }
+    catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:30px;text-align:center">二维码生成失败<br>请用右侧按钮直接打开</div>'; }
+    var qr=document.getElementById('payQr');
+    qr.classList.remove('expired');qr.classList.add('show');
+    document.getElementById('pqrTitle').innerHTML=p.name+' <span class="pqr-price">'+p.priceT+(p.unit||'')+'</span>';
+    document.getElementById('pqrSession').textContent='会话码 SXQ-'+sess+' · 本次生成 '+new Date().toLocaleTimeString('zh-CN',{hour12:false});
+    document.getElementById('pqrOpen').href=p.url;
+    document.getElementById('pqrRegen').style.display='none';
+    // 3 分钟环形倒计时
+    var R=104,C=2*Math.PI*R,fg=document.getElementById('ringFg');
+    fg.style.strokeDasharray=C+' '+C;
+    PAY.deadline=Date.now()+180000;
+    if(PAY.timer)clearInterval(PAY.timer);
+    PAY.timer=setInterval(function(){
+      var left=PAY.deadline-Date.now();
+      if(left<=0){
+        clearInterval(PAY.timer);PAY.timer=null;
+        qr.classList.add('expired');
+        fg.style.strokeDashoffset=0;
+        document.getElementById('pqrCount').textContent='00:00';
+        document.getElementById('pqrRegen').style.display='';
+        return;
+      }
+      var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+      document.getElementById('pqrCount').textContent=mm+':'+ss;
+      fg.style.strokeDashoffset=-(C*(1-left/180000));
+    },250);
+    qr.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  payInit();
+
+  // ═══ 通用扫码模态（QQ群 / 贤圈中心） ═══
+  var QR_TARGETS={
+    qq:{title:'扫码加入 QQ 交流群',sub:'群号 1107098079 · 尚贤圈 1 群 · 用手机 QQ 扫码直达',url:'https://qm.qq.com/q/GAEg8ODOQU'},
+    xq:{title:'扫码打开贤圈中心',sub:'网页版校园社区：动态 · 提问 · 集市 · 鸣谢墙',url:'https://sxcommunity.github.io/xq-center/'}
+  };
+  function showQrLayer(key){
+    var t=QR_TARGETS[key];if(!t||typeof QRCode==='undefined')return;
+    document.getElementById('qrlTitle').textContent=t.title;
+    document.getElementById('qrlSub').textContent=t.sub;
+    var box=document.getElementById('qrlQr');
+    box.innerHTML='';
+    try{ new QRCode(box,{text:t.url,width:424,height:424,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }
+    catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:20px">二维码生成失败</div>'; }
+    document.getElementById('qrLayer').classList.add('show');
+  }
+  document.querySelectorAll('[data-qr]').forEach(function(el){
+    el.addEventListener('click',function(){showQrLayer(el.dataset.qr);});
   });
-  copy&&copy.addEventListener('click',function(){
-    var url=open.href||'';
-    if(!url)return;
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(function(){copy.textContent='已复制';setTimeout(function(){copy.textContent='复制付款链接'},1600)});
+  document.getElementById('qrlClose').addEventListener('click',function(){document.getElementById('qrLayer').classList.remove('show');});
+  document.getElementById('qrLayer').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){payCloseModal();document.getElementById('qrLayer').classList.remove('show');}
+  });
+
+  // ═══ 3D 倾斜跟随（E 动效）：#how 之后区块的卡片 ═══
+  if(!matchMedia('(pointer: coarse)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('#dashboard .kpi,#tour .tour-step,#voices .dm-card,#versions .rel,#makers .maker,#makers .mail-cell').forEach(function(el){
+      el.classList.add('tilt');
+      el.addEventListener('mousemove',function(e){
+        var r=el.getBoundingClientRect();
+        var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+        el.style.transform='perspective(700px) rotateX('+(-y*6)+'deg) rotateY('+(x*6)+'deg) translateY(-3px)';
+      });
+      el.addEventListener('mouseleave',function(){el.style.transform='';});
+    });
+  }
+
+  // ═══ 视差增强（A 动效）：装饰层随滚动联动 ═══
+  (function(){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    var layers=[].slice.call(document.querySelectorAll('.para-layer'));
+    if(!layers.length)return;
+    var ticking=false;
+    function upd(){
+      ticking=false;
+      layers.forEach(function(l,i){
+        var r=l.parentElement.getBoundingClientRect();
+        if(r.bottom<0||r.top>innerHeight)return;
+        var k=(r.top+r.height/2-innerHeight/2)/innerHeight;
+        var moon=l.querySelector('.para-moon'),cloud=l.querySelector('.para-cloud'),mt=l.querySelector('.para-mountain');
+        if(moon)moon.style.transform='translateY('+(k*-26)+'px) rotate('+(k*8)+'deg)';
+        if(cloud)cloud.style.transform='translateX('+(k*-46)+'px)';
+        if(mt)mt.style.transform='translateY('+(k*14)+'px)';
+      });
     }
-  });
+    window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
+    upd();
+  })();
 })();
 </script>
 </body>
