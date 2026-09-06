@@ -2179,7 +2179,19 @@ if(mtabItems.length){
     if(PAY.timer)clearInterval(PAY.timer);
     PAY.timer=setInterval(function(){
       var left=PAY.deadline-Date.now();
-      if(left<=0){ clearInterval(PAY.timer);PAY.timer=null;setTimeout(function(){payGen();},300);return; }
+      if(left<=0){
+        clearInterval(PAY.timer);PAY.timer=null;
+        // 4秒动画：翻转显示加载中，然后自动重新生成
+        var box=document.getElementById('pqrBox');
+        box.style.transition='transform .5s cubic-bezier(.2,.8,.3,1), opacity .5s';
+        box.style.transform='rotateY(90deg)';box.style.opacity='0';
+        document.getElementById('pqrCount').textContent='正在生成新码…';
+        setTimeout(function(){
+          payGen();
+          box.style.transform='rotateY(0deg)';box.style.opacity='1';
+        },4000);
+        return;
+      }
       var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
       document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
       var pct=(left/180000*100);bar.style.width=pct+'%';bar.classList.toggle('low',pct<33);
