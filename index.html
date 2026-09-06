@@ -608,9 +608,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .pay-qr.show{display:grid;grid-template-columns:240px 1fr;gap:22px;animation:pmPop .4s cubic-bezier(.2,.8,.3,1.1) both}
 @media(max-width:720px){.pay-qr.show{grid-template-columns:1fr}}
 .pqr-left{display:flex;flex-direction:column;align-items:center;gap:12px}
-.pqr-box canvas{image-rendering:auto;border-radius:8px}
-.pqr-box{width:220px;height:220px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
-.pqr-box canvas,.pqr-box img{width:220px;height:220px;object-fit:contain}
+.pqr-box canvas{border-radius:0}
+.pqr-box{width:100%;height:100%;background:#fff;border-radius:14px;overflow:hidden}
+.pqr-box canvas,.pqr-box img{width:100%;height:100%;object-fit:contain}
 @keyframes qrBurst{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(1.5)}}
 .pqr-count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:Georgia,monospace;font-weight:700;font-size:14px;border-radius:999px;padding:5px 16px;letter-spacing:2px;box-shadow:0 6px 16px rgba(28,26,23,.3)}
 .pqr-qrwrap{background:#fff;border-radius:12px;padding:8px;display:inline-block}
@@ -2230,7 +2230,7 @@ if(mtabItems.length){
     newLayer.appendChild(newBox);
     wrap.style.position='relative';
     wrap.appendChild(newLayer);
-    try{ new QRCode(newBox,{text:newUrl,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }catch(e){}
+    drawDotQR(newBox, newUrl, 600);
     var scan=document.createElement('div');
     scan.style.cssText='position:absolute;left:-4px;right:-4px;height:3px;top:0;z-index:3;background:linear-gradient(90deg,transparent,var(--gold),var(--red),var(--gold),transparent);box-shadow:0 0 20px 4px rgba(185,138,47,.6);border-radius:99px;pointer-events:none';
     wrap.appendChild(scan);
@@ -2265,6 +2265,115 @@ if(mtabItems.length){
     requestAnimationFrame(scanAnim);
   }
 
+  // ═══ 圆点 QR 渲染器（极小圆颗粒 + 高密度） ═══
+  function drawDotQR(box, text, size) {
+    box.innerHTML = '';
+    // Step1: 高分辨率方块渲染（用于采样模块矩阵）
+    var tmp = document.createElement('div');
+    tmp.style.cssText = 'position:absolute;left:-9999px;top:-9999px';
+    box.appendChild(tmp);
+    try { new QRCode(tmp, {text:text, width:size, height:size, correctLevel:QRCode.CorrectLevel.H}); } catch(e) { box.innerHTML=''; return; }
+    var cv = tmp.querySelector('canvas');
+    if (!cv) { box.innerHTML = ''; return; }
+    var w = cv.width;
+    var d = cv.getContext('2d').getImageData(0, 0, w, w).data;
+    // Step2: 检测模块尺寸（从 finder pattern 定位）
+    var scanY = Math.floor(w * 0.08);
+    var firstDark = -1;
+    for (var x = 0; x < w; x++) {
+      var di = (scanY * w + x) * 4;
+      if (d[di] < 128) { firstDark = x; break; }
+    }
+    if (firstDark < 0) { box.innerHTML = ''; return; }
+    // finder pattern 宽 = 7 模块（含白边），找到 dark 段结束位置
+    var darkEnd = firstDark;
+    for (var x = firstDark; x < w; x++) {
+      var di = (scanY * w + x) * 4;
+      if (d[di] >= 128) { break; }
+      darkEnd = x;
+    }
+    var moduleSize = (darkEnd - firstDark + 1) / 7; // 7 modules per finder
+    var moduleCount = Math.round(w / moduleSize);
+    // Step3: 清空 → 用圆点重绘
+    box.innerHTML = '';
+    box.removeChild(tmp);
+    var dc = document.createElement('canvas');
+    dc.width = size; dc.height = size;
+    box.appendChild(dc);
+    var ctx = dc.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+    var r = (size / moduleCount) * 0.42; // 圆点半径（略小于格子一半）
+    ctx.fillStyle = '#23262b';
+    for (var row = 0; row < moduleCount; row++) {
+      for (var col = 0; col < moduleCount; col++) {
+        var px = Math.floor(col * moduleSize + moduleSize / 2);
+        var py = Math.floor(row * moduleSize + moduleSize / 2);
+        if (px >= w || py >= w) continue;
+        var di = (py * w + px) * 4;
+        if (d[di] < 128) {
+          ctx.beginPath();
+          ctx.arc(
+            (col + 0.5) * (size / moduleCount),
+            (row + 0.5) * (size / moduleCount),
+            r, 0, Math.PI * 2
+          );
+          ctx.fill();
+        }
+      }
+    }
+  }
+
+  function drawDotQR(box, text, size) {
+    box.innerHTML = '';
+    var tmp = document.createElement('div');
+    tmp.style.cssText = 'position:absolute;left:-9999px;top:-9999px';
+    box.appendChild(tmp);
+    try { new QRCode(tmp, {text:text, width:size, height:size, correctLevel:QRCode.CorrectLevel.H}); } catch(e) { box.innerHTML = ''; return; }
+    var cv = tmp.querySelector('canvas');
+    if (!cv) { box.innerHTML = ''; return; }
+    var w = cv.width;
+    var d = cv.getContext('2d').getImageData(0, 0, w, w).data;
+    var scanY = Math.floor(w * 0.08);
+    var firstDark = -1;
+    for (var x = 0; x < w; x++) {
+      var di = (scanY * w + x) * 4;
+      if (d[di] < 128) { firstDark = x; break; }
+    }
+    if (firstDark < 0) { box.innerHTML = ''; return; }
+    var darkEnd = firstDark;
+    for (var x = firstDark; x < w; x++) {
+      var di = (scanY * w + x) * 4;
+      if (d[di] >= 128) { break; }
+      darkEnd = x;
+    }
+    var moduleSize = (darkEnd - firstDark + 1) / 7;
+    var moduleCount = Math.round(w / moduleSize);
+    box.innerHTML = '';
+    box.removeChild(tmp);
+    var dc = document.createElement('canvas');
+    dc.width = size; dc.height = size;
+    box.appendChild(dc);
+    var ctx = dc.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+    var r = (size / moduleCount) * 0.42;
+    ctx.fillStyle = '#23262b';
+    for (var row = 0; row < moduleCount; row++) {
+      for (var col = 0; col < moduleCount; col++) {
+        var px = Math.floor(col * moduleSize + moduleSize / 2);
+        var py = Math.floor(row * moduleSize + moduleSize / 2);
+        if (px >= w || py >= w) continue;
+        var di = (py * w + px) * 4;
+        if (d[di] < 128) {
+          ctx.beginPath();
+          ctx.arc((col + 0.5) * (size / moduleCount), (row + 0.5) * (size / moduleCount), r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+  }
+
   function payCloseModal(){document.getElementById('payModal').classList.remove('show');}
   function payGen(){
     if(!PAY.sel||typeof QRCode==='undefined')return;
@@ -2277,7 +2386,7 @@ if(mtabItems.length){
     url+='#sxq='+sess+'-'+Date.now();
     var box=document.getElementById('pqrBox');
     box.innerHTML='';
-    try{ new QRCode(box,{text:url,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }
+    drawDotQR(box, url, 600);
     catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:30px;text-align:center">生成失败，请点按钮打开</div>'; }
     var qr=document.getElementById('payQr');
     qr.classList.remove('expired');qr.classList.add('show');
@@ -2313,7 +2422,7 @@ if(mtabItems.length){
         newLayer.appendChild(newBox);
         wrap.style.position='relative';
         wrap.appendChild(newLayer);
-        try{ new QRCode(newBox,{text:newUrl,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }catch(e){}
+        drawDotQR(newBox, newUrl, 600);
         // 金色扫描线
         var scan=document.createElement('div');
         scan.style.cssText='position:absolute;left:-4px;right:-4px;height:3px;top:0;z-index:3;background:linear-gradient(90deg,transparent,var(--gold),var(--red),var(--gold),transparent);box-shadow:0 0 20px 4px rgba(185,138,47,.6);border-radius:99px;pointer-events:none';
@@ -2377,7 +2486,7 @@ if(mtabItems.length){
     document.getElementById('qrlSub').textContent=t.sub;
     var box=document.getElementById('qrlQr');
     box.innerHTML='';
-    try{ new QRCode(box,{text:t.url,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }
+    drawDotQR(box, t.url, 600);
     catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:20px">二维码生成失败</div>'; }
     document.getElementById('qrLayer').classList.add('show');
   }
