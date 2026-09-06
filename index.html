@@ -626,9 +626,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .pqr-btn.ghost{display:inline-flex;margin-top:10px;background:none;border:1.5px solid var(--cinnabar);color:var(--cinnabar);padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
 .pqr-btn.ghost:hover{background:var(--cinnabar);color:#fff}
 .pqr-session{font-size:11.5px;color:var(--muted);font-family:Georgia,monospace;letter-spacing:1px}
-.pay-qr.expired .pqr-box{filter:grayscale(1) opacity(.45)}
-.pqr-expired-tip{display:none;text-align:center;font-size:13px;color:var(--cinnabar);font-weight:700;letter-spacing:1px}
-.pay-qr.expired .pqr-expired-tip{display:block}
 .pqr-right{display:flex;flex-direction:column;gap:10px;min-width:0}
 .pqr-title{font-family:var(--serif);font-weight:800;font-size:18px;letter-spacing:1px}
 .pqr-title .pqr-price{color:var(--cinnabar);font-family:Georgia,serif}
@@ -1024,8 +1021,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
             <div class="pqr-timeline"><div class="pqr-tl-bar" id="tlBar"></div></div>
             <div class="pqr-count" id="pqrCount">03:00</div>
             <div class="pqr-session" id="pqrSession"></div>
-            <div class="pqr-expired-tip">二维码已过期（超过 3 分钟）· 请重新生成</div>
-          </div>
+                      </div>
           <div class="pqr-right">
             <div class="pqr-title" id="pqrTitle"></div>
             <div class="pqr-xq-row">
@@ -2178,13 +2174,12 @@ if(mtabItems.length){
     document.getElementById('pqrTitle').innerHTML=p.name+' <span class="pqr-price">'+p.priceT+(p.unit||'')+'</span>';
     document.getElementById('pqrSession').textContent=xq.length===10?'付款后约1分钟自动到账 · 留言已预填':'⚠ 请复制二维码旁链接到浏览器打开后在留言栏手填贤圈ID';
     document.getElementById('pqrOpen').href=url;
-    document.getElementById('pqrRegen').style.display='none';
-    var bar=document.getElementById('tlBar');
+        var bar=document.getElementById('tlBar');
     PAY.deadline=Date.now()+180000;
     if(PAY.timer)clearInterval(PAY.timer);
     PAY.timer=setInterval(function(){
       var left=PAY.deadline-Date.now();
-      if(left<=0){ clearInterval(PAY.timer);PAY.timer=null;qr.classList.add('expired');bar.style.width='0%';bar.classList.add('low');document.getElementById('pqrCount').textContent='00:00 · 已过期';document.getElementById('pqrRegen').style.display='';return; }
+      if(left<=0){ clearInterval(PAY.timer);PAY.timer=null;qr.classList.add('expired');bar.style.width='0%';bar.classList.add('low');document.getElementById('pqrCount').textContent='00:00 · 已过期';return; }
       var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
       document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
       var pct=(left/180000*100);bar.style.width=pct+'%';bar.classList.toggle('low',pct<33);
