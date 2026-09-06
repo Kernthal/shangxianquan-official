@@ -609,8 +609,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 @media(max-width:720px){.pay-qr.show{grid-template-columns:1fr}}
 .pqr-left{display:flex;flex-direction:column;align-items:center;gap:12px}
 .pqr-box canvas{image-rendering:auto;border-radius:8px}
-.pqr-box{background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center}
-.pqr-box canvas,.pqr-box img{width:100%;height:auto}
+.pqr-box{width:220px;height:220px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.pqr-box canvas,.pqr-box img{width:220px;height:220px;object-fit:contain}
 @keyframes qrBurst{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(1.5)}}
 .pqr-count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:Georgia,monospace;font-weight:700;font-size:14px;border-radius:999px;padding:5px 16px;letter-spacing:2px;box-shadow:0 6px 16px rgba(28,26,23,.3)}
 .pqr-qrwrap{background:#fff;border-radius:12px;padding:8px;display:inline-block}
@@ -2214,6 +2214,57 @@ if(mtabItems.length){
       document.getElementById('pqrXqWarn').style.display='none';
     });
   }
+  function qrScanRegen(){
+    var wrap=document.getElementById('pqrBox').parentElement;
+    var oldQR=wrap.querySelector('.pqr-box canvas, .pqr-box img');
+    var p=PAY.sel;if(!p)return;
+    var xqIpt=document.getElementById('pqrXq');
+    var xq=xqIpt.value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+    var sess=Array.from({length:5},function(){return 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*31)];}).join('');
+    var newUrl=p.url;
+    if(xq.length===10){ newUrl+='&remark='+encodeURIComponent('贤圈ID:'+xq); }
+    newUrl+='#sxq='+sess+'-'+Date.now();
+    var newLayer=document.createElement('div');
+    newLayer.style.cssText='position:absolute;inset:0;background:#fff;display:grid;place-items:center;clip-path:inset(0 0 100% 0);z-index:2';
+    var newBox=document.createElement('div');
+    newLayer.appendChild(newBox);
+    wrap.style.position='relative';
+    wrap.appendChild(newLayer);
+    try{ new QRCode(newBox,{text:newUrl,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }catch(e){}
+    var scan=document.createElement('div');
+    scan.style.cssText='position:absolute;left:-4px;right:-4px;height:3px;top:0;z-index:3;background:linear-gradient(90deg,transparent,var(--gold),var(--red),var(--gold),transparent);box-shadow:0 0 20px 4px rgba(185,138,47,.6);border-radius:99px;pointer-events:none';
+    wrap.appendChild(scan);
+    var dur=4000,t0=null;
+    var scanAnim=function(ts){
+      if(!t0)t0=ts;
+      var p2=Math.min((ts-t0)/dur,1);
+      var ease=1-Math.pow(1-p2,3);
+      scan.style.top=(ease*100)+'%';
+      newLayer.style.clipPath='inset(0 0 '+((1-ease)*100)+'% 0)';
+      if(oldQR){ oldQR.style.clipPath='inset('+((ease)*100)+'% 0 0 0)'; }
+      if(p2<1) requestAnimationFrame(scanAnim);
+      else{
+        scan.style.background='linear-gradient(90deg,transparent,#fff,transparent)';
+        scan.style.boxShadow='0 0 30px 8px rgba(255,255,255,.8)';
+        setTimeout(function(){ scan.remove(); newLayer.style.clipPath=''; newLayer.style.position=''; newLayer.style.zIndex=''; },400);
+        // 更新引用 + 新 timer
+        document.getElementById('pqrBox').id='pqrBoxOld';
+        newBox.id='pqrBox';
+        document.getElementById('pqrOpen').href=newUrl;
+        PAY.deadline=Date.now()+30000;
+        if(PAY.timer)clearInterval(PAY.timer);
+        PAY.timer=setInterval(function(){
+          var l2=PAY.deadline-Date.now();
+          if(l2<=0){ clearInterval(PAY.timer);PAY.timer=null;qrScanRegen();return; }
+          var s=Math.ceil(l2/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+          var pc=document.getElementById('pqrCount');if(pc)pc.textContent='剩余 '+mm+':'+ss;
+          var tl=document.getElementById('tlBar');if(tl){var pct=(l2/30000*100);tl.style.width=pct+'%';tl.classList.toggle('low',pct<33);}
+        },250);
+      }
+    };
+    requestAnimationFrame(scanAnim);
+  }
+
   function payCloseModal(){document.getElementById('payModal').classList.remove('show');}
   function payGen(){
     if(!PAY.sel||typeof QRCode==='undefined')return;
@@ -2296,7 +2347,7 @@ if(mtabItems.length){
         if(PAY.timer)clearInterval(PAY.timer);
         PAY.timer=setInterval(function(){
           var left2=PAY.deadline-Date.now();
-          if(left2<=0){ clearInterval(PAY.timer);PAY.timer=null;setTimeout(function(){payGen();},300);return; }
+          if(left2<=0){ clearInterval(PAY.timer);PAY.timer=null;qrScanRegen();return; }
           var s=Math.ceil(left2/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
           document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
         },250);
