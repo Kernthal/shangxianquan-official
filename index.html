@@ -610,6 +610,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .pqr-left{display:flex;flex-direction:column;align-items:center;gap:12px}
 .pqr-ring svg.pqr-ring .pqr-ring .pqr-box{position:absolute;inset:16px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
 .pqr-box canvas,.pqr-box img{width:176px;height:176px}
+@keyframes qrBurst{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(1.5)}}
 .pqr-count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:Georgia,monospace;font-weight:700;font-size:14px;border-radius:999px;padding:5px 16px;letter-spacing:2px;box-shadow:0 6px 16px rgba(28,26,23,.3)}
 .pqr-qrwrap{background:#fff;border-radius:12px;padding:8px;display:inline-block}
 .pqr-timeline{height:4px;background:var(--paper2);border-radius:99px;margin-top:12px;overflow:hidden}
@@ -2175,26 +2176,42 @@ if(mtabItems.length){
     document.getElementById('pqrSession').textContent=xq.length===10?'付款后约1分钟自动到账 · 留言已预填':'⚠ 请复制二维码旁链接到浏览器打开后在留言栏手填贤圈ID';
     document.getElementById('pqrOpen').href=url;
         var bar=document.getElementById('tlBar');
-    PAY.deadline=Date.now()+180000;
+    PAY.deadline=Date.now()+30000;
     if(PAY.timer)clearInterval(PAY.timer);
     PAY.timer=setInterval(function(){
       var left=PAY.deadline-Date.now();
       if(left<=0){
         clearInterval(PAY.timer);PAY.timer=null;
-        // 4秒动画：翻转显示加载中，然后自动重新生成
+        // 4秒华丽动画：缩放翻转+金光扫过+模糊粒子+新码弹入
         var box=document.getElementById('pqrBox');
-        box.style.transition='transform .5s cubic-bezier(.2,.8,.3,1), opacity .5s';
-        box.style.transform='rotateY(90deg)';box.style.opacity='0';
-        document.getElementById('pqrCount').textContent='正在生成新码…';
+        var wrap=box.parentElement;
+        // 阶段1：旧码缩放旋转消失（1s）
+        box.style.transition='transform .8s cubic-bezier(.4,0,.2,1), opacity .8s, filter .8s';
+        box.style.transform='scale(0.3) rotate(180deg)';
+        box.style.opacity='0';
+        box.style.filter='blur(8px) brightness(2)';
+        // 阶段2：金光粒子爆发（1s 后）
+        setTimeout(function(){
+          var burst=document.createElement('div');
+          burst.style.cssText='position:absolute;inset:-20px;background:radial-gradient(circle,var(--gold) 0%,transparent 70%);opacity:.3;border-radius:16px;pointer-events:none;animation:qrBurst .8s ease-out forwards';
+          wrap.appendChild(burst);
+          setTimeout(function(){burst.remove()},900);
+        },800);
+        // 阶段3：新码从下方弹入（2s 后）
         setTimeout(function(){
           payGen();
-          box.style.transform='rotateY(0deg)';box.style.opacity='1';
-        },4000);
+          box.style.transition='transform .6s cubic-bezier(.2,.9,.3,1.3), opacity .6s';
+          box.style.transform='scale(1.08)';
+          box.style.opacity='1';
+          box.style.filter='blur(0) brightness(1)';
+          setTimeout(function(){ box.style.transform='scale(1)'; },300);
+        },2000);
+        document.getElementById('pqrCount').textContent='⟳ 正在为您生成新码…';
         return;
       }
       var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
       document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
-      var pct=(left/180000*100);bar.style.width=pct+'%';bar.classList.toggle('low',pct<33);
+      var pct=(left/30000*100);bar.style.width=pct+'%';bar.classList.toggle('low',pct<33);
     },250);
     qr.scrollIntoView({behavior:'smooth',block:'center'});
   }
