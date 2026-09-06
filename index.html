@@ -2182,31 +2182,63 @@ if(mtabItems.length){
       var left=PAY.deadline-Date.now();
       if(left<=0){
         clearInterval(PAY.timer);PAY.timer=null;
-        // 4秒华丽动画：缩放翻转+金光扫过+模糊粒子+新码弹入
-        var box=document.getElementById('pqrBox');
-        var wrap=box.parentElement;
-        // 阶段1：旧码缩放旋转消失（1s）
-        box.style.transition='transform .8s cubic-bezier(.4,0,.2,1), opacity .8s, filter .8s';
-        box.style.transform='scale(0.3) rotate(180deg)';
-        box.style.opacity='0';
-        box.style.filter='blur(8px) brightness(2)';
-        // 阶段2：金光粒子爆发（1s 后）
-        setTimeout(function(){
-          var burst=document.createElement('div');
-          burst.style.cssText='position:absolute;inset:-20px;background:radial-gradient(circle,var(--gold) 0%,transparent 70%);opacity:.3;border-radius:16px;pointer-events:none;animation:qrBurst .8s ease-out forwards';
-          wrap.appendChild(burst);
-          setTimeout(function(){burst.remove()},900);
-        },800);
-        // 阶段3：新码从下方弹入（2s 后）
-        setTimeout(function(){
-          payGen();
-          box.style.transition='transform .6s cubic-bezier(.2,.9,.3,1.3), opacity .6s';
-          box.style.transform='scale(1.08)';
-          box.style.opacity='1';
-          box.style.filter='blur(0) brightness(1)';
-          setTimeout(function(){ box.style.transform='scale(1)'; },300);
-        },2000);
-        document.getElementById('pqrCount').textContent='⟳ 正在为您生成新码…';
+        // ═══ 扫描线逐行擦除旧码 + 新码同步浮现（4秒） ═══
+        var wrap=document.getElementById('pqrBox').parentElement;
+        var oldQR=wrap.querySelector('.pqr-box canvas, .pqr-box img');
+        // 生成新 QR（隐藏在下方）
+        var p=PAY.sel;
+        var xqIpt=document.getElementById('pqrXq');
+        var xq=xqIpt.value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+        var sess=Array.from({length:5},function(){return 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*31)];}).join('');
+        var newUrl=p.url;
+        if(xq.length===10){ newUrl+='&remark='+encodeURIComponent('贤圈ID:'+xq); }
+        newUrl+='#sxq='+sess+'-'+Date.now();
+        // 创建新 QR 层（绝对定位覆盖旧码）
+        var newLayer=document.createElement('div');
+        newLayer.style.cssText='position:absolute;inset:0;background:#fff;display:grid;place-items:center;clip-path:inset(0 0 100% 0);z-index:2';
+        var newBox=document.createElement('div');
+        newBox.id='pqrBoxNew';
+        newLayer.appendChild(newBox);
+        wrap.style.position='relative';
+        wrap.appendChild(newLayer);
+        try{ new QRCode(newBox,{text:newUrl,width:352,height:352,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }catch(e){}
+        // 金色扫描线
+        var scan=document.createElement('div');
+        scan.style.cssText='position:absolute;left:-4px;right:-4px;height:3px;top:0;z-index:3;background:linear-gradient(90deg,transparent,var(--gold),var(--red),var(--gold),transparent);box-shadow:0 0 20px 4px rgba(185,138,47,.6);border-radius:99px;pointer-events:none';
+        wrap.appendChild(scan);
+        // 扫描线动画（从上到下）
+        var dur=4000,t0=null;
+        var scanAnim=function(ts){
+          if(!t0)t0=ts;
+          var p2=Math.min((ts-t0)/dur,1);
+          var ease=1-Math.pow(1-p2,3);
+          scan.style.top=(ease*100)+'%';
+          // 新码 clip-path 同步揭示
+          newLayer.style.clipPath='inset(0 0 '+((1-ease)*100)+'% 0)';
+          // 旧码反向擦除
+          if(oldQR){ oldQR.style.clipPath='inset('+((ease)*100)+'% 0 0 0)'; }
+          if(p2<1) requestAnimationFrame(scanAnim);
+          else {
+            // 完成余晖闪烁
+            scan.style.background='linear-gradient(90deg,transparent,#fff,transparent)';
+            scan.style.boxShadow='0 0 30px 8px rgba(255,255,255,.8)';
+            setTimeout(function(){ scan.remove(); }, 400);
+          }
+        };
+        requestAnimationFrame(scanAnim);
+        // 更新 UI
+        document.getElementById('pqrTitle').innerHTML=p.name+' <span class="pqr-price">'+p.priceT+(p.unit||'')+'</span>';
+        document.getElementById('pqrSession').textContent=xq.length===10?'✓ 留言已预填贤圈ID · 付款后约1分钟到账':'⚠ 请到爱发电页面在留言栏手填贤圈ID';
+        document.getElementById('pqrOpen').href=newUrl;
+        document.getElementById('pqrCount').textContent='⟳ 扫描更新中…';
+        PAY.deadline=Date.now()+30000;
+        if(PAY.timer)clearInterval(PAY.timer);
+        PAY.timer=setInterval(function(){
+          var left2=PAY.deadline-Date.now();
+          if(left2<=0){ clearInterval(PAY.timer);PAY.timer=null;setTimeout(function(){payGen();},300);return; }
+          var s=Math.ceil(left2/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+          document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
+        },250);
         return;
       }
       var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
