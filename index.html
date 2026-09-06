@@ -607,13 +607,23 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .pay-qr.show{display:grid;grid-template-columns:240px 1fr;gap:22px;animation:pmPop .4s cubic-bezier(.2,.8,.3,1.1) both}
 @media(max-width:720px){.pay-qr.show{grid-template-columns:1fr}}
 .pqr-left{display:flex;flex-direction:column;align-items:center;gap:12px}
-.pqr-ring{position:relative;width:224px;height:224px}
-.pqr-ring svg.ring{position:absolute;inset:0;transform:rotate(-90deg)}
-.pqr-ring .ring-bg{fill:none;stroke:#ece5d6;stroke-width:6}
-.pqr-ring .ring-fg{fill:none;stroke:url(#ringGrad);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
-.pqr-box{position:absolute;inset:16px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.pqr-ring svg.pqr-ring .pqr-ring .pqr-box{position:absolute;inset:16px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
 .pqr-box canvas,.pqr-box img{width:176px;height:176px}
 .pqr-count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:Georgia,monospace;font-weight:700;font-size:14px;border-radius:999px;padding:5px 16px;letter-spacing:2px;box-shadow:0 6px 16px rgba(28,26,23,.3)}
+.pqr-qrwrap{background:#fff;border-radius:12px;padding:8px;display:inline-block}
+.pqr-timeline{height:4px;background:var(--paper2);border-radius:99px;margin-top:12px;overflow:hidden}
+.pqr-tl-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--cinnabar));border-radius:99px;transition:width .3s linear}
+.pqr-tl-bar.low{background:#e0862a}
+.pqr-count{margin-top:6px;font-size:12.5px;color:var(--muted);font-family:Georgia,monospace}
+.pqr-xq-row{margin:10px 0 2px}
+.pqr-xq-ipt{width:100%;box-sizing:border-box;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:Georgia,monospace;letter-spacing:1px;background:#fff}
+.pqr-xq-ipt:focus{outline:none;border-color:var(--cinnabar)}
+.pqr-xq-warn{display:none;margin-top:6px;font-size:12.5px;color:var(--cinnabar);font-weight:700}
+.pqr-steps{margin:12px 0 2px;display:flex;flex-direction:column;gap:8px}
+.pqr-step{font-size:13px;color:var(--ink2);line-height:1.6;display:flex;gap:8px;align-items:flex-start}
+.pqr-step b{flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--cinnabar);color:#fff;font-size:11.5px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.pqr-btn.ghost{display:inline-flex;margin-top:10px;background:none;border:1.5px solid var(--cinnabar);color:var(--cinnabar);padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
+.pqr-btn.ghost:hover{background:var(--cinnabar);color:#fff}
 .pqr-session{font-size:11.5px;color:var(--muted);font-family:Georgia,monospace;letter-spacing:1px}
 .pay-qr.expired .pqr-box{filter:grayscale(1) opacity(.45)}
 .pqr-expired-tip{display:none;text-align:center;font-size:13px;color:var(--cinnabar);font-weight:700;letter-spacing:1px}
@@ -1007,24 +1017,26 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         <!-- 第三步 · 付款码（生成后显示） -->
         <div class="pay-qr" id="payQr">
           <div class="pqr-left">
-            <div class="pqr-ring">
-              <svg class="ring" viewBox="0 0 224 224" aria-hidden="true">
-                <defs>
-                  <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#b98a2f"/><stop offset="100%" stop-color="#d6482f"/>
-                  </linearGradient>
-                </defs>
-                <circle class="ring-bg" cx="112" cy="112" r="104"></circle>
-                <circle class="ring-fg" id="ringFg" cx="112" cy="112" r="104"></circle>
-              </svg>
+            <div class="pqr-qrwrap">
               <div class="pqr-box" id="pqrBox"></div>
-              <div class="pqr-count" id="pqrCount">03:00</div>
             </div>
+            <div class="pqr-timeline"><div class="pqr-tl-bar" id="tlBar"></div></div>
+            <div class="pqr-count" id="pqrCount">03:00</div>
             <div class="pqr-session" id="pqrSession"></div>
             <div class="pqr-expired-tip">二维码已过期（超过 3 分钟）· 请重新生成</div>
           </div>
           <div class="pqr-right">
             <div class="pqr-title" id="pqrTitle"></div>
+            <div class="pqr-xq-row">
+              <input class="pqr-xq-ipt" id="pqrXq" placeholder="输入你的贤圈ID（必填）" maxlength="14" autocomplete="off">
+              <div class="pqr-xq-warn" id="pqrXqWarn" style="display:none">请先填写 10 位贤圈ID（App 设置→关于 可查）再生成</div>
+            </div>
+            <div class="pqr-steps">
+              <div class="pqr-step"><b>1</b> 扫码或点「打开下单页」——留言已自动填好你的贤圈ID</div>
+              <div class="pqr-step"><b>2</b> 完成支付（3 分钟内完成，超时免费重新生成）</div>
+              <div class="pqr-step"><b>3</b> 回来点「我付好了」→ 每分钟自动拉取，对上就到账</div>
+              <button class="pqr-btn ghost" id="pqrPaid">我付好了 · 查看到账</button>
+            </div>
             <div class="pqr-desc">使用手机相机或微信「扫一扫」扫码，在浏览器完成下单；付款码 3 分钟内有效，过期可免费重新生成。</div>
             <div class="pqr-acts">
               <a class="pqr-btn primary" id="pqrOpen" target="_blank" rel="noopener">
@@ -1095,7 +1107,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         <div class="ft-contact"><span class="ft-c-tag">全站公务</span><a class="ft-c-mail" href="mailto:sxcommunity@outlook.com">sxcommunity@outlook.com</a></div>
         <div class="ft-qq">
           <div class="ft-qq-pen" aria-hidden="true">
-            <svg viewBox="0 0 48 48" width="26" height="26"><path d="M24 6c-7.2 0-12.4 4.9-12.4 11.6 0 1.5.3 3 .8 4.3-1.9 1.4-3.1 3.4-3.1 5.2 0 2.5 2.1 4.1 4.4 4.1 1.1 0 2.2-.4 3-1.1.4 1.5 1.2 2.9 2.3 4-.9.5-1.5 1.3-1.5 2.2 0 1.5 1.6 2.7 3.6 2.7 1.3 0 2.5-.5 3.1-1.3h3.6c.6.8 1.8 1.3 3.1 1.3 2 0 3.6-1.2 3.6-2.7 0-.9-.6-1.7-1.5-2.2 1.1-1.1 1.9-2.5 2.3-4 .8.7 1.9 1.1 3 1.1 2.3 0 4.4-1.6 4.4-4.1 0-1.8-1.2-3.8-3.1-5.2.5-1.3.8-2.8.8-4.3C36.4 10.9 31.2 6 24 6z" fill="#fff"/><circle cx="18.6" cy="17.5" r="2" fill="#0d8fd6"/><circle cx="29.4" cy="17.5" r="2" fill="#0d8fd6"/><path d="M20 25.5c1.2 1 2.5 1.5 4 1.5s2.8-.5 4-1.5" stroke="#0d8fd6" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+            <svg viewBox="0 0 48 48" width="26" height="26"><path d="M24.7 4.5c-6.8-.3-11.2 4.4-11.5 9.4-.1 2.1.3 4 1 5.6-1.8 2.5-3.3 5.7-3.2 8.2 0 1.6.6 2.6 1.6 3.4-.4 2.2.1 4.4 1.7 5.3 1.9 1.1 4.5.4 6.3-.8.7.5 1.5.9 2.4 1.2-.1.6 0 1.2.3 1.8.8 1.4 2.9 1.9 4.8 1.2 1.7-.7 2.7-2.1 2.4-3.4 1.5-.1 3-.6 4.2-1.4.8 1 2.1 1.6 3.5 1.5 2.3-.2 4-2 3.9-4 0-1.4-.9-2.8-2.2-3.6.8-2.7.8-5.8-.4-8.6-.1-.3-2.7-6.6-2.8-6.8-1.4-5.4-5.7-8.9-12-9.2z" fill="#fff"/><path d="M20.5 12.2c-.9 0-1.6 1.2-1.6 2.6s.7 2.5 1.6 2.5 1.6-1.1 1.6-2.5-.7-2.6-1.6-2.6zm7.2 0c-.9 0-1.6 1.2-1.6 2.6s.7 2.5 1.6 2.5 1.6-1.1 1.6-2.5-.7-2.6-1.6-2.6z" fill="#2b6cb0"/></svg>
           </div>
           <div class="ft-qq-body">
             <div class="ft-qq-t">QQ 交流群 · 尚贤圈 1 群 <span class="ft-qq-no">1107098079</span></div>
@@ -2025,7 +2037,7 @@ if(mtabItems.length){
   }
 
   // ═══ 支付向导：选档 → 8项明细协议门 → 随机付款码（3分钟倒计时） ═══
-  var PAY={sel:null,timer:null,deadline:0};
+  var PAY={sel:null,timer:null,deadline:0,xq:''};
   var PLANS=[
     {key:'month',name:'贤士卡 · 月卡',price:6,priceT:'¥6',unit:'/月',desc:'月卡 · ¥6/月 · 随时停',type:'plan',
      url:'https://ifdian.net/order/create?plan_id=052a1724a2f511f1a9855254001e7c00&product_type=0&month=1'},
@@ -2058,6 +2070,12 @@ if(mtabItems.length){
   ];
   function payInit(){
     var pc=document.getElementById('planCards');if(!pc)return;
+    // 登录用户自动读贤圈ID（主库 OAuth 会话）
+    try{
+      fetch('https://gfxkpljewqchdbrepqia.supabase.co/auth/v1/user',{headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdmeGtwbGpld3FjaGRicmVwcWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2MjA2NDIsImV4cCI6MjEwMzE5NjY0Mn0.VWr_iNA25QTviaFiwYMvTV43ZK3I7kEKXSYO5jHZrBY',Authorization:'Bearer '+((JSON.parse(localStorage.getItem('sb-gfxkpljewqchdbrepqia-auth-token')||'{}').currentSession||{}).access_token||'')}}).then(function(r){return r.json()}).then(function(u){
+        if(u&&u.id){ fetch('https://gfxkpljewqchdbrepqia.supabase.co/rest/v1/rpc/xq_me',{headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jZ3FhZnhhYXBmenJhZWllaHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5OTYwOTYsImV4cCI6MjEwMzU3MjA5Nn0.icNXBGRtofllZkvypUvbJqwRxxaLwVLaXC92J5DhKI0',Authorization:'Bearer '+u.access_token,'Content-Type':'application/json'}}).catch(function(){}) }
+      }).catch(function(){});
+    }catch(e){}
     // 三卡并排
     pc.innerHTML=PLANS.filter(function(p){return p.type==='plan'}).map(function(p){
       return '<div class="plan-card'+(p.hot?' hot':'')+'" data-k="'+p.key+'" role="button" tabindex="0" aria-pressed="false">'+
@@ -2141,9 +2159,16 @@ if(mtabItems.length){
   function payGen(){
     if(!PAY.sel||typeof QRCode==='undefined')return;
     var p=PAY.sel;
-    // 随机会话号 + 时间戳（fragment 附加：二维码内容每次唯一，扫码仍进爱发电正常下单页）
+    var xq=(PAY.xq||'').toUpperCase();
+    if(!/^R?[A-HJ-NP-Z2-9]{10}$/.test(xq.replace(/[^A-Z0-9]/g,''))&&!/^[A-Z0-9]{10}$/.test(xq.replace(/[^A-Z0-9]/g,''))){
+      document.getElementById('pqrXqWarn').style.display='block';
+      document.getElementById('pqrXq').focus();
+      return;
+    }
+    document.getElementById('pqrXqWarn').style.display='none';
+    // 会话号（内部追踪用）+ remark 预填贤圈ID（到账匹配唯一依据）
     var sess=Array.from({length:5},function(){return 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*31)];}).join('');
-    var url=p.url+'#sxq='+sess+'-'+Date.now();
+    var url=p.url+'&remark='+encodeURIComponent('贤圈ID:'+xq)+'#sxq='+sess+'-'+Date.now();
     var box=document.getElementById('pqrBox');
     box.innerHTML='';
     try{ new QRCode(box,{text:url,width:352,height:352,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }
@@ -2151,12 +2176,11 @@ if(mtabItems.length){
     var qr=document.getElementById('payQr');
     qr.classList.remove('expired');qr.classList.add('show');
     document.getElementById('pqrTitle').innerHTML=p.name+' <span class="pqr-price">'+p.priceT+(p.unit||'')+'</span>';
-    document.getElementById('pqrSession').textContent='会话码 SXQ-'+sess+' · 本次生成 '+new Date().toLocaleTimeString('zh-CN',{hour12:false});
+    document.getElementById('pqrSession').textContent='付款后约 1 分钟自动到账 · 留言已预填你的贤圈ID';
     document.getElementById('pqrOpen').href=p.url;
     document.getElementById('pqrRegen').style.display='none';
-    // 3 分钟环形倒计时
-    var R=104,C=2*Math.PI*R,fg=document.getElementById('ringFg');
-    fg.style.strokeDasharray=C+' '+C;
+    // 3 分钟内嵌细条倒计时（永不遮挡二维码）
+    var bar=document.getElementById('tlBar');
     PAY.deadline=Date.now()+180000;
     if(PAY.timer)clearInterval(PAY.timer);
     PAY.timer=setInterval(function(){
@@ -2164,17 +2188,24 @@ if(mtabItems.length){
       if(left<=0){
         clearInterval(PAY.timer);PAY.timer=null;
         qr.classList.add('expired');
-        fg.style.strokeDashoffset=0;
-        document.getElementById('pqrCount').textContent='00:00';
+        bar.style.width='0%';bar.classList.add('low');
+        document.getElementById('pqrCount').textContent='00:00 · 已过期，请重新生成';
         document.getElementById('pqrRegen').style.display='';
         return;
       }
       var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
-      document.getElementById('pqrCount').textContent=mm+':'+ss;
-      fg.style.strokeDashoffset=-(C*(1-left/180000));
+      document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
+      var pct=(left/180000*100);
+      bar.style.width=pct+'%';
+      bar.classList.toggle('low',pct<33);
     },250);
     qr.scrollIntoView({behavior:'smooth',block:'center'});
   }
+    var pqrPaidBtn=document.getElementById('pqrPaid');
+    if(pqrPaidBtn)pqrPaidBtn.addEventListener('click',function(){
+      var xi=(document.getElementById('pqrXq')||{value:''}).value.replace(/[^A-Za-z0-9]/g,'');
+      window.open(xi?('./check/?xq='+xi):('./check/'),'_blank');
+    });
   payInit();
 
   // ═══ 通用扫码模态（QQ群 / 贤圈中心） ═══

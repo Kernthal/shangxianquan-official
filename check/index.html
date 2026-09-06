@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>到账查询 · 尚贤圈</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f4efe6">
+<style>
+:root{--paper:#f4efe6;--paper2:#ece5d6;--ink:#1c1a17;--ink2:#57503f;--muted:#8d8271;--line:#e2dbcb;--cinnabar:#c8401f;--gold:#b98a2f;--serif:"Source Han Serif SC","Songti SC",serif;--sans:"PingFang SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75;min-height:100vh;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line)}
+.seal{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--cinnabar),#a53517);color:#fff;font-family:var(--serif);font-weight:900;font-size:17px;display:grid;place-items:center}
+.brand{font-family:var(--serif);font-weight:900;font-size:18px;letter-spacing:3px}
+.back{margin-left:auto;font-size:13px;color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:7px 18px}
+.back:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+.wrap{max-width:640px;margin:0 auto;width:100%;padding:40px 20px 80px;flex:1}
+h1{font-family:var(--serif);font-size:clamp(24px,5vw,32px);letter-spacing:3px;margin:0 0 6px}
+.sub{color:var(--ink2);font-size:14px;margin:0 0 24px}
+.box{background:#fffdf7;border:1px solid var(--line);border-radius:18px;padding:24px}
+.ipt{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:16px;font-family:Georgia,monospace;letter-spacing:2px;background:#fff}
+.ipt:focus{outline:none;border-color:var(--cinnabar)}
+.btn{width:100%;margin-top:14px;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--cinnabar),#a53517);color:#fff;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:2px}
+.btn:disabled{opacity:.5;cursor:default}
+.res{margin-top:18px;display:none}
+.res.show{display:block}
+.card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin-bottom:12px}
+.card b{color:var(--cinnabar)}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--paper2);font-size:14px}
+.row:last-child{border:none}
+.row .k{color:var(--muted)}
+.tip{font-size:12.5px;color:var(--muted);margin-top:14px}
+.err{color:var(--cinnabar);font-weight:700}
+footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top"><div class="seal">贤</div><div class="brand">到账查询</div><a class="back" href="../">← 官网</a></div>
+<div class="wrap">
+  <h1>到账状态查询</h1>
+  <p class="sub">输入贤圈ID，查询会员到期时间、增量权益包与最近到账记录。每分钟限查 3 次。</p>
+  <div class="box">
+    <input class="ipt" id="xq" placeholder="输入 10 位贤圈ID" maxlength="14" autocomplete="off">
+    <button class="btn" id="go" disabled="true">查 询</button>
+    <div class="res" id="res"></div>
+    <p class="tip">未到账？检查下单留言是否填了贤圈ID；系统每分钟自动拉取，最迟 24 小时。规则见《订单识别与异常处理细则》。</p>
+  </div>
+</div>
+<footer>尚贤圈 · Kernthal Studio</footer>
+<script>
+const SB='https://gfxkpljewqchdbrepqia.supabase.co';
+const ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdmeGtwbGpld3FjaGRicmVwcWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2MjA2NDIsImV4cCI6MjEwMzE5NjY0Mn0.VWr_iNA25QTviaFiwYMvTV43ZK3I7kEKXSYO5jHZrBY';
+const ipt=document.getElementById('xq'),btn=document.getElementById('go'),res=document.getElementById('res');
+ipt.addEventListener('input',()=>{btn.disabled=ipt.value.replace(/[^a-z0-9]/gi,'').length!==10});
+btn.addEventListener('click',async()=>{
+  const xq=ipt.value.replace(/[^a-z0-9]/gi,'');
+  if(xq.length!==10)return;
+  btn.disabled=true;btn.textContent='查询中…';res.className='res';res.innerHTML='查询中…';
+  try{
+    const r=await fetch(SB+'/rest/v1/rpc/rpc_public_check',{method:'POST',headers:{apikey:ANON,Authorization:'Bearer '+ANON,'Content-Type':'application/json'},body:JSON.stringify({p_xq:xq})});
+    const j=await r.json();
+    if(j.ok===false){res.innerHTML='<div class="err">'+(j.error||'查询失败')+'</div>';}
+    else if(!j.found){res.innerHTML='<div class="err">未找到该贤圈ID（10位字符，注意 0/O、1/I 区分）</div>';}
+    else{
+      const vip=j.vip_active?'<b>会员生效中</b>（至 '+j.vip_until.slice(0,10)+'）':(j.vip_until?'<b style="color:#888">已过期</b>（'+j.vip_until.slice(0,10)+'）':'从未开通会员');
+      const perks=Object.entries(j.perks||{}).map(([k,v])=>k+' +'+v).join('、')||'无增量包';
+      const orders=(j.recent||[]).map(o=>'<div class="row"><span class="k">'+o.plan+'</span><span>'+(o.applied?'✓ 已到账':'待处理')+' · ¥'+o.amount+'</span></div>').join('')||'<div class="row"><span class="k">暂无订单</span></div>';
+      res.innerHTML='<div class="card"><div class="row"><span class="k">会员</span><span>'+vip+'</span></div><div class="row"><span class="k">增量包</span><span>'+perks+'</span></div></div><div class="card">'+orders+'</div>';
+    }
+  }catch(e){res.innerHTML='<div class="err">网络异常，稍后重试</div>';}
+  btn.disabled=false;btn.textContent='查 询';
+});
+</script>
+</body>
+</html>
