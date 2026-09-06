@@ -2160,24 +2160,23 @@ if(mtabItems.length){
   function payGen(){
     if(!PAY.sel||typeof QRCode==='undefined')return;
     var p=PAY.sel;
-    var raw=document.getElementById('pqrXq').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
-    if(raw.length!==10){
-      document.getElementById('pqrXqWarn').style.display='block';
-      document.getElementById('pqrXq').focus();
-      return;
-    }
-    document.getElementById('pqrXqWarn').style.display='none';
-    var xq=raw;
+    var xqIpt=document.getElementById('pqrXq');
+    var xq=xqIpt.value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
     var sess=Array.from({length:5},function(){return 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*31)];}).join('');
-    var url=p.url+'&remark='+encodeURIComponent('贤圈ID:'+xq)+'#sxq='+sess+'-'+Date.now();
+    var url=p.url;
+    if(xq.length===10){ url+='&remark='+encodeURIComponent('贤圈ID:'+xq); }
+    url+='#sxq='+sess+'-'+Date.now();
     var box=document.getElementById('pqrBox');
     box.innerHTML='';
     try{ new QRCode(box,{text:url,width:352,height:352,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }
-    catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:30px;text-align:center">二维码生成失败<br>请用右侧按钮直接打开</div>'; }
+    catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:30px;text-align:center">生成失败，请点按钮打开</div>'; }
     var qr=document.getElementById('payQr');
     qr.classList.remove('expired');qr.classList.add('show');
+    var warn=document.getElementById('pqrXqWarn');
+    if(xq.length===10){ warn.textContent='✓ 贤圈ID已填入留言'; warn.style.color='#2e7d32'; warn.style.display='block'; }
+    else { warn.textContent='⚠ 未填贤圈ID——请到爱发电页面留言栏手动填写，否则无法到账'; warn.style.color='#c8401f'; warn.style.display='block'; }
     document.getElementById('pqrTitle').innerHTML=p.name+' <span class="pqr-price">'+p.priceT+(p.unit||'')+'</span>';
-    document.getElementById('pqrSession').textContent='付款后约 1 分钟自动到账 · 留言已预填你的贤圈ID';
+    document.getElementById('pqrSession').textContent=xq.length===10?'付款后约1分钟自动到账 · 留言已预填':'⚠ 请复制二维码旁链接到浏览器打开后在留言栏手填贤圈ID';
     document.getElementById('pqrOpen').href=url;
     document.getElementById('pqrRegen').style.display='none';
     var bar=document.getElementById('tlBar');
@@ -2185,19 +2184,10 @@ if(mtabItems.length){
     if(PAY.timer)clearInterval(PAY.timer);
     PAY.timer=setInterval(function(){
       var left=PAY.deadline-Date.now();
-      if(left<=0){
-        clearInterval(PAY.timer);PAY.timer=null;
-        qr.classList.add('expired');
-        bar.style.width='0%';bar.classList.add('low');
-        document.getElementById('pqrCount').textContent='00:00 · 已过期，请重新生成';
-        document.getElementById('pqrRegen').style.display='';
-        return;
-      }
+      if(left<=0){ clearInterval(PAY.timer);PAY.timer=null;qr.classList.add('expired');bar.style.width='0%';bar.classList.add('low');document.getElementById('pqrCount').textContent='00:00 · 已过期';document.getElementById('pqrRegen').style.display='';return; }
       var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
       document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
-      var pct=(left/180000*100);
-      bar.style.width=pct+'%';
-      bar.classList.toggle('low',pct<33);
+      var pct=(left/180000*100);bar.style.width=pct+'%';bar.classList.toggle('low',pct<33);
     },250);
     qr.scrollIntoView({behavior:'smooth',block:'center'});
   }
