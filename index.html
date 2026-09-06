@@ -669,6 +669,35 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
   transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .35s ease}
 .dir-wrap:hover .dir-curtain{opacity:1;transform:translate(0,0)}
 .dir-wrap>*:not(.dir-curtain){position:relative;z-index:1}
+
+/* ═══ QR 多阶段重生动画 ═══ */
+.pqr-qrwrap{position:relative}
+.pqr-old-leave{animation:qrOldLeave 1.2s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes qrOldLeave{
+  0%{filter:blur(0) brightness(1);transform:scale(1);opacity:1}
+  30%{filter:blur(4px) brightness(2.5) saturate(2);transform:scale(.92) rotate(3deg)}
+  60%{filter:blur(12px) brightness(4) saturate(0);transform:scale(.7) rotate(-5deg);opacity:.3}
+  100%{filter:blur(20px) brightness(6);transform:scale(.2) rotate(12deg);opacity:0}
+}
+.pqr-new-enter{animation:qrNewEnter 1.8s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes qrNewEnter{
+  0%{filter:blur(24px) brightness(4) invert(1);transform:scale(1.3) rotate(-8deg);opacity:0}
+  30%{filter:blur(10px) brightness(2) invert(0);transform:scale(1.1) rotate(3deg);opacity:.4}
+  60%{filter:blur(3px) brightness(1.2);transform:scale(.97) rotate(-1deg);opacity:.8}
+  100%{filter:blur(0) brightness(1);transform:scale(1) rotate(0);opacity:1}
+}
+.pqr-gold-ring{position:absolute;inset:-8px;border-radius:20px;border:3px solid transparent;pointer-events:none;z-index:5}
+.pqr-gold-ring.active{animation:goldRing 1.2s cubic-bezier(.2,.8,.3,1) both}
+@keyframes goldRing{
+  0%{border-color:transparent;box-shadow:none;transform:scale(.8);opacity:0}
+  40%{border-color:var(--gold);box-shadow:0 0 40px 8px rgba(185,138,47,.5);transform:scale(1.02);opacity:1}
+  70%{border-color:var(--red);box-shadow:0 0 50px 12px rgba(200,64,31,.4);transform:scale(1);opacity:1}
+  100%{border-color:transparent;box-shadow:none;transform:scale(1);opacity:0}
+}
+.pqr-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:4}
+.pqr-pt{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none}
+@keyframes ptFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--fx),var(--fy)) scale(0);opacity:0}}
+
 </style>
 </head>
 <body>
