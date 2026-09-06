@@ -2179,7 +2179,7 @@ if(mtabItems.length){
     if(PAY.timer)clearInterval(PAY.timer);
     PAY.timer=setInterval(function(){
       var left=PAY.deadline-Date.now();
-      if(left<=0){ clearInterval(PAY.timer);PAY.timer=null;qr.classList.add('expired');bar.style.width='0%';bar.classList.add('low');document.getElementById('pqrCount').textContent='00:00 · 已过期';return; }
+      if(left<=0){ clearInterval(PAY.timer);PAY.timer=null;setTimeout(function(){payGen();},300);return; }
       var s=Math.ceil(left/1000),mm=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
       document.getElementById('pqrCount').textContent='剩余 '+mm+':'+ss;
       var pct=(left/180000*100);bar.style.width=pct+'%';bar.classList.toggle('low',pct<33);
