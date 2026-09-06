@@ -10,6 +10,7 @@
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://kernthal.github.io/shangxianquan-official/">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22><rect width=%2248%22 height=%2248%22 rx=%2210%22 fill=%22%23c8401f%22/><text x=%2224%22 y=%2233%22 text-anchor=%22middle%22 font-family=%22serif%22 font-weight=%22900%22 font-size=%2228%22 fill=%22white%22>贤</text></svg>">
 <meta name="theme-color" content="#f4efe6">
 <!-- 安全响应头等价 meta：限制脚本/样式/连接/图片来源，杜绝外站注入面 -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://gfxkpljewqchdbrepqia.supabase.co; connect-src 'self' https://gfxkpljewqchdbrepqia.supabase.co; font-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'">
@@ -2070,12 +2071,6 @@ if(mtabItems.length){
   ];
   function payInit(){
     var pc=document.getElementById('planCards');if(!pc)return;
-    // 登录用户自动读贤圈ID（主库 OAuth 会话）
-    try{
-      fetch('https://gfxkpljewqchdbrepqia.supabase.co/auth/v1/user',{headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdmeGtwbGpld3FjaGRicmVwcWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2MjA2NDIsImV4cCI6MjEwMzE5NjY0Mn0.VWr_iNA25QTviaFiwYMvTV43ZK3I7kEKXSYO5jHZrBY',Authorization:'Bearer '+((JSON.parse(localStorage.getItem('sb-gfxkpljewqchdbrepqia-auth-token')||'{}').currentSession||{}).access_token||'')}}).then(function(r){return r.json()}).then(function(u){
-        if(u&&u.id){ fetch('https://gfxkpljewqchdbrepqia.supabase.co/rest/v1/rpc/xq_me',{headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jZ3FhZnhhYXBmenJhZWllaHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5OTYwOTYsImV4cCI6MjEwMzU3MjA5Nn0.icNXBGRtofllZkvypUvbJqwRxxaLwVLaXC92J5DhKI0',Authorization:'Bearer '+u.access_token,'Content-Type':'application/json'}}).catch(function(){}) }
-      }).catch(function(){});
-    }catch(e){}
     // 三卡并排
     pc.innerHTML=PLANS.filter(function(p){return p.type==='plan'}).map(function(p){
       return '<div class="plan-card'+(p.hot?' hot':'')+'" data-k="'+p.key+'" role="button" tabindex="0" aria-pressed="false">'+
