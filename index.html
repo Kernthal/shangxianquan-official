@@ -750,52 +750,35 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 <!-- ═══════════ 特性 ═══════════ -->
 
 <!-- ═══ 视频展示区 ═══ -->
-<section id="showreel" class="reveal">
-  <div class="sr-hero">
-    <div class="sr-bg"><video id="srVideo" src="./video-sxq.mp4" muted loop playsinline preload="metadata"></video></div>
-    <div class="sr-overlay"></div>
-    <div class="sr-content">
-      <span class="sr-tag">SHOWREEL</span>
-      <h2 class="sr-title">看见尚贤圈</h2>
-      <p class="sr-sub">六十秒，看完我们做了什么</p>
-      <button class="sr-play" id="srPlayBtn"><svg viewBox="0 0 48 48" width="60" height="60"><circle cx="24" cy="24" r="22" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".6"/><path d="M19 15 L33 24 L19 33 Z" fill="var(--gold)"/></svg><span>播放</span></button>
-    </div>
-  </div>
-  <div class="sr-modal" id="srModal" hidden>
-    <div class="sr-modal-in">
-      <button class="sr-close" id="srClose">✕</button>
-      <video id="srFull" src="./video-sxq.mp4" controls playsinline></video>
-    </div>
-  </div>
-</section>
-<style>
-#showreel{position:relative;overflow:hidden}
-.sr-hero{position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.sr-bg{position:absolute;inset:0}
-.sr-bg video{width:100%;height:100%;object-fit:cover;opacity:.25;transition:opacity 1.2s}
-.sr-overlay{position:absolute;inset:0;background:linear-gradient(180deg,var(--paper) 0%,transparent 30%,transparent 70%,var(--paper) 100%)}
-.sr-content{position:relative;z-index:2;text-align:center;padding:60px 20px}
-.sr-tag{font-family:Georgia,serif;font-size:13px;letter-spacing:6px;color:var(--gold);text-transform:uppercase}
-.sr-title{font-family:var(--serif);font-weight:900;font-size:clamp(36px,7vw,64px);margin:12px 0 8px;letter-spacing:4px}
-.sr-sub{font-size:15px;color:var(--ink-2,var(--ink-2,#57503f))}
-.sr-play{display:inline-flex;align-items:center;gap:12px;margin-top:28px;background:none;border:none;color:var(--gold);font-size:15px;font-weight:700;cursor:pointer;transition:all .3s}
-.sr-play:hover{transform:scale(1.06)}
-.sr-play svg{transition:transform .3s}
-.sr-play:hover svg{transform:scale(1.1)}
-.sr-modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.92);display:grid;place-items:center;opacity:0;transition:opacity .4s;pointer-events:none}
-.sr-modal.open{opacity:1;pointer-events:auto}
-.sr-modal-in{position:relative;width:min(1100px,94vw)}
-.sr-modal video{width:100%;border-radius:12px}
-.sr-close{position:absolute;top:-16px;right:-16px;width:40px;height:40px;border-radius:50%;background:var(--gold);color:#fff;font-size:18px;border:none;cursor:pointer;z-index:2}
-/* 滚动视差 */
-.sr-bg video{will-change:transform}
-@keyframes srFadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
-.sr-content>*{animation:srFadeUp .8s ease both}
-.sr-content>.sr-title{animation-delay:.15s}
-.sr-content>.sr-sub{animation-delay:.3s}
-.sr-content>.sr-play{animation-delay:.45s}
-</style>
 
+
+
+<section id="showreel"><div class="vsec" id="vsec"><div class="vbg"><video id="vbgV" src="./video-sxq.mp4" muted loop playsinline preload="auto"></video></div><div class="vgrad"></div><div class="vcont"><span class="vtag">SHOWREEL</span><h2 class="vtitle" id="vtitle"><span>看</span><span>见</span><span>尚</span><span>贤</span><span>圈</span></h2><p class="vsub">六十秒 · 看完我们做了什么</p><button class="vplay" id="vplayBtn"><svg viewBox="0 0 72 72" width="72" height="72"><circle cx="36" cy="36" r="33" fill="none" stroke="var(--gold)" stroke-width="1" opacity=".4"/><path d="M28 22 L48 36 L28 50 Z" fill="var(--gold)"/></svg><span>播放完整影片</span></button></div><div class="vprog"><div class="vprog-bar" id="vprogBar"></div></div></div></section>
+<style>
+#showreel{position:relative}
+.vsec{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.vbg{position:absolute;inset:0}
+.vbg video{width:100%;height:130%;object-fit:cover;will-change:transform;transform:scale(1.15)}
+.vgrad{position:absolute;inset:0;background:linear-gradient(180deg,var(--paper) 0%,rgba(247,246,242,.15) 25%,rgba(247,246,242,.1) 50%,rgba(247,246,242,.15) 75%,var(--paper) 100%);pointer-events:none}
+.vcont{position:relative;z-index:2;text-align:center;padding:60px 20px}
+.vtag{font-family:Georgia,serif;font-size:14px;letter-spacing:8px;color:var(--gold);text-transform:uppercase;opacity:0;animation:vtagIn .8s ease .3s forwards}
+.vtitle{font-family:var(--serif);font-weight:900;font-size:clamp(48px,10vw,96px);margin:16px 0 8px;letter-spacing:8px;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.vtitle span{display:inline-block;opacity:0;transform:translateY(60px) rotate(8deg);animation:chIn .7s cubic-bezier(.16,1,.3,1) forwards}
+.vtitle span:nth-child(1){animation-delay:.4s}.vtitle span:nth-child(2){animation-delay:.55s}.vtitle span:nth-child(3){animation-delay:.7s}.vtitle span:nth-child(4){animation-delay:.85s}.vtitle span:nth-child(5){animation-delay:1s}
+@keyframes chIn{to{opacity:1;transform:translateY(0) rotate(0)}}
+@keyframes vtagIn{from{opacity:0;letter-spacing:20px}to{opacity:1;letter-spacing:8px}}
+.vsub{font-size:16px;color:rgba(255,255,255,.85);margin-bottom:32px;opacity:0;animation:vtagIn .6s ease 1.2s forwards}
+.vplay{display:inline-flex;align-items:center;gap:14px;background:none;border:none;color:var(--gold);font-size:16px;font-weight:700;cursor:pointer;transition:all .4s;opacity:0;animation:vtagIn .6s ease 1.5s forwards}
+.vplay:hover{transform:scale(1.08);filter:drop-shadow(0 0 20px rgba(185,138,47,.5))}
+.vplay svg{transition:transform .4s}
+.vplay:hover svg{transform:scale(1.15) rotate(90deg)}
+.vprog{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.1);z-index:3}
+.vprog-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--red));transition:width .1s linear}
+/* 滚动视差 */
+.vbg video{will-change:transform;transition:transform .1s linear}
+/* 手机适配 */
+@media(max-width:768px){.vtitle{letter-spacing:4px}.vplay svg{width:52px;height:52px}}
+</style>
 <section id="features" class="reveal">
   <div class="wrap">
     <div class="sec-head"><span class="sec-no">壹</span><h2 class="sec-title">这里有什么</h2><div class="sec-line"></div></div>
@@ -2390,6 +2373,44 @@ if(mtabItems.length){
     window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
     upd();
   })();
+})();
+</script>
+
+<script>
+/* ═══ 视频区滚动视差 + 播放控制 ═══ */
+(function(){
+  var vbgV=document.getElementById('vbgV'),vsec=document.getElementById('vsec'),vpb=document.getElementById('vprogBar');
+  if(!vbgV||!vsec)return;
+  // 进入视口自动播放背景视频
+  new IntersectionObserver(function(es){es.forEach(function(en){
+    if(en.isIntersecting){vbgV.play().catch(function(){})}
+    else{vbgV.pause()}
+  })},{threshold:.2}).observe(vsec);
+  // 滚动视差：背景视频随滚动平移缩放
+  window.addEventListener('scroll',function(){
+    if(!vsec)return;var r=vsec.getBoundingClientRect();
+    if(r.bottom<0||r.top>window.innerHeight)return;
+    var p=Math.max(0,Math.min(1,(window.innerHeight-r.top)/(window.innerHeight+r.height)));
+    var y=(p-.5)*160;var sc=1.15+p*.15;
+    vbgV.style.transform='translateY('+y+'px) scale('+sc+')';
+    // 进度条
+    if(vpb)vpb.style.width=(p*100)+'%';
+  },{passive:true});
+  // 播放按钮 → 打开全屏弹窗播放
+  var pb=document.getElementById('vplayBtn');
+  if(pb)pb.addEventListener('click',function(){
+    var modal=document.createElement('div');
+    modal.style.cssText='position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.93);display:grid;place-items:center;opacity:0;transition:opacity .4s';
+    var v=document.createElement('video');
+    v.src='./video-sxq.mp4';v.controls=true;v.autoplay=true;v.style.cssText='width:min(1100px,94vw);border-radius:8px';
+    var cls=document.createElement('button');
+    cls.textContent='✕';cls.style.cssText='position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:50%;background:var(--gold);color:#fff;font-size:18px;border:none;cursor:pointer;z-index:2';
+    modal.appendChild(v);modal.appendChild(cls);
+    document.body.appendChild(modal);
+    requestAnimationFrame(function(){modal.style.opacity='1'});
+    cls.onclick=function(){v.pause();modal.style.opacity='0';setTimeout(function(){modal.remove()},400)};
+    modal.addEventListener('click',function(e){if(e.target===modal){v.pause();modal.style.opacity='0';setTimeout(function(){modal.remove()},400)}});
+  });
 })();
 </script>
 </body>
