@@ -2154,19 +2154,25 @@ if(mtabItems.length){
       }
     });
     document.getElementById('pqrRegen').addEventListener('click',payGen);
+    document.getElementById('pqrXq').addEventListener('keydown',function(e){
+      if(e.key==='Enter')payGen();
+    });
+    document.getElementById('pqrXq').addEventListener('input',function(){
+      document.getElementById('pqrXqWarn').style.display='none';
+    });
   }
   function payCloseModal(){document.getElementById('payModal').classList.remove('show');}
   function payGen(){
     if(!PAY.sel||typeof QRCode==='undefined')return;
     var p=PAY.sel;
-    var xq=(PAY.xq||'').toUpperCase();
-    if(!/^R?[A-HJ-NP-Z2-9]{10}$/.test(xq.replace(/[^A-Z0-9]/g,''))&&!/^[A-Z0-9]{10}$/.test(xq.replace(/[^A-Z0-9]/g,''))){
+    var raw=document.getElementById('pqrXq').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+    if(raw.length!==10){
       document.getElementById('pqrXqWarn').style.display='block';
       document.getElementById('pqrXq').focus();
       return;
     }
     document.getElementById('pqrXqWarn').style.display='none';
-    // 会话号（内部追踪用）+ remark 预填贤圈ID（到账匹配唯一依据）
+    var xq=raw;
     var sess=Array.from({length:5},function(){return 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*31)];}).join('');
     var url=p.url+'&remark='+encodeURIComponent('贤圈ID:'+xq)+'#sxq='+sess+'-'+Date.now();
     var box=document.getElementById('pqrBox');
@@ -2177,9 +2183,8 @@ if(mtabItems.length){
     qr.classList.remove('expired');qr.classList.add('show');
     document.getElementById('pqrTitle').innerHTML=p.name+' <span class="pqr-price">'+p.priceT+(p.unit||'')+'</span>';
     document.getElementById('pqrSession').textContent='付款后约 1 分钟自动到账 · 留言已预填你的贤圈ID';
-    document.getElementById('pqrOpen').href=p.url;
+    document.getElementById('pqrOpen').href=url;
     document.getElementById('pqrRegen').style.display='none';
-    // 3 分钟内嵌细条倒计时（永不遮挡二维码）
     var bar=document.getElementById('tlBar');
     PAY.deadline=Date.now()+180000;
     if(PAY.timer)clearInterval(PAY.timer);
