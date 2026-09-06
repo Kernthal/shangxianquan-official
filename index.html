@@ -608,9 +608,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .pay-qr.show{display:grid;grid-template-columns:240px 1fr;gap:22px;animation:pmPop .4s cubic-bezier(.2,.8,.3,1.1) both}
 @media(max-width:720px){.pay-qr.show{grid-template-columns:1fr}}
 .pqr-left{display:flex;flex-direction:column;align-items:center;gap:12px}
-.pqr-ring svg.pqr-ring .pqr-ring .pqr-box canvas{image-rendering:auto;border-radius:8px}
-.pqr-box{position:absolute;inset:16px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
-.pqr-box canvas,.pqr-box img{width:176px;height:176px}
+.pqr-box canvas{image-rendering:auto;border-radius:8px}
+.pqr-box{background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center}
+.pqr-box canvas,.pqr-box img{width:100%;height:auto}
 @keyframes qrBurst{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(1.5)}}
 .pqr-count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:Georgia,monospace;font-weight:700;font-size:14px;border-radius:999px;padding:5px 16px;letter-spacing:2px;box-shadow:0 6px 16px rgba(28,26,23,.3)}
 .pqr-qrwrap{background:#fff;border-radius:12px;padding:8px;display:inline-block}
