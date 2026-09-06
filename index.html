@@ -608,7 +608,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .pay-qr.show{display:grid;grid-template-columns:240px 1fr;gap:22px;animation:pmPop .4s cubic-bezier(.2,.8,.3,1.1) both}
 @media(max-width:720px){.pay-qr.show{grid-template-columns:1fr}}
 .pqr-left{display:flex;flex-direction:column;align-items:center;gap:12px}
-.pqr-ring svg.pqr-ring .pqr-ring .pqr-box{position:absolute;inset:16px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.pqr-ring svg.pqr-ring .pqr-ring .pqr-box canvas{image-rendering:auto;border-radius:8px}
+.pqr-box{position:absolute;inset:16px;background:#fff;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
 .pqr-box canvas,.pqr-box img{width:176px;height:176px}
 @keyframes qrBurst{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(1.5)}}
 .pqr-count{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:Georgia,monospace;font-weight:700;font-size:14px;border-radius:999px;padding:5px 16px;letter-spacing:2px;box-shadow:0 6px 16px rgba(28,26,23,.3)}
@@ -747,6 +748,54 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 </header>
 
 <!-- ═══════════ 特性 ═══════════ -->
+
+<!-- ═══ 视频展示区 ═══ -->
+<section id="showreel" class="reveal">
+  <div class="sr-hero">
+    <div class="sr-bg"><video id="srVideo" src="./video-sxq.mp4" muted loop playsinline preload="metadata"></video></div>
+    <div class="sr-overlay"></div>
+    <div class="sr-content">
+      <span class="sr-tag">SHOWREEL</span>
+      <h2 class="sr-title">看见尚贤圈</h2>
+      <p class="sr-sub">六十秒，看完我们做了什么</p>
+      <button class="sr-play" id="srPlayBtn"><svg viewBox="0 0 48 48" width="60" height="60"><circle cx="24" cy="24" r="22" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".6"/><path d="M19 15 L33 24 L19 33 Z" fill="var(--gold)"/></svg><span>播放</span></button>
+    </div>
+  </div>
+  <div class="sr-modal" id="srModal" hidden>
+    <div class="sr-modal-in">
+      <button class="sr-close" id="srClose">✕</button>
+      <video id="srFull" src="./video-sxq.mp4" controls playsinline></video>
+    </div>
+  </div>
+</section>
+<style>
+#showreel{position:relative;overflow:hidden}
+.sr-hero{position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sr-bg{position:absolute;inset:0}
+.sr-bg video{width:100%;height:100%;object-fit:cover;opacity:.25;transition:opacity 1.2s}
+.sr-overlay{position:absolute;inset:0;background:linear-gradient(180deg,var(--paper) 0%,transparent 30%,transparent 70%,var(--paper) 100%)}
+.sr-content{position:relative;z-index:2;text-align:center;padding:60px 20px}
+.sr-tag{font-family:Georgia,serif;font-size:13px;letter-spacing:6px;color:var(--gold);text-transform:uppercase}
+.sr-title{font-family:var(--serif);font-weight:900;font-size:clamp(36px,7vw,64px);margin:12px 0 8px;letter-spacing:4px}
+.sr-sub{font-size:15px;color:var(--ink-2,var(--ink-2,#57503f))}
+.sr-play{display:inline-flex;align-items:center;gap:12px;margin-top:28px;background:none;border:none;color:var(--gold);font-size:15px;font-weight:700;cursor:pointer;transition:all .3s}
+.sr-play:hover{transform:scale(1.06)}
+.sr-play svg{transition:transform .3s}
+.sr-play:hover svg{transform:scale(1.1)}
+.sr-modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.92);display:grid;place-items:center;opacity:0;transition:opacity .4s;pointer-events:none}
+.sr-modal.open{opacity:1;pointer-events:auto}
+.sr-modal-in{position:relative;width:min(1100px,94vw)}
+.sr-modal video{width:100%;border-radius:12px}
+.sr-close{position:absolute;top:-16px;right:-16px;width:40px;height:40px;border-radius:50%;background:var(--gold);color:#fff;font-size:18px;border:none;cursor:pointer;z-index:2}
+/* 滚动视差 */
+.sr-bg video{will-change:transform}
+@keyframes srFadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.sr-content>*{animation:srFadeUp .8s ease both}
+.sr-content>.sr-title{animation-delay:.15s}
+.sr-content>.sr-sub{animation-delay:.3s}
+.sr-content>.sr-play{animation-delay:.45s}
+</style>
+
 <section id="features" class="reveal">
   <div class="wrap">
     <div class="sec-head"><span class="sec-no">壹</span><h2 class="sec-title">这里有什么</h2><div class="sec-line"></div></div>
@@ -2194,7 +2243,7 @@ if(mtabItems.length){
     url+='#sxq='+sess+'-'+Date.now();
     var box=document.getElementById('pqrBox');
     box.innerHTML='';
-    try{ new QRCode(box,{text:url,width:352,height:352,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }
+    try{ new QRCode(box,{text:url,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }
     catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:30px;text-align:center">生成失败，请点按钮打开</div>'; }
     var qr=document.getElementById('payQr');
     qr.classList.remove('expired');qr.classList.add('show');
@@ -2230,7 +2279,7 @@ if(mtabItems.length){
         newLayer.appendChild(newBox);
         wrap.style.position='relative';
         wrap.appendChild(newLayer);
-        try{ new QRCode(newBox,{text:newUrl,width:352,height:352,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }catch(e){}
+        try{ new QRCode(newBox,{text:newUrl,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }catch(e){}
         // 金色扫描线
         var scan=document.createElement('div');
         scan.style.cssText='position:absolute;left:-4px;right:-4px;height:3px;top:0;z-index:3;background:linear-gradient(90deg,transparent,var(--gold),var(--red),var(--gold),transparent);box-shadow:0 0 20px 4px rgba(185,138,47,.6);border-radius:99px;pointer-events:none';
@@ -2294,7 +2343,7 @@ if(mtabItems.length){
     document.getElementById('qrlSub').textContent=t.sub;
     var box=document.getElementById('qrlQr');
     box.innerHTML='';
-    try{ new QRCode(box,{text:t.url,width:424,height:424,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); }
+    try{ new QRCode(box,{text:t.url,width:600,height:600,colorDark:'#23262b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); }
     catch(err){ box.innerHTML='<div style="font-size:13px;color:#9a9da6;padding:20px">二维码生成失败</div>'; }
     document.getElementById('qrLayer').classList.add('show');
   }
