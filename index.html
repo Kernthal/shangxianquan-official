@@ -2225,7 +2225,7 @@ if(mtabItems.length){
     });
     document.getElementById('pmGo').addEventListener('click',function(){
       payCloseModal();
-      payGen();
+      try{ payGen(); }catch(e){ alert('生成付款码失败：'+(e.message||e)); }
     });
     document.getElementById('pqrCopy').addEventListener('click',function(){
       var url=document.getElementById('pqrOpen').href||'';
@@ -2248,6 +2248,57 @@ if(mtabItems.length){
       window.open(xi?('./check/?xq='+xi):('./check/'),'_blank');
     });
   }
+  // ═══ 圆点 QR 渲染器（高密度点阵 · 唯一定义） ═══
+  function drawDotQR(box, text, size) {
+    box.innerHTML = '';
+    var tmp = document.createElement('div');
+    tmp.style.cssText = 'position:absolute;left:-9999px;top:-9999px';
+    box.appendChild(tmp);
+    try { new QRCode(tmp, {text:text, width:size, height:size, correctLevel:QRCode.CorrectLevel.H}); } catch(e) { box.innerHTML = ''; return; }
+    var cv = tmp.querySelector('canvas');
+    if (!cv) { box.innerHTML = ''; return; }
+    var w = cv.width;
+    var d = cv.getContext('2d').getImageData(0, 0, w, w).data;
+    var scanY = Math.floor(w * 0.08);
+    var firstDark = -1;
+    for (var x = 0; x < w; x++) {
+      var di = (scanY * w + x) * 4;
+      if (d[di] < 128) { firstDark = x; break; }
+    }
+    if (firstDark < 0) { box.innerHTML = ''; return; }
+    var darkEnd = firstDark;
+    for (var x = firstDark; x < w; x++) {
+      var di = (scanY * w + x) * 4;
+      if (d[di] >= 128) { break; }
+      darkEnd = x;
+    }
+    var moduleSize = (darkEnd - firstDark + 1) / 7;
+    var moduleCount = Math.round(w / moduleSize);
+    box.innerHTML = '';
+    box.removeChild(tmp);
+    var dc = document.createElement('canvas');
+    dc.width = size; dc.height = size;
+    box.appendChild(dc);
+    var ctx = dc.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+    var r = (size / moduleCount) * 0.38;
+    ctx.fillStyle = '#23262b';
+    for (var row = 0; row < moduleCount; row++) {
+      for (var col = 0; col < moduleCount; col++) {
+        var px = Math.floor(col * moduleSize + moduleSize / 2);
+        var py = Math.floor(row * moduleSize + moduleSize / 2);
+        if (px >= w || py >= w) continue;
+        var di = (py * w + px) * 4;
+        if (d[di] < 128) {
+          ctx.beginPath();
+          ctx.arc((col + 0.5) * (size / moduleCount), (row + 0.5) * (size / moduleCount), r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+  }
+
   function payCloseModal(){document.getElementById('payModal').classList.remove('show');}
   // 确定性付款码：同档位 + 同贤圈ID = 同一个码；刷新页面、重复生成，结果完全一致。
   // 不附加任何随机碎片，不做 30 秒轮换——码不会过期，杜绝“前后不一致/货不对版”。
