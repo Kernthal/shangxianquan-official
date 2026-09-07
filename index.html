@@ -2275,7 +2275,6 @@ if(mtabItems.length){
     var moduleSize = (darkEnd - firstDark + 1) / 7;
     var moduleCount = Math.round(w / moduleSize);
     box.innerHTML = '';
-    box.removeChild(tmp);
     var dc = document.createElement('canvas');
     dc.width = size; dc.height = size;
     box.appendChild(dc);
