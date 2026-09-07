@@ -699,6 +699,17 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .pqr-pt{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none}
 @keyframes ptFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--fx),var(--fy)) scale(0);opacity:0}}
 
+
+/* ── 支付协议门（第零步） ── */
+.afd-agree{margin:16px 0 6px;padding:16px 18px;border:1px dashed rgba(185,138,47,.5);
+  border-radius:14px;background:rgba(185,138,47,.06);display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.agree-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.8;color:var(--ink-2);cursor:pointer;flex:1;min-width:260px}
+.agree-row input{width:18px;height:18px;margin-top:3px;accent-color:var(--cinnabar,var(--gold));flex-shrink:0}
+.agree-doc{font-size:13px;color:var(--red);white-space:nowrap;align-self:center}
+.qr-lock{width:40px;height:40px;border-radius:10px;background:var(--ink);position:relative;display:inline-block}
+.qr-lock::before{content:'';position:absolute;left:50%;top:10px;width:16px;height:11px;
+  border:3px solid var(--gold);border-bottom:none;border-radius:6px 6px 0 0;transform:translateX(-50%)}
+.qr-mask.hide{opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
@@ -1058,6 +1069,18 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
         </ul>
         <p class="afd-key">★ 下单时请在「留言」填写你的<strong>贤圈ID</strong>（App「设置 → 关于」可查），付款后自动识别到账，无需人工审核。</p>
 
+        <!-- 第零步 · 协议 -->
+        <div class="pay-step">
+          <div class="pay-step-t"><span class="pay-step-no">零</span><h4>第零步 · 阅读并同意购买协议</h4><small>协议未同意前，无法进入选档与付款</small></div>
+          <div class="afd-agree">
+            <label class="agree-row">
+              <input type="checkbox" id="afdAgree" />
+              <span>我已阅读并同意《尚贤圈会员服务协议》与《付费与退款政策》：虚拟权益类商品一经到账不予退款；下单时须在留言填写贤圈ID；金额三成以上（普遍五到八成）投入平台开发维护，部分用于公益捐赠（将获电子感谢证书）。</span>
+            </label>
+            <a class="agree-doc" href="#" data-doc="agreement">查看协议全文</a>
+          </div>
+        </div>
+
         <!-- 第一步 · 选档 -->
         <div class="pay-step">
           <div class="pay-step-t"><span class="pay-step-no">壹</span><h4>第一步 · 选择支持档位</h4><small>全部档位经爱发电渠道 · 平台不经手资金</small></div>
@@ -1070,15 +1093,18 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
           <div class="pay-sel-hint" id="paySelDesc" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:12px">选择任意档位后，这里会显示它的说明。</div>
           <div class="pay-next">
             <button class="pay-next-btn" id="payNextBtn" disabled>第二步 · 查看购买明细 →</button>
-            <span class="pay-sel-hint" id="paySelHint">请先选择一个档位</span>
+            <span class="pay-sel-hint" id="paySelHint">请先勾选协议并选择一个档位</span>
           </div>
         </div>
 
         <!-- 第三步 · 付款码（生成后显示） -->
         <div class="pay-qr" id="payQr">
           <div class="pqr-left">
-            <div class="pqr-qrwrap">
+            <div class="pqr-qrwrap" style="position:relative">
               <div class="pqr-box" id="pqrBox"></div>
+              <div class="qr-mask" id="pqrMaskPay" style="position:absolute;inset:0;z-index:3;border-radius:14px;background:repeating-linear-gradient(135deg,rgba(247,246,242,.96) 0 14px,rgba(238,235,228,.96) 14px 28px);display:grid;place-items:center;text-align:center;transition:opacity .45s ease">
+                <div><span class="qr-lock"></span><p style="font-size:13px;color:var(--ink-2);line-height:1.8;margin-top:10px">付款码未生成<br />完成上方步骤后自动显示</p></div>
+              </div>
             </div>
             <div class="pqr-live" id="pqrLive">付款码长期有效 · 与所选档位一一对应 · 同档同人同码</div>
             <div class="pqr-session" id="pqrSession"></div>
@@ -2189,6 +2215,14 @@ if(mtabItems.length){
     document.getElementById('pmAgree').addEventListener('change',function(){
       document.getElementById('pmGo').disabled=!this.checked;
     });
+    var ag0=document.getElementById('afdAgree');
+    if(ag0)ag0.addEventListener('change',function(){
+      var nb=document.getElementById('payNextBtn');
+      if(!nb)return;
+      nb.disabled=!(this.checked&&PAY.sel);
+      var hnt=document.getElementById('paySelHint');
+      if(hnt&&!this.checked)hnt.textContent='请先勾选第零步的购买协议，再选择档位';
+    });
     document.getElementById('pmGo').addEventListener('click',function(){
       payCloseModal();
       payGen();
@@ -2219,6 +2253,8 @@ if(mtabItems.length){
   // 不附加任何随机碎片，不做 30 秒轮换——码不会过期，杜绝“前后不一致/货不对版”。
   function payGen(){
     if(!PAY.sel||typeof QRCode==='undefined')return;
+    var ag=document.getElementById('afdAgree');
+    if(!ag||!ag.checked){ alert('请先勾选第零步的购买协议'); return; }
     var p=PAY.sel;
     var xqIpt=document.getElementById('pqrXq');
     var xq=xqIpt.value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
@@ -2230,6 +2266,8 @@ if(mtabItems.length){
     drawDotQR(box, url, 600);
     var qr=document.getElementById('payQr');
     qr.classList.remove('expired');qr.classList.add('show');
+    var mp=document.getElementById('pqrMaskPay');
+    if(mp){ mp.classList.add('hide'); setTimeout(function(){ mp.style.display='none' },500); }
     var warn=document.getElementById('pqrXqWarn');
     if(xq.length===10){ warn.textContent='✓ 贤圈ID已编入付款码与链接（扫码下单留言自动带上）'; warn.style.color='#2e7d32'; warn.style.display='block'; }
     else { warn.textContent='⚠ 未填贤圈ID——请复制下方链接到浏览器打开后在留言栏手填，否则无法到账'; warn.style.color='#c8401f'; warn.style.display='block'; }
