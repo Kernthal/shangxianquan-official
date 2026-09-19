@@ -18,7 +18,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="尚贤圈 ShangXian Quan">
 <meta property="og:title" content="尚贤圈 · 见贤思齐，以文会友">
-<meta property="og:description" content="为校园而生的半匿名信息交流圈：树洞、求助、二手、社团、学习、闲聊六大版块，二二十二篇联动规则，纯净无广告。">
+<meta property="og:description" content="为校园而生的半匿名信息交流圈：树洞、求助、二手、社团、学习、闲聊六大版块，二十二篇联动规则，纯净无广告。">
 <meta property="og:url" content="https://kernthal.github.io/shangxianquan-official/">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary">
@@ -711,11 +711,62 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
   border:3px solid var(--gold);border-bottom:none;border-radius:6px 6px 0 0;transform:translateX(-50%)}
 .qr-mask.hide{opacity:0;pointer-events:none}
 </style>
+<!-- 尚贤圈 · Lottie 动画与智能客服（全部本地资源，符合 CSP 同源限制） -->
+<link rel="stylesheet" href="./assets/sxq/sxq-lottie.css">
+<link rel="stylesheet" href="./assets/sxq/sxq-ai-chat.css">
+<style>
+/* 首屏加载动画（AI loading） */
+.sxq-load{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--paper,#f4efe6);transition:opacity .45s ease,visibility .45s ease}
+.sxq-load.sxq-load-hide{opacity:0;visibility:hidden}
+.sxq-load .sxq-lottie{width:150px;height:150px}
+.sxq-load-txt{font-family:var(--serif,Georgia,serif);letter-spacing:8px;color:var(--red,#c8401f);font-size:14px}
+
+/* Hero 人物插画（marketing） */
+.hero{position:relative}
+.hero-lottie{position:absolute;right:max(10px,3vw);bottom:5%;width:min(36vw,400px);pointer-events:none;z-index:1}
+@media(max-width:960px){.hero-lottie{position:static;width:min(72vw,300px);margin:10px auto 0}}
+
+/* 可交互导航抽屉（Lottie 导航条） */
+.sxq-navbtn{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:9997;width:52px;height:52px;border-radius:14px;border:1px solid rgba(0,0,0,.1);background:#fff;box-shadow:0 10px 26px rgba(30,20,15,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--red,#c8401f);transition:all .2s ease}
+.sxq-navbtn:hover{color:#fff;background:var(--red,#c8401f)}
+.sxq-navbtn svg{width:22px;height:22px}
+.sxq-navwrap{position:fixed;inset:0;z-index:9999;pointer-events:none}
+.sxq-navwrap.sxq-open{pointer-events:auto}
+.sxq-navmask{position:absolute;inset:0;background:rgba(20,14,10,.34);opacity:0;transition:opacity .25s ease}
+.sxq-navwrap.sxq-open .sxq-navmask{opacity:1}
+.sxq-navdrawer{position:absolute;left:0;top:0;bottom:0;width:min(360px,86vw);background:#fff;box-shadow:0 0 40px rgba(0,0,0,.25);transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.9,.3,1);padding:18px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+.sxq-navwrap.sxq-open .sxq-navdrawer{transform:none}
+.sxq-navdrawer h4{margin:0;font-family:var(--serif,Georgia,serif);color:#2c2c2c;font-size:16px}
+.sxq-navdrawer .sxq-hint{font-size:12px;color:#8a8580;margin:0 0 4px;line-height:1.6}
+.sxq-navdrawer .sxq-lottie[data-lottie="nav"]{width:100%}
+.sxq-nav-close{margin-top:auto;align-self:flex-start;border:1px solid rgba(0,0,0,.12);background:#faf9f7;border-radius:10px;padding:7px 14px;cursor:pointer;color:#4a4a4a}
+@media(max-width:768px){.sxq-navbtn{left:12px;width:46px;height:46px}}
+</style>
 </head>
 <body>
 
 <a class="skip-link" href="#main">跳到主要内容</a>
 <div id="particles"></div>
+
+<!-- 首屏加载动画（AI loading） -->
+<div class="sxq-load" id="sxqLoad" aria-hidden="true">
+  <span class="sxq-lottie" data-lottie="loading" data-lottie-autoplay></span>
+  <div class="sxq-load-txt">尚贤圈</div>
+</div>
+
+<!-- 可交互导航（Lottie 导航条，悬停播放、点击直达） -->
+<button class="sxq-navbtn" id="sxqNavBtn" type="button" aria-label="打开站点导航" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+</button>
+<div class="sxq-navwrap" id="sxqNavWrap">
+  <div class="sxq-navmask" data-nav-close></div>
+  <aside class="sxq-navdrawer" role="dialog" aria-label="站点导航">
+    <h4>尚贤圈 · 站点导航</h4>
+    <p class="sxq-hint">鼠标悬停每一项查看动效，点击直达对应区块。</p>
+    <div class="sxq-lottie" data-lottie="nav" data-lottie-items='[{"label":"产品特性","href":"#features","marker":0},{"label":"实时看板","href":"#dashboard","marker":41},{"label":"用户心声","href":"#voices","marker":81},{"label":"下载安装","href":"#versions","marker":121}]'></div>
+    <button class="sxq-nav-close" type="button" data-nav-close>关闭</button>
+  </aside>
+</div>
 <nav class="topbar" aria-label="主导航">
   <div class="seal">贤</div>
   <div class="brand">尚贤圈<small>SHANGXIAN QUAN</small></div>
@@ -755,6 +806,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
       <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#7a54c8" stroke-width="2" stroke-linecap="round"/></svg>极简无广告 · 无氪金</span>
     </div>
   </div>
+  <div class="hero-lottie sxq-lottie sxq-lottie--brand" data-lottie="marketing" data-lottie-autoplay aria-hidden="true"></div>
   <div class="scroll-hint"><div class="mouse"></div><span>向下探索</span></div>
 </header>
 
@@ -2091,6 +2143,53 @@ if(mtabItems.length){
 
 <div id="pgBar"></div>
 <script src="./assets/qrcode.min.js"></script>
+
+<!-- 尚贤圈 · Lottie 运行时 + 智能客服 -->
+<script>
+window.SXQ_LOTTIE_BASE = './assets/lottie/';
+window.SXQ_LOTTIE_VENDOR = './assets/vendor/lottie.min.js';
+window.SXQ_AI = { title: '尚贤圈 · 智能客服', email: 'sxcommunity@outlook.com' };
+</script>
+<script src="./assets/sxq/sxq-lottie.js"></script>
+<script src="./assets/sxq/sxq-ai-chat.js"></script>
+<script>
+(function () {
+  // 首屏加载动画：页面加载完成后淡出（最多 4 秒兜底强制关闭）
+  function hideLoad () {
+    var el = document.getElementById('sxqLoad');
+    if (!el) return;
+    el.classList.add('sxq-load-hide');
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 600);
+  }
+  if (document.readyState === 'complete') setTimeout(hideLoad, 600);
+  else window.addEventListener('load', function () { setTimeout(hideLoad, 600); });
+  setTimeout(hideLoad, 4000);
+
+  // 可交互导航抽屉
+  var btn = document.getElementById('sxqNavBtn');
+  var wrap = document.getElementById('sxqNavWrap');
+  function openNav () {
+    if (!wrap) return;
+    wrap.classList.add('sxq-open');
+    btn.setAttribute('aria-expanded', 'true');
+    if (window.SXQ_LOTTIE && window.SXQ_LOTTIE.refresh) window.SXQ_LOTTIE.refresh();
+  }
+  function closeNav () {
+    if (!wrap) return;
+    wrap.classList.remove('sxq-open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  if (btn && wrap) {
+    btn.addEventListener('click', openNav);
+    wrap.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.closest && t.closest('[data-nav-close]')) { closeNav(); return; }
+      if (t.closest && t.closest('.sxq-nav-hotspot')) setTimeout(closeNav, 160);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
+  }
+})();
+</script>
 <script>
 (function(){
   var bar=document.getElementById('pgBar');

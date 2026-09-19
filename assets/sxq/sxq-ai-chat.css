@@ -1,0 +1,96 @@
+/*! 尚贤圈 · 智能客服浮窗样式（三站共用） */
+
+.sxq-ai { position: fixed; right: 18px; bottom: 18px; z-index: 9998; font-family: inherit; }
+
+/* 悬浮按钮 */
+.sxq-ai-fab {
+  position: relative;
+  width: 62px; height: 62px;
+  border: none; border-radius: 50%;
+  background: #d6482f;
+  box-shadow: 0 10px 24px rgba(214, 72, 47, .32);
+  cursor: pointer; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.sxq-ai-fab:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 14px 30px rgba(214, 72, 47, .4); }
+.sxq-ai-fab:focus-visible { outline: 3px solid rgba(214, 72, 47, .4); outline-offset: 3px; }
+.sxq-ai-fab-lottie { width: 40px; height: 40px; display: block; }
+.sxq-ai-fab-lottie .sxq-lottie-stage svg { filter: brightness(0) invert(1); }
+.sxq-ai-fab-dot {
+  position: absolute; top: 6px; right: 6px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #4CAF50; border: 2px solid #fff;
+}
+
+/* 面板 */
+.sxq-ai-panel {
+  position: absolute; right: 0; bottom: 74px;
+  width: min(360px, calc(100vw - 36px));
+  height: min(520px, calc(100vh - 140px));
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .08);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(30, 20, 15, .22);
+  display: flex; flex-direction: column; overflow: hidden;
+  animation: sxqAiIn .2s ease;
+}
+@keyframes sxqAiIn { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+
+.sxq-ai-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px; background: #f7f6f2;
+  border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+.sxq-ai-title { font-weight: 600; color: #2c2c2c; font-size: 14px; }
+.sxq-ai-aigc {
+  font-size: 10px; line-height: 1; padding: 4px 6px; border-radius: 6px;
+  color: #d6482f; background: rgba(214, 72, 47, .1); border: 1px solid rgba(214, 72, 47, .25);
+}
+.sxq-ai-close {
+  margin-left: auto; border: none; background: transparent;
+  font-size: 22px; line-height: 1; color: #8a8580; cursor: pointer; padding: 0 4px;
+}
+.sxq-ai-close:hover { color: #d6482f; }
+
+.sxq-ai-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.sxq-ai-msg { max-width: 84%; font-size: 13.5px; line-height: 1.6; padding: 9px 12px; border-radius: 12px; white-space: pre-wrap; word-break: break-word; }
+.sxq-ai-msg--assistant { align-self: flex-start; background: #f2f1ee; color: #2c2c2c; border-top-left-radius: 4px; }
+.sxq-ai-msg--user { align-self: flex-end; background: #d6482f; color: #fff; border-top-right-radius: 4px; }
+.sxq-ai-msg--error { background: #fdecea; color: #b3351f; border: 1px solid rgba(179, 53, 31, .25); }
+.sxq-ai-typing::after { content: '…'; animation: sxqAiDots 1s steps(3) infinite; }
+@keyframes sxqAiDots { 0% { opacity: .2 } 50% { opacity: 1 } 100% { opacity: .2 } }
+
+.sxq-ai-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 8px; }
+.sxq-ai-chip {
+  font-size: 12px; padding: 5px 9px; border-radius: 999px; cursor: pointer;
+  color: #4a4a4a; background: #fff; border: 1px solid rgba(0, 0, 0, .12);
+  transition: all .15s ease;
+}
+.sxq-ai-chip:hover { color: #d6482f; border-color: rgba(214, 72, 47, .5); background: rgba(214, 72, 47, .06); }
+
+.sxq-ai-form { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid rgba(0, 0, 0, .06); }
+.sxq-ai-input {
+  flex: 1; min-width: 0; font-size: 13.5px; padding: 9px 11px;
+  border: 1px solid rgba(0, 0, 0, .14); border-radius: 10px; outline: none; color: #2c2c2c;
+}
+.sxq-ai-input:focus { border-color: #d6482f; box-shadow: 0 0 0 3px rgba(214, 72, 47, .12); }
+.sxq-ai-send {
+  border: none; border-radius: 10px; padding: 0 16px; cursor: pointer;
+  background: #d6482f; color: #fff; font-size: 13.5px;
+}
+.sxq-ai-send:disabled { opacity: .5; cursor: not-allowed; }
+
+.sxq-ai-foot {
+  padding: 8px 12px 10px; font-size: 11px; color: #8a8580;
+  display: flex; flex-wrap: wrap; gap: 4px 8px; background: #faf9f7;
+  border-top: 1px solid rgba(0, 0, 0, .05);
+}
+.sxq-ai-foot a { color: #4a90d9; text-decoration: none; }
+.sxq-ai-foot a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  .sxq-ai { right: 12px; bottom: 12px; }
+  .sxq-ai-fab { width: 54px; height: 54px; }
+  .sxq-ai-panel { bottom: 66px; height: min(460px, calc(100vh - 120px)); }
+}
