@@ -713,6 +713,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 </style>
 <!-- 尚贤圈 · Lottie 动画与智能客服（全部本地资源，符合 CSP 同源限制） -->
 <link rel="stylesheet" href="./assets/sxq/sxq-lottie.css">
+<link rel="stylesheet" href="./assets/sxq/sxq-nav.css">
 <link rel="stylesheet" href="./assets/sxq/sxq-ai-chat.css">
 <style>
 /* 首屏加载动画（AI loading） */
@@ -722,12 +723,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 @media(max-width:768px){.sxq-load .sxq-lottie{width:170px;height:170px}}
 .sxq-load-txt{font-family:var(--serif,Georgia,serif);letter-spacing:8px;color:var(--red,#c8401f);font-size:16px}
 
-/* Hero 人物插画（marketing） */
-.hero{position:relative}
-.hero-lottie{position:absolute;right:max(10px,3vw);bottom:5%;width:min(36vw,400px);pointer-events:none;z-index:1}
-@media(max-width:960px){.hero-lottie{position:static;width:min(72vw,300px);margin:10px auto 0}}
+/* Hero 人物插画（marketing）——与文案分栏，不再遮挡 */
+.hero{position:relative;grid-template-columns:minmax(0,1fr)}
+.hero-lottie{width:min(74vw,330px);margin:8px auto 0;justify-self:center;pointer-events:none;z-index:1}
+@media(min-width:1024px){
+  .hero{grid-template-columns:minmax(0,1fr) minmax(0,40%);align-items:center;column-gap:28px;max-width:1200px}
+  .hero-lottie{width:100%;max-width:430px;margin:0;justify-self:center}
+}
 
-/* 可交互导航抽屉（Lottie 导航条） */
+/* 可交互导航抽屉（原生中文菜单） */
 .sxq-navbtn{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:9997;width:52px;height:52px;border-radius:14px;border:1px solid rgba(0,0,0,.1);background:#fff;box-shadow:0 10px 26px rgba(30,20,15,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--red,#c8401f);transition:all .2s ease}
 .sxq-navbtn:hover{color:#fff;background:var(--red,#c8401f)}
 .sxq-navbtn svg{width:22px;height:22px}
@@ -735,12 +739,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 .sxq-navwrap.sxq-open{pointer-events:auto}
 .sxq-navmask{position:absolute;inset:0;background:rgba(20,14,10,.34);opacity:0;transition:opacity .25s ease}
 .sxq-navwrap.sxq-open .sxq-navmask{opacity:1}
-.sxq-navdrawer{position:absolute;left:0;top:0;bottom:0;width:min(360px,86vw);background:#fff;box-shadow:0 0 40px rgba(0,0,0,.25);transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.9,.3,1);padding:18px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+.sxq-navdrawer{position:absolute;left:0;top:0;bottom:0;width:min(368px,88vw);background:#fff;box-shadow:0 0 40px rgba(0,0,0,.25);transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.9,.3,1);padding:18px 14px;display:flex;flex-direction:column;gap:6px;overflow-y:auto}
 .sxq-navwrap.sxq-open .sxq-navdrawer{transform:none}
-.sxq-navdrawer h4{margin:0;font-family:var(--serif,Georgia,serif);color:#2c2c2c;font-size:16px}
+.sxq-navdrawer h4{margin:0 0 2px;font-family:var(--serif,Georgia,serif);color:#2c2c2c;font-size:16px}
 .sxq-navdrawer .sxq-hint{font-size:12px;color:#8a8580;margin:0 0 4px;line-height:1.6}
-.sxq-navdrawer .sxq-lottie[data-lottie="nav"]{width:100%}
-.sxq-nav-close{margin-top:auto;align-self:flex-start;border:1px solid rgba(0,0,0,.12);background:#faf9f7;border-radius:10px;padding:7px 14px;cursor:pointer;color:#4a4a4a}
+.sxq-nav-close{margin-top:auto;align-self:flex-start;border:1px solid rgba(0,0,0,.12);background:#faf9f7;border-radius:10px;padding:7px 14px;cursor:pointer;color:#4a4a4a;position:sticky;bottom:0}
 @media(max-width:768px){.sxq-navbtn{left:12px;width:46px;height:46px}}
 </style>
 </head>
@@ -763,8 +766,27 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
   <div class="sxq-navmask" data-nav-close></div>
   <aside class="sxq-navdrawer" role="dialog" aria-label="站点导航">
     <h4>尚贤圈 · 站点导航</h4>
-    <p class="sxq-hint">鼠标悬停每一项查看动效，点击直达对应区块。</p>
-    <div class="sxq-lottie" data-lottie="nav" data-lottie-items='[{"label":"产品特性","href":"#features","marker":0},{"label":"实时看板","href":"#dashboard","marker":41},{"label":"用户心声","href":"#voices","marker":81},{"label":"下载安装","href":"#versions","marker":121}]'></div>
+    <p class="sxq-hint">鼠标悬停查看动效，点击直达对应区块。</p>
+    <div class="sxq-menu" data-sxq-menu='[
+      {"group":"了解尚贤圈"},
+      {"label":"这里有什么","href":"#features","icon":"✦"},
+      {"label":"社区一览","href":"#stats","icon":"▤"},
+      {"label":"为什么选尚贤圈","href":"#why","icon":"❖"},
+      {"label":"三步上手","href":"#how","icon":"➊"},
+      {"group":"数据与体验"},
+      {"label":"运行数据看板","href":"#dashboard","icon":"◫","tag":"实时"},
+      {"label":"功能交互导览","href":"#tour","icon":"⊞"},
+      {"label":"用户之声","href":"#voices","icon":"❝"},
+      {"group":"获取与规则"},
+      {"label":"版本下载","href":"#versions","icon":"⤓","tag":"APK"},
+      {"label":"规则中心","href":"#rules","icon":"⚖","tag":"22 篇"},
+      {"label":"常见疑问","href":"#faq","icon":"？"},
+      {"group":"更多"},
+      {"label":"出品方","href":"#makers","icon":"❁"},
+      {"label":"支持尚贤圈","href":"#afdian","icon":"♥"},
+      {"label":"贤圈中心（网页版）","href":"https://sxcommunity.github.io/xq-center/","icon":"↗"},
+      {"label":"版本档案馆","href":"./history/","icon":"⌛"}
+    ]'></div>
     <button class="sxq-nav-close" type="button" data-nav-close>关闭</button>
   </aside>
 </div>
@@ -2152,6 +2174,7 @@ window.SXQ_LOTTIE_VENDOR = './assets/vendor/lottie.min.js';
 window.SXQ_AI = { title: '尚贤圈 · 智能客服', email: 'sxcommunity@outlook.com' };
 </script>
 <script src="./assets/sxq/sxq-lottie.js"></script>
+<script src="./assets/sxq/sxq-nav.js"></script>
 <script src="./assets/sxq/sxq-ai-chat.js"></script>
 <script>
 (function () {
@@ -2192,7 +2215,7 @@ window.SXQ_AI = { title: '尚贤圈 · 智能客服', email: 'sxcommunity@outloo
     wrap.addEventListener('click', function (e) {
       var t = e.target;
       if (t.closest && t.closest('[data-nav-close]')) { closeNav(); return; }
-      if (t.closest && t.closest('.sxq-nav-hotspot')) setTimeout(closeNav, 160);
+      if (t.closest && t.closest('.sxq-menu-item')) setTimeout(closeNav, 200);
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
   }

@@ -1,0 +1,121 @@
+/*! 尚贤圈 · 通用导航菜单（三站共用）
+ * 中文标签、可任意增减项、悬停滑入高亮。替代原 Lottie 导航条
+ * （原动画内文字为英文矢量路径，无法改字，故重建为原生 HTML/CSS）。
+ */
+
+.sxq-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.sxq-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 13px;
+  border-radius: 11px;
+  text-decoration: none;
+  color: #2c2c2c;
+  font-size: 14px;
+  line-height: 1;
+  overflow: hidden;
+  transition: color .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 悬停时从左侧滑入的品牌色高亮条 */
+.sxq-menu-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(214, 72, 47, .12), rgba(214, 72, 47, .03) 70%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .26s cubic-bezier(.2, .9, .3, 1);
+  z-index: 0;
+}
+.sxq-menu-item:hover::before,
+.sxq-menu-item:focus-visible::before { transform: scaleX(1); }
+
+.sxq-menu-item:hover,
+.sxq-menu-item:focus-visible { color: #d6482f; outline: none; }
+
+/* 左侧竖条 */
+.sxq-menu-item::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 3px; height: 0;
+  border-radius: 0 3px 3px 0;
+  background: #d6482f;
+  transform: translateY(-50%);
+  transition: height .26s cubic-bezier(.2, .9, .3, 1);
+  z-index: 1;
+}
+.sxq-menu-item:hover::after,
+.sxq-menu-item:focus-visible::after { height: 62%; }
+
+/* 图标 */
+.sxq-menu-ic {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  background: rgba(214, 72, 47, .1);
+  color: #d6482f;
+  transition: transform .26s cubic-bezier(.2, .9, .3, 1), background-color .18s ease, color .18s ease;
+}
+.sxq-menu-item:hover .sxq-menu-ic,
+.sxq-menu-item:focus-visible .sxq-menu-ic {
+  transform: scale(1.12) rotate(-4deg);
+  background: #d6482f;
+  color: #fff;
+}
+
+/* 文字 */
+.sxq-menu-lb {
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
+  transition: transform .26s cubic-bezier(.2, .9, .3, 1), letter-spacing .26s ease;
+}
+.sxq-menu-item:hover .sxq-menu-lb,
+.sxq-menu-item:focus-visible .sxq-menu-lb { transform: translateX(3px); letter-spacing: .3px; }
+
+/* 序号/角标（可选） */
+.sxq-menu-tag {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  font-size: 10px;
+  color: #a8a29b;
+  border: 1px solid rgba(0, 0, 0, .09);
+  border-radius: 999px;
+  padding: 3px 7px;
+  transition: color .18s ease, border-color .18s ease;
+}
+.sxq-menu-item:hover .sxq-menu-tag { color: #d6482f; border-color: rgba(214, 72, 47, .4); }
+
+/* 分组标题 */
+.sxq-menu-group {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #a8a29b;
+  padding: 12px 13px 5px;
+}
+
+/* 手机端紧凑些 */
+@media (max-width: 768px) {
+  .sxq-menu-item { padding: 10px 12px; font-size: 13.5px; }
+  .sxq-menu-ic { width: 24px; height: 24px; font-size: 13px; }
+}

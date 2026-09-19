@@ -1,6 +1,18 @@
 /*! 尚贤圈 · 智能客服浮窗样式（三站共用） */
 
-.sxq-ai { position: fixed; right: 18px; bottom: 18px; z-index: 9998; font-family: inherit; }
+/* 右下角浮动操作分列：位置由 JS 计算 --sxq-ai-bottom / --sxq-ai-right，
+   保证与站点自带的浮动按钮（返回顶部 #backTop、发布 .fab 等）不重叠 */
+.sxq-ai {
+  position: fixed;
+  right: var(--sxq-ai-right, 18px);
+  bottom: var(--sxq-ai-bottom, 18px);
+  z-index: 9998;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
 
 /* 悬浮按钮 */
 .sxq-ai-fab {
@@ -38,11 +50,11 @@
 .sxq-ai.sxq-ai-hidden .sxq-ai-panel { display: none !important; }
 .sxq-ai.sxq-ai-hidden .sxq-ai-tab { display: flex; }
 
-/* 面板 */
+/* 面板：锚定在按钮正上方（bottom:100%），不参与流式布局 */
 .sxq-ai-panel {
-  position: absolute; right: 0; bottom: 84px;
+  position: absolute; right: 0; bottom: calc(100% + 10px);
   width: min(380px, calc(100vw - 36px));
-  height: min(560px, calc(100vh - 150px));
+  height: min(560px, var(--sxq-ai-maxh, calc(100vh - 150px)));
   background: #fff;
   border: 1px solid rgba(0, 0, 0, .08);
   border-radius: 16px;
@@ -74,10 +86,20 @@
 .sxq-ai-close:hover { color: #d6482f; }
 
 .sxq-ai-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-.sxq-ai-msg { max-width: 84%; font-size: 13.5px; line-height: 1.6; padding: 9px 12px; border-radius: 12px; white-space: pre-wrap; word-break: break-word; }
+.sxq-ai-msg { max-width: 84%; font-size: 13.5px; line-height: 1.6; padding: 9px 12px; border-radius: 12px; white-space: normal; word-break: break-word; }
 .sxq-ai-msg--assistant { align-self: flex-start; background: #f2f1ee; color: #2c2c2c; border-top-left-radius: 4px; }
-.sxq-ai-msg--user { align-self: flex-end; background: #d6482f; color: #fff; border-top-right-radius: 4px; }
+.sxq-ai-msg--user { align-self: flex-end; background: #d6482f; color: #fff; border-top-right-radius: 4px; white-space: pre-wrap; }
 .sxq-ai-msg--error { background: #fdecea; color: #b3351f; border: 1px solid rgba(179, 53, 31, .25); }
+
+/* 自动识别的链接 / 邮箱 */
+.sxq-ai-link {
+  color: #2f7ad0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+.sxq-ai-link:hover { color: #d6482f; }
+.sxq-ai-msg--user .sxq-ai-link { color: #fff; }
 .sxq-ai-typing::after { content: '…'; animation: sxqAiDots 1s steps(3) infinite; }
 @keyframes sxqAiDots { 0% { opacity: .2 } 50% { opacity: 1 } 100% { opacity: .2 } }
 
@@ -109,15 +131,9 @@
 .sxq-ai-foot a { color: #4a90d9; text-decoration: none; }
 .sxq-ai-foot a:hover { text-decoration: underline; }
 
-/* 存在原生底部 Tab 时抬高浮窗（覆盖 769-1023px 这段本来会被 Tab 遮住的区间） */
-@media (max-width: 1023px) {
-  body.sxq-has-tabbar .sxq-ai { bottom: 88px; }
-}
-
-/* 手机端：抬高到原生底部 Tab 之上，避免与「发布」等原生元素重合 */
+/* 手机端：按钮略小；位置仍由 JS 的浮动分列算法计算（含底部 Tab 避让） */
 @media (max-width: 768px) {
-  .sxq-ai { right: 14px; bottom: 14px; }
   .sxq-ai-fab { width: 64px; height: 64px; }
   .sxq-ai-fab-lottie { width: 52px; height: 52px; }
-  .sxq-ai-panel { bottom: 76px; height: min(60vh, 470px); }
+  .sxq-ai-panel { width: min(360px, calc(100vw - 28px)); }
 }

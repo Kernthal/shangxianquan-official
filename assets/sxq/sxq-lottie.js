@@ -14,9 +14,8 @@
   var LOTTIE_BASE = window.SXQ_LOTTIE_BASE || './assets/lottie/'
   var VENDOR_SRC = window.SXQ_LOTTIE_VENDOR || './assets/vendor/lottie.min.js'
 
-  // 每个动画的默认配置
+  // 每个动画的默认配置（导航已改为原生 HTML 菜单，见 sxq-nav.js）
   var CFG = {
-    nav: { file: 'nav.json', loop: false, autoplay: false, markers: [0, 41, 81, 121], idle: [162, 182] },
     loading: { file: 'loading.json', loop: true, autoplay: true },
     chatbot: { file: 'chatbot.json', loop: true, autoplay: true },
     marketing: { file: 'marketing.json', loop: true, autoplay: true }
@@ -54,47 +53,6 @@
     el.innerHTML = ''
     el.appendChild(img)
     el.classList.add('sxq-lottie-static')
-  }
-
-  // 可交互导航：在图上按百分比叠加 4 个热区
-  function setupNav (el, anim) {
-    var items
-    try { items = JSON.parse(el.getAttribute('data-lottie-items') || '[]') } catch (e) { items = [] }
-    if (!items.length) return
-
-    var stage = el.querySelector('.sxq-lottie-stage') || el
-    var layer = document.createElement('div')
-    layer.className = 'sxq-nav-hotspots'
-
-    // 组合尺寸 1000×1000，四个菜单项纵向中心 y≈291 / 430 / 569 / 708
-    var ys = [29.1, 43.0, 56.9, 70.8]
-
-    items.slice(0, 4).forEach(function (it, i) {
-      var a = document.createElement('a')
-      a.className = 'sxq-nav-hotspot'
-      a.href = it.href || '#'
-      a.setAttribute('aria-label', it.label || ('导航' + (i + 1)))
-      // 支持 SPA 路由（贤圈中心用 data-nav 做全局委托跳转）
-      if (it.nav) {
-        a.setAttribute('data-nav', it.nav)
-        a.addEventListener('click', function (ev) { ev.preventDefault() })
-      }
-      a.style.top = ys[i] + '%'
-      var start = (typeof it.marker === 'number') ? it.marker : CFG.nav.markers[i]
-      a.addEventListener('mouseenter', function () {
-        try { anim.playSegments([start, start + 30], true) } catch (e) {}
-      })
-      a.addEventListener('focus', function () {
-        try { anim.playSegments([start, start + 30], true) } catch (e) {}
-      })
-      layer.appendChild(a)
-    })
-
-    ;(el.querySelector('.sxq-lottie-stage') || el).appendChild(layer)
-
-    el.addEventListener('mouseleave', function () {
-      try { anim.playSegments(CFG.nav.idle, true) } catch (e) {}
-    })
   }
 
   function initEl (el) {

@@ -1,4 +1,7 @@
-/*! 尚贤圈 · Lottie 组件样式（三站共用） */
+/*! 尚贤圈 · Lottie 播放器样式（三站共用）
+ * 仅用于 加载动画 / 客服机器人 / Hero 插画。
+ * 导航菜单已改为原生 HTML（见 sxq-nav.css）。
+ */
 
 .sxq-lottie {
   position: relative;
@@ -13,41 +16,20 @@
 /* 未就绪时占位，避免布局跳动 */
 .sxq-lottie:not(.sxq-lottie-ready):not(.sxq-lottie-static) { min-height: 40px; }
 
-/* ---- 可交互导航条 ---- */
-.sxq-lottie[data-lottie="nav"] { width: 100%; }
-.sxq-nav-hotspots {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.sxq-nav-hotspot {
-  position: absolute;
-  left: 8%;
-  width: 84%;
-  height: 13%;
-  transform: translateY(-50%);
-  border-radius: 14px;
-  pointer-events: auto;
-  text-decoration: none;
-  outline: none;
-  transition: background-color .18s ease;
-}
-.sxq-nav-hotspot:focus-visible { box-shadow: 0 0 0 3px rgba(214, 72, 47, .35); }
-
-/* ---- 非导航类插画：品牌色容器做轻品牌化 ---- */
+/* 插画类：品牌色容器做轻品牌化 */
 .sxq-lottie--brand {
   background: radial-gradient(120% 120% at 30% 20%, rgba(214, 72, 47, .07), rgba(74, 144, 217, .06) 60%, transparent 100%);
   border-radius: 18px;
   padding: 8px;
 }
 
-/* ---- 手机端降配：略微缩小、降低视觉噪声 ---- */
+/* 手机端降配 */
 @media (max-width: 768px) {
   .sxq-lottie-mobile { transform: scale(.96); }
   .sxq-lottie--brand { padding: 4px; border-radius: 14px; }
 }
 
-/* ---- 无障碍：用户要求减少动效时，运行时已改为静态兜底 ---- */
+/* 无障碍：用户要求减少动效时，运行时已改为静态兜底 */
 @media (prefers-reduced-motion: reduce) {
   .sxq-lottie-stage { display: none; }
 }

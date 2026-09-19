@@ -101,10 +101,46 @@
   var busy = false
 
   // ---------- 渲染 ----------
+  // 富文本：识别 http(s) 链接 → 可点击；识别邮箱 → mailto。
+  // 安全：先转义 HTML，再只对 http(s)/mailto 生成 <a>，杜绝注入。
+  var RE_LINK = /(https?:\/\/[^\s<>"'）)】\]]+)/g
+  var RE_MAIL = /([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/g
+
+  function escapeHtml (s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+  }
+
+  function richHtml (text) {
+    var s = escapeHtml(text)
+    // 先处理链接，用占位符保护，避免邮箱正则在链接内部重复匹配
+    var slots = []
+    s = s.replace(RE_LINK, function (m) {
+      slots.push('<a class="sxq-ai-link" href="' + m + '" target="_blank" rel="noopener noreferrer">' + m + '</a>')
+      return '\u0000' + (slots.length - 1) + '\u0000'
+    })
+    // 邮箱（跳过已被链接占位的内容）
+    s = s.replace(RE_MAIL, function (m) {
+      slots.push('<a class="sxq-ai-link" href="mailto:' + m + '">' + m + '</a>')
+      return '\u0000' + (slots.length - 1) + '\u0000'
+    })
+    s = s.replace(/\u0000(\d+)\u0000/g, function (_, i) { return slots[Number(i)] || '' })
+    return s.replace(/\n/g, '<br>')
+  }
+
+  function setRich (el, text) {
+    el.innerHTML = richHtml(text)
+  }
+
   function bubble (role, text) {
     var el = document.createElement('div')
     el.className = 'sxq-ai-msg sxq-ai-msg--' + role
-    el.textContent = text
+    if (role === 'assistant') setRich(el, text)
+    else el.textContent = text
     log.appendChild(el)
     log.scrollTop = log.scrollHeight
     return el
@@ -161,8 +197,9 @@
       if (ct.indexOf('text/event-stream') >= 0 && res.body) return stream(res.body, out)
       return res.json().then(function (j) {
         out.classList.remove('sxq-ai-typing')
-        out.textContent = (j && j.reply) ? j.reply : '（暂无回复）'
-        history.push({ role: 'assistant', content: out.textContent })
+        var reply = (j && j.reply) ? j.reply : '（暂无回复）'
+        setRich(out, reply)
+        history.push({ role: 'assistant', content: reply })
       })
     }).catch(function (err) {
       out.classList.remove('sxq-ai-typing')
@@ -172,7 +209,7 @@
       if (!m || err.name === 'TypeError' || /failed to fetch|load failed|networkerror/i.test(m)) {
         m = '客服暂未上线或网络异常，请稍后再试。详细问题请发邮件 ' + CFG.email
       }
-      out.textContent = m
+      setRich(out, m)
     }).then(function () {
       busy = false
       sendBtn.disabled = false
@@ -203,7 +240,7 @@
           try {
             var j = JSON.parse(payload)
             var piece = j.delta || j.text || ''
-            if (piece) { acc += piece; out.textContent = acc; log.scrollTop = log.scrollHeight }
+            if (piece) { acc += piece; setRich(out, acc); log.scrollTop = log.scrollHeight }
           } catch (e) {}
         })
         return pump()
@@ -255,12 +292,52 @@
 
   renderQuick()
 
-  // 页面存在底部 Tab（官网移动端 .mtab / 网页版 .uni-tabbar）→ 抬高浮窗，避免与「发布」等原生元素重合
-  function markTabbar () {
-    if (document.querySelector('.uni-tabbar, .mtab')) document.body.classList.add('sxq-has-tabbar')
+  // 右下角浮动操作分列排布：探测站点自带的浮动按钮/底栏，把 AI 客服叠到它们上方，
+  // 避免遮挡「返回顶部」「发布」等原有按钮（三站通用）。
+  function layoutFloat () {
+    var GAP = 12
+    var vw = window.innerWidth
+    var vh = window.innerHeight
+    var bottom = 18
+
+    // 白名单：只避让这些"右下角浮动件 / 贴底通栏"，避免误判右侧竖排导航（如 .sec-rail）
+    var probes = document.querySelectorAll(
+      '#backTop, .fab, .tabbar, .uni-tabbar, .mtab, [data-sxq-avoid]'
+    )
+
+    Array.prototype.forEach.call(probes, function (el) {
+      if (root.contains(el)) return
+      var cs
+      try { cs = getComputedStyle(el) } catch (e) { return }
+      if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) return
+      var r = el.getBoundingClientRect()
+      if (!r.width || !r.height) return
+      // 只关心右下角的浮动件，或贴底的整条底栏
+      var isBottomBar = r.width > vw * 0.6 && r.bottom > vh - 130
+      var isRightFloat = r.right > vw * 0.55 && r.bottom > vh * 0.4
+      if (isBottomBar || isRightFloat) {
+        var need = (vh - r.top) + GAP
+        if (need > bottom) bottom = need
+      }
+    })
+
+    var rootStyle = document.documentElement.style
+    rootStyle.setProperty('--sxq-ai-bottom', Math.round(bottom) + 'px')
+    // 面板最大高度随之下调，保证不顶出视口
+    var maxH = Math.max(240, vh - Math.round(bottom) - 110)
+    rootStyle.setProperty('--sxq-ai-maxh', maxH + 'px')
   }
-  markTabbar()
-  setTimeout(markTabbar, 1600)
+
+  layoutFloat()
+  setTimeout(layoutFloat, 900)
+  setTimeout(layoutFloat, 2400)
+  var rafId = null
+  function onScrollResize () {
+    if (rafId) return
+    rafId = requestAnimationFrame(function () { rafId = null; layoutFloat() })
+  }
+  window.addEventListener('resize', onScrollResize)
+  window.addEventListener('scroll', onScrollResize, { passive: true })
 
   window.SXQ_AI_CHAT = { open: open, close: close, ask: ask }
 })()
