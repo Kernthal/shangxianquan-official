@@ -718,8 +718,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
 /* 首屏加载动画（AI loading） */
 .sxq-load{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--paper,#f4efe6);transition:opacity .45s ease,visibility .45s ease}
 .sxq-load.sxq-load-hide{opacity:0;visibility:hidden}
-.sxq-load .sxq-lottie{width:150px;height:150px}
-.sxq-load-txt{font-family:var(--serif,Georgia,serif);letter-spacing:8px;color:var(--red,#c8401f);font-size:14px}
+.sxq-load .sxq-lottie{width:240px;height:240px}
+@media(max-width:768px){.sxq-load .sxq-lottie{width:170px;height:170px}}
+.sxq-load-txt{font-family:var(--serif,Georgia,serif);letter-spacing:8px;color:var(--red,#c8401f);font-size:16px}
 
 /* Hero 人物插画（marketing） */
 .hero{position:relative}
@@ -2154,16 +2155,23 @@ window.SXQ_AI = { title: '尚贤圈 · 智能客服', email: 'sxcommunity@outloo
 <script src="./assets/sxq/sxq-ai-chat.js"></script>
 <script>
 (function () {
-  // 首屏加载动画：页面加载完成后淡出（最多 4 秒兜底强制关闭）
+  // 首屏加载动画：至少展示 1.8 秒（原来一闪而过），最多 8 秒兜底强制关闭
+  var __sxqT0 = Date.now();
+  var __sxqLoadDone = false;
   function hideLoad () {
+    if (__sxqLoadDone) return;
+    __sxqLoadDone = true;
     var el = document.getElementById('sxqLoad');
     if (!el) return;
-    el.classList.add('sxq-load-hide');
-    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 600);
+    var wait = Math.max(0, 1800 - (Date.now() - __sxqT0));
+    setTimeout(function () {
+      el.classList.add('sxq-load-hide');
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 700);
+    }, wait);
   }
-  if (document.readyState === 'complete') setTimeout(hideLoad, 600);
-  else window.addEventListener('load', function () { setTimeout(hideLoad, 600); });
-  setTimeout(hideLoad, 4000);
+  if (document.readyState === 'complete') hideLoad();
+  else window.addEventListener('load', hideLoad);
+  setTimeout(hideLoad, 8000);
 
   // 可交互导航抽屉
   var btn = document.getElementById('sxqNavBtn');

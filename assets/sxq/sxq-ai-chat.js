@@ -62,6 +62,7 @@
   var root = document.createElement('div')
   root.className = 'sxq-ai'
   root.innerHTML =
+    '<button class="sxq-ai-tab" type="button" aria-label="打开智能客服">客服</button>' +
     '<button class="sxq-ai-fab" type="button" aria-label="打开智能客服" aria-expanded="false">' +
       '<span class="sxq-ai-fab-lottie" data-lottie="chatbot" data-lottie-autoplay></span>' +
       '<span class="sxq-ai-fab-dot" aria-hidden="true"></span>' +
@@ -70,7 +71,10 @@
       '<header class="sxq-ai-head">' +
         '<span class="sxq-ai-title">' + CFG.title + '</span>' +
         '<span class="sxq-ai-aigc" title="AI 生成内容">AI 生成</span>' +
-        '<button class="sxq-ai-close" type="button" aria-label="关闭">×</button>' +
+        '<span class="sxq-ai-head-acts">' +
+          '<button class="sxq-ai-min" type="button" aria-label="收起客服浮窗">收起</button>' +
+          '<button class="sxq-ai-close" type="button" aria-label="关闭">×</button>' +
+        '</span>' +
       '</header>' +
       '<div class="sxq-ai-log" aria-live="polite"></div>' +
       '<div class="sxq-ai-quick"></div>' +
@@ -147,6 +151,9 @@
     }).then(function (res) {
       if (!res.ok) {
         return res.json().catch(function () { return {} }).then(function (j) {
+          if (res.status === 404) {
+            throw new Error('客服暂未上线（服务端函数未部署）。详细问题请发邮件 ' + CFG.email)
+          }
           throw new Error(j.message || ('服务繁忙（' + res.status + '），请稍后再试'))
         })
       }
@@ -160,7 +167,12 @@
     }).catch(function (err) {
       out.classList.remove('sxq-ai-typing')
       out.classList.add('sxq-ai-msg--error')
-      out.textContent = err.message || '网络异常，请稍后再试'
+      var m = (err && err.message) ? String(err.message) : ''
+      // 浏览器对 CORS / 断网 / 404 预检失败统一报 "Failed to fetch"，换成能看懂的提示
+      if (!m || err.name === 'TypeError' || /failed to fetch|load failed|networkerror/i.test(m)) {
+        m = '客服暂未上线或网络异常，请稍后再试。详细问题请发邮件 ' + CFG.email
+      }
+      out.textContent = m
     }).then(function () {
       busy = false
       sendBtn.disabled = false
@@ -219,6 +231,17 @@
 
   fab.addEventListener('click', function () { panel.hidden ? open() : close() })
   root.querySelector('.sxq-ai-close').addEventListener('click', close)
+
+  // 「收起」= 把整个浮窗让开页面，只留右侧一个细标签，随时可再打开
+  var tab = root.querySelector('.sxq-ai-tab')
+  root.querySelector('.sxq-ai-min').addEventListener('click', function () {
+    close()
+    root.classList.add('sxq-ai-hidden')
+  })
+  tab.addEventListener('click', function () {
+    root.classList.remove('sxq-ai-hidden')
+    open()
+  })
   form.addEventListener('submit', function (e) {
     e.preventDefault()
     var v = input.value.trim()
@@ -231,6 +254,13 @@
   })
 
   renderQuick()
+
+  // 页面存在底部 Tab（官网移动端 .mtab / 网页版 .uni-tabbar）→ 抬高浮窗，避免与「发布」等原生元素重合
+  function markTabbar () {
+    if (document.querySelector('.uni-tabbar, .mtab')) document.body.classList.add('sxq-has-tabbar')
+  }
+  markTabbar()
+  setTimeout(markTabbar, 1600)
 
   window.SXQ_AI_CHAT = { open: open, close: close, ask: ask }
 })()

@@ -74,6 +74,11 @@
       a.className = 'sxq-nav-hotspot'
       a.href = it.href || '#'
       a.setAttribute('aria-label', it.label || ('导航' + (i + 1)))
+      // 支持 SPA 路由（贤圈中心用 data-nav 做全局委托跳转）
+      if (it.nav) {
+        a.setAttribute('data-nav', it.nav)
+        a.addEventListener('click', function (ev) { ev.preventDefault() })
+      }
       a.style.top = ys[i] + '%'
       var start = (typeof it.marker === 'number') ? it.marker : CFG.nav.markers[i]
       a.addEventListener('mouseenter', function () {
