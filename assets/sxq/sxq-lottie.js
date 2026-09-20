@@ -17,6 +17,8 @@
   // 每个动画的默认配置（导航已改为原生 HTML 菜单，见 sxq-nav.js）
   var CFG = {
     loading: { file: 'loading.json', loop: true, autoplay: true },
+    // hello 的图形只占画布中间一条横带，用 slice 裁切才能铺满容器宽度
+    hello: { file: 'hello.json', loop: true, autoplay: true, fit: 'xMidYMid slice' },
     chatbot: { file: 'chatbot.json', loop: true, autoplay: true },
     marketing: { file: 'marketing.json', loop: true, autoplay: true }
   }
@@ -80,7 +82,7 @@
         loop: el.hasAttribute('data-lottie-loop') ? true : cfg.loop,
         autoplay: autoplay,
         path: LOTTIE_BASE + cfg.file,
-        rendererSettings: { preserveAspectRatio: 'xMidYMid meet', progressiveLoad: true }
+        rendererSettings: { preserveAspectRatio: cfg.fit || 'xMidYMid meet', progressiveLoad: true }
       })
       el.__sxqAnim = anim
 
