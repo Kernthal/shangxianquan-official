@@ -1208,13 +1208,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
             </div>
             <div class="pqr-steps">
               <div class="pqr-step"><b>1</b> 用手机相机或微信「扫一扫」扫描左侧付款码（或点「在手机/新窗口打开」）</div>
-              <div class="pqr-step"><b>2</b> 在爱发电下单页核对档位与金额，把「贤圈ID:你的ID」粘贴进留言栏（可点上方复制按钮）</div>
+              <div class="pqr-step"><b>2</b> 在爱发电下单页核对档位与金额，确认「留言」栏已带上「贤圈ID:你的ID」——扫码或点下方链接会自动带入；若留言为空，请点「复制贤圈ID」手动粘贴</div>
               <div class="pqr-step"><b>3</b> 选择微信或支付宝完成支付</div>
               <div class="pqr-step"><b>4</b> 付款后系统每分钟自动拉取订单并按留言中的贤圈ID匹配到账，一般 1 分钟内到账，最迟不超过 24 小时</div>
               <div class="pqr-step"><b>5</b> 到账后权益即时生效（App 会员中心刷新可见）；鸡腿赞助将获电子感谢证书邮件</div>
               <button class="pqr-btn ghost" id="pqrPaid">我付好了 · 查看到账状态</button>
             </div>
-            <div class="pqr-desc">使用手机相机或微信「扫一扫」扫码，在浏览器完成下单；付款码 3 分钟内有效，过期可免费重新生成。</div>
+            <div class="pqr-desc">使用手机相机或微信「扫一扫」扫码，在浏览器完成下单。付款码<b>长期有效</b>，且与「所选档位 + 你的贤圈ID」一一对应：同档位同贤圈ID 生成的码永远一致，刷新或重新打开页面都不会变，无需反复生成。</div>
             <div class="pqr-acts">
               <a class="pqr-btn primary" id="pqrOpen" target="_blank" rel="noopener">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-8.5 8.5M10 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1222,9 +1222,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,.
               <button class="pqr-btn" id="pqrCopy" type="button">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2" stroke="currentColor" stroke-width="2"/></svg>
                 复制付款链接</button>
-              <button class="pqr-btn" id="pqrRegen" type="button" style="display:none">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 10-2.34 5.66M20 12V7m0 5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                重新生成</button>
+              <button class="pqr-btn" id="pqrCopyId" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7V5a1 1 0 011-1h2M20 7V5a1 1 0 00-1-1h-2M4 17v2a1 1 0 001 1h2M20 17v2a1 1 0 01-1 1h-2M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span class="pqr-cid-t">复制贤圈ID</span></button>
             </div>
             <div class="pqr-xid">下单时请在「留言」填写你的<b>贤圈ID</b>（App「设置 → 关于」可查）；填错或不填将无法自动匹配，需人工核对，最迟 24 小时内补齐。</div>
             <div class="pqr-desc"><b style="color:var(--ink)">到账说明：</b>付款后系统每分钟自动拉取订单并匹配，一般 1 分钟内到账，最迟不超过 24 小时；到账后权益即时生效，App 内打开会员中心刷新即可看到。</div>
@@ -2268,7 +2268,7 @@ window.SXQ_AI = { title: '尚贤圈 · 智能客服', email: 'sxcommunity@outloo
     });
   }
 
-  // ═══ 支付向导：选档 → 8项明细协议门 → 随机付款码（3分钟倒计时） ═══
+  // ═══ 支付向导：协议门 → 选档 → 8项明细二次确认 → 确定性付款码（长期有效·同档同人同码） ═══
   var PAY={sel:null,xq:'',url:''};
   var PLANS=[
     {key:'month',name:'贤士卡 · 月卡',price:6,priceT:'¥6',unit:'/月',desc:'月卡 · ¥6/月 · 随时停',type:'plan',
@@ -2381,7 +2381,15 @@ window.SXQ_AI = { title: '尚贤圈 · 智能客服', email: 'sxcommunity@outloo
         navigator.clipboard.writeText(url).then(function(){btn.textContent='已复制';setTimeout(function(){btn.textContent='复制付款链接';},1600);});
       }
     });
-    document.getElementById('pqrRegen').addEventListener('click',payGen);
+    document.getElementById('pqrCopyId').addEventListener('click',function(){
+      var xi=(document.getElementById('pqrXq')||{value:''}).value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+      if(xi.length!==10){ alert('请先填写 10 位贤圈ID（App 设置 → 关于 可查），再复制'); return; }
+      var btn=this, val='贤圈ID:'+xi;
+      var done=function(){ var t=btn.querySelector('.pqr-cid-t'); if(t)t.textContent='已复制'; setTimeout(function(){ if(t)t.textContent='复制贤圈ID'; },1600); };
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(val).then(done).catch(function(){ alert('请手动选中复制：'+val); });
+      } else { alert('请手动选中复制：'+val); }
+    });
     document.getElementById('pqrXq').addEventListener('keydown',function(e){
       if(e.key==='Enter')payGen();
     });
