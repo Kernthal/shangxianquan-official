@@ -103,6 +103,14 @@
 .sxq-ai-typing::after { content: '…'; animation: sxqAiDots 1s steps(3) infinite; }
 @keyframes sxqAiDots { 0% { opacity: .2 } 50% { opacity: 1 } 100% { opacity: .2 } }
 
+/* 回答来源标记：预设 / AI 生成 */
+.sxq-ai-tag {
+  display: inline-block; margin-top: 8px; padding: 1px 8px; border-radius: 999px;
+  font-size: 10.5px; line-height: 1.7; letter-spacing: .02em;
+  background: rgba(44, 44, 44, .06); color: #8a8a8a; border: 1px solid rgba(44, 44, 44, .08);
+}
+.sxq-ai-tag--preset { background: rgba(185, 138, 47, .12); color: #8a6520; border-color: rgba(185, 138, 47, .28); }
+
 .sxq-ai-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 8px; }
 .sxq-ai-chip {
   font-size: 12px; padding: 5px 9px; border-radius: 999px; cursor: pointer;

@@ -14,6 +14,7 @@
     email: 'sxcommunity@outlook.com',
     title: '尚贤圈 · 智能客服',
     brand: '尚贤圈',
+    chips: null,
     faq: [
       '怎么发帖？',
       '匿名发帖安全吗？',
@@ -22,6 +23,133 @@
       '规则中心在哪里？'
     ]
   }, window.SXQ_AI || {})
+
+  // ══════════════════════════════════════════════════════════
+  //  预设问答库
+  //  ── 铁律：推荐提问与命中预设的输入，一律本地作答，绝不请求 AI 接口。
+  //  ── 只有用户自己输入、且未命中任何预设时，才调用边缘函数（计费）。
+  //  内容依据 docs/HANDOFF-V3-FULL.md 与《会员服务协议》等真实口径，不编造。
+  // ══════════════════════════════════════════════════════════
+  var PRESETS = [
+    { id: 'publish', q: '怎么发帖 / 发动态？', k: ['发帖', '发动态', '怎么发布', '发布动态', '怎么发一条', '如何发帖'],
+      a: '在「广场」页点右上角「发布动态」，或用底部导航中间的 ＋ 号即可发帖：可发纯文字，也可配图（最多 9 张）。\nApp 端路径：首页 → 右下角 ＋ → 选择版块。\n内容不得包含违法信息，发布前请确认。' },
+
+    { id: 'anon', q: '匿名发帖安全吗？额度是多少？', k: ['匿名', '匿名帖', '匿名安全', '会被认出来'],
+      a: '匿名有额度：普通账号每日 2 条匿名帖、5 条匿名评论；贤士卡会员为 10 条 / 20 条，可用「增量包」永久叠加。\n匿名对同学隐藏身份，但后台保留识别码，仅在处理违法内容时启用——所以可以放心倾诉，但请勿违法。' },
+
+    { id: 'vip', q: '贤士卡会员有什么用？多少钱？', k: ['贤士卡', '会员有什么', '会员多少', '开通会员', '会员权益'],
+      a: '贤士卡是尚贤圈会员：月卡 ¥6、季卡 ¥13、年卡 ¥46.8。\n权益：身份标识（贤士 / 贤达 / 贤尊 头衔可随时切换）、每日额度提升至 10 条匿名帖 / 20 条匿名评论 / 200 个表情 / 9 张图片，以及每月 8 号会员日额度翻倍。\n会员与管理员权限、月度选举完全隔离——花钱换不到任何管理权。' },
+
+    { id: 'tips', q: '「加鸡腿」是什么？有哪些档位？', k: ['鸡腿', '打赏', '赞助档位', '加鸡腿'],
+      a: '鸡腿是对创作者的自愿打赏，纯赠与、不对应任何权益，档位 ¥1 / ¥3 / ¥15 / ¥30 / ¥50 / ¥100 / ¥200。\n皇级 ¥50 进入当月鸣谢陈列；星级 ¥100 进入永久名单；钻级 ¥200 永久名单并附专属铭牌（头像框）。\n鸡腿金额三成以上（普遍五到八成）投入平台开发与维护。' },
+
+    { id: 'arrival', q: '付款了多久到账？没到账怎么办？', k: ['到账', '没到账', '付款没反应', '多久生效', '爱发电到账'],
+      a: '付款后系统每分钟自动拉取爱发电订单并匹配，一般 1 分钟内到账，最迟不超过 24 小时。\n关键前提：下单时「留言」必须填写你的贤圈ID（App「设置 → 关于」可查）；填错或不填就无法自动匹配，需要人工核对。\n超过 24 小时仍未到账，请把订单号与留言内容发到 sxcommunity@outlook.com。' },
+
+    { id: 'xqid', q: '贤圈ID 在哪里看？', k: ['贤圈id', '我的id', 'id在哪', '哪里看id'],
+      a: '贤圈ID 是 10 位小写字母数字组合，在 App「设置 → 关于」可查看。\n付款留言、到账匹配、绑定贤圈中心都需要它。它不等于密码，但也不要在公开场合随意分享。' },
+
+    { id: 'refund', q: '会员可以退款吗？', k: ['退款', '退钱', '不想要了能退', '能退吗'],
+      a: '数字内容（会员、增量包、鸡腿）一经到账即产生权益或完成赠与，依据《付费与退款政策》不予退款，下单前请仔细阅读确认。\n未成年人应在监护人同意并陪同下购买，监护人有权要求中止后续消费。' },
+
+    { id: 'memberday', q: '会员日是什么？', k: ['会员日', '每月8号', '8号翻倍'],
+      a: '每月 8 号是会员日，贤士卡会员当天的匿名帖、匿名评论、表情、图片基础额度全部翻倍。\n无需额外操作，当天自动生效。' },
+
+    { id: 'perk', q: '增量包是什么？怎么叠加？', k: ['增量包', '额度包', '表情扩容', '图片+3', '叠加额度'],
+      a: '增量包是永久叠加的额度包：\n· 匿名帖 +5（¥1）\n· 匿名评论 +10（¥1）\n· 表情扩容 +50（¥2）\n· 发帖图片 +3（¥3）\n买多少叠多少，永久有效。' },
+
+    { id: 'rules', q: '规则中心在哪里？有多少篇？', k: ['规则中心', '用户协议', '隐私政策', '社区公约', '规则在哪'],
+      a: '规则中心在 App 内「我的 → 规则中心」，共 22 篇文档：用户协议、隐私政策、社区公约、会员服务协议、付费与退款政策、免责声明等。\n阅读器支持悬浮目录、进度显示、四档字号，文中书名号短语可一键跳转互链。' },
+
+    { id: 'download', q: '怎么下载安装 App？', k: ['下载', '安装包', 'apk', '怎么安装', '未知来源'],
+      a: '安卓安装包在 Gitee Releases 发布：gitee.com/kernthal-studio/sxcommunity/releases\n下载后用浏览器打开安装；若提示「未知来源」，请在系统设置里允许安装。\niOS 不提供原生 App，用 Safari 打开官网并「添加到主屏幕」即可当 App 使用。' },
+
+    { id: 'links', q: '官网和各端网址是什么？', k: ['官网', '网址', '地址', '网站是多少', '网页版链接'],
+      a: '官网：kernthal.github.io/shangxianquan-official/\n贤圈中心（网页版社区）：sxcommunity.github.io/xq-center/\nApp 网页版（PWA）：sxcommunity.github.io/sxq-pwa/' },
+
+    { id: 'xqcenter', q: '贤圈中心是什么？要单独注册吗？', k: ['贤圈中心', '网页版', 'xq-center', '电脑上能用吗'],
+      a: '贤圈中心是尚贤圈的网页版校园社区：广场动态、提问社区、二手集市、失物招领、鸣谢墙、知识库与徽章墙。\n网址 sxcommunity.github.io/xq-center/ ，与 App 共用同一套账号，登录后贤圈ID 自动关联，不需要单独注册。' },
+
+    { id: 'report', q: '看到违规内容怎么举报？', k: ['举报', '违规内容', '有人发违法', '怎么投诉'],
+      a: '在内容旁点「举报」入口提交即可，管理员会处理。\n社区底线三件套：违法类敏感词拦截、举报入口、管理员删除权。\n也可以直接发邮件到 sxcommunity@outlook.com。' },
+
+    { id: 'dm', q: '私信为什么发不出去？', k: ['私信发不出', '发不了私信', '私信失败', '不能发私信'],
+      a: '私信规则：互相关注才能畅聊；对未关注的人每天只能发 1 条，用于防骚扰。\n如果发送失败，请确认对方是否关注了你，或今天是否已经发过一条。' },
+
+    { id: 'recall', q: '消息怎么撤回？', k: ['撤回', '发错了', '删除消息'],
+      a: '私信发出后 2 分钟内，长按那条消息即可撤回。' },
+
+    { id: 'account', q: '怎么注册？忘记密码怎么办？', k: ['注册', '忘记密码', '登录不了', '收不到验证码', '重置密码'],
+      a: '尚贤圈使用邮箱注册，也支持邮箱验证码免密码登录。\n忘记密码：在登录页点「忘记密码」，重置链接会发到邮箱；收不到请先检查垃圾邮件文件夹。' },
+
+    { id: 'ban', q: '账号被封禁 / 禁言了怎么办？', k: ['封号', '被封', '禁言', '账号被封', '解封'],
+      a: '封禁或禁言通常是因为触发了社区公约。\n可以在 App「我的 → 问题诊断上报」复制诊断信息，连同贤圈ID 一起发到 sxcommunity@outlook.com 申诉，管理员会复核。' },
+
+    { id: 'bounty', q: '悬赏问答怎么用？', k: ['悬赏', '悬赏问答', ' bounty', '答谢回答者'],
+      a: '提问时可选择鸡腿档位标记悬赏（¥1–¥200）。\n被采纳的回答会通知你去手动把鸡腿赠送给回答者——平台不碰钱、不代付、不担保。\n悬赏问题在问答流里会靠前展示。' },
+
+    { id: 'market', q: '集市二手交易安全吗？', k: ['集市', '二手', '卖东西', '买东西安全', '交易安全'],
+      a: '集市只提供信息发布，平台不介入交易、不担保、不代收款项。\n建议当面交易、当面验货，不要提前转账；未成年人交易须经监护人同意。\n物品卖出后请标记「已售出」，之后不再接受询价。' },
+
+    { id: 'lost', q: '失物招领怎么用？', k: ['失物', '招领', '丢东西', '捡到', '寻物'],
+      a: '失物招领分「我丢了东西」与「我捡到东西」两类，发布时联系方式必填，方便同学一键复制联系你。\n问题解决后可以标记为已解决。' },
+
+    { id: 'badge', q: '徽章怎么获得？', k: ['徽章', '成就', '怎么得徽章', '徽章墙'],
+      a: '徽章共 11 枚：首问、首答、采纳 5 次、提问达人、热心回答、连续七日、知识库贡献、拾金不昧、活跃半月、全勤周、元老。\n达成条件后系统自动点亮，展示在「我的 → 徽章墙」，昵称旁最多显示 1 枚。' },
+
+    { id: 'rank', q: '每周双榜是什么？', k: ['双榜', '排行榜', '人气榜', '榜单'],
+      a: '每周双榜是「热心回答榜」与「优质提问榜」，按本周的采纳数、有用数与回答数加权计算。\n周一零点（北京时间）自然重置，Top10 上榜，仅作荣誉展示。' },
+
+    { id: 'thanks', q: '鸣谢墙 / 致谢名单是什么？', k: ['鸣谢', '致谢', '名单', '感谢墙'],
+      a: '鸣谢墙展示支持尚贤圈的赞助者：皇级 ¥50 当月陈列、星级 ¥100 永久名单、钻级 ¥200 永久名单加专属铭牌。\n名单由爱发电订单自动同步，显示名取自你的留言与贤圈昵称。在贤圈中心「鸣谢」页可查看。' },
+
+    { id: 'profile', q: '怎么改昵称和头像？', k: ['改昵称', '换头像', '修改资料', '个性签名'],
+      a: 'App：「我的 → 编辑资料」可改昵称、头像与个性签名。\n贤圈中心：「我的 → 编辑资料」同样可以。\n头像建议不超过 800KB，系统会自动压缩。' },
+
+    { id: 'upload', q: '图片上传失败 / 能发几张？', k: ['图片上传', '发图失败', '图片压缩', '能发几张图', '图片太大'],
+      a: '图片发布前会自动压缩：超过约 800KB 会逐级降低质量重压，小图直接上传。\n发帖图片数量受额度影响：普通账号 3 张，贤士卡会员 9 张，可用「发帖图片 +3」增量包叠加。' },
+
+    { id: 'free', q: '尚贤圈收费吗？', k: ['收费', '免费吗', '花钱', '要不要钱'],
+      a: '基础功能永久免费、无广告。\n收费项目只有自愿的贤士卡会员、增量额度包与鸡腿打赏，都不影响发帖、提问、私信等基础功能。' },
+
+    { id: 'minor', q: '未成年人可以使用吗？', k: ['未成年', '几岁能用', '监护人', '学生能用吗'],
+      a: '尚贤圈面向初高中学生，请遵守未成年人保护要求。\n未满 18 周岁购买会员或加鸡腿，应在监护人同意并陪同下进行；监护人有权要求中止后续消费。' },
+
+    { id: 'contact', q: '怎么联系官方？', k: ['联系官方', '客服邮箱', '怎么联系你们', 'qq群', '投诉邮箱'],
+      a: '一般问题：sxcommunity@outlook.com\n紧急事项：sxemergency@outlook.com\n用户个人事务：3982206481@qq.com\n也可加入页脚公示的 QQ 交流群。' }
+  ]
+
+  // 默认展示的推荐提问（全部为预设，点击不消耗 AI 额度）
+  var DEFAULT_CHIPS = ['publish', 'anon', 'vip', 'tips', 'arrival', 'download', 'xqcenter', 'report']
+
+  function byId (id) { for (var i = 0; i < PRESETS.length; i++) if (PRESETS[i].id === id) return PRESETS[i]; return null }
+
+  // 归一化：去空白、去标点、转小写，用于宽松匹配
+  function norm (s) {
+    return String(s == null ? '' : s).toLowerCase()
+      .replace(/[\s\u3000，。？！、；：,.?!;:~～…「」『』【】（）()《》〈〉"'`·\-—_/\\|]/g, '')
+  }
+
+  // 命中预设返回预设对象，否则 null
+  function matchPreset (text) {
+    var n = norm(text)
+    if (!n) return null
+    var i
+    // 1) 与某个预设问题完全一致（推荐提问走这条）
+    for (i = 0; i < PRESETS.length; i++) if (norm(PRESETS[i].q) === n) return PRESETS[i]
+    // 2) 关键词最长命中，避免"太泛的词"误吞自由提问
+    var best = null, bestLen = 0
+    for (i = 0; i < PRESETS.length; i++) {
+      var ks = PRESETS[i].k || []
+      for (var j = 0; j < ks.length; j++) {
+        var k = norm(ks[j])
+        if (k && k.length > bestLen && n.indexOf(k) >= 0) { best = PRESETS[i]; bestLen = k.length }
+      }
+    }
+    // 命中阈值：关键词至少 2 个字，避免单字误判
+    return bestLen >= 2 ? best : null
+  }
+
 
   if (window.__SXQ_AI_MOUNTED) return
   window.__SXQ_AI_MOUNTED = true
@@ -136,23 +264,35 @@
     el.innerHTML = richHtml(text)
   }
 
-  function bubble (role, text) {
+  function bubble (role, text, tag) {
     var el = document.createElement('div')
     el.className = 'sxq-ai-msg sxq-ai-msg--' + role
-    if (role === 'assistant') setRich(el, text)
-    else el.textContent = text
+    if (role === 'assistant') {
+      setRich(el, text)
+      if (tag) {
+        var t = document.createElement('span')
+        t.className = 'sxq-ai-tag' + (tag === 'preset' ? ' sxq-ai-tag--preset' : '')
+        t.textContent = tag === 'preset' ? '预设回答 · 未消耗 AI 额度' : 'AI 生成'
+        el.appendChild(t)
+      }
+    } else el.textContent = text
     log.appendChild(el)
     log.scrollTop = log.scrollHeight
     return el
   }
   function renderQuick () {
     quick.innerHTML = ''
-    CFG.faq.forEach(function (q) {
+    var ids = (CFG.chips && CFG.chips.length) ? CFG.chips : DEFAULT_CHIPS
+    ids.forEach(function (id) {
+      var p = byId(id)
+      if (!p) return
       var b = document.createElement('button')
       b.type = 'button'
       b.className = 'sxq-ai-chip'
-      b.textContent = q
-      b.addEventListener('click', function () { ask(q) })
+      b.textContent = p.q
+      b.title = '预设回答，不消耗 AI 额度'
+      // 推荐提问 → 直接走预设，绝不请求接口
+      b.addEventListener('click', function () { ask(p.q) })
       quick.appendChild(b)
     })
   }
@@ -160,10 +300,21 @@
   // ---------- 请求 ----------
   function ask (text) {
     if (busy || !text) return
-    busy = true
-    sendBtn.disabled = true
     bubble('user', text)
     history.push({ role: 'user', content: text })
+
+    // ① 命中预设问答库 → 本地直接作答，绝不请求 AI 接口，零计费。
+    //    （所有推荐提问都在这条路径上，用户敲到预设问题也一样。）
+    var hit = matchPreset(text)
+    if (hit) {
+      history.push({ role: 'assistant', content: hit.a })
+      bubble('assistant', hit.a, 'preset')
+      return
+    }
+
+    // ② 只有用户自己输入、且未命中任何预设时，才调用边缘函数（计费）。
+    busy = true
+    sendBtn.disabled = true
     var out = bubble('assistant', '')
     out.classList.add('sxq-ai-typing')
 
