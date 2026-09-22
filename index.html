@@ -1366,6 +1366,18 @@ body.cin-lock{overflow:hidden}
       </div>
     </div>
   </div>
+
+  <!-- ═══ 鸣谢墙 · 实时名单（数据每小时自动同步自贤圈中心） ═══ -->
+  <div class="wrap thanks-wrap" id="thanksLive">
+    <div class="sec-head"><span class="sec-no">鸣</span><h2 class="sec-title">鸣谢墙 · 实时名单</h2><div class="sec-line"></div></div>
+    <p class="thanks-sub">名单每小时自动同步，与贤圈中心网页版鸣谢墙完全一致。显示名取自你的爱发电留言与贤圈昵称，无需人工申报。</p>
+    <div class="thanks-grid" id="thanksGrid">
+      <div class="thanks-tier" data-tier="diamond"><div class="tt-head"><b>钻级 · ¥200</b><span>永久名单 + 专属铭牌</span></div><div class="tt-scroll"><div class="tt-track"></div></div></div>
+      <div class="thanks-tier" data-tier="star"><div class="tt-head"><b>星级 · ¥100</b><span>永久名单</span></div><div class="tt-scroll"><div class="tt-track"></div></div></div>
+      <div class="thanks-tier" data-tier="royal"><div class="tt-head"><b>皇级 · ¥50</b><span>当月陈列</span></div><div class="tt-scroll"><div class="tt-track"></div></div></div>
+    </div>
+    <a class="thanks-more" href="https://sxcommunity.github.io/xq-center/" target="_blank" rel="noopener">在贤圈中心查看完整鸣谢墙 →</a>
+  </div>
 </section>
 
 <!-- 明细协议模态（第二步） -->
@@ -2139,6 +2151,27 @@ if(mtabItems.length){
 .afd-tipnote{font-size:12px;color:#a2937f;line-height:1.8;margin:10px 0 4px}
 .afd-more{display:inline-block;font-size:14px;color:var(--cinnabar);text-decoration:underline}
 .afd-minor{font-size:12.5px;color:#a2937f}
+/* ═══ 鸣谢墙 · 实时名单（官网） ═══ */
+.thanks-wrap{margin-top:56px;padding-top:34px;border-top:1px solid var(--line)}
+.thanks-sub{font-size:13.5px;color:var(--ink-2);max-width:760px;margin:-4px 0 20px;line-height:1.9}
+.thanks-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:820px){.thanks-grid{grid-template-columns:repeat(3,1fr)}}
+.thanks-tier{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;transition:box-shadow .3s}
+.thanks-tier:hover{box-shadow:0 6px 20px rgba(31,28,24,.07)}
+.thanks-tier[data-tier="diamond"]{border-color:rgba(185,138,47,.5);background:linear-gradient(140deg,#fffdf6,#fff)}
+.thanks-tier[data-tier="star"]{border-color:rgba(185,138,47,.3)}
+.tt-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.tt-head b{font-size:14px;font-weight:800}
+.tt-head span{font-size:11.5px;color:var(--ink-3)}
+.tt-scroll{max-height:154px;overflow:hidden;position:relative}
+.tt-track{display:flex;flex-direction:column;gap:8px}
+.tt-track.anim{animation:ttUp var(--tt-dur,14s) linear infinite}
+.tt-scroll:hover .tt-track.anim{animation-play-state:paused}
+@keyframes ttUp{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.tt-name{font-size:13px;padding:6px 12px;border-radius:99px;background:rgba(185,138,47,.12);color:#7a5c1e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-empty{font-size:13px;color:var(--ink-3);padding:4px 0}
+.thanks-more{display:inline-block;margin-top:18px;font-size:13.5px;font-weight:700;color:var(--cinnabar)}
+.thanks-more:hover{text-decoration:underline}
 
 /* ═══ 弹幕心声墙（三轨横滑，常驻流动） ═══ */
 .dm-wall{display:flex;flex-direction:column;gap:14px;--dm-gap:16px}
@@ -2979,6 +3012,52 @@ window.SXQ_AI = { title: '尚贤圈 · 智能客服', email: 'sxcommunity@outloo
     })},{threshold:.4});
     io.observe(vt);
   }
+})();
+</script>
+
+<script>
+/* ═══ 鸣谢墙 · 实时名单：直连贤圈中心新库公开 RPC（主库 pg_cron 每小时同步） ═══ */
+(function(){
+  var SB='https://ocgqafxaapfzraeiehqg.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jZ3FhZnhhYXBmenJhZWllaHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5OTYwOTYsImV4cCI6MjEwMzU3MjA5Nn0.icNXBGRtofllZkvypUvbJqwRxxaLwVLaXC92J5DhKI0';
+  var grid=document.getElementById('thanksGrid');
+  if(!grid)return;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function paint(d){
+    ['diamond','star','royal'].forEach(function(t){
+      var tier=grid.querySelector('[data-tier="'+t+'"]'); if(!tier)return;
+      var track=tier.querySelector('.tt-track');
+      var names=((d&&d[t])||[]).filter(Boolean);
+      if(!names.length){
+        track.classList.remove('anim');
+        track.innerHTML='<div class="tt-empty">虚位以待 · 期待你的名字</div>';
+        return;
+      }
+      var html=names.map(function(n){return '<span class="tt-name" title="'+esc(n)+'">'+esc(n)+'</span>'}).join('');
+      // 条目足够多才滚动；复制一份实现无缝循环（上下滚动）
+      if(names.length>=5){
+        track.innerHTML=html+html;
+        track.classList.add('anim');
+        track.style.setProperty('--tt-dur',(names.length*2.4)+'s');
+      }else{
+        track.classList.remove('anim');
+        track.innerHTML=html;
+      }
+    });
+  }
+  function fallback(){
+    ['diamond','star','royal'].forEach(function(t){
+      var tier=grid.querySelector('[data-tier="'+t+'"]'); if(!tier)return;
+      tier.querySelector('.tt-track').innerHTML='<div class="tt-empty">名单加载中，请稍后刷新</div>';
+    });
+  }
+  fetch(SB+'/rest/v1/rpc/xq_thanks_wall',{
+    method:'POST',
+    headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({payload:{}})
+  }).then(function(r){return r.json()})
+    .then(function(j){ paint((j&&j.data)||j||{}) })
+    .catch(fallback);
 })();
 </script>
 </body>
