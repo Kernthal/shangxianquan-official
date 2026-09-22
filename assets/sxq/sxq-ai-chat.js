@@ -196,6 +196,7 @@
       '<span class="sxq-ai-fab-dot" aria-hidden="true"></span>' +
     '</button>' +
     '<section class="sxq-ai-panel" role="dialog" aria-modal="false" aria-label="智能客服" hidden>' +
+      '<span class="sxq-ai-resize" title="拖动可调整窗口大小" aria-hidden="true"></span>' +
       '<header class="sxq-ai-head">' +
         '<span class="sxq-ai-title">' + CFG.title + '</span>' +
         '<span class="sxq-ai-aigc" title="AI 生成内容">AI 生成</span>' +
@@ -205,7 +206,10 @@
         '</span>' +
       '</header>' +
       '<div class="sxq-ai-log" aria-live="polite"></div>' +
-      '<div class="sxq-ai-quick"></div>' +
+      '<div class="sxq-ai-quickbar">' +
+        '<div class="sxq-ai-quick"></div>' +
+        '<button class="sxq-ai-qtoggle" type="button" aria-label="显示/隐藏推荐提问">收起推荐</button>' +
+      '</div>' +
       '<form class="sxq-ai-form">' +
         '<input class="sxq-ai-input" type="text" maxlength="200" placeholder="问点关于尚贤圈的问题…" autocomplete="off" />' +
         '<button class="sxq-ai-send" type="submit">发送</button>' +
@@ -442,6 +446,75 @@
   })
 
   renderQuick()
+
+  /* ══════════ 面板尺寸：拖左上角调整（范围钳制 + 本地持久化） ══════════ */
+  var SIZE_KEY = 'sxq_ai_size'
+  var QUICK_KEY = 'sxq_ai_quick_off'
+  var rz = root.querySelector('.sxq-ai-resize')
+  var clampN = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)) }
+  function applySize (w, h) {
+    var st = document.documentElement.style
+    if (w) st.setProperty('--sxq-ai-w', Math.round(w) + 'px')
+    if (h) st.setProperty('--sxq-ai-h', Math.round(h) + 'px')
+  }
+  function saveSize (w, h) {
+    try { localStorage.setItem(SIZE_KEY, JSON.stringify({ w: Math.round(w), h: Math.round(h) })) } catch (e) {}
+  }
+  function sizeRange () {
+    var vw = window.innerWidth, vh = window.innerHeight
+    return { wMin: 280, wMax: Math.min(760, vw - 24), hMin: 300, hMax: Math.min(920, vh - 110) }
+  }
+  ;(function restoreSize () {
+    var s = null
+    try { s = JSON.parse(localStorage.getItem(SIZE_KEY) || 'null') } catch (e) {}
+    if (!s || !s.w || !s.h) return
+    var R = sizeRange()
+    applySize(clampN(s.w, R.wMin, R.wMax), clampN(s.h, R.hMin, R.hMax))
+  })()
+
+  if (rz) {
+    var drag = null
+    rz.addEventListener('pointerdown', function (e) {
+      e.preventDefault()
+      var r = panel.getBoundingClientRect()
+      drag = { x: e.clientX, y: e.clientY, w: r.width, h: r.height }
+      root.classList.add('sxq-ai-resizing')
+      try { rz.setPointerCapture(e.pointerId) } catch (err) {}
+    })
+    rz.addEventListener('pointermove', function (e) {
+      if (!drag) return
+      var R = sizeRange()
+      // 面板锚定在右下角：指针往左/上移动 → 尺寸变大
+      applySize(
+        clampN(drag.w + (drag.x - e.clientX), R.wMin, R.wMax),
+        clampN(drag.h + (drag.y - e.clientY), R.hMin, R.hMax)
+      )
+    })
+    var endDrag = function () {
+      if (!drag) return
+      var r = panel.getBoundingClientRect()
+      saveSize(r.width, r.height)
+      drag = null
+      root.classList.remove('sxq-ai-resizing')
+    }
+    rz.addEventListener('pointerup', endDrag)
+    rz.addEventListener('pointercancel', endDrag)
+  }
+
+  /* ══════════ 推荐提问：单行横向滚动 + 可整体收起 ══════════ */
+  var qt = root.querySelector('.sxq-ai-qtoggle')
+  function applyQuick (off) {
+    quick.classList.toggle('sxq-ai-quick--off', off)
+    if (qt) qt.textContent = off ? '展开推荐' : '收起推荐'
+  }
+  var quickOff = false
+  try { quickOff = localStorage.getItem(QUICK_KEY) === '1' } catch (e) {}
+  applyQuick(quickOff)
+  if (qt) qt.addEventListener('click', function () {
+    quickOff = !quickOff
+    applyQuick(quickOff)
+    try { localStorage.setItem(QUICK_KEY, quickOff ? '1' : '0') } catch (e) {}
+  })
 
   // 右下角浮动操作分列排布：探测站点自带的浮动按钮/底栏，把 AI 客服叠到它们上方，
   // 避免遮挡「返回顶部」「发布」等原有按钮（三站通用）。

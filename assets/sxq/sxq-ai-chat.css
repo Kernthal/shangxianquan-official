@@ -50,11 +50,14 @@
 .sxq-ai.sxq-ai-hidden .sxq-ai-panel { display: none !important; }
 .sxq-ai.sxq-ai-hidden .sxq-ai-tab { display: flex; }
 
-/* 面板：锚定在按钮正上方（bottom:100%），不参与流式布局 */
+/* 面板：锚定在按钮正上方（bottom:100%），不参与流式布局。
+   尺寸可由用户拖拽左上角调整（--sxq-ai-w / --sxq-ai-h，JS 会持久化并做范围钳制）。 */
 .sxq-ai-panel {
   position: absolute; right: 0; bottom: calc(100% + 10px);
-  width: min(380px, calc(100vw - 36px));
-  height: min(560px, var(--sxq-ai-maxh, calc(100vh - 150px)));
+  width: var(--sxq-ai-w, min(380px, calc(100vw - 36px)));
+  height: var(--sxq-ai-h, min(560px, var(--sxq-ai-maxh, calc(100vh - 150px))));
+  max-width: calc(100vw - 24px);
+  max-height: var(--sxq-ai-maxh, calc(100vh - 120px));
   background: #fff;
   border: 1px solid rgba(0, 0, 0, .08);
   border-radius: 16px;
@@ -62,6 +65,20 @@
   display: flex; flex-direction: column; overflow: hidden;
   animation: sxqAiIn .2s ease;
 }
+/* 拖拽调整大小手柄（左上角，因为面板锚在右下） */
+.sxq-ai-resize {
+  position: absolute; left: 0; top: 0; width: 22px; height: 22px;
+  cursor: nwse-resize; z-index: 4; touch-action: none;
+}
+.sxq-ai-resize::before {
+  content: ""; position: absolute; left: 6px; top: 6px; width: 10px; height: 10px;
+  border-left: 2px solid rgba(0, 0, 0, .16); border-top: 2px solid rgba(0, 0, 0, .16);
+  border-radius: 3px 0 0 0; transition: border-color .15s ease;
+}
+.sxq-ai-resize:hover::before { border-color: rgba(214, 72, 47, .6); }
+.sxq-ai-resizing { user-select: none; }
+.sxq-ai-resizing .sxq-ai-panel { animation: none; }
+
 /* 关键修复：hidden 属性必须能真正隐藏（否则被上面的 display:flex 覆盖，面板关不掉） */
 .sxq-ai-panel[hidden] { display: none !important; }
 @keyframes sxqAiIn { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
@@ -111,13 +128,33 @@
 }
 .sxq-ai-tag--preset { background: rgba(185, 138, 47, .12); color: #8a6520; border-color: rgba(185, 138, 47, .28); }
 
-.sxq-ai-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 8px; }
+/* 推荐提问：单行横向滚动（不再换行占掉半屏），可整体收起 */
+.sxq-ai-quickbar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 12px 8px;
+}
+.sxq-ai-quick {
+  flex: 1; min-width: 0;
+  display: flex; flex-wrap: nowrap; gap: 6px;
+  overflow-x: auto; overflow-y: hidden;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.sxq-ai-quick::-webkit-scrollbar { display: none; }
+.sxq-ai-quick.sxq-ai-quick--off { display: none; }
 .sxq-ai-chip {
   font-size: 12px; padding: 5px 9px; border-radius: 999px; cursor: pointer;
   color: #4a4a4a; background: #fff; border: 1px solid rgba(0, 0, 0, .12);
-  transition: all .15s ease;
+  transition: all .15s ease; white-space: nowrap; flex: 0 0 auto;
 }
 .sxq-ai-chip:hover { color: #d6482f; border-color: rgba(214, 72, 47, .5); background: rgba(214, 72, 47, .06); }
+.sxq-ai-qtoggle {
+  flex: 0 0 auto; border: 1px solid rgba(0, 0, 0, .1); background: #fff;
+  color: #8a8580; font-size: 11.5px; padding: 4px 9px; border-radius: 999px; cursor: pointer;
+  transition: all .15s ease; white-space: nowrap;
+}
+.sxq-ai-qtoggle:hover { color: #d6482f; border-color: rgba(214, 72, 47, .4); }
 
 .sxq-ai-form { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid rgba(0, 0, 0, .06); }
 .sxq-ai-input {
