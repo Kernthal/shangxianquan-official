@@ -533,6 +533,19 @@ html.anim .rv.d3.in{transition-delay:.21s}
   .scroll-hint{display:none}
 }
 
+/* 右下角常驻扫码按钮 */
+.qrfloat{
+  position:fixed;right:20px;bottom:20px;z-index:115;width:118px;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;
+  text-align:center;cursor:pointer;box-shadow:0 14px 34px rgba(31,28,24,.16);
+  transition:all var(--t-mid);
+}
+.qrfloat:hover{transform:translateY(-4px);border-color:var(--cinnabar);box-shadow:0 20px 44px rgba(200,64,31,.24)}
+.qrfloat img{width:100%;border-radius:8px;background:#fff}
+.qrfloat b{display:block;font-size:12.5px;font-weight:800;margin-top:7px;color:var(--cinnabar)}
+.qrfloat span{display:block;font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:2px}
+@media(max-width:859px){.qrfloat{width:92px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));padding:8px}.qrfloat span{display:none}}
+
 /* 弹窗海报大图 */
 .lightbox{position:fixed;inset:0;z-index:400;background:rgba(20,16,12,.86);display:none;place-items:center;padding:24px}
 .lightbox.on{display:grid;animation:fade .22s ease both}

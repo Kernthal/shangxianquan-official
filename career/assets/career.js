@@ -640,6 +640,19 @@
     ;[codeEl, phoneEl].forEach(function (el) { if (el) el.addEventListener('keydown', function (e) { if (e.key === 'Enter') btn.click() }) })
   }
 
+  /* ═══════════ 14b. 右下角常驻扫码按钮（二维码悬浮） ═══════════ */
+  function injectQRFloat () {
+    if (PAGE === 'apply') return          // 报名页本身就有大二维码，不重复
+    var el = document.createElement('div')
+    el.className = 'qrfloat'
+    el.innerHTML =
+      '<img src="./assets/wj-qrcode.png" alt="尚贤圈招贤纳士报名问卷二维码" />' +
+      '<b>扫码报名</b>' +
+      '<span>腾讯问卷 · 5 组 35 题</span>'
+    el.addEventListener('click', function () { location.href = './apply.html' })
+    document.body.appendChild(el)
+  }
+
   /* ═══════════ 15. 备用报名表单（五步向导 + 草稿） ═══════════ */
   function initForm () {
     var form = $('#form')
@@ -805,7 +818,7 @@
   /* ═══════════ 启动 ═══════════ */
   function boot () {
     injectBar(); injectFooter()
-    renderTotem(); renderFlow(); initJobs(); initSurveyBlock()
+    renderTotem(); renderFlow(); initJobs(); initSurveyBlock(); injectQRFloat()
     initScrollHints(); injectRailDots()
     initParallax(); initReveal(); initCount(); initProgress()
     initStatusQuery(); initForm(); initStats(); initPageTransitions()
