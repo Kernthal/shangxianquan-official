@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>报名 · 尚贤圈招贤纳士</title>
+<meta name="description" content="腾讯问卷扫码报名、站内备用表单、凭编号查进度。全程不收费。" />
+<meta name="theme-color" content="#c8401f" />
+<link rel="stylesheet" href="./assets/career.css" />
+</head>
+<body data-page="apply">
+<div class="xprog" id="xprog"><i></i></div>
+<header id="xbar"></header>
+
+<section class="screen" id="hero" style="min-height:auto;padding:clamp(44px,7vh,80px) 0 clamp(24px,3vh,40px)">
+  <i class="pxl" data-px="0.30" style="position:absolute;left:6%;top:14%;width:120px;height:120px;border:1.5px solid rgba(200,64,31,.16);border-radius:50%"></i>
+  <div class="wrap screen-inner">
+    <div class="eyebrow">APPLY</div>
+    <h2 style="font-size:clamp(30px,5vw,54px)">报名</h2>
+    <p class="lede rv">推荐直接用<strong>腾讯问卷</strong>，扫码或点链接都行。也可以用<strong>站内备用表单</strong>（腾讯问卷打不开时用），或者发邮件、进 QQ 群。<strong>四个入口效果一样，全程不收费。</strong></p>
+  </div>
+  <div class="scroll-hint"><i></i><span>SCROLL</span></div>
+</section>
+
+<!-- ═══ 01 腾讯问卷（全部素材） ═══ -->
+<section class="sec alt" id="survey">
+  <div class="wrap">
+    <div class="eyebrow rv">01 · 腾讯问卷（推荐）</div>
+    <h2 class="rv">扫码填，或者点链接</h2>
+    <p class="lede rv d1">问卷一共 5 组 35 题，<b>必填 14 题</b>，其余都可以空着。填完会显示报名编号。</p>
+
+    <div class="wj rv d2" style="margin-top:28px">
+      <!-- 二维码主区 -->
+      <div class="wj-qr">
+        <h4>扫码打开问卷</h4>
+        <div class="sub">用手机相机或微信扫一扫</div>
+        <div class="wj-qrbox"><img src="./assets/wj-qrcode.png" alt="尚贤圈招贤纳士报名问卷二维码" /></div>
+        <div class="wj-codes">
+          <div class="wj-code">
+            <img src="./assets/wj-miniapp.png" alt="腾讯问卷小程序码" />
+            <span>微信扫码<br>在小程序里填</span>
+          </div>
+          <div class="wj-code" style="display:grid;place-items:center;background:var(--paper)">
+            <div style="text-align:center">
+              <div class="px-en" style="font-size:11px;color:var(--cinnabar);letter-spacing:.08em">5 GROUPS</div>
+              <div class="px-num" style="font-size:30px;color:var(--ink);margin:6px 0">35</div>
+              <span style="font-size:12.4px;color:var(--muted)">道题 · 必填 14</span>
+            </div>
+          </div>
+        </div>
+        <div class="wj-link">
+          <span style="flex:1"><a id="wjLink" href="#" target="_blank" rel="noopener">wj.qq.com/s2/28018323/gqle/</a></span>
+          <button class="wj-copy" id="wjCopy">复制链接</button>
+        </div>
+      </div>
+
+      <!-- 海报分享卡 -->
+      <div class="wj-poster">
+        <h4>转发给同学</h4>
+        <div class="sub">腾讯问卷生成的分享海报，点开可看大图、可长按保存</div>
+        <div class="wj-postbox" id="wjPoster">
+          <img src="./assets/wj-poster.png" alt="尚贤圈招贤纳士报名表 分享海报" />
+        </div>
+        <p class="wj-note">可以直接把这张图发到班级群、社团群。海报上已经有二维码，同学扫一下就能填。</p>
+        <p class="wj-note" style="color:var(--cinnabar)"><b>待修正：</b>海报上的说明文字写着「必填题只有 8 题」，实际是 <b>14 题</b>——这是早前文案的一处笔误，请在腾讯问卷里把开头说明改成 14，重新生成海报后替换这张图。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 其他入口 ═══ -->
+<section class="sec" id="ways">
+  <div class="wrap">
+    <div class="eyebrow rv">02 · 其他入口</div>
+    <h2 class="rv">还有三种方式</h2>
+    <div class="jlist rv d1" style="margin-top:24px">
+      <button class="jrow" data-openform><span class="jrow-l"><span class="jt">站内备用表单</span>
+        <span class="jm"><span>弹窗分五步</span><span>必填 14 项</span><span>自动存草稿</span><span>提交即得编号</span></span></span><span class="jrow-r">›</span></button>
+      <a class="jrow" id="mailWay" href="#"><span class="jrow-l"><span class="jt">邮箱投递</span>
+        <span class="jm"><span>已预填标题与五组提纲</span><span>适合想附作品的</span></span></span><span class="jrow-r">›</span></a>
+      <a class="jrow" href="../#contact"><span class="jrow-l"><span class="jt">QQ 交流群</span>
+        <span class="jm"><span>群号见官网页脚</span><span>进群后私聊主理人</span></span></span><span class="jrow-r">›</span></a>
+    </div>
+    <p class="note rv d2" style="margin-top:14px">站内表单是备用通道：如果腾讯问卷打不开或你不方便扫码，用它一样有效。</p>
+  </div>
+</section>
+
+<!-- ═══ 03 查进度 ═══ -->
+<section class="sec alt" id="query">
+  <div class="wrap eg">
+    <div>
+      <div class="eyebrow rv">03 · 查进度</div>
+      <h2 class="rv">已经提交过了？</h2>
+      <p class="lede rv d1">输入报名编号和当时填的手机号，能看到当前状态（初审中 / 待面谈 / 已通过 / 未通过）。</p>
+      <div class="card rv d2" style="margin-top:24px">
+        <div class="fgrid c2" style="margin-bottom:14px">
+          <div class="fld"><label for="q-code">报名编号</label><input id="q-code" type="text" maxlength="24" placeholder="例如 SXQ-2026-0001" /></div>
+          <div class="fld"><label for="q-phone">报名时填的手机号</label><input id="q-phone" type="tel" maxlength="11" placeholder="11 位手机号" /></div>
+        </div>
+        <div class="msg" id="qmsg" style="text-align:left"></div>
+        <button class="btn btn-g" id="qbtn" style="width:100%">查询进度</button>
+        <div id="qres" style="margin-top:14px"></div>
+      </div>
+    </div>
+    <aside class="rail">
+      <div class="card rv">
+        <h4>TIMELINE</h4>
+        <ul>
+          <li><i></i>初审：3 个工作日内必回</li>
+          <li><i></i>面谈：初审通过后 3 天内约上</li>
+          <li><i></i>试用：两周，标准提前告知</li>
+          <li><i></i>全流程：通常两周内走完</li>
+        </ul>
+      </div>
+      <p class="note rv d1">任何环节超期没有动静，都可以用报名编号来查，或直接发邮件催，不会因此影响评价。</p>
+      <a class="teaser rv d2" href="./process.html"><span class="tk">DETAIL</span><span class="tt">六步流程与入职七日</span><span class="ta">→</span></a>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══ 04 主理人的话 + 招募中 ═══ -->
+<section class="sec" id="team">
+  <div class="wrap eg">
+    <div>
+      <div class="eyebrow rv">04 · 团队</div>
+      <h2 class="rv">这一批是第一次招募</h2>
+      <div class="body rv d1">
+        <p>尚贤圈目前只有主理人一个人在做。这次公开招募三个方向，是因为一个人推不动：不知道每个班发生了什么，不知道哪些功能其实没人用，也没办法同时出现在每个需要它的地方。</p>
+        <div class="pull">等有人正式加入并同意署名后，<br>这里才会出现真实名单——我们不提前编。</div>
+        <p>下面三个位置现在是空的，不是「已加入」，是「等你来」。</p>
+      </div>
+      <div class="equeue rv d2" style="display:grid;gap:12px;margin-top:26px">
+        <div class="card" style="display:flex;align-items:center;gap:14px">
+          <span style="width:40px;height:40px;border-radius:11px;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:18px;flex:0 0 auto">+</span>
+          <span style="flex:1"><b style="display:block;font-size:15.4px">校园大使</b><span style="font-size:13.4px;color:var(--muted)">招募中 · 未有人加入</span></span>
+          <span class="px-en" style="font-size:10px;color:var(--gold)">OPEN</span>
+        </div>
+        <div class="card" style="display:flex;align-items:center;gap:14px">
+          <span style="width:40px;height:40px;border-radius:11px;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:18px;flex:0 0 auto">+</span>
+          <span style="flex:1"><b style="display:block;font-size:15.4px">设计</b><span style="font-size:13.4px;color:var(--muted)">招募中 · 未有人加入</span></span>
+          <span class="px-en" style="font-size:10px;color:var(--gold)">OPEN</span>
+        </div>
+        <div class="card" style="display:flex;align-items:center;gap:14px">
+          <span style="width:40px;height:40px;border-radius:11px;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:18px;flex:0 0 auto">+</span>
+          <span style="flex:1"><b style="display:block;font-size:15.4px">运营 / 内容</b><span style="font-size:13.4px;color:var(--muted)">招募中 · 未有人加入</span></span>
+          <span class="px-en" style="font-size:10px;color:var(--gold)">OPEN</span>
+        </div>
+      </div>
+    </div>
+    <aside class="rail">
+      <div class="card rv">
+        <h4>MAINTAINER SAYS</h4>
+        <div style="font-size:14.8px;color:var(--ink2);line-height:2">
+          <p style="margin-bottom:12px">我能给的：真实可用的产品、现成的物料、每次都给出具体修改意见的反馈，还有按月结算的提成。</p>
+          <p>给不了的：底薪、稳定收入、以及「加入就能改变什么」这种承诺。</p>
+        </div>
+      </div>
+      <div class="card rv d1">
+        <h4>LINKS</h4>
+        <ul>
+          <li><i></i><a href="https://gitee.com/kernthal-studio/sxcommunity/releases" target="_blank" rel="noopener" style="color:var(--cinnabar)">App 下载（Gitee Releases）</a></li>
+          <li><i></i><a href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener" style="color:var(--cinnabar)">爱发电（自愿支持）</a></li>
+          <li><i></i><a id="mailA" href="#" style="color:var(--cinnabar)">联系我们</a></li>
+        </ul>
+      </div>
+      <a class="teaser rv d2" href="#survey"><span class="tk">ACT</span><span class="tt">回上面扫码报名</span><span class="ta">↑</span></a>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══ 备用表单弹层 ═══ -->
+<div class="mask" id="formmask">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="站内报名表">
+    <div class="m-head">
+      <h3>站内报名表</h3>
+      <div id="draftTip" style="font-size:12.8px;color:var(--muted);font-weight:500"></div>
+      <button class="m-x" id="mClose" aria-label="关闭">×</button>
+    </div>
+    <div class="m-bar" id="mBar">
+      <div class="on">1 · 基本信息</div><div>2 · 联系方式</div><div>3 · 应聘意向</div><div>4 · 经历与能力</div><div>5 · 开放题</div>
+    </div>
+    <div class="m-body" id="mBody">
+      <form id="form" novalidate>
+        <div class="step on">
+          <div class="sec-tag">壹 · 基本信息</div>
+          <div class="hintbar">必填项只有带 <em style="color:var(--cinnabar);font-style:normal">*</em> 的。其余都可以空着。</div>
+          <div class="fgrid c2">
+            <div class="fld"><label for="f-realName">真实姓名 <em>*</em></label><input id="f-realName" name="realName" type="text" maxlength="20" /></div>
+            <div class="fld"><label for="f-nickname">常用称呼 <span class="hint">选填</span></label><input id="f-nickname" name="nickname" type="text" maxlength="20" /></div>
+            <div class="fld"><label for="f-grade">年级 <em>*</em></label>
+              <select id="f-grade" name="grade"><option value="">请选择</option><option>初一</option><option>初二</option><option>初三</option><option>高一</option><option>高二</option><option>高三</option></select></div>
+            <div class="fld"><label for="f-className">班级 <em>*</em></label><input id="f-className" name="className" type="text" maxlength="20" placeholder="例如：高二 3 班" /></div>
+            <div class="fld"><label for="f-gender">性别 <span class="hint">选填</span></label>
+              <select id="f-gender" name="gender"><option value="">不填</option><option>男</option><option>女</option></select></div>
+            <div class="fld"><label for="f-birth">出生年月 <span class="hint">选填</span></label><input id="f-birth" name="birth" type="month" /></div>
+            <div class="fld"><label for="f-studentNo">学号 / 校园卡号 <span class="hint">选填</span></label><input id="f-studentNo" name="studentNo" type="text" maxlength="24" /></div>
+            <div class="fld"><label for="f-boarding">是否住校 <span class="hint">选填</span></label>
+              <select id="f-boarding" name="boarding"><option value="">不填</option><option>走读</option><option>住校</option></select></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="sec-tag">贰 · 联系方式</div>
+          <div class="hintbar">手机号用于面谈联系与查进度，必须真实。未满 18 周岁监护人一栏必填。</div>
+          <div class="fgrid c2">
+            <div class="fld"><label for="f-phone">手机号 <em>*</em></label><input id="f-phone" name="phone" type="tel" maxlength="11" /></div>
+            <div class="fld"><label for="f-guardianPhone">监护人联系方式 <em>*</em></label><input id="f-guardianPhone" name="guardianPhone" type="tel" maxlength="20" /></div>
+            <div class="fld"><label for="f-guardianAgreed">是否已获监护人同意 <em>*</em></label>
+              <select id="f-guardianAgreed" name="guardianAgreed"><option value="">请选择</option><option>已获得同意</option><option>需要一起沟通</option><option>暂未告知家长</option></select></div>
+            <div class="fld"><label for="f-qq">QQ 号 <span class="hint">选填</span></label><input id="f-qq" name="qq" type="text" maxlength="15" /></div>
+            <div class="fld"><label for="f-wechat">微信号 <span class="hint">选填</span></label><input id="f-wechat" name="wechat" type="text" maxlength="30" /></div>
+            <div class="fld"><label for="f-email">常用邮箱 <span class="hint">选填</span></label><input id="f-email" name="email" type="email" maxlength="60" /></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="sec-tag">叁 · 应聘意向</div>
+          <div class="fgrid c2">
+            <div class="fld"><label for="f-role1">第一志愿 <em>*</em></label>
+              <select id="f-role1" name="role1"><option value="">请选择</option><option value="ambassador">校园大使</option><option value="design">设计</option><option value="content">运营 / 内容</option></select></div>
+            <div class="fld"><label for="f-role2">第二志愿 <span class="hint">选填</span></label>
+              <select id="f-role2" name="role2"><option value="">不填</option><option value="ambassador">校园大使</option><option value="design">设计</option><option value="content">运营 / 内容</option></select></div>
+            <div class="fld"><label for="f-hours">每周可投入时长 <em>*</em></label>
+              <select id="f-hours" name="hoursPerWeek"><option value="">请选择</option><option>2–3 小时</option><option>3–5 小时</option><option>5–8 小时</option><option>8 小时以上</option></select></div>
+            <div class="fld"><label for="f-acceptTrial">是否接受两周试用期 <em>*</em></label>
+              <select id="f-acceptTrial" name="acceptTrial"><option value="">请选择</option><option>接受</option><option>需要考虑</option></select></div>
+            <div class="fld full"><label>可工作的时间段 <span class="hint">可多选</span></label>
+              <div class="opts">
+                <label class="opt"><input type="checkbox" name="slots" value="工作日午休" />工作日午休</label>
+                <label class="opt"><input type="checkbox" name="slots" value="放学后" />放学后</label>
+                <label class="opt"><input type="checkbox" name="slots" value="周末白天" />周末白天</label>
+                <label class="opt"><input type="checkbox" name="slots" value="周末晚上" />周末晚上</label>
+                <label class="opt"><input type="checkbox" name="slots" value="随时可联系" />随时可联系</label>
+              </div></div>
+            <div class="fld full"><label for="f-start">期望开始时间 <span class="hint">选填</span></label>
+              <select id="f-start" name="startTime"><option value="">尽快</option><option>一周内</option><option>两周内</option><option>月考之后再开始</option></select></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="sec-tag">肆 · 经历与能力</div>
+          <div class="hintbar">这一组全部选填。<b>走特招通道</b>的同学请填作品链接，并在下一步第一句注明。</div>
+          <div class="fgrid c2">
+            <div class="fld full"><label for="f-portfolio">作品链接 <span class="hint">选填，特招通道必填</span></label><input id="f-portfolio" name="portfolio" type="url" maxlength="200" /></div>
+            <div class="fld"><label for="f-hasLeaderRole">是否担任过班干部或社团职务</label>
+              <select id="f-hasLeaderRole" name="hasLeaderRole"><option value="">不填</option><option>是</option><option>否</option></select></div>
+            <div class="fld"><label for="f-leaderDetail">如是，职务与做过的事</label><input id="f-leaderDetail" name="leaderDetail" type="text" maxlength="80" /></div>
+            <div class="fld full"><label>会用哪些工具 <span class="hint">可多选，不会也没关系</span></label>
+              <div class="opts">
+                <label class="opt"><input type="checkbox" name="tools" value="稿定设计" />稿定设计</label>
+                <label class="opt"><input type="checkbox" name="tools" value="Canva" />Canva</label>
+                <label class="opt"><input type="checkbox" name="tools" value="Photoshop" />Photoshop</label>
+                <label class="opt"><input type="checkbox" name="tools" value="Illustrator" />Illustrator</label>
+                <label class="opt"><input type="checkbox" name="tools" value="剪映" />剪映</label>
+                <label class="opt"><input type="checkbox" name="tools" value="醒图" />醒图</label>
+                <label class="opt"><input type="checkbox" name="tools" value="WPS" />WPS</label>
+                <label class="opt"><input type="checkbox" name="tools" value="都不会" />都不会，愿意学</label>
+              </div></div>
+            <div class="fld"><label for="f-contentExp">有没有内容创作或运营经验</label>
+              <select id="f-contentExp" name="contentExp"><option value="">不填</option><option>没有，第一次尝试</option><option>有，写过公众号或做过账号</option><option>有，做过班级或社团宣传</option><option>有，其他形式</option></select></div>
+            <div class="fld"><label for="f-contentExpDetail">如是，简述做过什么</label><input id="f-contentExpDetail" name="contentExpDetail" type="text" maxlength="100" /></div>
+            <div class="fld"><label for="f-source">从哪里知道这次招新 <em>*</em></label>
+              <select id="f-source" name="source"><option value="">请选择</option><option>同学介绍</option><option>班级群</option><option>校园海报</option><option>官网页脚</option><option>贤圈中心</option><option>腾讯问卷</option><option>其他</option></select></div>
+            <div class="fld"><label for="f-languages">语言能力 <span class="hint">选填</span></label><input id="f-languages" name="languages" type="text" maxlength="60" /></div>
+            <div class="fld full"><label>平时能用的设备 <span class="hint">可多选</span></label>
+              <div class="opts">
+                <label class="opt"><input type="checkbox" name="devices" value="手机" />手机</label>
+                <label class="opt"><input type="checkbox" name="devices" value="电脑" />电脑</label>
+                <label class="opt"><input type="checkbox" name="devices" value="平板" />平板</label>
+              </div></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="sec-tag">伍 · 开放题与承诺</div>
+          <div class="hintbar">三道开放题是初审最重要的部分。不用写得漂亮，写实在的就行。</div>
+          <div class="fgrid">
+            <div class="fld full"><label for="f-whyJoin">为什么想加入 <em>*</em> <span class="hint">不少于 80 字，走特招请第一句注明</span></label><textarea id="f-whyJoin" name="whyJoin" maxlength="800"></textarea></div>
+            <div class="fld full"><label for="f-bestFit">你觉得自己最适合做什么 <em>*</em> <span class="hint">不少于 50 字</span></label><textarea id="f-bestFit" name="bestFit" maxlength="600"></textarea></div>
+            <div class="fld full"><label for="f-noOutputPlan">如果一个月没有产出，你会怎么做 <span class="hint">选填，不少于 30 字</span></label><textarea id="f-noOutputPlan" name="noOutputPlan" maxlength="400"></textarea></div>
+            <div class="fld full"><label for="f-suggestions">对尚贤圈现有功能的建议 <span class="hint">选填</span></label><textarea id="f-suggestions" name="suggestions" maxlength="600"></textarea></div>
+          </div>
+          <div class="fgrid" style="margin-top:16px">
+            <label class="check"><input type="checkbox" id="f-agreeRules" name="agreeRules" /><span>我已阅读并认同「要求与底线」中的全部条款，特别是六条红线，并愿意遵守。</span></label>
+            <label class="check"><input type="checkbox" id="f-confirmTruth" name="confirmTruth" /><span>我确认以上信息真实有效；如未满 18 周岁，已获得监护人知情与同意。</span></label>
+          </div>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        </div>
+      </form>
+    </div>
+    <div class="m-foot">
+      <button class="btn btn-g" id="mPrev" style="padding:12px 22px;font-size:15px">上一步</button>
+      <span class="sp"></span>
+      <div class="msg" id="msg"></div>
+      <span class="sp"></span>
+      <button class="btn btn-p" id="mNext" style="padding:12px 26px;font-size:15px">下一步</button>
+    </div>
+  </div>
+</div>
+
+<!-- 海报大图 -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-x" aria-label="关闭">×</button>
+  <img src="./assets/wj-poster.png" alt="报名分享海报大图" />
+</div>
+
+<footer id="xfooter"></footer>
+<script src="./assets/career.js"></script>
+<script>
+/* 邮箱防爬 + QQ群入口 */
+(function(){
+  var addr='sxcommunity'+'@'+'outlook.com';
+  var body='请按下面五组填写：\n\n一、基本信息（姓名 / 年级班级 / 是否住校）\n二、联系方式（手机 / QQ / 微信 / 监护人电话）\n三、应聘意向（岗位 / 每周时间 / 可用时段）\n四、经历与能力（社团经历 / 会用工具 / 作品链接）\n五、开放题（为什么加入 / 你最适合做什么）';
+  var href='mailto:'+addr+'?subject='+encodeURIComponent('招贤纳士报名')+'&body='+encodeURIComponent(body);
+  ['mailA','mailWay'].forEach(function(id){var el=document.getElementById(id); if(el) el.href=href});
+  var a=document.getElementById('mailA'); if(a) a.textContent=addr;
+})()
+</script>
+</body>
+</html>
