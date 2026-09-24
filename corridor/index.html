@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>走廊 · 尚贤圈</title>
+<meta name="description" content="尚贤圈交互走廊：一条手绘教学楼走廊，走廊两侧的门分别通向广场、集市、失物招领、提问、规则中心与鸣谢墙。" />
+<meta name="theme-color" content="#c8401f" />
+<style>
+:root{
+  --paper:#f4efe6; --ink:#1c1a17; --ink2:#57503f; --muted:#8b8270;
+  --cinnabar:#c8401f; --gold:#b98a2f; --line:#ddd3bf; --card:#faf6ee;
+  --mono:"Cascadia Mono","JetBrains Mono",Consolas,"SF Mono",Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#efeade;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+body.lock{overflow:hidden}
+
+/* ── 画布 ── */
+#gl{position:fixed;inset:0;display:block;touch-action:none;cursor:grab}
+#gl.dragging{cursor:grabbing}
+#gl.on-door{cursor:pointer}
+
+/* ── HUD ── */
+.hud{position:fixed;inset:0;pointer-events:none;z-index:10}
+.hud>*{pointer-events:auto}
+.hud-tl{position:absolute;left:clamp(14px,3vw,28px);top:clamp(14px,2.5vh,24px);display:flex;align-items:center;gap:11px}
+.hud-seal{
+  width:38px;height:38px;border-radius:10px;background:linear-gradient(140deg,var(--cinnabar),#9e3015);
+  color:#fff;display:grid;place-items:center;font-weight:900;font-size:19px;
+  font-family:Georgia,"Songti SC",serif;box-shadow:0 4px 14px rgba(200,64,31,.32)
+}
+.hud-t{font-size:15px;font-weight:800;letter-spacing:.04em;line-height:1.25}
+.hud-t small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--muted);font-weight:600}
+.hud-tr{position:absolute;right:clamp(14px,3vw,28px);top:clamp(14px,2.5vh,24px);display:flex;gap:8px;align-items:center}
+.hud-btn{
+  border:1.5px solid var(--line);background:rgba(250,246,238,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-radius:99px;padding:8px 15px;font-size:12.5px;font-weight:700;color:var(--ink2);cursor:pointer;
+  font-family:inherit;transition:all .18s ease;white-space:nowrap
+}
+.hud-btn:hover{border-color:var(--cinnabar);color:var(--cinnabar);transform:translateY(-1px)}
+.hud-btn.on{background:var(--cinnabar);border-color:var(--cinnabar);color:#fff}
+
+/* 底部提示（学原版的 EXPLORER 条） */
+.hud-bc{position:absolute;left:50%;bottom:clamp(18px,4vh,34px);transform:translateX(-50%);width:min(560px,92vw);text-align:center}
+.hud-card{
+  background:rgba(250,246,238,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1.5px solid var(--line);border-radius:14px;padding:12px 18px;
+  box-shadow:0 14px 40px rgba(31,28,24,.16)
+}
+.hud-card b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--cinnabar);margin-bottom:5px}
+.hud-card p{font-size:13.4px;color:var(--ink2);line-height:1.7}
+.hud-card kbd{
+  font-family:var(--mono);font-size:11.5px;background:#fff;border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;margin:0 2px
+}
+
+/* 门牌（悬停时出现的大标题） */
+.hud-door{
+  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  text-align:center;opacity:0;transition:opacity .22s ease;pointer-events:none
+}
+.hud-door.on{opacity:1}
+.hud-door b{
+  display:block;font-size:clamp(26px,5vw,46px);font-weight:900;letter-spacing:.08em;
+  font-family:var(--mono);color:var(--ink);text-shadow:0 2px 0 #fff,0 0 22px rgba(244,239,230,.9)
+}
+.hud-door span{display:block;margin-top:8px;font-size:13.5px;color:var(--cinnabar);letter-spacing:.1em;font-weight:700}
+
+/* 进度（走廊走到第几扇门） */
+.hud-dots{position:absolute;right:clamp(14px,3vw,26px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px}
+.hud-dots i{width:8px;height:8px;border-radius:2px;border:1.5px solid var(--line);background:transparent;transition:all .22s ease}
+.hud-dots i.on{background:var(--cinnabar);border-color:var(--cinnabar);height:20px}
+
+/* ── 手绘加载页 ── */
+.loader{
+  position:fixed;inset:0;z-index:50;background:#efeade;
+  display:grid;place-items:center;transition:opacity .55s ease,visibility .55s ease
+}
+.loader.done{opacity:0;visibility:hidden}
+.loader-in{text-align:center;width:min(420px,86vw)}
+.loader-in svg{width:100%;height:auto;overflow:visible}
+.loader-t{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--muted);margin-top:16px}
+.loader-bar{margin-top:12px;height:4px;border-radius:99px;background:var(--line);overflow:hidden}
+.loader-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cinnabar),var(--gold));transition:width .3s ease}
+.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 1.5s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ── 保底列表（低端机 / 无 WebGL / 关闭 3D 时） ── */
+.fallback{position:fixed;inset:0;z-index:40;background:#efeade;overflow-y:auto;display:none}
+.fallback.on{display:block}
+.fb-wrap{max-width:760px;margin:0 auto;padding:clamp(28px,7vh,72px) clamp(18px,4vw,32px) 60px}
+.fb-h{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.fb-h .seal{width:42px;height:42px;border-radius:11px;background:linear-gradient(140deg,var(--cinnabar),#9e3015);color:#fff;display:grid;place-items:center;font-weight:900;font-size:21px;font-family:Georgia,"Songti SC",serif}
+.fb-h b{font-size:19px;font-weight:900}
+.fb-h small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted)}
+.fb-sub{font-size:14px;color:var(--ink2);line-height:1.9;margin:14px 0 24px}
+.fb-list{display:grid;gap:11px}
+.fb-item{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--card);
+  border:1.5px solid var(--line);border-radius:14px;transition:all .2s ease
+}
+.fb-item:hover{border-color:var(--cinnabar);transform:translateY(-3px);box-shadow:0 12px 28px rgba(31,28,24,.1)}
+.fb-ic{flex:0 0 auto;width:44px;height:44px;border-radius:12px;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center}
+.fb-item b{display:block;font-size:16px;font-weight:800}
+.fb-item span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.fb-ar{margin-left:auto;color:var(--cinnabar);font-size:19px}
+.fb-foot{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.fb-foot a{font-size:13px;padding:9px 16px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink2);transition:all .18s ease}
+.fb-foot a:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+
+/* 无障碍 / SEO：3D 画布的语义回退（爬虫与读屏可见） */
+.sr-only-seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media(max-width:700px){
+  .hud-dots{display:none}
+  .hud-card p{font-size:12.6px}
+}
+@media(prefers-reduced-motion:reduce){
+  .draw{animation:none;stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+
+<canvas id="gl" aria-label="尚贤圈手绘走廊"></canvas>
+
+<!-- 手绘加载页 -->
+<div class="loader" id="loader">
+  <div class="loader-in">
+    <svg viewBox="0 0 400 160" fill="none" stroke="#1c1a17" stroke-linecap="round" stroke-linejoin="round">
+      <!-- 走廊透视线稿：逐笔画出 -->
+      <g stroke-width="1.6">
+        <path class="draw" style="--len:220" d="M10 130 L140 74"/>
+        <path class="draw" style="--len:220" d="M390 130 L260 74"/>
+        <path class="draw" style="--len:70" d="M140 74 L260 74"/>
+        <path class="draw" style="--len:120" d="M10 130 L10 42"/>
+        <path class="draw" style="--len:120" d="M390 130 L390 42"/>
+        <path class="draw" style="--len:220" d="M10 42 L140 86"/>
+        <path class="draw" style="--len:220" d="M390 42 L260 86"/>
+        <path class="draw" style="--len:180" d="M140 74 L140 92"/>
+        <path class="draw" style="--len:180" d="M260 74 L260 92"/>
+        <path class="draw" style="--len:130" d="M140 92 L260 92"/>
+      </g>
+      <!-- 批注线（手绘感） -->
+      <g stroke="#c8401f" stroke-width="1.2" opacity=".85">
+        <path class="draw" style="--len:60" d="M172 116 L172 128 M172 128 L206 128"/>
+        <path class="draw" style="--len:40" d="M338 100 q6 -8 12 0" stroke="#b98a2f"/>
+      </g>
+      <g stroke="#8b8270" stroke-width="1" opacity=".6">
+        <path class="draw" style="--len:150" d="M30 146 L120 146"/>
+        <path class="draw" style="--len:150" d="M280 146 L370 146"/>
+      </g>
+    </svg>
+    <div class="loader-t">正在画走廊</div>
+    <div class="loader-bar"><i id="ldBar"></i></div>
+  </div>
+</div>
+
+<!-- 保底列表（低端机 / 无 WebGL / 手动关闭 3D 时显示） -->
+<div class="fallback" id="fallback">
+  <div class="fb-wrap">
+    <div class="fb-h">
+      <span class="seal">贤</span>
+      <span><b>尚贤圈 · 走廊</b><small>SHANGXIANQUAN CORRIDOR</small></span>
+    </div>
+    <p class="fb-sub" id="fbSub">走廊两侧一共六扇门，各通向一个板块。你的设备或浏览器暂时跑不动 3D 场景，所以用这个列表代替——内容和门后面完全一样。</p>
+    <div class="fb-list" id="fbList"></div>
+    <div class="fb-foot">
+      <a id="fbRetry" href="#">再试一次 3D 走廊</a>
+      <a href="https://sxcommunity.github.io/xq-center/">去贤圈中心</a>
+      <a href="https://kernthal.github.io/shangxianquan-official/">回官网</a>
+    </div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud">
+  <div class="hud-tl">
+    <span class="hud-seal">贤</span>
+    <span class="hud-t">尚贤圈 <small>CORRIDOR</small></span>
+  </div>
+
+  <div class="hud-tr">
+    <button class="hud-btn" id="btnAudio" aria-pressed="false">声音 关</button>
+    <button class="hud-btn" id="btnFlat">列表模式</button>
+    <a class="hud-btn" href="https://kernthal.github.io/shangxianquan-official/">返回官网</a>
+  </div>
+
+  <div class="hud-dots" id="hudDots"></div>
+
+  <div class="hud-door" id="hudDoor"><b></b><span></span></div>
+
+  <div class="hud-bc">
+    <div class="hud-card">
+      <b>EXPLORER</b>
+      <p id="hintText">滚动鼠标滚轮，或按 <kbd>↑</kbd> <kbd>↓</kbd>，沿走廊前进。把准星对准门，点一下进去。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 无障碍 / SEO 语义回退 -->
+<nav class="sr-only-seo" aria-label="尚贤圈走廊各板块">
+  <h1>尚贤圈 · 走廊</h1>
+  <p>一条手绘教学楼走廊，两侧六扇门分别通向尚贤圈的六个板块。</p>
+  <ul id="seoList"></ul>
+</nav>
+
+<script type="module" src="./corridor.js"></script>
+</body>
+</html>
