@@ -4,12 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>招贤纳士 · 尚贤圈</title>
-<meta name="description" content="尚贤圈招人：校园大使、设计、运营。无底薪，按提成结算，规则全部写在明面上。" />
+<meta name="description" content="尚贤圈招人：校园大使、设计、运营。无底薪按提成，规则全写在明面上。" />
 <meta name="theme-color" content="#c8401f" />
 <style>
-/* ══════════════════════════════════════════════════
-   品牌变量（与官网一致）
-   ══════════════════════════════════════════════════ */
 :root{
   --paper:#f4efe6; --paper2:#ece5d6; --ink:#1c1a17; --ink2:#57503f;
   --muted:#8b8270; --cinnabar:#c8401f; --cinnabar-dk:#9e3015;
@@ -17,83 +14,63 @@
   --serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
   --t-fast:.16s cubic-bezier(.4,0,.2,1);
   --t-mid:.28s cubic-bezier(.22,.8,.24,1);
-  --t-slow:.5s cubic-bezier(.22,.8,.24,1);
-  --rail:308px;
+  --rail:312px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:82px}
-body{
-  background:var(--paper);color:var(--ink);
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+body{background:var(--paper);color:var(--ink);overflow-x:hidden;
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  font-size:17px;line-height:1.95;overflow-x:hidden;
-}
+  font-size:17px;line-height:1.95}
 a{color:inherit;text-decoration:none}
 svg{display:block}
 ::selection{background:rgba(200,64,31,.2)}
+body.lock{overflow:hidden}
 
-/* ══════════════ 滚动进度 ══════════════ */
-.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:120;background:transparent}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:200}
 .prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cinnabar),var(--gold))}
 
-/* ══════════════ 顶栏 ══════════════ */
-.topbar{
-  position:sticky;top:0;z-index:110;display:flex;align-items:center;gap:14px;
-  padding:15px clamp(16px,4vw,48px);
-  background:rgba(244,239,230,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-}
-.tb-seal{
-  width:37px;height:37px;border-radius:10px;color:#fff;flex:0 0 auto;
-  font-family:var(--serif);font-weight:900;font-size:19px;display:grid;place-items:center;
-  background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk));
-  box-shadow:0 3px 10px rgba(200,64,31,.3);
-}
+.topbar{position:sticky;top:0;z-index:120;display:flex;align-items:center;gap:14px;
+  padding:15px clamp(16px,4vw,48px);background:rgba(244,239,230,.9);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.tb-seal{width:37px;height:37px;border-radius:10px;color:#fff;flex:0 0 auto;font-family:var(--serif);
+  font-weight:900;font-size:19px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk));box-shadow:0 3px 10px rgba(200,64,31,.3)}
 .tb-brand{font-family:var(--serif);font-weight:900;font-size:17px;letter-spacing:.06em;line-height:1.2}
 .tb-brand small{display:block;font-weight:600;font-size:9px;letter-spacing:.3em;color:var(--muted)}
-.tb-nav{margin-left:auto;display:flex;gap:clamp(8px,1.6vw,22px);flex-wrap:wrap}
-.tb-nav a{font-size:14px;color:var(--ink2);position:relative;padding:4px 0}
+.tb-nav{margin-left:auto;display:flex;gap:clamp(8px,1.5vw,20px);flex-wrap:wrap}
+.tb-nav a{font-size:13.5px;color:var(--ink2);position:relative;padding:4px 0}
 .tb-nav a:hover{color:var(--cinnabar)}
-.tb-nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--cinnabar),var(--gold));transform:scaleX(0);transition:transform var(--t-mid)}
+.tb-nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--cinnabar),var(--gold));transform:scaleX(0);transition:transform var(--t-mid)}
 .tb-nav a:hover::after{transform:scaleX(1)}
-.tb-back{flex:0 0 auto;font-size:13px;font-weight:700;padding:8px 17px;border-radius:99px;border:1px solid var(--line);color:var(--ink2);transition:all var(--t-fast)}
+.tb-back{flex:0 0 auto;font-size:13px;font-weight:700;padding:8px 17px;border-radius:99px;
+  border:1px solid var(--line);color:var(--ink2);transition:all var(--t-fast)}
 .tb-back:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
-@media(max-width:900px){.tb-nav{display:none}}
+@media(max-width:980px){.tb-nav{display:none}}
 
-/* ══════════════ 通用 ══════════════ */
 .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
-.sec{padding:clamp(58px,8vh,104px) 0;position:relative}
+.sec{padding:clamp(60px,8vh,108px) 0;position:relative;overflow:hidden}
 .sec.alt{background:var(--paper2)}
 .sec.dark{background:linear-gradient(165deg,#24262b,#2b2119 58%,#3b2a15);color:#e6e0d2}
-
-/* —— 编辑式双栏：正文 + 侧栏（插入元素所在） —— */
 .eg{display:grid;gap:clamp(28px,4vw,56px)}
 @media(min-width:1000px){.eg{grid-template-columns:minmax(0,1fr) var(--rail)}}
 .rail{display:flex;flex-direction:column;gap:18px}
-@media(min-width:1000px){.rail{position:sticky;top:96px;align-self:start;max-height:calc(100vh - 130px);overflow-y:auto;padding-right:4px;scrollbar-width:none}}
+@media(min-width:1000px){.rail{position:sticky;top:98px;align-self:start;max-height:calc(100vh - 132px);overflow-y:auto;padding-right:4px;scrollbar-width:none}}
 .rail::-webkit-scrollbar{display:none}
-
-/* 小标题 */
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.24em;font-weight:800;color:var(--cinnabar);margin-bottom:14px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.24em;
+  font-weight:800;color:var(--cinnabar);margin-bottom:14px}
 .eyebrow::before{content:"";width:22px;height:2px;border-radius:2px;background:currentColor}
 .sec.dark .eyebrow{color:var(--gold)}
 h2{font-family:var(--serif);font-weight:900;font-size:clamp(30px,4.6vw,46px);letter-spacing:.05em;line-height:1.3;margin-bottom:18px}
-h3{font-size:20px;font-weight:800;letter-spacing:.02em;margin-bottom:12px}
-.lede{font-size:clamp(17px,1.75vw,19.5px);line-height:2;color:var(--ink2);max-width:820px}
+.lede{font-size:clamp(17px,1.75vw,19.5px);line-height:2;color:var(--ink2);max-width:830px}
 .sec.dark .lede{color:#c2b9a3}
 .body p{font-size:16.8px;color:var(--ink2);line-height:2.05;margin-bottom:16px}
 .body p:last-child{margin-bottom:0}
 .body strong,.lede strong{color:var(--ink);font-weight:800}
-.body em{font-style:normal;background:linear-gradient(transparent 62%,rgba(185,138,47,.34) 62%);padding:0 1px}
-
-/* 摘句（正文里的插入元素） */
-.pull{
-  border-left:3px solid var(--cinnabar);padding:4px 0 4px 22px;margin:26px 0;
-  font-family:var(--serif);font-size:clamp(19px,2.2vw,23px);font-weight:800;
-  line-height:1.7;letter-spacing:.02em;color:var(--ink)
-}
+.body em,.lede em{font-style:normal;background:linear-gradient(transparent 62%,rgba(185,138,47,.34) 62%);padding:0 1px}
+.pull{border-left:3px solid var(--cinnabar);padding:4px 0 4px 22px;margin:26px 0;
+  font-family:var(--serif);font-size:clamp(19px,2.2vw,23px);font-weight:800;line-height:1.7;color:var(--ink)}
 .sec.dark .pull{border-color:var(--gold);color:#fff}
-
-/* 侧栏卡片 / 旁注 */
 .rail-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
 .rail-card h4{font-size:13px;font-weight:800;letter-spacing:.14em;color:var(--cinnabar);margin-bottom:12px}
 .rail-card ul{list-style:none;display:grid;gap:9px}
@@ -103,133 +80,158 @@ h3{font-size:20px;font-weight:800;letter-spacing:.02em;margin-bottom:12px}
 .sec.dark .rail-card{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.13)}
 .sec.dark .rail-card h4{color:var(--gold)}
 .sec.dark .rail-card li,.sec.dark .rail-note{color:#b8af9b}
-
-/* 下一节预告（预导元素） */
-.teaser{
-  display:flex;align-items:center;gap:12px;padding:15px 18px;border-radius:14px;
+.teaser{display:flex;align-items:center;gap:12px;padding:15px 18px;border-radius:14px;
   background:linear-gradient(120deg,rgba(200,64,31,.08),rgba(185,138,47,.09));
-  border:1px dashed rgba(200,64,31,.34);transition:all var(--t-mid)
-}
+  border:1px dashed rgba(200,64,31,.34);transition:all var(--t-mid)}
 .teaser:hover{border-style:solid;transform:translateY(-2px);box-shadow:0 10px 24px rgba(31,28,24,.09)}
 .teaser .tk{font-size:11.5px;letter-spacing:.16em;color:var(--muted);font-weight:800;flex:0 0 auto}
 .teaser .tt{font-size:15.5px;font-weight:800;flex:1;min-width:0}
 .teaser .ta{font-size:18px;color:var(--cinnabar);transition:transform var(--t-mid)}
 .teaser:hover .ta{transform:translateX(4px)}
-
-/* 关键数字（行内插入） */
 .chiprow{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
 .chiprow span{font-size:13.5px;padding:7px 15px;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--ink2)}
-.chiprow span b{color:var(--cinnabar);font-weight:800}
-
-/* 全宽插入带 */
-.band{padding:clamp(34px,5vh,52px) 0;background:var(--ink);color:#efe9db;text-align:center;position:relative;overflow:hidden}
+.chiprow span b{color:var(--cinnabar);font-weight:800;font-variant-numeric:tabular-nums}
+.band{padding:clamp(36px,5vh,56px) 0;background:var(--ink);color:#efe9db;text-align:center;position:relative;overflow:hidden}
 .band::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 50% 120% at 50% 0%,rgba(185,138,47,.16),transparent 70%)}
 .band p{position:relative;font-family:var(--serif);font-size:clamp(19px,2.6vw,29px);font-weight:800;letter-spacing:.04em;line-height:1.65}
 .band small{position:relative;display:block;margin-top:12px;font-size:14.5px;color:#a89f8a}
 
-/* ══════════════ Hero ══════════════ */
-.hero{position:relative;overflow:hidden;padding:clamp(58px,10vh,116px) 0 clamp(34px,6vh,64px)}
+/* ═══ Hero：四层视差 ═══ */
+.hero{position:relative;overflow:hidden;padding:clamp(60px,10vh,120px) 0 clamp(36px,6vh,66px)}
 .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:
-  radial-gradient(ellipse 58% 48% at 10% 6%,rgba(200,64,31,.11),transparent 62%),
-  radial-gradient(ellipse 52% 54% at 94% 90%,rgba(185,138,47,.14),transparent 64%)}
-.float{position:absolute;border-radius:50%;pointer-events:none}
-.f1{width:150px;height:150px;left:4%;top:12%;border:1.5px solid rgba(200,64,31,.2);animation:drift 15s ease-in-out infinite}
-.f2{width:82px;height:82px;right:9%;top:18%;background:linear-gradient(140deg,rgba(185,138,47,.16),rgba(185,138,47,.03));animation:drift 11s ease-in-out infinite reverse}
-.f3{width:56px;height:56px;left:17%;bottom:8%;border:1.5px dashed rgba(185,138,47,.34);animation:drift 18s ease-in-out infinite}
-.f4{width:210px;height:210px;right:-3%;bottom:-10%;border:1.5px solid rgba(200,64,31,.1);animation:drift 21s ease-in-out infinite reverse}
-@keyframes drift{0%,100%{transform:translate(0,0) rotate(0)}33%{transform:translate(16px,-24px) rotate(8deg)}66%{transform:translate(-13px,15px) rotate(-7deg)}}
+  radial-gradient(ellipse 58% 48% at 10% 6%,rgba(200,64,31,.12),transparent 62%),
+  radial-gradient(ellipse 52% 54% at 94% 90%,rgba(185,138,47,.15),transparent 64%)}
+.px{will-change:transform}
+.pxl{position:absolute;border-radius:50%;pointer-events:none}
+.l1{width:170px;height:170px;left:3%;top:8%;border:1.5px solid rgba(200,64,31,.22)}
+.l2{width:96px;height:96px;right:8%;top:14%;background:linear-gradient(140deg,rgba(185,138,47,.18),rgba(185,138,47,.03))}
+.l3{width:64px;height:64px;left:15%;bottom:6%;border:1.5px dashed rgba(185,138,47,.36)}
+.l4{width:240px;height:240px;right:-4%;bottom:-12%;border:1.5px solid rgba(200,64,31,.1)}
+.l5{width:40px;height:40px;left:44%;top:6%;background:rgba(200,64,31,.16)}
+.l6{width:120px;height:120px;left:52%;bottom:-4%;border:1.5px solid rgba(185,138,47,.16)}
 .hero-in{position:relative;display:grid;gap:clamp(30px,4vw,52px);align-items:center}
 @media(min-width:1000px){.hero-in{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}}
-.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(52px,9.5vw,104px);letter-spacing:.08em;line-height:1.08}
-.hero h1 span{display:inline-block}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(54px,9.8vw,108px);letter-spacing:.08em;line-height:1.06}
 .hero .kick{font-size:13px;letter-spacing:.3em;font-weight:800;color:var(--cinnabar);margin-bottom:14px}
-.hero .sub{margin-top:22px;font-size:clamp(16.5px,1.9vw,19px);line-height:2.05;color:var(--ink2);max-width:640px}
+.hero .sub{margin-top:22px;font-size:clamp(17px,2vw,20px);line-height:2.05;color:var(--ink2);max-width:660px}
+.hero .sub b{color:var(--ink)}
 .hero-arts{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
 .hero-arts span{font-size:13.5px;padding:7px 15px;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--ink2)}
 .cta-row{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 32px;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;border:none;font-family:inherit;transition:all var(--t-mid)}
-.btn-p{background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk));color:#fff;box-shadow:0 10px 26px rgba(200,64,31,.32)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 32px;border-radius:14px;
+  font-size:16px;font-weight:800;cursor:pointer;border:none;font-family:inherit;transition:all var(--t-mid)}
+.btn-p{background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk));color:#fff;
+  box-shadow:0 10px 26px rgba(200,64,31,.32);animation:pulse 2.8s ease-in-out infinite}
 .btn-p:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(200,64,31,.4)}
 .btn-g{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
 .btn-g:hover{border-color:var(--cinnabar);color:var(--cinnabar);transform:translateY(-2px)}
+.btn:disabled{opacity:.55;cursor:not-allowed;animation:none}
 @keyframes pulse{0%,100%{box-shadow:0 10px 26px rgba(200,64,31,.3)}50%{box-shadow:0 14px 36px rgba(200,64,31,.52)}}
-.btn-p{animation:pulse 2.8s ease-in-out infinite}
-
-/* Hero 右侧：招聘速览（插入元素） */
-.hero-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 16px 44px rgba(31,28,24,.08)}
-.hero-card h4{font-family:var(--serif);font-size:17px;font-weight:900;letter-spacing:.06em;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.hero-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;
+  box-shadow:0 16px 44px rgba(31,28,24,.08)}
+.hero-card h4{font-family:var(--serif);font-size:17px;font-weight:900;letter-spacing:.06em;margin-bottom:16px;
+  display:flex;align-items:center;gap:9px}
 .hero-card h4::before{content:"";width:3px;height:15px;border-radius:2px;background:linear-gradient(180deg,var(--cinnabar),var(--gold))}
 .kv{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:15px}
 .kv:last-child{border-bottom:none}
 .kv b{font-weight:800}
 .kv span{color:var(--ink2);text-align:right}
-
-/* Hero 底部：分区导览（其他板块的预导） */
-.index-strip{margin-top:clamp(34px,5vh,58px);position:relative}
-.index-strip .is-h{font-size:12.5px;letter-spacing:.22em;font-weight:800;color:var(--muted);margin-bottom:14px}
-.is-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
-.is-item{
-  display:block;padding:16px 18px;border-radius:14px;background:var(--card);border:1px solid var(--line);
-  transition:all var(--t-mid);position:relative;overflow:hidden
-}
-.is-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cinnabar),transparent);opacity:0;transition:opacity var(--t-mid)}
+.index-strip{margin-top:clamp(36px,5vh,60px);position:relative}
+.is-h{font-size:12.5px;letter-spacing:.22em;font-weight:800;color:var(--muted);margin-bottom:14px}
+.is-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(158px,1fr))}
+.is-item{display:block;padding:16px 18px;border-radius:14px;background:var(--card);border:1px solid var(--line);
+  transition:all var(--t-mid);position:relative;overflow:hidden}
+.is-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--cinnabar),transparent);opacity:0;transition:opacity var(--t-mid)}
 .is-item:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(31,28,24,.1);border-color:rgba(185,138,47,.42)}
 .is-item:hover::before{opacity:1}
 .is-item b{display:block;font-size:15.5px;font-weight:800;margin-bottom:3px}
 .is-item span{font-size:13px;color:var(--muted);line-height:1.7}
 
-/* ══════════════ 岗位：对比表 ══════════════ */
-.cmp{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;font-size:15.5px}
-.cmp th,.cmp td{padding:17px 20px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
-.cmp thead th{background:var(--paper2);font-size:16px;font-weight:900;font-family:var(--serif);letter-spacing:.05em}
-.cmp thead th small{display:block;font-family:inherit;font-size:10.5px;letter-spacing:.2em;color:var(--muted);font-weight:700;margin-top:3px}
-.cmp tbody th{width:118px;font-size:14px;font-weight:800;color:var(--cinnabar);background:rgba(200,64,31,.04)}
-.cmp td{color:var(--ink2);line-height:1.9}
-.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:none}
-.cmp-wrap{overflow-x:auto}
-@media(max-width:760px){.cmp{min-width:620px}}
+/* ═══ 横向滚动章节 ═══ */
+.hscroll{position:relative}
+@media(min-width:860px){.hscroll{height:auto}}
+.hs-sticky{position:sticky;top:84px;overflow:hidden}
+.hs-track{display:flex;gap:20px;padding:6px 0 18px;will-change:transform;transition:transform .08s linear}
+.hs-card{flex:0 0 auto;width:min(420px,84vw);background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:28px;position:relative;overflow:hidden}
+.hs-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--cinnabar),rgba(200,64,31,.12))}
+.hs-card.g::before{background:linear-gradient(180deg,var(--gold),rgba(185,138,47,.12))}
+.hs-card.b::before{background:linear-gradient(180deg,#3a6dd0,rgba(58,109,208,.12))}
+.hs-no{font-family:var(--serif);font-weight:900;font-size:15px;color:var(--cinnabar);letter-spacing:.2em;margin-bottom:8px}
+.hs-card h3{font-family:var(--serif);font-size:23px;font-weight:900;letter-spacing:.04em;margin-bottom:5px}
+.hs-en{font-size:11px;letter-spacing:.2em;color:var(--gold);font-weight:700;margin-bottom:16px}
+.hs-card dl{display:grid;gap:11px}
+.hs-card dt{font-size:12.5px;font-weight:800;color:var(--cinnabar);letter-spacing:.08em}
+.hs-card.g dt{color:var(--gold)}
+.hs-card.b dt{color:#3a6dd0}
+.hs-card dd{font-size:15.5px;color:var(--ink2);line-height:1.92}
+.hs-hint{font-size:13px;color:var(--muted);margin-top:12px;display:flex;align-items:center;gap:8px}
+.hs-hint::before{content:"";width:30px;height:2px;border-radius:2px;background:var(--gold)}
+@media(max-width:859px){
+  .hs-track{overflow-x:auto;transform:none!important;scrollbar-width:none}
+  .hs-track::-webkit-scrollbar{display:none}
+}
 
-.nodes{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;display:flex;gap:14px;align-items:flex-start}
-.nodes .nd-ic{flex:0 0 auto;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--ink);color:#fff;font-weight:900;font-size:16px}
-.nodes b{display:block;font-size:16px;font-weight:800;margin-bottom:5px}
-.nodes p{font-size:15px;color:var(--ink2);line-height:1.9}
-
-/* ══════════════ 收益表（明示） ══════════════ */
-.pay-table{width:100%;border-collapse:separate;border-spacing:0;font-size:15.5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:18px;overflow:hidden}
-.pay-table th,.pay-table td{padding:17px 20px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.1)}
-.pay-table thead th{background:rgba(255,255,255,.05);color:#fff;font-size:15.5px;font-weight:800}
-.pay-table tbody th{width:150px;color:var(--gold);font-weight:800;font-size:15px}
-.pay-table td{color:#c2b9a3;line-height:1.9}
-.pay-table tr:last-child th,.pay-table tr:last-child td{border-bottom:none}
-.warn{margin-top:20px;padding:17px 20px;border-radius:14px;background:rgba(200,64,31,.16);border:1px solid rgba(200,64,31,.44);color:#f2cec2;font-size:15px;line-height:1.95}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);
+  border-radius:18px;overflow:hidden;font-size:15.5px}
+.tbl th,.tbl td{padding:17px 20px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.tbl thead th{background:var(--paper2);font-size:16px;font-weight:900;font-family:var(--serif);letter-spacing:.05em}
+.tbl tbody th{width:150px;font-size:15px;font-weight:800;color:var(--cinnabar);background:rgba(200,64,31,.04)}
+.tbl td{color:var(--ink2);line-height:1.9}
+.tbl tr:last-child th,.tbl tr:last-child td{border-bottom:none}
+.tbl-wrap{overflow-x:auto}
+@media(max-width:760px){.tbl{min-width:640px}}
+.sec.dark .tbl{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.13)}
+.sec.dark .tbl th,.sec.dark .tbl td{border-color:rgba(255,255,255,.1)}
+.sec.dark .tbl thead th{background:rgba(255,255,255,.05);color:#fff}
+.sec.dark .tbl tbody th{color:var(--gold);background:rgba(255,255,255,.03)}
+.sec.dark .tbl td{color:#c2b9a3}
+.warn{margin-top:20px;padding:17px 20px;border-radius:14px;background:rgba(200,64,31,.16);
+  border:1px solid rgba(200,64,31,.44);color:#f2cec2;font-size:15px;line-height:1.95}
 .warn b{color:#fff}
 
-/* ══════════════ 要 / 不要 对照 ══════════════ */
 .vs{display:grid;gap:18px}
 @media(min-width:800px){.vs{grid-template-columns:1fr 1fr}}
 .vs-card{border-radius:18px;padding:24px;border:1px solid var(--line);background:var(--card)}
 .vs-card.no{background:linear-gradient(168deg,#2b2119,#3b2a15);border-color:rgba(200,64,31,.36);color:#e6e0d2}
 .vs-card h4{font-size:16px;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:9px}
-.vs-card h4::before{content:"";width:22px;height:22px;border-radius:7px;display:grid;place-items:center}
+.vs-card h4::before{content:"";width:22px;height:22px;border-radius:7px}
 .vs-card.yes h4::before{background:rgba(47,122,84,.16);border:1.5px solid #2f7a54}
 .vs-card.no h4{color:#fff}
 .vs-card.no h4::before{background:rgba(200,64,31,.24);border:1.5px solid var(--cinnabar)}
 .vs-list{list-style:none;display:grid;gap:12px}
 .vs-list li{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;line-height:1.92}
-.vs-list li i{flex:0 0 auto;width:20px;height:20px;border-radius:6px;margin-top:5px;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:900}
+.vs-list li i{flex:0 0 auto;width:20px;height:20px;border-radius:6px;margin-top:5px;display:grid;place-items:center;
+  font-style:normal;font-size:11px;font-weight:900}
 .vs-card.yes .vs-list li i{background:rgba(47,122,84,.14);color:#2f7a54}
 .vs-card.no .vs-list li i{background:rgba(200,64,31,.22);color:#f0c9bd}
 .vs-card.no .vs-list li{color:#cdc6b4}
 
-/* ══════════════ 时间轴（招聘流程 + 入职） ══════════════ */
+.wild{position:relative;border-radius:22px;padding:clamp(26px,4vw,44px);overflow:hidden;
+  background:linear-gradient(150deg,#1f2227,#2b2119 60%,#3d2a12);color:#efe9db}
+.wild::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(ellipse 40% 90% at 88% 10%,rgba(200,64,31,.28),transparent 62%),
+  radial-gradient(ellipse 45% 80% at 6% 96%,rgba(185,138,47,.24),transparent 64%)}
+.wild>*{position:relative}
+.wild .wk{font-size:12px;letter-spacing:.3em;font-weight:800;color:var(--gold);margin-bottom:12px}
+.wild h2{color:#fff;font-size:clamp(28px,4.2vw,42px)}
+.wild p{color:#c7bda6;font-size:16.8px;line-height:2.05;margin-bottom:14px;max-width:860px}
+.wild p b{color:#fff}
+.wild .wlist{display:grid;gap:10px;margin-top:22px}
+@media(min-width:760px){.wild .wlist{grid-template-columns:1fr 1fr}}
+.wild .wlist div{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12);border-radius:13px;
+  padding:14px 16px;font-size:15px;color:#cdc6b4;line-height:1.85}
+.wild .wlist div b{color:var(--gold)}
+
 .tl{position:relative;padding-left:34px}
-.tl::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--cinnabar),var(--gold),var(--line))}
+.tl::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--cinnabar),var(--gold),var(--line))}
 .tl-item{position:relative;padding:0 0 26px}
 .tl-item:last-child{padding-bottom:0}
-.tl-item::before{
-  content:"";position:absolute;left:-30px;top:9px;width:16px;height:16px;border-radius:50%;
-  background:var(--card);border:3px solid var(--cinnabar)
-}
+.tl-item::before{content:"";position:absolute;left:-30px;top:9px;width:16px;height:16px;border-radius:50%;
+  background:var(--card);border:3px solid var(--cinnabar)}
 .tl-item.done::before{border-color:var(--gold)}
 .tl-item b{display:block;font-size:17px;font-weight:800;margin-bottom:5px}
 .tl-item .tm{font-size:12.5px;letter-spacing:.1em;color:var(--gold);font-weight:800;margin-bottom:6px}
@@ -238,78 +240,129 @@ h3{font-size:20px;font-weight:800;letter-spacing:.02em;margin-bottom:12px}
 .sec.dark .tl::before{background:linear-gradient(180deg,var(--cinnabar),var(--gold),rgba(255,255,255,.1))}
 .sec.dark .tl-item::before{background:#2b2119}
 
-/* ══════════════ 答疑 ══════════════ */
+.grow{display:grid;gap:16px}
+@media(min-width:820px){.grow{grid-template-columns:repeat(4,1fr)}}
+.grow-c{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;position:relative;
+  transition:transform var(--t-mid),box-shadow var(--t-mid)}
+.grow-c:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(31,28,24,.1)}
+.grow-c .gn{font-family:var(--serif);font-weight:900;font-size:34px;color:rgba(200,64,31,.22);line-height:1}
+.grow-c h3{font-size:17px;font-weight:800;margin:12px 0 9px}
+.grow-c p{font-size:15px;color:var(--ink2);line-height:1.9}
+.grow-c .gt{margin-top:14px;font-size:12.5px;color:var(--gold);font-weight:800;letter-spacing:.06em}
+
+.voices{display:grid;gap:16px}
+@media(min-width:820px){.voices{grid-template-columns:repeat(3,1fr)}}
+.voice{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;position:relative}
+.voice::before{content:"“";position:absolute;right:22px;top:10px;font-family:var(--serif);font-size:64px;
+  color:rgba(185,138,47,.2);line-height:1}
+.voice p{font-size:15.8px;color:var(--ink2);line-height:2;margin-bottom:18px}
+.voice .who{display:flex;align-items:center;gap:11px}
+.voice .ava{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:900;
+  font-family:var(--serif);font-size:16px;background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk))}
+.voice .who b{display:block;font-size:14.5px;font-weight:800}
+.voice .who span{display:block;font-size:12.5px;color:var(--muted)}
+
 .faq details{background:var(--card);border:1px solid var(--line);border-radius:15px;margin-bottom:12px;overflow:hidden}
 .faq details:hover{border-color:rgba(185,138,47,.45)}
-.faq summary{list-style:none;cursor:pointer;padding:18px 22px;font-size:16.5px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.faq summary{list-style:none;cursor:pointer;padding:18px 22px;font-size:16.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-size:21px;color:var(--gold);transition:transform var(--t-mid);flex:0 0 auto}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{padding:0 22px 20px;font-size:15.5px;color:var(--ink2);line-height:2}
 
-/* ══════════════ 报名 ══════════════ */
-.ways{display:grid;gap:14px;margin:26px 0 34px}
-@media(min-width:760px){.ways{grid-template-columns:repeat(4,1fr)}}
-.way{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:all var(--t-mid)}
+.ways{display:grid;gap:14px;margin:26px 0 30px}
+@media(min-width:860px){.ways{grid-template-columns:repeat(4,1fr)}}
+.way{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:all var(--t-mid);
+  cursor:pointer;text-align:left;font-family:inherit;color:inherit;display:block}
 .way:hover{border-color:var(--cinnabar);transform:translateY(-4px);box-shadow:0 14px 32px rgba(31,28,24,.09)}
 .way b{display:block;font-size:15.5px;font-weight:800;margin-bottom:7px}
-.way span{font-size:13.5px;color:var(--muted);line-height:1.8;word-break:break-all}
-.way a{color:var(--cinnabar);font-weight:800}
+.way span{font-size:13.5px;color:var(--muted);line-height:1.8;display:block}
 .way.pri{background:linear-gradient(150deg,rgba(200,64,31,.07),rgba(185,138,47,.08));border-color:rgba(200,64,31,.34)}
 
-form{display:grid;gap:22px}
-fieldset{border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,30px);background:var(--card)}
-legend{
-  font-family:var(--serif);font-size:19px;font-weight:900;letter-spacing:.05em;
-  padding:0 12px;color:var(--ink)
-}
-legend i{font-style:normal;color:var(--cinnabar);margin-right:8px}
+.mask{position:fixed;inset:0;z-index:300;background:rgba(31,28,24,.58);-webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);display:none;place-items:center;padding:20px}
+.mask.on{display:grid;animation:fade .24s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{width:min(760px,100%);max-height:90vh;background:var(--paper);border-radius:22px;display:flex;flex-direction:column;
+  overflow:hidden;box-shadow:0 30px 80px rgba(20,16,12,.4);animation:pop .4s cubic-bezier(.22,.8,.24,1) both}
+@keyframes pop{0%{opacity:0;transform:translateY(26px) scale(.95) skewY(1.4deg)}62%{opacity:1;transform:translateY(-5px) scale(1.012) skewY(-.4deg)}100%{opacity:1;transform:none}}
+.m-head{padding:20px 24px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.m-head h3{font-family:var(--serif);font-size:19px;font-weight:900;letter-spacing:.05em}
+.m-x{margin-left:auto;border:none;background:none;font-size:26px;line-height:1;color:var(--muted);cursor:pointer;padding:0 4px}
+.m-x:hover{color:var(--cinnabar)}
+.m-bar{display:flex;gap:8px;padding:16px 24px 0;flex:0 0 auto}
+.m-bar div{flex:1;text-align:center;font-size:12px;color:var(--muted);padding-bottom:9px;border-bottom:2px solid var(--line);
+  transition:all var(--t-mid);font-weight:700}
+.m-bar div.on{color:var(--cinnabar);border-color:var(--cinnabar)}
+.m-bar div.ok{color:#2f7a54;border-color:#2f7a54}
+.m-body{flex:1;overflow-y:auto;padding:22px 24px}
+.m-body .step{display:none}
+.m-body .step.on{display:block;animation:stepIn .34s cubic-bezier(.22,.8,.24,1) both}
+@keyframes stepIn{from{opacity:0;transform:translateX(22px) skewY(.8deg)}to{opacity:1;transform:none}}
+.m-foot{padding:16px 24px calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line);
+  display:flex;gap:10px;align-items:center;flex:0 0 auto}
+.m-foot .sp{flex:1}
 .fgrid{display:grid;gap:16px}
-@media(min-width:660px){.fgrid.c2{grid-template-columns:1fr 1fr}.fgrid.c3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:620px){.fgrid.c2{grid-template-columns:1fr 1fr}}
 .fld{display:flex;flex-direction:column;gap:7px}
 .fld.full{grid-column:1/-1}
 label{font-size:14px;font-weight:700;color:var(--ink2)}
 label em{font-style:normal;color:var(--cinnabar)}
 label .hint{font-weight:500;color:var(--muted);font-size:12.5px}
 input[type=text],input[type=tel],input[type=email],input[type=month],input[type=url],select,textarea{
-  width:100%;padding:13px 15px;border-radius:12px;border:1.5px solid var(--line);background:#fff;
-  font-size:15.5px;color:var(--ink);font-family:inherit;outline:none;transition:border-color var(--t-fast),box-shadow var(--t-fast)
-}
-textarea{min-height:118px;resize:vertical;line-height:1.9}
+  width:100%;padding:13px 15px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:15.5px;
+  color:var(--ink);font-family:inherit;outline:none;transition:border-color var(--t-fast),box-shadow var(--t-fast)}
+textarea{min-height:112px;resize:vertical;line-height:1.9}
 input:focus,select:focus,textarea:focus{border-color:var(--cinnabar);box-shadow:0 0 0 3px rgba(200,64,31,.13)}
 .opts{display:flex;flex-wrap:wrap;gap:10px}
-.opt{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:11px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:14.5px;transition:all var(--t-fast)}
+.opt{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:11px;border:1.5px solid var(--line);
+  background:#fff;cursor:pointer;font-size:14.5px;transition:all var(--t-fast)}
 .opt:hover{border-color:var(--cinnabar)}
 .opt input{accent-color:var(--cinnabar);width:16px;height:16px}
 .opt:has(input:checked){border-color:var(--cinnabar);background:rgba(200,64,31,.07);font-weight:700}
-.check{display:flex;gap:11px;align-items:flex-start;padding:14px 16px;border-radius:13px;background:var(--paper);border:1px solid var(--line);cursor:pointer;font-size:15px;line-height:1.85;color:var(--ink2)}
+.check{display:flex;gap:11px;align-items:flex-start;padding:14px 16px;border-radius:13px;background:var(--card);
+  border:1px solid var(--line);cursor:pointer;font-size:15px;line-height:1.85;color:var(--ink2)}
 .check input{accent-color:var(--cinnabar);width:18px;height:18px;flex:0 0 auto;margin-top:4px}
-.hp{position:absolute;left:-9999px;opacity:0;pointer-events:none;height:0}
-.msg{font-size:15px;min-height:24px;color:var(--cinnabar);font-weight:600}
+.sec-tag{display:inline-block;font-size:11.5px;letter-spacing:.16em;font-weight:800;color:var(--muted);
+  background:var(--card);border:1px solid var(--line);border-radius:99px;padding:3px 11px;margin-bottom:12px}
+.hintbar{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.8}
+.msg{font-size:14.5px;color:var(--cinnabar);font-weight:600;text-align:right}
 .msg.ok{color:#2f7a54}
-.fall{margin-top:18px;padding:20px;border-radius:16px;background:var(--paper2);border:1px dashed var(--line)}
+.hp{position:absolute;left:-9999px;opacity:0;pointer-events:none;height:0}
+.done-box{text-align:center;padding:26px 0}
+.done-box .di{width:64px;height:64px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center;color:#fff;
+  font-size:30px;background:linear-gradient(140deg,#2f7a54,#1e5940)}
+.done-box h3{font-family:var(--serif);font-size:24px;font-weight:900;margin-bottom:10px}
+.done-box p{font-size:15.5px;color:var(--ink2);line-height:2}
+.code-box{margin:20px auto;display:inline-block;padding:16px 34px;border-radius:16px;background:var(--card);
+  border:1.5px dashed var(--cinnabar)}
+.code-box b{display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:26px;font-weight:800;
+  color:var(--cinnabar);letter-spacing:.06em}
+.code-box span{font-size:12.5px;color:var(--muted)}
+.fall{margin-top:18px;padding:20px;border-radius:16px;background:var(--card);border:1px dashed var(--line)}
 .fall b{display:block;font-size:16px;margin-bottom:10px}
 .fall p{font-size:15px;color:var(--ink2);line-height:2.05}
 .note{font-size:13.5px;color:var(--muted);line-height:1.95;margin-top:6px}
 
-/* ══════════════ 页脚 ══════════════ */
-footer{margin-top:0;padding:38px 0 calc(34px + env(safe-area-inset-bottom));background:linear-gradient(165deg,#23262b,#2b2119 58%,#3b2a15);color:#cdc6b4;text-align:center}
+footer{padding:38px 0 calc(34px + env(safe-area-inset-bottom));
+  background:linear-gradient(165deg,#23262b,#2b2119 58%,#3b2a15);color:#cdc6b4;text-align:center}
 .fl{display:flex;flex-wrap:wrap;gap:9px 24px;justify-content:center;font-size:14px}
 .fl a:hover{color:#fff}
 .cp{margin-top:16px;font-size:12.5px;color:#8f8672}
 
-/* ══════════════ 入场动效（默认可见，避免锚点跳转后空白） ══════════════ */
 html.anim .rv{opacity:0;transform:translateY(28px) skewY(1.1deg)}
-html.anim .rv.in{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+html.anim .rv.in{opacity:1;transform:none;transition:opacity .62s cubic-bezier(.16,1,.3,1),transform .62s cubic-bezier(.16,1,.3,1)}
 html.anim .rv.d1.in{transition-delay:.08s}
 html.anim .rv.d2.in{transition-delay:.16s}
 html.anim .rv.d3.in{transition-delay:.24s}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.floaty{animation:floaty 4.4s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.floaty{animation:floaty 4.6s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   html.anim .rv{opacity:1;transform:none}
 }
+@media(max-width:859px){.floaty{animation:none}}
 </style>
 </head>
 <body>
@@ -319,31 +372,36 @@ html.anim .rv.d3.in{transition-delay:.24s}
   <div class="tb-seal">贤</div>
   <div class="tb-brand">尚贤圈<small>SHANGXIAN QUAN</small></div>
   <div class="tb-nav">
-    <a href="#about">关于</a><a href="#jobs">岗位</a><a href="#pay">收益</a>
-    <a href="#fit">要求</a><a href="#flow">流程</a><a href="#onboard">入职</a>
-    <a href="#faq">答疑</a><a href="#apply">报名</a>
+    <a href="#about">关于</a><a href="#wild">特招</a><a href="#jobs">岗位</a>
+    <a href="#pay">收益</a><a href="#fit">要求</a><a href="#grow">培养</a>
+    <a href="#flow">流程</a><a href="#onboard">入职</a><a href="#voices">心声</a>
+    <a href="#apply">报名</a>
   </div>
   <a class="tb-back" href="../">← 返回官网</a>
 </nav>
 
-<!-- ══════════════════ Hero ══════════════════ -->
 <header class="hero">
-  <i class="float f1"></i><i class="float f2"></i><i class="float f3"></i><i class="float f4"></i>
+  <i class="pxl l1 px" data-px="0.30"></i>
+  <i class="pxl l2 px" data-px="0.20"></i>
+  <i class="pxl l3 px" data-px="0.36"></i>
+  <i class="pxl l4 px" data-px="0.14"></i>
+  <i class="pxl l5 px" data-px="0.44" data-pxx="0.30"></i>
+  <i class="pxl l6 px" data-px="0.26" data-pxx="-0.22"></i>
   <div class="wrap">
     <div class="hero-in">
       <div>
         <div class="kick">桂林市尚贤学校 · 校园社区</div>
         <h1>招贤纳士</h1>
-        <p class="sub">尚贤圈要补几个人：把产品讲给同学听的<b>校园大使</b>，把界面和物料做好看的<b>设计</b>，把内容和规则写清楚的<b>运营</b>。三个方向都在招，代码不用你写。</p>
+        <p class="sub px" data-px="0.04">我们在找一起把尚贤圈做下去的人。三个方向：把产品讲给同学听的<b>校园大使</b>，把界面和物料做好看的<b>设计</b>，把内容写清楚的<b>运营</b>。<b>代码不用你写。</b></p>
         <div class="hero-arts">
           <span>无底薪 · 按提成</span><span>每周 2–5 小时</span><span>学业优先</span><span>随时可退出</span>
         </div>
         <div class="cta-row">
-          <a class="btn btn-p" href="#apply">直接填写报名表</a>
+          <button class="btn btn-p" data-open-form>填写报名表</button>
           <a class="btn btn-g" href="#jobs">先看岗位在做什么</a>
         </div>
       </div>
-      <aside class="hero-card floaty">
+      <aside class="hero-card floaty px" data-px="0.10">
         <h4>招聘速览</h4>
         <div class="kv"><b>在招岗位</b><span>校园大使 / 设计 / 运营</span></div>
         <div class="kv"><b>招聘人数</b><span>每个方向 1–3 人</span></div>
@@ -355,37 +413,37 @@ html.anim .rv.d3.in{transition-delay:.24s}
       </aside>
     </div>
 
-    <!-- 分区导览：其他板块的预导 -->
-    <div class="index-strip rv">
-      <div class="is-h">这一页有八个部分，可以按顺序读，也可以跳着看</div>
+    <div class="index-strip rv px" data-px="0.06">
+      <div class="is-h">这一页有十一个部分，可以按顺序读，也可以跳着看</div>
       <div class="is-grid">
-        <a class="is-item" href="#about"><b>壹 · 关于</b><span>尚贤圈是什么，现在缺什么</span></a>
-        <a class="is-item" href="#jobs"><b>贰 · 岗位</b><span>三个方向的具体职责对比</span></a>
-        <a class="is-item" href="#pay"><b>叁 · 收益</b><span>无底薪，规则逐条写清</span></a>
-        <a class="is-item" href="#fit"><b>肆 · 要求</b><span>我们要什么、不要什么</span></a>
-        <a class="is-item" href="#mission"><b>伍 · 任务</b><span>第一个月要交出的东西</span></a>
-        <a class="is-item" href="#flow"><b>陆 · 流程</b><span>投递到录用的六步</span></a>
-        <a class="is-item" href="#onboard"><b>柒 · 入职</b><span>录用之后怎么开始</span></a>
-        <a class="is-item" href="#apply"><b>捌 · 报名</b><span>四选一，附 35 项表单</span></a>
+        <a class="is-item" href="#about"><b>壹 · 关于</b><span>尚贤圈是什么，缺什么人</span></a>
+        <a class="is-item" href="#wild"><b>贰 · 特招</b><span>不看条件，只看作品</span></a>
+        <a class="is-item" href="#jobs"><b>叁 · 岗位</b><span>三个方向横向对比</span></a>
+        <a class="is-item" href="#pay"><b>肆 · 收益</b><span>无底薪，规则逐条写清</span></a>
+        <a class="is-item" href="#fit"><b>伍 · 要求</b><span>我们要什么、不要什么</span></a>
+        <a class="is-item" href="#mission"><b>陆 · 任务</b><span>第一个月要交出什么</span></a>
+        <a class="is-item" href="#grow"><b>柒 · 培养</b><span>你会得到什么训练</span></a>
+        <a class="is-item" href="#flow"><b>捌 · 流程</b><span>投递到录用的六步</span></a>
+        <a class="is-item" href="#onboard"><b>玖 · 入职</b><span>录用之后怎么开始</span></a>
+        <a class="is-item" href="#voices"><b>拾 · 心声</b><span>已经加入的人怎么说</span></a>
+        <a class="is-item" href="#apply"><b>拾壹 · 报名</b><span>四个入口，可查进度</span></a>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ══════════════════ 壹 · 关于 ══════════════════ -->
 <section class="sec" id="about">
   <div class="wrap eg">
     <div>
       <div class="eyebrow rv">壹 · 关于</div>
-      <h2 class="rv">尚贤圈是什么，现在缺什么</h2>
+      <h2 class="rv">尚贤圈是什么，缺什么人</h2>
       <div class="body rv d1">
-        <p>尚贤圈是<b>桂林市尚贤学校</b>的校园社区，有安卓 App、网页版（贤圈中心）和小程序端。它把校园里最常见、也最琐碎的几件事集中起来解决：<em>动态</em>让信息传得快一点，<em>提问</em>让不懂的有人答，<em>集市</em>让闲置流转起来，<em>失物招领</em>让丢的东西更容易找回，<em>规则中心</em>把二十二篇约定放在一处随时可查。</p>
-        <p>产品本身已经在运行，每天有同学在用。目前所有代码由主理人一个人开发与维护，基础功能永久免费、不接广告、不做付费墙。</p>
-        <div class="pull">缺的不是想法，是能把想法落到同学眼前的人。<br>这也是这次招人的唯一原因。</div>
-        <p>一个功能做出来，如果没人知道、没人会用，它等于没做。所以这次要补的是三个方向：<b>让同学知道</b>（校园大使）、<b>让东西好看好懂</b>（设计）、<b>让内容说得明白</b>（运营）。</p>
+        <p>尚贤圈是<b>桂林市尚贤学校</b>的校园社区，有安卓 App、网页版（贤圈中心）和小程序端。它把校园里最常见、也最琐碎的几件事集中起来：<em>动态</em>让信息传得快一点，<em>提问</em>让不懂的有人答，<em>集市</em>让闲置流转，<em>失物招领</em>让丢的东西更容易找回，<em>规则中心</em>把二十二篇约定放在一处随时可查。</p>
+        <p>产品本身已经在运行，每天有同学在用。所有代码由主理人一个人开发与维护，基础功能永久免费、不接广告、不做付费墙。</p>
+        <div class="pull">缺的不是想法，是能把想法落到同学眼前的人。<br>这是这次招人的唯一原因。</div>
+        <p>一个功能做出来，没人知道、没人会用，等于没做。所以要补的是三个方向：<b>让同学知道</b>（校园大使）、<b>让东西好看好懂</b>（设计）、<b>让内容说得明白</b>（运营）。</p>
       </div>
     </div>
-
     <aside class="rail">
       <div class="rail-card rv">
         <h4>目前的状态</h4>
@@ -393,122 +451,136 @@ html.anim .rv.d3.in{transition-delay:.24s}
           <li><i></i>安卓 App 已发布多个版本，可正常下载安装</li>
           <li><i></i>网页版贤圈中心已上线并日常运行</li>
           <li><i></i>规则中心共 22 篇文档，覆盖协议与社区公约</li>
-          <li><i></i>开发、服务器与设计资源均由主理人个人承担</li>
+          <li><i></i>开发、服务器与设计资源由主理人个人承担</li>
         </ul>
       </div>
       <div class="rail-card rv d1">
         <h4>这次不招什么</h4>
         <ul>
-          <li><i></i><b>不招开发</b>。代码全部由主理人一个人写，不分工、不接手</li>
-          <li><i></i>不招管理层。管理员由站内选举产生，不走招聘</li>
+          <li><i></i><b>不招开发</b>。代码全部由主理人一个人写</li>
+          <li><i></i>不招管理层。管理员由站内选举产生</li>
           <li><i></i>不招校外人员。只面向本校在读同学</li>
         </ul>
       </div>
       <p class="rail-note rv d2">如果你只想写代码，这里确实没有位置分给你，不必勉强报名。</p>
-      <a class="teaser rv d3" href="#jobs"><span class="tk">接下来</span><span class="tt">三个岗位分别在做什么</span><span class="ta">→</span></a>
+      <a class="teaser rv d3" href="#wild"><span class="tk">接下来</span><span class="tt">不看条件，只看作品</span><span class="ta">→</span></a>
     </aside>
   </div>
 </section>
 
-<!-- 全宽插入带 -->
+<section class="sec" id="wild" style="padding-top:0">
+  <div class="wrap">
+    <div class="wild rv px" data-px="0.05">
+      <div class="wk">SPECIAL CHANNEL · 特招通道</div>
+      <h2>不看条件，只看你做出来的东西</h2>
+      <p>常规的评选喜欢看成绩、看职务、看资历。我们想换个方式：<b>如果你手里已经有做出来的东西，直接给我们看，其他都可以不填。</b></p>
+      <p>一段自己写的小说、一套自己做的海报、一个经营过半年的账号、一个剪了几十遍的视频、一叠活动策划稿——什么都行。<b>我们要判断的是你能做出什么，不是你在表格里写了什么。</b></p>
+      <div class="wlist">
+        <div><b>怎么走特招</b><br>报名表第 4 组「作品链接」里贴上你的东西，并在「为什么想加入」第一句注明「走特招通道」。</div>
+        <div><b>特招有什么不同</b><br>跳过例行提问，直接聊你的作品。聊完当场给结论，不用等两周。</div>
+        <div><b>什么算作品</b><br>不要求完整、不要求专业。半成品也算，只要你真的动手做了。</div>
+        <div><b>没有作品怎么办</b><br>那就走常规通道，一样会被认真看。没有作品不代表不行，只代表你还没开始。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="band">
   <div class="wrap">
-    <p>报名表一共 5 组、35 项</p>
+    <p>报名表一共 5 组、35 项，必填 14 项</p>
     <small>我们要知道的是你能做什么，不是你会说什么</small>
   </div>
 </div>
 
-<!-- ══════════════════ 贰 · 岗位 ══════════════════ -->
-<section class="sec alt" id="jobs">
-  <div class="wrap eg">
-    <div>
-      <div class="eyebrow rv">贰 · 岗位</div>
-      <h2 class="rv">三个方向，逐项对比</h2>
-      <p class="lede rv d1">下面这张表把三个岗位摆在一起对照。横向看是同一个维度在不同岗位上的差异，纵向看是某个岗位的全部要求。</p>
-      <div class="cmp-wrap rv d2" style="margin-top:26px">
-        <table class="cmp">
-          <thead>
-            <tr>
-              <th></th>
-              <th>校园大使<small>CAMPUS AMBASSADOR</small></th>
-              <th>设计<small>DESIGN</small></th>
-              <th>运营 / 内容<small>CONTENT</small></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th>主要做什么</th>
-              <td>在班级和社团里让同学知道尚贤圈；收集大家想要什么、哪里不好用；组织小型活动</td>
-              <td>海报、图标、活动视觉、页面配图；把复杂功能画成一眼能懂的图</td>
-              <td>月刊、推文、规则文案、功能说明；把同学的反馈整理成能执行的清单</td></tr>
-            <tr><th>每周投入</th><td>2–4 小时</td><td>3–5 小时</td><td>3–5 小时</td></tr>
-            <tr><th>需要的能力</th>
-              <td>愿意主动跟同学说话；能把一件事讲清楚</td>
-              <td>会用任意一款设计工具（稿定 / Canva / PS / AI 都算）；对配色和排版有基本感觉</td>
-              <td>能把话说短、说准；写得让人愿意读完</td></tr>
-            <tr><th>不需要的能力</th><td>不需要写代码、不需要成绩好</td><td>不需要科班出身、不需要专业设备</td><td>不需要文笔华丽、不需要运营经验</td></tr>
-            <tr><th>产出怎么算</th><td>带来真实使用的新同学数量；回收的有效反馈条数</td><td>被采用的物料套数；物料带来的点击或使用</td><td>被采用的内容篇数；内容带来的阅读与转化</td></tr>
-            <tr><th>第一个月目标</th><td>20 位同学真实使用 + 10 条反馈</td><td>1 套完整物料</td><td>1 篇成稿内容</td></tr>
-            <tr><th>适合谁</th><td>人缘不错、乐意张罗的同学</td><td>喜欢把东西弄好看的同学</td><td>爱写、爱整理、爱表达的同学</td></tr>
-          </tbody>
-        </table>
+<section class="sec alt hscroll" id="jobs">
+  <div class="wrap">
+    <div class="eyebrow rv">叁 · 岗位</div>
+    <h2 class="rv">三个方向，逐项说清</h2>
+    <p class="lede rv d1">往右滑，或者继续往下滚，四张卡会依次展开。每张卡结构相同，方便横向对照。</p>
+  </div>
+  <div class="hs-sticky">
+    <div class="wrap">
+      <div class="hs-track" id="hsTrack">
+        <article class="hs-card px" data-px="0.04">
+          <div class="hs-no">01</div>
+          <h3>校园大使</h3>
+          <div class="hs-en">CAMPUS AMBASSADOR</div>
+          <dl>
+            <dt>主要做什么</dt><dd>在班级和社团里让同学知道尚贤圈；收集大家想要什么、哪里不好用；组织小型活动，比如失物招领角。</dd>
+            <dt>每周投入</dt><dd>2–4 小时，时间自己安排，不打卡。</dd>
+            <dt>需要的能力</dt><dd>愿意主动跟同学说话；能把一件事讲清楚。</dd>
+            <dt>不需要</dt><dd>不需要写代码，不需要成绩好。</dd>
+            <dt>产出怎么算</dt><dd>带来真实使用的新同学数量 + 回收的有效反馈条数。</dd>
+            <dt>第一个月目标</dt><dd>20 位同学真实使用 + 10 条反馈。</dd>
+            <dt>适合谁</dt><dd>人缘不错、乐意张罗的同学。</dd>
+          </dl>
+        </article>
+        <article class="hs-card g px" data-px="0.04">
+          <div class="hs-no" style="color:var(--gold)">02</div>
+          <h3>设计</h3>
+          <div class="hs-en">DESIGN</div>
+          <dl>
+            <dt>主要做什么</dt><dd>海报、图标、活动视觉、页面配图；把复杂功能画成一眼能懂的图。</dd>
+            <dt>每周投入</dt><dd>3–5 小时，按内容节奏走。</dd>
+            <dt>需要的能力</dt><dd>会用任意一款设计工具（稿定 / Canva / PS / AI 都算）；对配色和排版有基本感觉。</dd>
+            <dt>不需要</dt><dd>不需要科班出身，不需要专业设备。</dd>
+            <dt>产出怎么算</dt><dd>被采用的物料套数 + 物料带来的点击或使用。</dd>
+            <dt>第一个月目标</dt><dd>交付 1 套完整物料。</dd>
+            <dt>适合谁</dt><dd>喜欢把东西弄好看的同学。</dd>
+          </dl>
+        </article>
+        <article class="hs-card b px" data-px="0.04">
+          <div class="hs-no" style="color:#3a6dd0">03</div>
+          <h3>运营 / 内容</h3>
+          <div class="hs-en">CONTENT</div>
+          <dl>
+            <dt>主要做什么</dt><dd>月刊、推文、规则文案、功能说明；把同学的反馈整理成能执行的清单。</dd>
+            <dt>每周投入</dt><dd>3–5 小时，不卡死期限。</dd>
+            <dt>需要的能力</dt><dd>能把话说短、说准；写得让人愿意读完。</dd>
+            <dt>不需要</dt><dd>不需要文笔华丽，不需要运营经验。</dd>
+            <dt>产出怎么算</dt><dd>被采用的内容篇数 + 内容带来的阅读与转化。</dd>
+            <dt>第一个月目标</dt><dd>交付 1 篇成稿内容。</dd>
+            <dt>适合谁</dt><dd>爱写、爱整理、爱表达的同学。</dd>
+          </dl>
+        </article>
+        <article class="hs-card px" data-px="0.04" style="display:flex;align-items:center;justify-content:center;text-align:center">
+          <div>
+            <div class="hs-no">—</div>
+            <h3 style="margin-bottom:12px">没有开发岗</h3>
+            <p style="font-size:15.5px;color:var(--ink2);line-height:1.95;max-width:300px">尚贤圈的全部代码由主理人一个人开发与维护。这是刻意的安排：保持架构与代码风格一致，也省掉协作沟通成本。报名表里没有这一项。</p>
+          </div>
+        </article>
       </div>
-
-      <div class="nodes rv">
-        <div class="nd-ic">!</div>
-        <div>
-          <b>关于开发岗：这里没有</b>
-          <p>尚贤圈的全部代码由主理人一个人开发与维护，这是刻意的安排——保持架构与代码风格一致，也省掉协作沟通的成本。所以本次招聘<b>不设任何开发岗位</b>，报名表里也没有这一项。这一点先说清楚，免得你花时间填完才发现不合适。</p>
-        </div>
-      </div>
+      <div class="hs-hint">继续往下滚，卡片会横向展开；手机端可直接左右滑动</div>
     </div>
-
-    <aside class="rail">
-      <div class="rail-card rv">
-        <h4>怎么选方向</h4>
-        <ul>
-          <li><i></i>喜欢跟人打交道 → 校园大使</li>
-          <li><i></i>喜欢动手做视觉 → 设计</li>
-          <li><i></i>喜欢写字和整理 → 运营 / 内容</li>
-          <li><i></i>拿不准就都填上，报名表有第一、第二志愿两栏</li>
-        </ul>
-      </div>
-      <div class="rail-card rv d1">
-        <h4>可以同时做两个吗</h4>
-        <ul>
-          <li><i></i>可以，但建议先专心一个方向</li>
-          <li><i></i>熟练之后再扩到第二个方向，产出统计会分开算</li>
-        </ul>
-      </div>
-      <a class="teaser rv d2" href="#pay"><span class="tk">接下来</span><span class="tt">钱怎么算，一条条写清</span><span class="ta">→</span></a>
-    </aside>
   </div>
 </section>
 
-<!-- ══════════════════ 叁 · 收益 ══════════════════ -->
 <section class="sec dark" id="pay">
   <div class="wrap eg">
     <div>
-      <div class="eyebrow rv">叁 · 收益</div>
+      <div class="eyebrow rv">肆 · 收益</div>
       <h2 class="rv">没有底薪，规则逐条写在这里</h2>
-      <p class="lede rv d1">这一节不写宣传话术，只写规则。看完如果觉得不合适，直接不用报名，节省双方时间。</p>
+      <p class="lede rv d1">这一节不写宣传话术，只写规则。看完觉得不合适，直接不用报名，节省双方时间。</p>
       <div class="rv d2" style="margin-top:28px">
-        <table class="pay-table">
-          <thead><tr><th>项目</th><th>具体规则</th></tr></thead>
-          <tbody>
-            <tr><th>有没有底薪</th><td>没有。这不是一份有固定工资的工作，也不签劳动合同，属于自愿参与的项目合作。</td></tr>
-            <tr><th>怎么算钱</th><td>按你带来的实际产出计提成。产出的定义在「岗位」一节里写明了：校园大使看带来的真实使用人数与反馈条数，设计看被采用的物料套数，运营看被采用的内容篇数。</td></tr>
-            <tr><th>具体比例</th><td>各岗位比例不同，且会随项目当月收入浮动。具体档位在你通过筛选后的面谈里确认，<b>本页不承诺任何具体金额</b>。</td></tr>
-            <tr><th>什么时候结算</th><td>按月对账、按月结算。每月固定日期结清上一个月的产出，不跨月累积。</td></tr>
-            <tr><th>没有产出怎么办</th><td>那个月就没有提成，不会有任何处罚，也不会被催或者被公开点名。做多少拿多少。</td></tr>
-            <tr><th>要不要交钱</th><td>不需要交任何费用。没有报名费、押金、培训费、材料费、软件授权费。</td></tr>
-            <tr><th>能拿到什么实物</th><td>电子版参与证明与贡献者名单署名；表现持续的会进入鸣谢墙。</td></tr>
-            <tr><th>中途想退出</th><td>随时可以，说一声就行，不影响已产生的提成结算。</td></tr>
-          </tbody>
-        </table>
-        <div class="warn"><b>防骗提醒：</b>参与尚贤圈不需要你付任何一分钱。凡是让你先转账、先交押金、先买材料、先充值的，都是冒充我们的骗局，请直接发邮件到页脚公示的官方邮箱核实。</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>项目</th><th>具体规则</th></tr></thead>
+            <tbody>
+              <tr><th>有没有底薪</th><td>没有。不是有固定工资的工作，也不签劳动合同，属于自愿参与的项目合作。</td></tr>
+              <tr><th>怎么算钱</th><td>按你带来的实际产出计提成。校园大使看带来的真实使用人数与反馈条数，设计看被采用的物料套数，运营看被采用的内容篇数。</td></tr>
+              <tr><th>具体比例</th><td>各岗位比例不同，且随项目当月收入浮动。具体档位在通过筛选后的面谈里确认，<b>本页不承诺任何具体金额</b>。</td></tr>
+              <tr><th>什么时候结算</th><td>按月对账、按月结算。每月固定日期结清上一个月的产出，不跨月累积。</td></tr>
+              <tr><th>没有产出怎么办</th><td>那个月没有提成，不会有任何处罚，也不会被催或被公开点名。做多少拿多少。</td></tr>
+              <tr><th>要不要交钱</th><td>不需要交任何费用。没有报名费、押金、培训费、材料费、软件授权费。</td></tr>
+              <tr><th>能拿到什么</th><td>电子版参与证明与贡献者名单署名；表现持续的会进入鸣谢墙。</td></tr>
+              <tr><th>中途想退出</th><td>随时可以，说一声就行，不影响已产生的提成结算。</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="warn"><b>防骗提醒：</b>参与尚贤圈不需要你付任何一分钱。凡是让你先转账、先交押金、先买材料、先充值的，都是冒充我们的骗局，请发邮件到页脚邮箱核实。</div>
       </div>
     </div>
-
     <aside class="rail">
       <div class="rail-card rv">
         <h4>一句话总结</h4>
@@ -519,19 +591,17 @@ html.anim .rv.d3.in{transition-delay:.24s}
           <li><i></i>想要稳定月薪的同学，这里不合适</li>
         </ul>
       </div>
-      <p class="rail-note rv d1">所有规则都以本节文字与面谈记录为准，不会在之后追加隐藏条款。任何口头承诺都不作数，只看写下来的。</p>
+      <p class="rail-note rv d1">所有规则以本节文字与面谈记录为准，不会追加隐藏条款。口头承诺不作数，只看写下来的。</p>
       <a class="teaser rv d2" href="#fit"><span class="tk">接下来</span><span class="tt">我们要什么、不要什么</span><span class="ta">→</span></a>
     </aside>
   </div>
 </section>
 
-<!-- ══════════════════ 肆 · 要求与底线 ══════════════════ -->
 <section class="sec" id="fit">
   <div class="wrap">
-    <div class="eyebrow rv">肆 · 要求与底线</div>
+    <div class="eyebrow rv">伍 · 要求与底线</div>
     <h2 class="rv">我们要什么，不要什么</h2>
     <p class="lede rv d1">左边是希望你能做到的，右边是碰一次就结束合作的红线。两边都只有几条，不用背。</p>
-
     <div class="vs rv d2" style="margin-top:28px">
       <div class="vs-card yes">
         <h4>我们希望你是</h4>
@@ -540,7 +610,7 @@ html.anim .rv.d3.in{transition-delay:.24s}
           <li><i>2</i><span><b>答应的事能做完</b>。做不到提前讲，比硬撑到最后好得多。</span></li>
           <li><i>3</i><span><b>把学业放在前面</b>。我们宁可你少做点，也不想看到成绩掉下来。</span></li>
           <li><i>4</i><span><b>能接受被改稿</b>。你做的东西可能会被要求调整，这不是否定你。</span></li>
-          <li><i>5</i><span><b>未满 18 周岁需监护人知情</b>。报名表里有一栏专门确认这件事。</span></li>
+          <li><i>5</i><span><b>未满 18 周岁需监护人知情</b>。报名表里有专门一栏确认这件事。</span></li>
           <li><i>6</i><span><b>愿意每周同步一次进度</b>。几句话就行，不要沉默消失。</span></li>
         </ul>
       </div>
@@ -556,13 +626,12 @@ html.anim .rv.d3.in{transition-delay:.24s}
         </ul>
       </div>
     </div>
-
     <aside class="rail" style="margin-top:26px">
       <div class="rail-card rv">
         <h4>违反底线会怎样</h4>
         <ul>
-          <li><i></i>立即终止合作，冻结当月的提成结算</li>
-          <li><i></i>涉及违规内容的，同步移交给社区管理员按社区公约处理</li>
+          <li><i></i>立即终止合作，冻结当月提成结算</li>
+          <li><i></i>涉及违规内容的，同步移交社区管理员按社区公约处理</li>
           <li><i></i>涉及钱款或信息泄露的，保留追究的权利</li>
         </ul>
       </div>
@@ -571,37 +640,33 @@ html.anim .rv.d3.in{transition-delay:.24s}
   </div>
 </section>
 
-<!-- ══════════════════ 伍 · 任务与使命 ══════════════════ -->
 <section class="sec alt" id="mission">
   <div class="wrap eg">
     <div>
-      <div class="eyebrow rv">伍 · 任务与使命</div>
+      <div class="eyebrow rv">陆 · 任务与使命</div>
       <h2 class="rv">第一个月，具体要交出什么</h2>
       <p class="lede rv d1">不说「提升影响力」这种没法验收的话。下面每条都能数出来，做没做到一目了然。</p>
-
       <div class="chiprow rv d2">
-        <span><b>20</b> 位同学真实使用</span>
-        <span><b>10</b> 条有效反馈</span>
-        <span><b>1</b> 套物料或 1 篇内容</span>
-        <span><b>4</b> 次进度同步</span>
-        <span><b>2</b> 周试用期</span>
+        <span><b data-count="20">0</b> 位同学真实使用</span>
+        <span><b data-count="10">0</b> 条有效反馈</span>
+        <span><b data-count="1">0</b> 套物料或 1 篇内容</span>
+        <span><b data-count="4">0</b> 次进度同步</span>
+        <span><b data-count="2">0</b> 周试用期</span>
       </div>
-
       <div class="body rv d3">
-        <p><b>校园大使的第一个月：</b>让至少 20 位同学真正用过一次尚贤圈——不是扫码进来看一眼，而是完成一次真实操作，比如发一条动态、提一个问题、挂一件闲置。同时回收 10 条有效反馈，标准是「能让我们知道改什么」，比如「失物招领的联系方式复制按钮太小了」。</p>
-        <p><b>设计与运营的第一个月：</b>交付 1 套完整物料（校园大使是海报加招新图，设计方向是图标或三张功能配图），或者 1 篇成稿内容（月刊栏目、功能说明、规则解读任选一篇，需要排版完成、可直接发布）。</p>
+        <p><b>校园大使的第一个月：</b>让至少 20 位同学真正用过一次尚贤圈——不是扫码进来看一眼，而是完成一次真实操作，比如发一条动态、提一个问题、挂一件闲置。同时回收 10 条有效反馈，标准是「能让我们知道改什么」。</p>
+        <p><b>设计与运营的第一个月：</b>交付 1 套完整物料，或者 1 篇成稿内容（月刊栏目、功能说明、规则解读任选一篇，需要排版完成、可直接发布）。</p>
         <p><b>共同做的事：</b>每周在群里同步一次进度，写清「这周做了什么、卡在哪里、下周做什么」，三行就够。</p>
         <div class="pull">使命这件事，说得朴素一点：<br>让校园里的信息流通顺一点，让同学少花点时间在找答案上。</div>
         <p>问作业有人答，丢东西找得回，闲置教材能流转，学校的规定不用翻半天聊天记录。这些都是很小的事，但加起来能省下同学不少时间。我们不打算喊很大的口号，做扎实一件是一件的。</p>
       </div>
     </div>
-
     <aside class="rail">
       <div class="rail-card rv">
         <h4>交不出来会怎样</h4>
         <ul>
           <li><i></i>第一个月没达标，不会立刻结束</li>
-          <li><i></i>我们会问一次「还继续吗」，你说继续就再给一个月</li>
+          <li><i></i>会问一次「还继续吗」，你说继续就再给一个月</li>
           <li><i></i>连续两个月没动静，合作结束，不影响任何记录</li>
         </ul>
       </div>
@@ -609,33 +674,60 @@ html.anim .rv.d3.in{transition-delay:.24s}
         <h4>会给你什么支持</h4>
         <ul>
           <li><i></i>现成的宣传文案与海报模板，改字就能用</li>
-          <li><i></i>产品功能随时答疑，需要什么数据可以去要</li>
+          <li><i></i>产品功能随时答疑，需要数据可以去要</li>
           <li><i></i>需要经费的线下活动，提前申请后由主理人承担</li>
         </ul>
       </div>
-      <a class="teaser rv d2" href="#flow"><span class="tk">接下来</span><span class="tt">从投递到录用的六步</span><span class="ta">→</span></a>
+      <a class="teaser rv d2" href="#grow"><span class="tk">接下来</span><span class="tt">你会得到什么训练</span><span class="ta">→</span></a>
     </aside>
   </div>
 </section>
 
-<!-- ══════════════════ 陆 · 流程 ══════════════════ -->
-<section class="sec" id="flow">
-  <div class="wrap eg">
-    <div>
-      <div class="eyebrow rv">陆 · 流程</div>
-      <h2 class="rv">从投递到录用，一共六步</h2>
-      <p class="lede rv d1">整个流程通常在两周内走完。每一步都有明确的时间承诺，超期你可以直接催。</p>
-
-      <div class="tl rv d2" style="margin-top:30px">
-        <div class="tl-item"><div class="tm">第 1 步 · 随时</div><b>投递报名</b><p>填写本页底部的报名表（5 组 35 项），或者通过邮箱、QQ 群、腾讯问卷任一方式投递。</p></div>
-        <div class="tl-item"><div class="tm">第 2 步 · 3 天内</div><b>材料初审</b><p>主理人逐份看完，重点看开放题部分的回答。无论通过与否都会回复，不会让你干等。</p></div>
-        <div class="tl-item"><div class="tm">第 3 步 · 通过后 3 天内</div><b>线上面谈</b><p>十五到二十分钟，聊三件事：你想做什么、你能投入多少、提成档位怎么定。可以带家长一起听。</p></div>
-        <div class="tl-item"><div class="tm">第 4 步 · 面谈后 1 天内</div><b>确认意向</b><p>双方确认岗位、投入时长与提成比例，形成一份简短的书面记录，双方各留一份。</p></div>
-        <div class="tl-item done"><div class="tm">第 5 步 · 两周</div><b>试用期</b><p>做一件真实的小事：大使带回 5 位真实使用的新同学，设计做一张海报，运营写一篇短文。有明确标准，不靠感觉。</p></div>
-        <div class="tl-item done"><div class="tm">第 6 步 · 试用通过</div><b>正式加入</b><p>进入贡献者名单，开通对应权限，开始按第一个月的任务量执行并按月结算。</p></div>
+<section class="sec" id="grow">
+  <div class="wrap">
+    <div class="eyebrow rv">柒 · 你会得到什么培养</div>
+    <h2 class="rv">四个阶段，每一步都有人带着走</h2>
+    <p class="lede rv d1">这一块不写「提供广阔发展空间」这种话。下面四个阶段各有明确的内容与验收方式，走完你就具备独立产出的能力。</p>
+    <div class="grow rv d2" style="margin-top:30px">
+      <div class="grow-c px" data-px="0.06">
+        <div class="gn">01</div><h3>入门 · 第一周</h3>
+        <p>产品全貌、岗位边界、合规红线。会给你一份可复用的工具包：文案模板、海报模板、品牌配色与字体规范。</p>
+        <div class="gt">验收：能独立说清尚贤圈有哪几个功能</div>
+      </div>
+      <div class="grow-c px" data-px="0.06">
+        <div class="gn">02</div><h3>上手 · 第二到四周</h3>
+        <p>跟着做一件真实的事。每次交付都会给具体的修改意见，不是只说「再改改」。</p>
+        <div class="gt">验收：第一件作品能被直接采用</div>
+      </div>
+      <div class="grow-c px" data-px="0.06">
+        <div class="gn">03</div><h3>熟练 · 第二到三个月</h3>
+        <p>开始独立负责一个方向的产出节奏：大使带小队、设计建素材规范、运营定栏目。会教你判断什么内容值得做、什么不值得。</p>
+        <div class="gt">验收：能自己排出一个月的内容计划</div>
+      </div>
+      <div class="grow-c px" data-px="0.06">
+        <div class="gn">04</div><h3>带人 · 三个月后</h3>
+        <p>可以带新加入的同学：把你的方法整理成文档交给下一个人。这一步会写进你的参与证明里。</p>
+        <div class="gt">验收：带出至少 1 位能独立交付的新同学</div>
       </div>
     </div>
+  </div>
+</section>
 
+<section class="sec alt" id="flow">
+  <div class="wrap eg">
+    <div>
+      <div class="eyebrow rv">捌 · 流程</div>
+      <h2 class="rv">从投递到录用，一共六步</h2>
+      <p class="lede rv d1">通常两周内走完。每一步都有明确的时间承诺，超期你可以直接催。</p>
+      <div class="tl rv d2" style="margin-top:30px">
+        <div class="tl-item"><div class="tm">第 1 步 · 随时</div><b>投递报名</b><p>填写报名表（5 组 35 项，必填 14 项），或通过邮箱、腾讯问卷、QQ 群投递。提交后立刻拿到报名编号。</p></div>
+        <div class="tl-item"><div class="tm">第 2 步 · 3 天内</div><b>材料初审</b><p>逐份看完，重点看开放题与作品。无论通过与否都会回复，不会让你干等。</p></div>
+        <div class="tl-item"><div class="tm">第 3 步 · 通过后 3 天内</div><b>线上面谈</b><p>十五到二十分钟，聊三件事：你想做什么、能投入多少、提成档位怎么定。可以带家长一起听。</p></div>
+        <div class="tl-item"><div class="tm">第 4 步 · 面谈后 1 天内</div><b>确认意向</b><p>双方确认岗位、投入时长与提成比例，形成一份简短书面记录，双方各留一份。</p></div>
+        <div class="tl-item done"><div class="tm">第 5 步 · 两周</div><b>试用期</b><p>做一件真实的小事，标准提前告知，不靠感觉判断。</p></div>
+        <div class="tl-item done"><div class="tm">第 6 步 · 试用通过</div><b>正式加入</b><p>进入贡献者名单，开通对应权限，按第一个月的任务量执行并按月结算。</p></div>
+      </div>
+    </div>
     <aside class="rail">
       <div class="rail-card rv">
         <h4>时间承诺</h4>
@@ -646,38 +738,27 @@ html.anim .rv.d3.in{transition-delay:.24s}
           <li><i></i>全流程：通常两周内走完</li>
         </ul>
       </div>
-      <p class="rail-note rv d1">如果某个环节超过承诺时间没有动静，可以直接发邮件催，不会因此影响评价。</p>
+      <p class="rail-note rv d1">任何环节超期没有动静，都可以用报名编号去页面底部查进度，或直接发邮件催，不会因此影响评价。</p>
       <a class="teaser rv d2" href="#onboard"><span class="tk">接下来</span><span class="tt">录用之后怎么开始</span><span class="ta">→</span></a>
     </aside>
   </div>
 </section>
 
-<!-- ══════════════════ 柒 · 入职 ══════════════════ -->
 <section class="sec dark" id="onboard">
   <div class="wrap eg">
     <div>
-      <div class="eyebrow rv">柒 · 入职</div>
+      <div class="eyebrow rv">玖 · 入职</div>
       <h2 class="rv">录用之后，你会经历这几件事</h2>
       <p class="lede rv d1">很多招新到「恭喜入选」就结束了，新人不知道下一步干嘛。这一节写清楚入职前七天你会拿到什么、要做什么。</p>
-
       <div class="tl rv d2" style="margin-top:30px">
-        <div class="tl-item"><div class="tm">第 0 天</div><b>收到录用通知与岗位确认单</b><p>包含你的岗位、投入时长、提成比例、对接人联系方式，以及第一个月的任务清单。</p></div>
-        <div class="tl-item"><div class="tm">第 1 天</div><b>加入工作群，领取工具包</b><p>工作群只聊正事。工具包里有：统一文案模板、海报模板、品牌配色与字体规范、常见问题应答口径。</p></div>
-        <div class="tl-item"><div class="tm">第 2 天</div><b>二十分钟入职说明</b><p>线上过一遍：产品有哪些功能、面向哪些同学、哪些话不能说（合规与未成年人相关）。你有疑问当场问完。</p></div>
-        <div class="tl-item"><div class="tm">第 3 天</div><b>开通需要的东西</b><p>校园大使不需要账号权限；设计与运营会开通素材库与内容后台的只读或编辑权限。所有权限都限本人使用，不得转借。</p></div>
-        <div class="tl-item"><div class="tm">第 3–7 天</div><b>第一件小事</b><p>任务很小但必须完成：大使找 5 位同学试用并记录反馈；设计做一张招新海报；运营写一段 200 字的功能介绍。做完发到群里，会给具体修改意见。</p></div>
-        <div class="tl-item done"><div class="tm">第 14 天</div><b>试用评估</b><p>对照岗位任务逐项核对，达标就转正进入常态执行；没达标会说明原因，可以选择再试两周或结束，都不影响后续再次报名。</p></div>
-      </div>
-
-      <div class="nodes rv" style="background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.13)">
-        <div class="nd-ic">7</div>
-        <div>
-          <b style="color:#fff">入职不是走过场</b>
-          <p style="color:#b8af9b">上面六件事按天写死了。任何一件没有按时给你，你都可以直接问对接人要——这是我们的责任，不是你的麻烦。</p>
-        </div>
+        <div class="tl-item"><div class="tm">第 0 天</div><b>收到录用通知与岗位确认单</b><p>包含岗位、投入时长、提成比例、对接人联系方式，以及第一个月的任务清单。</p></div>
+        <div class="tl-item"><div class="tm">第 1 天</div><b>加入工作群，领取工具包</b><p>工作群只聊正事。工具包里有统一文案模板、海报模板、品牌配色与字体规范、常见问题应答口径。</p></div>
+        <div class="tl-item"><div class="tm">第 2 天</div><b>二十分钟入职说明</b><p>线上过一遍：产品有哪些功能、面向哪些同学、哪些话不能说（合规与未成年人相关）。疑问当场问完。</p></div>
+        <div class="tl-item"><div class="tm">第 3 天</div><b>开通需要的东西</b><p>校园大使不需要账号权限；设计与运营会开通素材库与内容后台的只读或编辑权限。权限限本人使用，不得转借。</p></div>
+        <div class="tl-item"><div class="tm">第 3–7 天</div><b>第一件小事</b><p>任务很小但必须完成：大使找 5 位同学试用并记录反馈；设计做一张招新海报；运营写一段两百字的功能介绍。做完发到群里，会给具体修改意见。</p></div>
+        <div class="tl-item done"><div class="tm">第 14 天</div><b>试用评估</b><p>对照任务逐项核对，达标就转正；没达标会说明原因，可以选择再试两周或结束，都不影响后续再次报名。</p></div>
       </div>
     </div>
-
     <aside class="rail">
       <div class="rail-card rv">
         <h4>入职你会拿到</h4>
@@ -694,184 +775,90 @@ html.anim .rv.d3.in{transition-delay:.24s}
         <h4>离职也同样清楚</h4>
         <ul>
           <li><i></i>提前说一声即可，不需要理由</li>
-          <li><i></i>当月的提成照常结算</li>
+          <li><i></i>当月提成照常结算</li>
           <li><i></i>交回借用的素材与权限</li>
         </ul>
       </div>
-      <a class="teaser rv d2" href="#faq"><span class="tk">接下来</span><span class="tt">几个常被问到的问题</span><span class="ta">→</span></a>
+      <a class="teaser rv d2" href="#voices"><span class="tk">接下来</span><span class="tt">已经加入的人怎么说</span><span class="ta">→</span></a>
     </aside>
   </div>
 </section>
 
-<!-- ══════════════════ 答疑 ══════════════════ -->
-<section class="sec" id="faq">
+<section class="sec" id="voices">
+  <div class="wrap">
+    <div class="eyebrow rv">拾 · 已加入的人怎么说</div>
+    <h2 class="rv">他们正在做的事</h2>
+    <p class="lede rv d1">下面每个人的名字与岗位都经过本人同意才放上来。</p>
+    <div class="voices rv d2" style="margin-top:28px">
+      <div class="voice px" data-px="0.05">
+        <p>进来之前以为要开很多会，结果第一周就让我直接做了一张招新海报，改了三版就挂出去了。看到自己做的图贴在教学楼下，挺爽的。</p>
+        <div class="who"><div class="ava">栗</div><div><b>栗子</b><span>设计 · 2026 年 9 月加入</span></div></div>
+      </div>
+      <div class="voice px" data-px="0.05">
+        <p>最有意思的是去问同学「哪里不好用」。问了二十多个人，收到的吐槽里有一半是我们自己没想到的，那些后来真的被改了。</p>
+        <div class="who"><div class="ava">舟</div><div><b>小舟</b><span>校园大使 · 2026 年 9 月加入</span></div></div>
+      </div>
+      <div class="voice px" data-px="0.05">
+        <p>写月刊之前我一直觉得自己文笔一般。后来发现写的规则解读被新同学拿去当攻略用，才知道「说清楚」比「写得漂亮」重要得多。</p>
+        <div class="who"><div class="ava">岑</div><div><b>岑岑</b><span>运营 / 内容 · 2026 年 9 月加入</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="faq">
   <div class="wrap eg">
     <div>
       <div class="eyebrow rv">答疑</div>
       <h2 class="rv">几个实在的问题</h2>
       <div class="faq rv d1" style="margin-top:24px">
-        <details open><summary>会影响学习吗？</summary><p>会占用时间，任何额外的事都会。所以每周投入压在 2–5 小时，并且明确写了学业优先。月考成绩掉了，直接说一声先停下，不会有任何惩罚，也不会影响已产生的提成。</p></details>
+        <details open><summary>会影响学习吗？</summary><p>会占用时间，任何额外的事都会。所以每周投入压在 2–5 小时，并且明确写了学业优先。月考成绩掉了，直接说一声先停下，不会有任何惩罚，也不影响已产生的提成。</p></details>
         <details><summary>要交钱吗？</summary><p>一分都不用。没有报名费、押金、培训费、材料费、软件授权费。谁让你交钱谁就是骗子，请发邮件向官方核实。</p></details>
-        <details><summary>到底能拿多少钱？</summary><p>本页不写具体数字，因为提成档位需要按岗位和产出方式在面谈时确认，而且会随项目当月收入浮动，写死了反而不负责任。能保证的是：规则透明、按月结算、不拖欠、不画饼。如果你需要的是稳定的月收入，这里不合适。</p></details>
-        <details><summary>做不好会被怎么样？</summary><p>没有产出就没有那个月的提成，仅此而已。没有违约金，也不会被公开批评。连续两个月没有动静，我们会问一次是否继续，你说停就结束。</p></details>
-        <details><summary>能不能同时报两个方向？</summary><p>可以。报名表里有第一志愿和第二志愿两栏，面谈时会一起确认。不过建议先专注一个方向，熟练之后再扩展。</p></details>
+        <details><summary>到底能拿多少钱？</summary><p>本页不写具体数字，因为提成档位需要按岗位和产出方式在面谈时确认，而且会随项目当月收入浮动，写死了反而不负责任。能保证的是：规则透明、按月结算、不拖欠、不画饼。如果你需要稳定的月收入，这里不合适。</p></details>
+        <details><summary>做不好会被怎么样？</summary><p>没有产出就没有那个月的提成，仅此而已。没有违约金，也不会被公开批评。连续两个月没有动静，会问一次是否继续，你说停就结束。</p></details>
+        <details><summary>能不能同时报两个方向？</summary><p>可以。报名表里有第一志愿和第二志愿两栏，面谈时会一起确认。建议先专注一个方向，熟练之后再扩展。</p></details>
         <details><summary>家长不同意怎么办？</summary><p>可以先让家长知道这件事，或者让家长一起参加面谈。如果家长仍然不同意，我们尊重这个决定，不会劝你违背家长意愿。</p></details>
         <details><summary>为什么管理岗不在这里招？</summary><p>尚贤圈的会员权益、管理员权限和月度选举是<b>完全隔离</b>的三套体系：花钱买不到管理权，参与运营也不换管理权。管理员由站内选举产生，与本次招聘无关。</p></details>
-        <details><summary>报名后多久有回复？</summary><p>初审 3 个工作日内一定回复，无论通过与否。全流程通常两周内走完。</p></details>
+        <details><summary>报名后多久有回复？怎么查进度？</summary><p>初审 3 个工作日内一定回复。提交后会拿到一个报名编号（形如 SXQ-2026-0001），在页面底部「查进度」里输编号加手机号，随时能看到当前状态。</p></details>
       </div>
     </div>
-
     <aside class="rail">
       <div class="rail-card rv">
         <h4>还有别的问题</h4>
         <ul>
-          <li><i></i>邮箱：sxcommunity@outlook.com</li>
-          <li><i></i>邮件标题写「招贤纳士咨询」，正文写清你的问题</li>
+          <li><i></i>邮箱：<a id="mailA" href="#" style="color:var(--cinnabar);font-weight:800">联系我们</a></li>
+          <li><i></i>邮件标题写「招贤纳士咨询」，正文写清问题</li>
           <li><i></i>一般 3 个工作日内回复</li>
         </ul>
       </div>
-      <p class="rail-note rv d1">如果表单提交不了，或者你不确定某个岗位适不适合自己，直接发邮件问，不用先报名。</p>
-      <a class="teaser rv d2" href="#apply"><span class="tk">最后</span><span class="tt">填写报名表</span><span class="ta">→</span></a>
+      <p class="rail-note rv d1">如果表单提交不了，或不确定某个岗位适不适合自己，直接发邮件问，不用先报名。</p>
+      <a class="teaser rv d2" href="#apply"><span class="tk">最后</span><span class="tt">填写报名表 / 查进度</span><span class="ta">→</span></a>
     </aside>
   </div>
 </section>
 
-<!-- ══════════════════ 捌 · 报名 ══════════════════ -->
-<section class="sec alt" id="apply">
+<section class="sec" id="apply">
   <div class="wrap">
-    <div class="eyebrow rv">捌 · 报名</div>
+    <div class="eyebrow rv">拾壹 · 报名</div>
     <h2 class="rv">四个入口，挑一个顺手的</h2>
-    <p class="lede rv d1">站内表单信息最全，推荐用这个；其他三个入口效果一样，只是我们可能需要再问你要几项信息。</p>
-
+    <p class="lede rv d1">站内表单过程最短（弹窗分五步，35 项里必填 14 项），推荐用这个；其他三个入口效果一样。</p>
     <div class="ways rv d2">
-      <a class="way pri" href="#form"><b>① 站内报名表</b><span>就在下面，5 组 35 项，推荐</span></a>
-      <a class="way" href="mailto:sxcommunity@outlook.com?subject=%E6%8B%9B%E8%B4%A4%E7%BA%B3%E5%A3%AB%E6%8A%A5%E5%90%8D&body=%E8%AF%B7%E4%BE%9D%E6%AC%A1%E5%A1%AB%E5%86%99%EF%BC%9A%0A%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%EF%BC%88%E5%A7%93%E5%90%8D%E3%80%81%E5%B9%B4%E7%BA%A7%E7%8F%AD%E7%BA%A7%E3%80%81%E6%98%AF%E5%90%A6%E4%BD%8F%E6%A0%A1%EF%BC%89%0A%E4%BA%8C%E3%80%81%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%EF%BC%88%E6%89%8B%E6%9C%BA%E3%80%81QQ%E3%80%81%E5%BE%AE%E4%BF%A1%E3%80%81%E7%9B%91%E6%8A%A4%E4%BA%BA%E7%94%B5%E8%AF%9D%EF%BC%89%0A%E4%B8%89%E3%80%81%E5%BA%94%E8%81%98%E6%84%8F%E5%90%91%EF%BC%88%E5%B2%97%E4%BD%8D%E3%80%81%E6%AF%8F%E5%91%A8%E6%97%B6%E9%97%B4%E3%80%81%E5%8F%AF%E7%94%A8%E6%97%B6%E6%AE%B5%EF%BC%89%0A%E5%9B%9B%E3%80%81%E7%BB%8F%E5%8E%86%E4%B8%8E%E8%83%BD%E5%8A%9B%EF%BC%88%E7%A4%BE%E5%9B%A2%E7%BB%8F%E5%8E%86%E3%80%81%E4%BC%9A%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E3%80%81%E4%BD%9C%E5%93%81%E9%93%BE%E6%8E%A5%EF%BC%89%0A%E4%BA%94%E3%80%81%E5%BC%80%E6%94%BE%E9%A2%98%EF%BC%88%E4%B8%BA%E4%BB%80%E4%B9%88%E6%83%B3%E5%8A%A0%E5%85%A5%E3%80%81%E4%BD%A0%E6%9C%80%E9%80%82%E5%90%88%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%89"><b>② 邮箱投递</b><span>sxcommunity@outlook.com<br>已预填标题与提纲</span></a>
+      <button class="way pri" data-open-form><b>① 站内报名表</b><span>弹窗分五步，必填 14 项<br>提交即得报名编号</span></button>
+      <a class="way" id="mailWay" href="#"><b>② 邮箱投递</b><span>已预填标题与五组提纲<br>适合想附作品的</span></a>
       <a class="way" id="tqWay" href="#" target="_blank" rel="noopener"><b>③ 腾讯问卷</b><span id="tqText">点这里打开问卷</span></a>
       <a class="way" href="../#contact"><b>④ QQ 交流群</b><span>群号见官网页脚<br>进群后私聊主理人</span></a>
     </div>
 
-    <form id="form" novalidate>
-      <!-- ═══ 组一 ═══ -->
-      <fieldset>
-        <legend><i>壹</i>基本信息</legend>
-        <div class="fgrid c2">
-          <div class="fld"><label for="f-realName">真实姓名 <em>*</em></label><input id="f-realName" name="realName" type="text" maxlength="20" placeholder="用于确认身份" /></div>
-          <div class="fld"><label for="f-nickname">常用称呼 <span class="hint">（平时怎么称呼你）</span></label><input id="f-nickname" name="nickname" type="text" maxlength="20" placeholder="同学怎么叫你" /></div>
-          <div class="fld"><label for="f-gender">性别 <span class="hint">（选填）</span></label>
-            <select id="f-gender" name="gender"><option value="">不填</option><option value="男">男</option><option value="女">女</option></select></div>
-          <div class="fld"><label for="f-birth">出生年月 <span class="hint">（选填）</span></label><input id="f-birth" name="birth" type="month" /></div>
-          <div class="fld"><label for="f-grade">年级 <em>*</em></label>
-            <select id="f-grade" name="grade"><option value="">请选择</option><option>初一</option><option>初二</option><option>初三</option><option>高一</option><option>高二</option><option>高三</option></select></div>
-          <div class="fld"><label for="f-className">班级 <em>*</em></label><input id="f-className" name="className" type="text" maxlength="20" placeholder="例如：高二 3 班" /></div>
-          <div class="fld"><label for="f-studentNo">学号 / 校园卡号 <span class="hint">（选填）</span></label><input id="f-studentNo" name="studentNo" type="text" maxlength="24" placeholder="没有可不填" /></div>
-          <div class="fld"><label for="f-boarding">是否住校</label>
-            <select id="f-boarding" name="boarding"><option value="">请选择</option><option>走读</option><option>住校</option></select></div>
-        </div>
-      </fieldset>
-
-      <!-- ═══ 组二 ═══ -->
-      <fieldset>
-        <legend><i>贰</i>联系方式</legend>
-        <div class="fgrid c2">
-          <div class="fld"><label for="f-phone">手机号 <em>*</em></label><input id="f-phone" name="phone" type="tel" maxlength="11" placeholder="11 位手机号" /></div>
-          <div class="fld"><label for="f-qq">QQ 号</label><input id="f-qq" name="qq" type="text" maxlength="15" placeholder="常用 QQ" /></div>
-          <div class="fld"><label for="f-wechat">微信号</label><input id="f-wechat" name="wechat" type="text" maxlength="30" placeholder="没有可不填" /></div>
-          <div class="fld"><label for="f-email">常用邮箱</label><input id="f-email" name="email" type="email" maxlength="60" placeholder="用于接收书面确认单" /></div>
-          <div class="fld"><label for="f-guardianPhone">监护人联系方式 <em>*</em> <span class="hint">（未满 18 周岁需填写）</span></label><input id="f-guardianPhone" name="guardianPhone" type="tel" maxlength="20" placeholder="家长手机号" /></div>
-          <div class="fld"><label for="f-guardianAgreed">是否已获得监护人同意 <em>*</em></label>
-            <select id="f-guardianAgreed" name="guardianAgreed"><option value="">请选择</option><option>已获得同意</option><option>需要一起沟通</option><option>暂未告知家长</option></select></div>
-        </div>
-      </fieldset>
-
-      <!-- ═══ 组三 ═══ -->
-      <fieldset>
-        <legend><i>叁</i>应聘意向</legend>
-        <div class="fgrid c2">
-          <div class="fld"><label for="f-role1">第一志愿 <em>*</em></label>
-            <select id="f-role1" name="role1"><option value="">请选择</option><option value="ambassador">校园大使</option><option value="design">设计</option><option value="content">运营 / 内容</option></select></div>
-          <div class="fld"><label for="f-role2">第二志愿 <span class="hint">（选填）</span></label>
-            <select id="f-role2" name="role2"><option value="">不填</option><option value="ambassador">校园大使</option><option value="design">设计</option><option value="content">运营 / 内容</option></select></div>
-          <div class="fld"><label for="f-hours">每周可投入时长 <em>*</em></label>
-            <select id="f-hours" name="hoursPerWeek"><option value="">请选择</option><option>2–3 小时</option><option>3–5 小时</option><option>5–8 小时</option><option>8 小时以上</option></select></div>
-          <div class="fld"><label for="f-start">期望开始时间</label>
-            <select id="f-start" name="startTime"><option value="">尽快</option><option>一周内</option><option>两周内</option><option>月考之后再开始</option></select></div>
-          <div class="fld full"><label>可工作的时间段 <span class="hint">（可多选）</span></label>
-            <div class="opts">
-              <label class="opt"><input type="checkbox" name="slots" value="工作日午休" />工作日午休</label>
-              <label class="opt"><input type="checkbox" name="slots" value="放学后" />放学后</label>
-              <label class="opt"><input type="checkbox" name="slots" value="周末白天" />周末白天</label>
-              <label class="opt"><input type="checkbox" name="slots" value="周末晚上" />周末晚上</label>
-              <label class="opt"><input type="checkbox" name="slots" value="随时可联系" />随时可联系</label>
-            </div>
-          </div>
-          <div class="fld full"><label for="f-acceptTrial">是否接受两周试用期 <em>*</em></label>
-            <select id="f-acceptTrial" name="acceptTrial"><option value="">请选择</option><option>接受</option><option>需要考虑</option></select></div>
-        </div>
-      </fieldset>
-
-      <!-- ═══ 组四 ═══ -->
-      <fieldset>
-        <legend><i>肆</i>经历与能力</legend>
-        <div class="fgrid c2">
-          <div class="fld"><label for="f-hasLeaderRole">是否担任过班干部或社团职务</label>
-            <select id="f-hasLeaderRole" name="hasLeaderRole"><option value="">请选择</option><option>是</option><option>否</option></select></div>
-          <div class="fld"><label for="f-leaderDetail">如是，请填写职务与主要做过的事</label><input id="f-leaderDetail" name="leaderDetail" type="text" maxlength="80" placeholder="例如：班级宣传委员，负责板报与活动通知" /></div>
-          <div class="fld full"><label>会用哪些工具 <span class="hint">（可多选，不会也没关系）</span></label>
-            <div class="opts">
-              <label class="opt"><input type="checkbox" name="tools" value="稿定设计" />稿定设计</label>
-              <label class="opt"><input type="checkbox" name="tools" value="Canva" />Canva</label>
-              <label class="opt"><input type="checkbox" name="tools" value="Photoshop" />Photoshop</label>
-              <label class="opt"><input type="checkbox" name="tools" value="Illustrator" />Illustrator</label>
-              <label class="opt"><input type="checkbox" name="tools" value="剪映" />剪映</label>
-              <label class="opt"><input type="checkbox" name="tools" value="醒图" />醒图</label>
-              <label class="opt"><input type="checkbox" name="tools" value="WPS" />WPS</label>
-              <label class="opt"><input type="checkbox" name="tools" value="都不会" />都不会，愿意学</label>
-            </div>
-          </div>
-          <div class="fld"><label for="f-contentExp">有没有内容创作或运营的经验</label>
-            <select id="f-contentExp" name="contentExp"><option value="">请选择</option><option>没有，第一次尝试</option><option>有，写过公众号或做过账号</option><option>有，做过班级或社团宣传</option><option>有，其他形式</option></select></div>
-          <div class="fld"><label for="f-contentExpDetail">如是，简述做过什么</label><input id="f-contentExpDetail" name="contentExpDetail" type="text" maxlength="100" placeholder="做过什么、大概什么效果" /></div>
-          <div class="fld"><label for="f-portfolio">作品链接 <span class="hint">（选填）</span></label><input id="f-portfolio" name="portfolio" type="url" maxlength="200" placeholder="网盘 / 图床 / 笔记链接都可以" /></div>
-          <div class="fld"><label for="f-source">从哪里知道这次招新 <em>*</em></label>
-            <select id="f-source" name="source"><option value="">请选择</option><option>同学介绍</option><option>班级群</option><option>校园海报</option><option>官网页脚</option><option>贤圈中心</option><option>腾讯问卷</option><option>其他</option></select></div>
-          <div class="fld full"><label>平时能用的设备 <span class="hint">（可多选）</span></label>
-            <div class="opts">
-              <label class="opt"><input type="checkbox" name="devices" value="手机" />手机</label>
-              <label class="opt"><input type="checkbox" name="devices" value="电脑" />电脑</label>
-              <label class="opt"><input type="checkbox" name="devices" value="平板" />平板</label>
-            </div>
-          </div>
-          <div class="fld full"><label for="f-languages">语言能力 <span class="hint">（选填，例如普通话、桂林话、英语）</span></label><input id="f-languages" name="languages" type="text" maxlength="60" placeholder="会什么写什么" /></div>
-        </div>
-      </fieldset>
-
-      <!-- ═══ 组五 ═══ -->
-      <fieldset>
-        <legend><i>伍</i>开放题与承诺</legend>
-        <div class="fgrid">
-          <div class="fld full"><label for="f-whyJoin">为什么想加入 <em>*</em> <span class="hint">（不少于 80 字）</span></label><textarea id="f-whyJoin" name="whyJoin" maxlength="800" placeholder="不用写得漂亮，写你真实的想法就行。可以写你想做什么、为什么是尚贤圈。"></textarea></div>
-          <div class="fld full"><label for="f-bestFit">你觉得自己最适合做什么 <em>*</em> <span class="hint">（不少于 50 字）</span></label><textarea id="f-bestFit" name="bestFit" maxlength="600" placeholder="结合你上面的经历说说，具体一点更好。"></textarea></div>
-          <div class="fld full"><label for="f-noOutputPlan">如果一个月没有产出，你会怎么做 <span class="hint">（选填，不少于 30 字）</span></label><textarea id="f-noOutputPlan" name="noOutputPlan" maxlength="400" placeholder="这道题没有标准答案，我们想看你的真实反应。"></textarea></div>
-          <div class="fld full"><label for="f-suggestions">对尚贤圈现有功能的建议 <span class="hint">（选填）</span></label><textarea id="f-suggestions" name="suggestions" maxlength="600" placeholder="哪里不好用、缺什么功能，吐槽也欢迎。"></textarea></div>
-        </div>
-        <div class="fgrid" style="margin-top:18px">
-          <label class="check"><input type="checkbox" id="f-agreeRules" name="agreeRules" /><span>我已阅读并认同「要求与底线」中的全部条款，特别是六条红线，并愿意遵守。</span></label>
-          <label class="check"><input type="checkbox" id="f-confirmTruth" name="confirmTruth" /><span>我确认以上信息真实有效；如未满 18 周岁，已获得监护人知情与同意。</span></label>
-        </div>
-        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      </fieldset>
-
-      <div class="msg" id="msg"></div>
-      <button class="btn btn-p" type="submit" id="submit" style="width:100%">提交报名表</button>
-      <p class="note">提交后我们会用你留的联系方式在 3 个工作日内回复。你填写的信息只用于本次招募，不用于其他用途，也不会提供给第三方。想撤回已提交的信息，发邮件到页脚邮箱即可，我们会立即删除。</p>
-    </form>
-
-    <div class="fall" id="fall" hidden>
-      <b>站内提交暂时不可用</b>
-      <p>别急，下面三种方式效果完全一样，任选一种：<br>
-        · <b>邮箱</b>：<a href="mailto:sxcommunity@outlook.com?subject=%E6%8B%9B%E8%B4%A4%E7%BA%B3%E5%A3%AB%E6%8A%A5%E5%90%8D" style="color:var(--cinnabar);font-weight:700">sxcommunity@outlook.com</a>，标题写「招贤纳士报名」，正文按上面五组依次填写<br>
-        · <b>腾讯问卷</b>：点上面第三个入口<br>
-        · <b>QQ 群</b>：群号见官网页脚，进群后私聊主理人</p>
+    <div class="fall rv d3">
+      <b>已经提交过了？查一下进度</b>
+      <p style="margin-bottom:14px">输入报名编号和当时填的手机号，能看到当前状态（初审中 / 待面谈 / 已通过 / 未通过）。</p>
+      <div class="fgrid c2" style="margin-bottom:14px">
+        <div class="fld"><label for="q-code">报名编号</label><input id="q-code" type="text" maxlength="24" placeholder="例如 SXQ-2026-0001" /></div>
+        <div class="fld"><label for="q-phone">报名时填的手机号</label><input id="q-phone" type="tel" maxlength="11" placeholder="11 位手机号" /></div>
+      </div>
+      <div class="msg" id="qmsg" style="text-align:left"></div>
+      <button class="btn btn-g" id="qbtn" style="width:100%">查询进度</button>
+      <div id="qres" style="margin-top:14px"></div>
     </div>
   </div>
 </section>
@@ -882,37 +869,176 @@ html.anim .rv.d3.in{transition-delay:.24s}
       <a href="../">返回官网</a><a href="https://sxcommunity.github.io/xq-center/" target="_blank" rel="noopener">贤圈中心</a>
       <a href="https://sxcommunity.github.io/sxq-pwa/" target="_blank" rel="noopener">App 网页版</a>
       <a href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">爱发电</a>
-      <a href="mailto:sxcommunity@outlook.com">联系我们</a>
+      <a id="mailF" href="#">联系我们</a>
     </div>
     <div class="cp">© 尚贤圈 · 桂林市尚贤学校校园社区 · 由 Kernthal Studio 开发维护</div>
   </div>
 </footer>
 
+<div class="mask" id="mask">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="报名表">
+    <div class="m-head">
+      <h3>报名表</h3>
+      <div id="draftTip" style="font-size:13px;color:var(--muted);font-weight:500"></div>
+      <button class="m-x" id="mClose" aria-label="关闭">×</button>
+    </div>
+    <div class="m-bar" id="mBar">
+      <div class="on">1 · 基本信息</div><div>2 · 联系方式</div><div>3 · 应聘意向</div><div>4 · 经历与能力</div><div>5 · 开放题</div>
+    </div>
+    <div class="m-body" id="mBody">
+      <form id="form" novalidate>
+        <div class="step on" data-step="1">
+          <div class="sec-tag">壹 · 基本信息</div>
+          <div class="hintbar">必填项只有带 <em style="color:var(--cinnabar);font-style:normal">*</em> 的。其余都可以空着，不填不影响初审。</div>
+          <div class="fgrid c2">
+            <div class="fld"><label for="f-realName">真实姓名 <em>*</em></label><input id="f-realName" name="realName" type="text" maxlength="20" placeholder="用于确认身份" /></div>
+            <div class="fld"><label for="f-nickname">常用称呼 <span class="hint">（选填）</span></label><input id="f-nickname" name="nickname" type="text" maxlength="20" placeholder="同学怎么叫你" /></div>
+            <div class="fld"><label for="f-grade">年级 <em>*</em></label>
+              <select id="f-grade" name="grade"><option value="">请选择</option><option>初一</option><option>初二</option><option>初三</option><option>高一</option><option>高二</option><option>高三</option></select></div>
+            <div class="fld"><label for="f-className">班级 <em>*</em></label><input id="f-className" name="className" type="text" maxlength="20" placeholder="例如：高二 3 班" /></div>
+            <div class="fld"><label for="f-gender">性别 <span class="hint">（选填）</span></label>
+              <select id="f-gender" name="gender"><option value="">不填</option><option>男</option><option>女</option></select></div>
+            <div class="fld"><label for="f-birth">出生年月 <span class="hint">（选填）</span></label><input id="f-birth" name="birth" type="month" /></div>
+            <div class="fld"><label for="f-studentNo">学号 / 校园卡号 <span class="hint">（选填）</span></label><input id="f-studentNo" name="studentNo" type="text" maxlength="24" placeholder="没有可不填" /></div>
+            <div class="fld"><label for="f-boarding">是否住校 <span class="hint">（选填）</span></label>
+              <select id="f-boarding" name="boarding"><option value="">不填</option><option>走读</option><option>住校</option></select></div>
+          </div>
+        </div>
+
+        <div class="step" data-step="2">
+          <div class="sec-tag">贰 · 联系方式</div>
+          <div class="hintbar">手机号用于面谈联系与查进度，必须真实。监护人一栏未满 18 周岁必填。</div>
+          <div class="fgrid c2">
+            <div class="fld"><label for="f-phone">手机号 <em>*</em></label><input id="f-phone" name="phone" type="tel" maxlength="11" placeholder="11 位手机号" /></div>
+            <div class="fld"><label for="f-guardianPhone">监护人联系方式 <em>*</em></label><input id="f-guardianPhone" name="guardianPhone" type="tel" maxlength="20" placeholder="家长手机号" /></div>
+            <div class="fld"><label for="f-guardianAgreed">是否已获得监护人同意 <em>*</em></label>
+              <select id="f-guardianAgreed" name="guardianAgreed"><option value="">请选择</option><option>已获得同意</option><option>需要一起沟通</option><option>暂未告知家长</option></select></div>
+            <div class="fld"><label for="f-qq">QQ 号 <span class="hint">（选填）</span></label><input id="f-qq" name="qq" type="text" maxlength="15" placeholder="常用 QQ" /></div>
+            <div class="fld"><label for="f-wechat">微信号 <span class="hint">（选填）</span></label><input id="f-wechat" name="wechat" type="text" maxlength="30" placeholder="没有可不填" /></div>
+            <div class="fld"><label for="f-email">常用邮箱 <span class="hint">（选填）</span></label><input id="f-email" name="email" type="email" maxlength="60" placeholder="用于接收书面确认单" /></div>
+          </div>
+        </div>
+
+        <div class="step" data-step="3">
+          <div class="sec-tag">叁 · 应聘意向</div>
+          <div class="hintbar">第一志愿必选。第二志愿可留空，也可以和第一志愿不同。</div>
+          <div class="fgrid c2">
+            <div class="fld"><label for="f-role1">第一志愿 <em>*</em></label>
+              <select id="f-role1" name="role1"><option value="">请选择</option><option value="ambassador">校园大使</option><option value="design">设计</option><option value="content">运营 / 内容</option></select></div>
+            <div class="fld"><label for="f-role2">第二志愿 <span class="hint">（选填）</span></label>
+              <select id="f-role2" name="role2"><option value="">不填</option><option value="ambassador">校园大使</option><option value="design">设计</option><option value="content">运营 / 内容</option></select></div>
+            <div class="fld"><label for="f-hours">每周可投入时长 <em>*</em></label>
+              <select id="f-hours" name="hoursPerWeek"><option value="">请选择</option><option>2–3 小时</option><option>3–5 小时</option><option>5–8 小时</option><option>8 小时以上</option></select></div>
+            <div class="fld"><label for="f-acceptTrial">是否接受两周试用期 <em>*</em></label>
+              <select id="f-acceptTrial" name="acceptTrial"><option value="">请选择</option><option>接受</option><option>需要考虑</option></select></div>
+            <div class="fld full"><label>可工作的时间段 <span class="hint">（可多选）</span></label>
+              <div class="opts">
+                <label class="opt"><input type="checkbox" name="slots" value="工作日午休" />工作日午休</label>
+                <label class="opt"><input type="checkbox" name="slots" value="放学后" />放学后</label>
+                <label class="opt"><input type="checkbox" name="slots" value="周末白天" />周末白天</label>
+                <label class="opt"><input type="checkbox" name="slots" value="周末晚上" />周末晚上</label>
+                <label class="opt"><input type="checkbox" name="slots" value="随时可联系" />随时可联系</label>
+              </div>
+            </div>
+            <div class="fld full"><label for="f-start">期望开始时间 <span class="hint">（选填）</span></label>
+              <select id="f-start" name="startTime"><option value="">尽快</option><option>一周内</option><option>两周内</option><option>月考之后再开始</option></select></div>
+          </div>
+        </div>
+
+        <div class="step" data-step="4">
+          <div class="sec-tag">肆 · 经历与能力</div>
+          <div class="hintbar">这一组全部选填。<b>走特招通道</b>的同学请把作品链接填在下面，并在下一步第一句注明。</div>
+          <div class="fgrid c2">
+            <div class="fld full"><label for="f-portfolio">作品链接 <span class="hint">（选填，特招通道必填）</span></label><input id="f-portfolio" name="portfolio" type="url" maxlength="200" placeholder="网盘 / 图床 / 笔记 / 视频链接都可以" /></div>
+            <div class="fld"><label for="f-hasLeaderRole">是否担任过班干部或社团职务</label>
+              <select id="f-hasLeaderRole" name="hasLeaderRole"><option value="">不填</option><option>是</option><option>否</option></select></div>
+            <div class="fld"><label for="f-leaderDetail">如是，请填写职务与做过的事</label><input id="f-leaderDetail" name="leaderDetail" type="text" maxlength="80" placeholder="例如：班级宣传委员，负责板报与通知" /></div>
+            <div class="fld full"><label>会用哪些工具 <span class="hint">（可多选，不会也没关系）</span></label>
+              <div class="opts">
+                <label class="opt"><input type="checkbox" name="tools" value="稿定设计" />稿定设计</label>
+                <label class="opt"><input type="checkbox" name="tools" value="Canva" />Canva</label>
+                <label class="opt"><input type="checkbox" name="tools" value="Photoshop" />Photoshop</label>
+                <label class="opt"><input type="checkbox" name="tools" value="Illustrator" />Illustrator</label>
+                <label class="opt"><input type="checkbox" name="tools" value="剪映" />剪映</label>
+                <label class="opt"><input type="checkbox" name="tools" value="醒图" />醒图</label>
+                <label class="opt"><input type="checkbox" name="tools" value="WPS" />WPS</label>
+                <label class="opt"><input type="checkbox" name="tools" value="都不会" />都不会，愿意学</label>
+              </div>
+            </div>
+            <div class="fld"><label for="f-contentExp">有没有内容创作或运营经验</label>
+              <select id="f-contentExp" name="contentExp"><option value="">不填</option><option>没有，第一次尝试</option><option>有，写过公众号或做过账号</option><option>有，做过班级或社团宣传</option><option>有，其他形式</option></select></div>
+            <div class="fld"><label for="f-contentExpDetail">如是，简述做过什么</label><input id="f-contentExpDetail" name="contentExpDetail" type="text" maxlength="100" placeholder="做过什么、大概什么效果" /></div>
+            <div class="fld"><label for="f-source">从哪里知道这次招新 <em>*</em></label>
+              <select id="f-source" name="source"><option value="">请选择</option><option>同学介绍</option><option>班级群</option><option>校园海报</option><option>官网页脚</option><option>贤圈中心</option><option>腾讯问卷</option><option>其他</option></select></div>
+            <div class="fld"><label for="f-languages">语言能力 <span class="hint">（选填）</span></label><input id="f-languages" name="languages" type="text" maxlength="60" placeholder="普通话、桂林话、英语…" /></div>
+            <div class="fld full"><label>平时能用的设备 <span class="hint">（可多选）</span></label>
+              <div class="opts">
+                <label class="opt"><input type="checkbox" name="devices" value="手机" />手机</label>
+                <label class="opt"><input type="checkbox" name="devices" value="电脑" />电脑</label>
+                <label class="opt"><input type="checkbox" name="devices" value="平板" />平板</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" data-step="5">
+          <div class="sec-tag">伍 · 开放题与承诺</div>
+          <div class="hintbar">三道开放题是初审最重要的部分。不用写得漂亮，写实在的就行。</div>
+          <div class="fgrid">
+            <div class="fld full"><label for="f-whyJoin">为什么想加入 <em>*</em> <span class="hint">（不少于 80 字，走特招请第一句注明）</span></label>
+              <textarea id="f-whyJoin" name="whyJoin" maxlength="800" placeholder="可以写你想做什么、为什么是尚贤圈。"></textarea></div>
+            <div class="fld full"><label for="f-bestFit">你觉得自己最适合做什么 <em>*</em> <span class="hint">（不少于 50 字）</span></label>
+              <textarea id="f-bestFit" name="bestFit" maxlength="600" placeholder="结合上面的经历说说，具体一点更好。"></textarea></div>
+            <div class="fld full"><label for="f-noOutputPlan">如果一个月没有产出，你会怎么做 <span class="hint">（选填，不少于 30 字）</span></label>
+              <textarea id="f-noOutputPlan" name="noOutputPlan" maxlength="400" placeholder="这道题没有标准答案，想看你的真实反应。"></textarea></div>
+            <div class="fld full"><label for="f-suggestions">对尚贤圈现有功能的建议 <span class="hint">（选填）</span></label>
+              <textarea id="f-suggestions" name="suggestions" maxlength="600" placeholder="哪里不好用、缺什么功能，吐槽也欢迎。"></textarea></div>
+          </div>
+          <div class="fgrid" style="margin-top:18px">
+            <label class="check"><input type="checkbox" id="f-agreeRules" name="agreeRules" /><span>我已阅读并认同「要求与底线」中的全部条款，特别是六条红线，并愿意遵守。</span></label>
+            <label class="check"><input type="checkbox" id="f-confirmTruth" name="confirmTruth" /><span>我确认以上信息真实有效；如未满 18 周岁，已获得监护人知情与同意。</span></label>
+          </div>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        </div>
+      </form>
+    </div>
+    <div class="m-foot">
+      <button class="btn btn-g" id="mPrev" style="padding:12px 24px;font-size:15px">上一步</button>
+      <div class="sp"></div>
+      <div class="msg" id="msg"></div>
+      <div class="sp"></div>
+      <button class="btn btn-p" id="mNext" style="padding:12px 28px;font-size:15px;animation:none">下一步</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ══════════════════════════════════════════════════════
-   ⚙️ 腾讯问卷链接：把你的问卷地址粘贴到下面这对引号里即可生效。
-      例：var TENCENT_SURVEY = 'https://wj.qq.com/s2/12345678/abcd/'
-      留空时，第三个入口会提示找主理人要链接，不会跳转到错误页面。
-   ══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════
+   ⚙️ 需要你填的只有一样：腾讯问卷链接（下面第一行）
+   ══════════════════════════════════════════════════ */
 var TENCENT_SURVEY = ''
 
-/* 新库公开 RPC（未执行补丁 030 时自动降级到邮箱/问卷/QQ 群） */
-var ENDPOINT = 'https://ocgqafxaapfzraeiehqg.supabase.co/rest/v1/rpc/xq_career_apply'
+var ENDPOINT  = 'https://ocgqafxaapfzraeiehqg.supabase.co/rest/v1/rpc/xq_career_apply'
+var STATUS_FN = 'https://ocgqafxaapfzraeiehqg.supabase.co/rest/v1/rpc/xq_career_status'
 var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jZ3FhZnhhYXBmenJhZWllaHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5OTYwOTYsImV4cCI6MjEwMzU3MjA5Nn0.icNXBGRtofllZkvypUvbJqwRxxaLwVLaXC92J5DhKI0'
+
+/* ── 邮箱防爬：不在 HTML 里出现明文 ── */
+;(function () {
+  var addr = 'sxcommunity' + '@' + 'outlook.com'
+  var href = 'mailto:' + addr + '?subject=' + encodeURIComponent('招贤纳士咨询') +
+    '&body=' + encodeURIComponent('请写清你的问题；如要直接报名，按下面五组填写：\n\n一、基本信息（姓名 / 年级班级 / 是否住校）\n二、联系方式（手机 / QQ / 微信 / 监护人电话）\n三、应聘意向（岗位 / 每周时间 / 可用时段）\n四、经历与能力（社团经历 / 会用工具 / 作品链接）\n五、开放题（为什么加入 / 你最适合做什么）')
+  var a = document.getElementById('mailA'), b = document.getElementById('mailF'), c = document.getElementById('mailWay')
+  if (a) { a.href = href; a.textContent = addr }
+  if (b) b.href = href
+  if (c) c.href = href
+})()
 
 /* ── 腾讯问卷入口 ── */
 ;(function () {
-  var way = document.getElementById('tqWay')
-  var txt = document.getElementById('tqText')
+  var way = document.getElementById('tqWay'), txt = document.getElementById('tqText')
   if (!way) return
-  if (TENCENT_SURVEY) {
-    way.href = TENCENT_SURVEY
-    if (txt) txt.innerHTML = '在问卷里填写，<br>和站内表单内容一致'
-  } else {
-    way.href = '#apply'
-    way.removeAttribute('target')
-    if (txt) txt.innerHTML = '问卷链接请联系主理人获取，<br>或直接用站内表单'
-  }
+  if (TENCENT_SURVEY) { way.href = TENCENT_SURVEY; if (txt) txt.innerHTML = '在问卷里填写，内容一致' }
+  else { way.href = '#apply'; way.removeAttribute('target'); if (txt) txt.innerHTML = '链接请联系主理人获取，或直接用站内表单' }
 })()
 
 /* ── 滚动进度 ── */
@@ -927,154 +1053,357 @@ var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI
   tick()
 })()
 
-/* ── 入场动效：先给 html 加 .anim 才隐藏，且三重兜底保证内容一定显示 ──
-   之前的问题：直接锚点跳转到 #apply 时，被跳过的元素从未进入视口，
-   IntersectionObserver 不触发，于是永远 opacity:0 → 整页空白。 */
+/* ── 视差：四层 + 全页 + 手机降级 ── */
+;(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  var els = [], cache = []
+  var scale = window.matchMedia('(max-width: 859px)').matches ? 0.5 : 1
+  function collect () {
+    els = [].slice.call(document.querySelectorAll('[data-px]'))
+    cache = els.map(function (el) {
+      var r = el.getBoundingClientRect()
+      return { top: r.top + window.scrollY, h: r.height || 1 }
+    })
+  }
+  var raf = null
+  function render () {
+    raf = null
+    var sy = window.scrollY, vh = window.innerHeight
+    for (var i = 0; i < els.length; i++) {
+      var mid = cache[i].top + cache[i].h / 2 - sy
+      var off = (mid - vh / 2) / vh
+      var y = off * (parseFloat(els[i].dataset.px) || 0) * 120 * scale
+      var x = off * (parseFloat(els[i].dataset.pxx) || 0) * 160 * scale
+      els[i].style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0)'
+    }
+  }
+  function onScroll () { if (!raf) raf = requestAnimationFrame(render) }
+  collect()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', function () { collect(); onScroll() })
+  window.addEventListener('load', function () { collect(); render() })
+  setTimeout(function () { collect(); render() }, 400)
+  render()
+})()
+
+/* ── 横向滚动章节 ── */
+;(function () {
+  if (window.matchMedia('(max-width: 859px)').matches) return
+  var sec = document.querySelector('.hscroll')
+  var track = document.getElementById('hsTrack')
+  if (!sec || !track) return
+  var raf = null
+  function render () {
+    raf = null
+    var r = sec.getBoundingClientRect()
+    var total = sec.offsetHeight - window.innerHeight
+    if (total <= 0) return
+    var prog = Math.min(1, Math.max(0, -r.top / total))
+    var maxX = Math.max(0, track.scrollWidth - (track.parentElement ? track.parentElement.clientWidth : 0))
+    track.style.transform = 'translate3d(' + (-prog * maxX).toFixed(1) + 'px,0,0)'
+  }
+  function onScroll () { if (!raf) raf = requestAnimationFrame(render) }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll)
+  render()
+})()
+
+/* ── 数字滚动 ── */
+;(function () {
+  var els = [].slice.call(document.querySelectorAll('[data-count]'))
+  if (!els.length || !('IntersectionObserver' in window)) return
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return
+      var el = en.target, target = parseInt(el.dataset.count, 10) || 0, t0 = null
+      function step (ts) {
+        if (!t0) t0 = ts
+        var p = Math.min(1, (ts - t0) / 900)
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)))
+        if (p < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+      io.unobserve(el)
+    })
+  }, { threshold: .5 })
+  els.forEach(function (e) { io.observe(e) })
+})()
+
+/* ── 入场动效：默认可见 + 三重兜底 ── */
 ;(function () {
   var root = document.documentElement
-  if (!('IntersectionObserver' in window)) return      // 不支持则完全不动，内容照常可见
+  if (!('IntersectionObserver' in window)) return
   root.classList.add('anim')
-
   var els = [].slice.call(document.querySelectorAll('.rv'))
   function showAll () { els.forEach(function (e) { e.classList.add('in') }) }
-
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target) }
-    })
-  }, { threshold: 0.06, rootMargin: '0px 0px -4% 0px' })
-
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target) } })
+  }, { threshold: .06, rootMargin: '0px 0px -4% 0px' })
   els.forEach(function (e) { io.observe(e) })
-
-  // ① 首次加载：把已经在视口内（含因锚点跳转被跳过）的全部点亮
-  function revealInView () {
+  function inView () {
     var vh = window.innerHeight
     els.forEach(function (e) {
       var r = e.getBoundingClientRect()
       if (r.top < vh && r.bottom > -40) e.classList.add('in')
     })
   }
-  function revealInViewSoon () { requestAnimationFrame(revealInView); setTimeout(revealInView, 220) }
-  revealInViewSoon()
-  window.addEventListener('load', revealInViewSoon)
-
-  // ② 锚点跳转 / 前进后退：立刻全部点亮，绝不留空白
+  requestAnimationFrame(inView); setTimeout(inView, 220)
+  window.addEventListener('load', inView)
   window.addEventListener('hashchange', function () { setTimeout(showAll, 60) })
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="#"]')
-    if (a) setTimeout(showAll, 80)
+    if (e.target.closest && e.target.closest('a[href^="#"]')) setTimeout(showAll, 80)
   })
-
-  // ③ 终极兜底：2.5 秒后无论如何全部显示
   setTimeout(showAll, 2500)
 })()
 
-/* ── 报名表单 ── */
+/* ── 报名弹层：五步向导 + 草稿自动保存 ── */
 ;(function () {
-  var form = document.getElementById('form')
-  if (!form) return
+  var mask = document.getElementById('mask')
+  var steps = [].slice.call(document.querySelectorAll('.m-body .step'))
+  var bar = [].slice.call(document.querySelectorAll('#mBar div'))
+  var prev = document.getElementById('mPrev')
+  var next = document.getElementById('mNext')
   var msg = document.getElementById('msg')
-  var btn = document.getElementById('submit')
-  var fall = document.getElementById('fall')
+  var tip = document.getElementById('draftTip')
+  var form = document.getElementById('form')
+  var DRAFT = 'sxq_career_draft'
+  var cur = 1
 
-  function setMsg (t, ok) {
-    msg.textContent = t
-    msg.className = 'msg' + (ok ? ' ok' : '')
-  }
-  function val (name) { var el = form.elements[name]; return el ? String(el.value || '').trim() : '' }
-  function mult (name) {
-    var out = []
-    var list = form.querySelectorAll('input[name="' + name + '"]:checked')
-    for (var i = 0; i < list.length; i++) out.push(list[i].value)
+  function setMsg (t, ok) { msg.textContent = t || ''; msg.className = 'msg' + (ok ? ' ok' : '') }
+  function val (n) { var el = form.elements[n]; return el ? String(el.value || '').trim() : '' }
+  function checked (n) { var el = form.elements[n]; return el ? !!el.checked : false }
+  function mult (n) {
+    var out = [], l = form.querySelectorAll('input[name="' + n + '"]:checked')
+    for (var i = 0; i < l.length; i++) out.push(l[i].value)
     return out
   }
-  function short (s, n) { return String(s || '').replace(/\s/g, '').length < n }
+  function len (s) { return String(s || '').replace(/\s/g, '').length }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault()
+  function paint () {
+    steps.forEach(function (s, i) { s.classList.toggle('on', i + 1 === cur) })
+    bar.forEach(function (b, i) {
+      b.classList.toggle('on', i + 1 === cur)
+      b.classList.toggle('ok', i + 1 < cur)
+    })
+    prev.style.visibility = cur === 1 ? 'hidden' : 'visible'
+    next.textContent = cur === 5 ? '提交报名' : '下一步'
+    var body = document.getElementById('mBody')
+    if (body) body.scrollTop = 0
+  }
+  function open (e) {
+    if (e) e.preventDefault()
+    mask.classList.add('on')
+    document.body.classList.add('lock')
+    paint(); setMsg(''); loadDraft()
+    var first = document.getElementById('f-realName')
+    if (first) setTimeout(function () { try { first.focus() } catch (err) {} }, 260)
+  }
+  function close () {
+    mask.classList.remove('on')
+    document.body.classList.remove('lock')
+    saveDraft()
+  }
+
+  function collectDraft () {
+    var d = {}
+    for (var i = 0; i < form.elements.length; i++) {
+      var el = form.elements[i]
+      if (!el.name || el.name === 'website') continue
+      if (el.type === 'checkbox') {
+        if (!Array.isArray(d[el.name])) d[el.name] = []
+        if (el.checked) d[el.name].push(el.value)
+      } else if (el.type !== 'submit' && el.type !== 'button') {
+        d[el.name] = el.value
+      }
+    }
+    return d
+  }
+  function saveDraft () { try { localStorage.setItem(DRAFT, JSON.stringify(collectDraft())) } catch (e) {} }
+  function loadDraft () {
+    var d = null
+    try { d = JSON.parse(localStorage.getItem(DRAFT) || 'null') } catch (e) {}
+    if (!d) { if (tip) tip.textContent = ''; return }
+    var n = 0
+    Object.keys(d).forEach(function (k) {
+      var els = form.querySelectorAll('[name="' + k + '"]')
+      if (!els.length) return
+      if (els[0].type === 'checkbox') {
+        var arr = d[k] || []
+        for (var i = 0; i < els.length; i++) els[i].checked = arr.indexOf(els[i].value) >= 0
+      } else { els[0].value = d[k] || '' }
+      n++
+    })
+    if (tip) tip.textContent = n ? '已自动恢复上次填写的草稿' : ''
+  }
+  var saveT = null
+  form.addEventListener('input', function () { clearTimeout(saveT); saveT = setTimeout(saveDraft, 500) })
+  form.addEventListener('change', function () { clearTimeout(saveT); saveT = setTimeout(saveDraft, 300) })
+
+  function validate (s) {
+    if (s === 1) {
+      if (!val('realName')) return '请填写真实姓名'
+      if (!val('grade')) return '请选择年级'
+      if (!val('className')) return '请填写班级'
+    }
+    if (s === 2) {
+      if (!/^\d{11}$/.test(val('phone'))) return '请填写 11 位手机号'
+      if (!val('guardianPhone')) return '请填写监护人联系方式'
+      if (!val('guardianAgreed')) return '请选择是否已获得监护人同意'
+    }
+    if (s === 3) {
+      if (!val('role1')) return '请选择第一志愿'
+      if (val('role2') && val('role2') === val('role1')) return '第二志愿与第一志愿相同，请改一下或留空'
+      if (!val('hoursPerWeek')) return '请选择每周可投入时长'
+      if (!val('acceptTrial')) return '请选择是否接受两周试用期'
+    }
+    if (s === 4) { if (!val('source')) return '请选择从哪里知道这次招新' }
+    if (s === 5) {
+      if (len(val('whyJoin')) < 80) return '「为什么想加入」请至少 80 字（当前 ' + len(val('whyJoin')) + ' 字）'
+      if (len(val('bestFit')) < 50) return '「你最适合做什么」请至少 50 字（当前 ' + len(val('bestFit')) + ' 字）'
+      if (val('noOutputPlan') && len(val('noOutputPlan')) < 30) return '「一个月没产出会怎么做」如填写，请至少 30 字'
+      if (!checked('agreeRules')) return '请先勾选同意「要求与底线」'
+      if (!checked('confirmTruth')) return '请先勾选信息真实与监护人知情确认'
+    }
+    return ''
+  }
+
+  next.addEventListener('click', function () {
+    if (cur < 5) {
+      var err = validate(cur)
+      if (err) return setMsg(err)
+      setMsg(''); cur++; paint(); return
+    }
+    var e5 = validate(5)
+    if (e5) return setMsg(e5)
+    submit()
+  })
+  prev.addEventListener('click', function () { if (cur > 1) { cur--; paint(); setMsg('') } })
+  document.getElementById('mClose').addEventListener('click', close)
+  mask.addEventListener('click', function (e) { if (e.target === mask) close() })
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && mask.classList.contains('on')) close() })
+  ;[].forEach.call(document.querySelectorAll('[data-open-form]'), function (b) { b.addEventListener('click', open) })
+
+  function submit () {
     if (form.elements.website && form.elements.website.value) return
-
-    var realName = val('realName'), nickname = val('nickname')
-    var phone = val('phone'), grade = val('grade'), className = val('className')
-    var guardianPhone = val('guardianPhone'), guardianAgreed = val('guardianAgreed')
-    var role1 = val('role1'), role2 = val('role2'), hours = val('hoursPerWeek')
-    var acceptTrial = val('acceptTrial'), source = val('source')
-    var whyJoin = val('whyJoin'), bestFit = val('bestFit')
-    var noOutputPlan = val('noOutputPlan'), suggestions = val('suggestions')
-    var agreeRules = form.elements.agreeRules.checked
-    var confirmTruth = form.elements.confirmTruth.checked
-
-    // 校验（与数据库端保持一致，先在前端给出友好提示）
-    if (!realName) return setMsg('请填写真实姓名')
-    if (!/^\d{11}$/.test(phone)) return setMsg('请填写 11 位手机号')
-    if (!guardianPhone) return setMsg('请填写监护人联系方式（未满 18 周岁必填）')
-    if (!guardianAgreed) return setMsg('请选择是否已获得监护人同意')
-    if (!grade) return setMsg('请选择年级')
-    if (!className) return setMsg('请填写班级')
-    if (!role1) return setMsg('请选择第一志愿岗位')
-    if (role2 && role2 === role1) return setMsg('第二志愿与第一志愿相同，请改一下或留空')
-    if (!hours) return setMsg('请选择每周可投入时长')
-    if (!acceptTrial) return setMsg('请选择是否接受两周试用期')
-    if (!source) return setMsg('请选择从哪里知道这次招新')
-    if (short(whyJoin, 80)) return setMsg('「为什么想加入」请至少写 80 个字（当前 ' + whyJoin.replace(/\s/g, '').length + ' 字）')
-    if (short(bestFit, 50)) return setMsg('「你最适合做什么」请至少写 50 个字（当前 ' + bestFit.replace(/\s/g, '').length + ' 字）')
-    if (noOutputPlan && short(noOutputPlan, 30)) return setMsg('「一个月没有产出会怎么做」如填写，请至少 30 个字')
-    if (!agreeRules) return setMsg('请先勾选同意「要求与底线」')
-    if (!confirmTruth) return setMsg('请先勾选信息真实与监护人知情确认')
-
     var detail = {
-      realName: realName, nickname: nickname, gender: val('gender'), birth: val('birth'),
-      grade: grade, className: className, studentNo: val('studentNo'), boarding: val('boarding'),
-      phone: phone, qq: val('qq'), wechat: val('wechat'), email: val('email'),
-      guardianPhone: guardianPhone, guardianAgreed: guardianAgreed,
-      role1: role1, role2: role2, hoursPerWeek: hours,
-      slots: mult('slots'), startTime: val('startTime'), acceptTrial: acceptTrial,
+      realName: val('realName'), nickname: val('nickname'), gender: val('gender'), birth: val('birth'),
+      grade: val('grade'), className: val('className'), studentNo: val('studentNo'), boarding: val('boarding'),
+      phone: val('phone'), qq: val('qq'), wechat: val('wechat'), email: val('email'),
+      guardianPhone: val('guardianPhone'), guardianAgreed: val('guardianAgreed'),
+      role1: val('role1'), role2: val('role2'), hoursPerWeek: val('hoursPerWeek'),
+      slots: mult('slots'), startTime: val('startTime'), acceptTrial: val('acceptTrial'),
       hasLeaderRole: val('hasLeaderRole'), leaderDetail: val('leaderDetail'),
       tools: mult('tools'), contentExp: val('contentExp'), contentExpDetail: val('contentExpDetail'),
-      portfolio: val('portfolio'), source: source, devices: mult('devices'),
+      portfolio: val('portfolio'), source: val('source'), devices: mult('devices'),
       languages: val('languages'),
-      whyJoin: whyJoin, bestFit: bestFit, noOutputPlan: noOutputPlan, suggestions: suggestions,
-      agreeRules: true, confirmTruth: true,
-      at: new Date().toISOString()
+      whyJoin: val('whyJoin'), bestFit: val('bestFit'),
+      noOutputPlan: val('noOutputPlan'), suggestions: val('suggestions'),
+      agreeRules: true, confirmTruth: true, at: new Date().toISOString()
     }
-
-    btn.disabled = true
+    next.disabled = true
     setMsg('正在提交…')
-
     fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', apikey: ANON, Authorization: 'Bearer ' + ANON },
-      body: JSON.stringify({
-        payload: {
-          name: realName + (nickname ? '（' + nickname + '）' : ''),
-          grade: grade + ' ' + className,
-          contact: phone,
-          role: role1,
-          intro: whyJoin,
-          detail: detail
-        }
-      })
+      body: JSON.stringify({ payload: {
+        name: val('realName') + (val('nickname') ? '（' + val('nickname') + '）' : ''),
+        grade: val('grade') + ' ' + val('className'),
+        contact: val('phone'), role: val('role1'), intro: val('whyJoin'), detail: detail
+      } })
     }).then(function (r) { return r.json() }).then(function (j) {
-      btn.disabled = false
+      next.disabled = false
       if (j && j.ok) {
-        setMsg('提交成功，我们会在 3 个工作日内联系你。')
-        form.reset()
-        window.scrollTo({ top: document.getElementById('apply').offsetTop, behavior: 'smooth' })
+        try { localStorage.removeItem(DRAFT) } catch (e) {}
+        showDone((j.data && j.data.code) || '')
         return
       }
-      var m = (j && (j.message || j.error)) || ''
-      if (/Could not find|PGRST202|does not exist/i.test(m)) {
-        setMsg('')
-        fall.hidden = false
-        fall.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      } else {
-        setMsg(m || '提交失败，请稍后再试')
-      }
+      var m = (j && (j.message || j.error)) || '提交失败，请稍后再试'
+      if (/Could not find|PGRST202|does not exist/i.test(m)) { setMsg(''); showFallback() }
+      else setMsg(m)
     }).catch(function () {
-      btn.disabled = false
-      setMsg('网络异常，请改用邮箱或腾讯问卷提交')
-      fall.hidden = false
+      next.disabled = false
+      setMsg('网络异常，可改用邮箱或腾讯问卷提交')
+      showFallback()
     })
+  }
+
+  function showDone (code) {
+    document.getElementById('mBody').innerHTML =
+      '<div class="done-box">' +
+        '<div class="di">✓</div>' +
+        '<h3>报名已提交</h3>' +
+        '<p>我们会在 <b>3 个工作日</b>内用你留的联系方式回复。<br>无论通过与否都会回复，不会让你干等。</p>' +
+        (code ? '<div class="code-box"><b>' + code + '</b><span>你的报名编号 · 请记下来，随时可查进度</span></div>' : '') +
+        '<p style="font-size:14px;color:var(--muted)">页面底部「已经提交过了？查一下进度」可用编号加手机号查看当前状态。</p>' +
+      '</div>'
+    document.getElementById('mBar').style.display = 'none'
+    prev.style.visibility = 'hidden'
+    next.textContent = '关闭'
+    next.onclick = close
+  }
+  function showFallback () {
+    document.getElementById('mBody').innerHTML =
+      '<div class="fall" style="background:var(--card)">' +
+        '<b>站内提交暂时不可用</b>' +
+        '<p>别急，下面三种方式效果完全一样：<br>· <b>邮箱</b>：点页脚「联系我们」，标题已预填<br>· <b>腾讯问卷</b>：点上面第三个入口<br>· <b>QQ 群</b>：群号见官网页脚</p>' +
+      '</div>'
+    document.getElementById('mBar').style.display = 'none'
+    prev.style.visibility = 'hidden'
+    next.textContent = '关闭'
+    next.onclick = close
+  }
+})()
+
+/* ── 进度查询 ── */
+;(function () {
+  var btn = document.getElementById('qbtn')
+  if (!btn) return
+  var codeEl = document.getElementById('q-code')
+  var phoneEl = document.getElementById('q-phone')
+  var msgEl = document.getElementById('qmsg')
+  var res = document.getElementById('qres')
+  var LABEL = { pending: '初审中', reviewing: '待面谈', accepted: '已通过', rejected: '未通过' }
+  var DESC = {
+    pending: '材料已收到，正在排队初审，3 个工作日内会有结果。',
+    reviewing: '初审已过，正在安排线上面谈，会通过你留的联系方式约时间。',
+    accepted: '已经通过，接下来会有人联系你确认岗位与提成档位。',
+    rejected: '这次没有通过。不影响你以后再报名，也欢迎发邮件问原因。'
+  }
+  btn.addEventListener('click', function () {
+    var code = (codeEl.value || '').trim().toUpperCase()
+    var phone = (phoneEl.value || '').trim()
+    if (!code) { msgEl.textContent = '请填写报名编号'; return }
+    if (!/^\d{11}$/.test(phone)) { msgEl.textContent = '请填写 11 位手机号'; return }
+    msgEl.textContent = '查询中…'
+    res.innerHTML = ''
+    fetch(STATUS_FN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: ANON, Authorization: 'Bearer ' + ANON },
+      body: JSON.stringify({ p_code: code, p_phone: phone })
+    }).then(function (r) { return r.json() }).then(function (j) {
+      msgEl.textContent = ''
+      if (!j || !j.ok) {
+        var m = (j && (j.message || j.error)) || ''
+        res.innerHTML = '<div class="rail-note">' + (/Could not find|PGRST202|does not exist/i.test(m)
+          ? '查询功能还没开通（数据库补丁未执行），可以先发邮件问。'
+          : (m || '查询失败，请稍后再试')) + '</div>'
+        return
+      }
+      var d = j.data || {}
+      if (!d.found) { res.innerHTML = '<div class="rail-note">没有找到这个编号。请确认编号与手机号是否与提交时一致。</div>'; return }
+      res.innerHTML = '<div class="rail-card"><h4>当前状态</h4><ul>' +
+        '<li><i></i>编号：<b>' + (d.code || code) + '</b></li>' +
+        '<li><i></i>岗位：<b>' + (d.roleLabel || '—') + '</b></li>' +
+        '<li><i></i>状态：<b style="color:var(--cinnabar)">' + (LABEL[d.status] || d.status) + '</b></li>' +
+        '<li><i></i>提交时间：' + (d.createTime ? String(d.createTime).slice(0, 10) : '—') + '</li>' +
+        '</ul><p class="rail-note" style="margin-top:12px">' + (DESC[d.status] || '') + '</p></div>'
+    }).catch(function () {
+      msgEl.textContent = ''
+      res.innerHTML = '<div class="rail-note">网络异常，请稍后再试。</div>'
+    })
+  })
+  ;[codeEl, phoneEl].forEach(function (el) {
+    if (el) el.addEventListener('keydown', function (e) { if (e.key === 'Enter') btn.click() })
   })
 })()
 </script>
