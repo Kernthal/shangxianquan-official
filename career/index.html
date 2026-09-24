@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>招贤纳士 · 尚贤圈</title>
+<meta name="description" content="加入尚贤圈：校园大使、设计与运营。没有底薪，收益与产出挂钩、按月结算，规则全部写在明面上。" />
+<meta name="theme-color" content="#c8401f" />
+<style>
+/* ═══════════ 品牌变量（与官网一致） ═══════════ */
+:root{
+  --paper:#f4efe6; --paper2:#ece5d6; --ink:#1c1a17; --ink2:#57503f;
+  --muted:#8b8270; --cinnabar:#c8401f; --cinnabar-dk:#9e3015;
+  --gold:#b98a2f; --line:#ddd3bf; --card:#faf6ee;
+  --serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+  --t-fast:.16s cubic-bezier(.4,0,.2,1);
+  --t-mid:.28s cubic-bezier(.22,.8,.24,1);
+  --t-slow:.5s cubic-bezier(.22,.8,.24,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);line-height:1.85;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  font-size:16px;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+::selection{background:rgba(200,64,31,.2)}
+
+/* ═══════════ 滚动进度条 ═══════════ */
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:100;background:transparent}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cinnabar),var(--gold));transition:width .1s linear}
+
+/* ═══════════ 顶栏 ═══════════ */
+.topbar{
+  position:sticky;top:0;z-index:90;display:flex;align-items:center;gap:12px;
+  padding:14px clamp(16px,4vw,44px);
+  background:rgba(244,239,230,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar .seal{
+  width:36px;height:36px;border-radius:10px;color:#fff;flex:0 0 auto;
+  font-family:var(--serif);font-weight:900;font-size:19px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk));
+  box-shadow:0 3px 10px rgba(200,64,31,.3);
+}
+.topbar .brand{font-family:var(--serif);font-weight:900;font-size:17px;letter-spacing:.06em}
+.topbar .brand small{display:block;font-family:inherit;font-weight:600;font-size:9px;letter-spacing:.3em;color:var(--muted)}
+.topbar .nav-links{margin-left:auto;display:flex;gap:clamp(10px,2vw,26px);flex-wrap:wrap}
+.topbar .nav-links a{font-size:13.5px;color:var(--ink2);position:relative;padding:4px 0;transition:color var(--t-fast)}
+.topbar .nav-links a:hover{color:var(--cinnabar)}
+.topbar .nav-links a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--cinnabar),var(--gold));transform:scaleX(0);transition:transform var(--t-mid)
+}
+.topbar .nav-links a:hover::after{transform:scaleX(1)}
+.topbar .back{
+  flex:0 0 auto;font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:99px;
+  border:1px solid var(--line);color:var(--ink2);transition:all var(--t-fast)
+}
+.topbar .back:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+@media(max-width:760px){.topbar .nav-links{display:none}}
+
+/* ═══════════ 通用 ═══════════ */
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+section{padding:clamp(52px,9vh,96px) 0;position:relative}
+.eyebrow{
+  display:inline-block;font-size:11.5px;letter-spacing:.3em;font-weight:800;
+  color:var(--cinnabar);margin-bottom:10px;text-transform:uppercase
+}
+h2{
+  font-family:var(--serif);font-weight:900;font-size:clamp(26px,4.2vw,40px);
+  letter-spacing:.06em;line-height:1.35;margin-bottom:14px
+}
+.lede{font-size:clamp(14.5px,1.6vw,17px);color:var(--ink2);max-width:760px}
+.rule{width:56px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--cinnabar),var(--gold));margin:18px 0 0}
+.muted{color:var(--muted);font-size:13.5px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,30px);
+  transition:transform var(--t-mid),box-shadow var(--t-mid),border-color var(--t-mid)
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(31,28,24,.1);border-color:rgba(185,138,47,.4)}
+.gridd{display:grid;gap:16px}
+@media(min-width:760px){.gridd.c2{grid-template-columns:1fr 1fr}.gridd.c3{grid-template-columns:repeat(3,1fr)}.gridd.c4{grid-template-columns:repeat(4,1fr)}}
+
+/* ═══════════ Hero ═══════════ */
+.hero{position:relative;overflow:hidden;padding:clamp(64px,12vh,128px) 0 clamp(48px,8vh,88px)}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 8%,rgba(200,64,31,.10),transparent 60%),
+    radial-gradient(ellipse 55% 55% at 92% 92%,rgba(185,138,47,.13),transparent 62%)
+}
+/* 持续漂浮的装饰（纯 CSS，不用 emoji） */
+.float{position:absolute;border-radius:50%;pointer-events:none;will-change:transform}
+.f1{width:132px;height:132px;left:6%;top:16%;border:1.5px solid rgba(200,64,31,.2);animation:drift 13s ease-in-out infinite}
+.f2{width:76px;height:76px;right:11%;top:22%;background:linear-gradient(140deg,rgba(185,138,47,.16),rgba(185,138,47,.04));animation:drift 10s ease-in-out infinite reverse}
+.f3{width:52px;height:52px;left:22%;bottom:14%;border:1.5px dashed rgba(185,138,47,.32);animation:drift 16s ease-in-out infinite}
+.f4{width:190px;height:190px;right:-2%;bottom:-6%;border:1.5px solid rgba(200,64,31,.11);animation:drift 18s ease-in-out infinite reverse}
+.f5{width:34px;height:34px;left:48%;top:12%;background:rgba(200,64,31,.14);animation:drift 9s ease-in-out infinite}
+@keyframes drift{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  33%{transform:translate(16px,-24px) rotate(8deg)}
+  66%{transform:translate(-13px,15px) rotate(-7deg)}
+}
+.hero-in{position:relative;text-align:center}
+.hero .zh{font-family:var(--serif);font-weight:900;font-size:clamp(48px,11vw,104px);letter-spacing:.1em;line-height:1.1}
+.hero .zh span{display:inline-block;opacity:0;transform:translateY(38px) rotate(7deg) skewY(2deg);animation:chIn .7s cubic-bezier(.16,1,.3,1) forwards}
+.hero .zh span:nth-child(1){animation-delay:.12s}.hero .zh span:nth-child(2){animation-delay:.24s}
+.hero .zh span:nth-child(3){animation-delay:.36s}.hero .zh span:nth-child(4){animation-delay:.48s}
+@keyframes chIn{to{opacity:1;transform:none}}
+.hero .sub{margin:20px auto 0;max-width:680px;font-size:clamp(14.5px,1.8vw,17.5px);color:var(--ink2);opacity:0;animation:up .7s ease .7s forwards}
+.hero .tags{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:26px;opacity:0;animation:up .7s ease .9s forwards}
+.hero .tags span{
+  font-size:12.5px;padding:6px 14px;border-radius:99px;background:var(--card);
+  border:1px solid var(--line);color:var(--ink2)
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:34px;opacity:0;animation:up .7s ease 1.1s forwards}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 30px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;
+  border:none;font-family:inherit;transition:all var(--t-mid)
+}
+.btn-p{background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk));color:#fff;box-shadow:0 10px 26px rgba(200,64,31,.32);animation:pulse 2.6s ease-in-out infinite}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(200,64,31,.4)}
+.btn-g{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.btn-g:hover{border-color:var(--cinnabar);color:var(--cinnabar);transform:translateY(-2px)}
+@keyframes pulse{
+  0%,100%{box-shadow:0 10px 26px rgba(200,64,31,.3)}
+  50%{box-shadow:0 14px 34px rgba(200,64,31,.5)}
+}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ═══════════ 跑马灯（持续动画） ═══════════ */
+.marq{overflow:hidden;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper2)}
+.marq-t{display:flex;gap:44px;width:max-content;animation:marq 26s linear infinite}
+.marq:hover .marq-t{animation-play-state:paused}
+.marq-t span{
+  font-family:var(--serif);font-weight:800;font-size:clamp(16px,2.4vw,22px);
+  letter-spacing:.14em;color:var(--ink2);white-space:nowrap;display:flex;align-items:center;gap:44px
+}
+.marq-t span::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold);flex:0 0 auto}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ═══════════ 块标题 ═══════════ */
+.blk{display:flex;align-items:baseline;gap:12px;margin-bottom:26px}
+.blk .no{font-family:var(--serif);font-weight:900;font-size:clamp(22px,3vw,30px);color:var(--cinnabar);opacity:.85}
+.blk h2{margin:0}
+
+/* ═══════════ 特点 ═══════════ */
+.feat h3{font-size:17px;font-weight:800;margin:12px 0 8px;letter-spacing:.03em}
+.feat .ic{
+  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk));font-size:19px
+}
+.feat:nth-child(2) .ic{background:linear-gradient(140deg,#2f7a54,#1e5940)}
+.feat:nth-child(3) .ic{background:linear-gradient(140deg,var(--gold),#8f6a1f)}
+.feat:nth-child(4) .ic{background:linear-gradient(140deg,#3a6dd0,#274ba0)}
+.feat p{font-size:14.5px;color:var(--ink2)}
+
+/* ═══════════ 岗位卡 ═══════════ */
+.job{position:relative;overflow:hidden}
+.job::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cinnabar),rgba(200,64,31,.1))}
+.job.dsn::before{background:linear-gradient(180deg,var(--gold),rgba(185,138,47,.1))}
+.job h3{font-family:var(--serif);font-size:21px;font-weight:900;letter-spacing:.05em}
+.job .kj{font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:700;margin:4px 0 14px}
+.job dl{display:grid;gap:9px;margin:0}
+.job dt{font-size:12.5px;font-weight:800;color:var(--cinnabar);letter-spacing:.08em;margin-top:6px}
+.job.dsn dt{color:var(--gold)}
+.job dd{font-size:14.5px;color:var(--ink2);line-height:1.9}
+.job .no-dev{
+  margin-top:16px;padding:10px 14px;border-radius:12px;background:var(--paper2);
+  font-size:13px;color:var(--ink2);border:1px dashed var(--line)
+}
+.job .no-dev b{color:var(--cinnabar)}
+
+/* ═══════════ 收益（明示） ═══════════ */
+.pay{background:var(--ink);color:#e8e2d4;border:none}
+.pay:hover{border-color:rgba(185,138,47,.5)}
+.pay h2,.pay h3{color:#fff}
+.pay .lede{color:#b9b09c}
+.pay-grid{display:grid;gap:14px;margin-top:24px}
+@media(min-width:700px){.pay-grid{grid-template-columns:1fr 1fr}}
+.pay-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);border-radius:14px;padding:18px}
+.pay-item b{display:block;font-size:15px;color:#fff;margin-bottom:6px}
+.pay-item b i{font-style:normal;color:var(--gold);margin-right:7px}
+.pay-item p{font-size:13.8px;color:#b9b09c;line-height:1.85}
+.pay .warn{
+  margin-top:20px;padding:15px 18px;border-radius:14px;
+  background:rgba(200,64,31,.14);border:1px solid rgba(200,64,31,.4);color:#f0c9bd;font-size:13.8px;line-height:1.9
+}
+.pay .warn b{color:#fff}
+
+/* ═══════════ 要求 / 底线 / 任务 ═══════════ */
+.list{display:grid;gap:11px}
+.li{display:flex;align-items:flex-start;gap:12px}
+.li i{
+  flex:0 0 auto;width:22px;height:22px;border-radius:7px;margin-top:4px;
+  display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;
+  background:var(--red2,rgba(200,64,31,.12));color:var(--cinnabar)
+}
+.li.dang i{background:rgba(200,64,31,.14);color:var(--cinnabar)}
+.li p{font-size:14.8px;color:var(--ink2);line-height:1.9}
+.li p b{color:var(--ink)}
+.bottom-line{background:linear-gradient(165deg,#2b2119,#3b2a15);color:#e8e2d4;border:none}
+.bottom-line:hover{border-color:rgba(200,64,31,.5)}
+.bottom-line h2{color:#fff}
+.bottom-line .lede{color:#b9ad93}
+.bottom-line .li p{color:#cdc6b4}
+.bottom-line .li i{background:rgba(200,64,31,.24);color:#f0c9bd}
+
+/* ═══════════ 流程 ═══════════ */
+.flow{display:grid;gap:12px;counter-reset:st}
+@media(min-width:860px){.flow{grid-template-columns:repeat(5,1fr)}}
+.step{
+  position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 16px;text-align:center
+}
+.step::before{
+  counter-increment:st;content:counter(st);
+  display:grid;place-items:center;width:32px;height:32px;border-radius:50%;margin:0 auto 12px;
+  font-weight:900;font-size:14px;color:#fff;background:linear-gradient(140deg,var(--cinnabar),var(--cinnabar-dk))
+}
+.step b{display:block;font-size:15px;font-weight:800;margin-bottom:5px}
+.step p{font-size:13px;color:var(--muted);line-height:1.75}
+
+/* ═══════════ FAQ ═══════════ */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0;margin-bottom:11px;overflow:hidden;transition:border-color var(--t-fast)}
+.faq details:hover{border-color:rgba(185,138,47,.45)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:16px 20px;font-size:15px;font-weight:700;
+  display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:20px;color:var(--gold);transition:transform var(--t-mid);flex:0 0 auto}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 20px 18px;font-size:14.2px;color:var(--ink2);line-height:1.95}
+
+/* ═══════════ 报名 ═══════════ */
+.apply{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,4vw,38px)}
+.apply h3{font-family:var(--serif);font-size:22px;font-weight:900;letter-spacing:.05em;margin-bottom:6px}
+.ways{display:grid;gap:12px;margin:20px 0 26px}
+@media(min-width:760px){.ways{grid-template-columns:repeat(3,1fr)}}
+.way{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;transition:all var(--t-mid)}
+.way:hover{border-color:var(--cinnabar);transform:translateY(-3px)}
+.way b{display:block;font-size:14px;font-weight:800;margin-bottom:4px}
+.way span{font-size:12.5px;color:var(--muted);word-break:break-all}
+.way a{color:var(--cinnabar);font-weight:700}
+form{display:grid;gap:14px}
+.f2{display:grid;gap:14px}
+@media(min-width:620px){.f2{grid-template-columns:1fr 1fr}}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--ink2);margin-bottom:6px;letter-spacing:.04em}
+label em{font-style:normal;color:var(--cinnabar)}
+input,select,textarea{
+  width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);
+  background:#fff;font-size:14.5px;color:var(--ink);font-family:inherit;outline:none;
+  transition:border-color var(--t-fast),box-shadow var(--t-fast)
+}
+input:focus,select:focus,textarea:focus{border-color:var(--cinnabar);box-shadow:0 0 0 3px rgba(200,64,31,.13)}
+textarea{min-height:130px;resize:vertical;line-height:1.8}
+.hp{position:absolute;left:-9999px;opacity:0;pointer-events:none}
+.msg{font-size:13.5px;min-height:20px;color:var(--cinnabar)}
+.msg.ok{color:#2f7a54}
+.err-box{
+  margin-top:6px;padding:10px 12px;border-radius:10px;background:var(--paper2);
+  border:1px dashed var(--line);font-size:12px;color:var(--ink2);word-break:break-all
+}
+.note{font-size:12.5px;color:var(--muted);line-height:1.9;margin-top:14px}
+.fall{margin-top:16px;padding:16px;border-radius:14px;background:var(--paper2);border:1px dashed var(--line)}
+.fall b{display:block;font-size:14px;margin-bottom:8px}
+.fall p{font-size:13.5px;color:var(--ink2);line-height:2}
+
+/* ═══════════ 页脚 ═══════════ */
+footer{
+  margin-top:60px;padding:34px 0 calc(30px + env(safe-area-inset-bottom));
+  background:linear-gradient(165deg,#23262b,#2b2119 58%,#3b2a15);color:#cdc6b4;text-align:center
+}
+footer .fl{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;font-size:13px}
+footer .fl a:hover{color:#fff}
+footer .cp{margin-top:14px;font-size:11.5px;color:#8f8672}
+
+/* ═══════════ 滚动入场（明显） ═══════════ */
+.rv{opacity:0;transform:translateY(26px) skewY(1.2deg);transition:opacity .62s cubic-bezier(.16,1,.3,1),transform .62s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.09s}.rv.d2{transition-delay:.18s}.rv.d3{transition-delay:.27s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.floaty{animation:floaty 4.2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}.hero .zh span{opacity:1;transform:none}
+  .hero .sub,.hero .tags,.cta-row{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="prog"><i id="progBar"></i></div>
+
+<nav class="topbar">
+  <div class="seal">贤</div>
+  <div class="brand">尚贤圈<small>SHANGXIAN QUAN</small></div>
+  <div class="nav-links">
+    <a href="#why">为什么</a><a href="#jobs">岗位</a><a href="#pay">收益</a>
+    <a href="#rules">要求与底线</a><a href="#faq">答疑</a><a href="#apply">报名</a>
+  </div>
+  <a class="back" href="../">← 返回官网</a>
+</nav>
+
+<!-- ═══════════ Hero ═══════════ -->
+<section class="hero">
+  <i class="float f1"></i><i class="float f2"></i><i class="float f3"></i><i class="float f4"></i><i class="float f5"></i>
+  <div class="wrap hero-in">
+    <h1 class="zh"><span>招</span><span>贤</span><span>纳</span><span>士</span></h1>
+    <p class="sub">尚贤圈是一个给桂林市尚贤学校同学用的校园社区。现在缺几个愿意一起把它做下去的人——做传播、做内容、做设计。<b>不招开发</b>，代码全部由主理人一个人写。</p>
+    <div class="tags">
+      <span>无底薪 · 按提成</span><span>不影响学业优先</span><span>规则全写在明面上</span><span>随时可以退出</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-p" href="#apply">直接报名</a>
+      <a class="btn btn-g" href="#jobs">先看看要做什么</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 跑马灯 ═══════════ -->
+<div class="marq" aria-hidden="true">
+  <div class="marq-t">
+    <span>校园大使</span><span>海报与视觉</span><span>月刊与推文</span><span>活动组织</span><span>规则文案</span><span>反馈收集</span>
+    <span>校园大使</span><span>海报与视觉</span><span>月刊与推文</span><span>活动组织</span><span>规则文案</span><span>反馈收集</span>
+  </div>
+</div>
+
+<!-- ═══════════ 一、为什么 ═══════════ -->
+<section id="why">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">壹</span><h2>我们在做什么</h2></div>
+    <p class="lede rv">尚贤圈是一个给本校同学用的校园社区：动态、提问、集市、失物招领、规则中心。它解决的都是很小但很实际的事——作业问不到人、东西丢了找不回、闲置教材堆在宿舍。<b>这个项目由主理人一个人开发与维护</b>，不拿融资、不接广告、基础功能永久免费。</p>
+    <div class="rule rv"></div>
+    <div class="gridd c4" style="margin-top:34px">
+      <div class="card feat rv"><div class="ic">小</div><h3>规模小，但真实</h3><p>我们不做「覆盖全国校园」那种故事。先把一所学校的同学服务好，比什么都重要。</p></div>
+      <div class="card feat rv d1"><div class="ic">实</div><h3>看得见结果</h3><p>你做的事会直接体现在产品里：写的文案有人读，做的海报有人用，办的活动有人来。</p></div>
+      <div class="card feat rv d2"><div class="ic">透</div><h3>规则透明</h3><p>收益怎么算、钱花在哪、谁在管理，全部写在明面上。没有隐形条款，也没有口头承诺。</p></div>
+      <div class="card feat rv d3"><div class="ic">松</div><h3>随时可以退出</h3><p>不签任何协议，不押任何东西。觉得不合适，说一声就走，好聚好散。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 二、岗位 ═══════════ -->
+<section id="jobs" style="background:var(--paper2)">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">贰</span><h2>有哪些岗位</h2></div>
+    <div class="gridd c2">
+      <div class="card job rv">
+        <h3>校园大使</h3>
+        <div class="kj">CAMPUS AMBASSADOR</div>
+        <dl>
+          <dt>要做什么</dt>
+          <dd>在自己班级和社团里让同学知道尚贤圈；收集大家想要的功能和吐槽；组织小型线下活动（比如失物招领角）。</dd>
+          <dt>适合谁</dt>
+          <dd>人缘不差、愿意主动跟同学说话的人。不需要成绩好，不需要会写代码。</dd>
+          <dt>大概投入</dt>
+          <dd>每周 2～4 小时，时间自己安排，没有打卡。</dd>
+        </dl>
+      </div>
+      <div class="card job dsn rv d1">
+        <h3>设计与运营</h3>
+        <div class="kj">DESIGN &amp; CONTENT</div>
+        <dl>
+          <dt>要做什么</dt>
+          <dd>海报与图标等视觉物料；月刊、推文、规则文案的撰写与排版；把同学的反馈整理成能看懂的清单。</dd>
+          <dt>适合谁</dt>
+          <dd>会用任意一款设计工具（哪怕只是稿定或醒图）、或者写东西能让同学看进去的人。</dd>
+          <dt>大概投入</dt>
+          <dd>每周 3～5 小时，按内容节奏走，不卡死期限。</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="card rv" style="margin-top:16px">
+      <div class="no-dev"><b>关于开发：</b>尚贤圈的全部代码由主理人一个人写，<b>这个页面不招任何开发岗位</b>。如果你想做的是写代码，那这里没有适合你的位置——不是不欢迎，是没有活儿分给你。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 三、收益（明示） ═══════════ -->
+<section id="pay">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">叁</span><h2>收益：全部写在明面上</h2></div>
+    <p class="lede rv">这一节是整个页面最重要的一节。<b>没有底薪，也不承诺任何具体金额</b>——收益与你的实际产出挂钩，按月结算。下面是规则，不是宣传话术。</p>
+    <div class="pay card rv" style="margin-top:26px">
+      <div class="pay-grid">
+        <div class="pay-item"><b><i>壹</i>没有底薪</b><p>这不是一份工作，没有固定工资，也不签任何劳动合同。它是自愿参与，随时可以停止。</p></div>
+        <div class="pay-item"><b><i>贰</i>按提成结算</b><p>收益与你带来的实际效果挂钩：比如经你推广带来的活跃同学、你产出的内容被采用的数量。按月对账、按月结算。</p></div>
+        <div class="pay-item"><b><i>叁</i>具体档位面谈确认</b><p>每个岗位的提成档位不同，且会随项目收入浮动。具体数字在你通过筛选后面谈确认，本页<b>不承诺、不展示任何金额</b>。</p></div>
+        <div class="pay-item"><b><i>肆</i>不强制、不追责</b><p>某个月没产出就没有这个月的提成，不会有任何处罚，也不会被催。做多少拿多少。</p></div>
+      </div>
+      <div class="warn"><b>防骗声明：</b>参与尚贤圈<b>不需要你交任何一分钱</b>——没有报名费、押金、培训费、材料费。凡是让你先交钱的，都是冒充我们的骗局，请直接到官网页脚的邮箱举报。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 四、要求 ═══════════ -->
+<section id="rules" style="background:var(--paper2)">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">肆</span><h2>要求与底线</h2></div>
+    <div class="gridd c2">
+      <div class="card rv">
+        <h3 style="font-size:17px;font-weight:800;margin-bottom:16px">我们希望你是</h3>
+        <div class="list">
+          <div class="li"><i>一</i><p><b>本校在读同学</b>。这个岗位只面向桂林市尚贤学校的同学，校外恕不考虑。</p></div>
+          <div class="li"><i>二</i><p><b>说话算话</b>。答应的事做到；做不到提前说一声，比什么都强。</p></div>
+          <div class="li"><i>三</i><p><b>不影响学业</b>。学业永远排在前面，我们宁可你少做点，也不想看到成绩掉。</p></div>
+          <div class="li"><i>四</i><p><b>未成年人需监护人知情</b>。未满 18 周岁报名，请先让家长知道并同意。</p></div>
+        </div>
+      </div>
+      <div class="card bottom-line rv d1">
+        <h3 style="font-size:17px;font-weight:800;margin-bottom:16px;color:#fff">这些是底线，碰一次就出局</h3>
+        <div class="list">
+          <div class="li dang"><i>禁</i><p><b>刷数据</b>。拉人头注册僵尸号、伪造活跃，一经发现立即清退并公示。</p></div>
+          <div class="li dang"><i>禁</i><p><b>发广告</b>。利用岗位身份给任何第三方产品打广告、拉赞助。</p></div>
+          <div class="li dang"><i>禁</i><p><b>泄露同学信息</b>。报名表、反馈里拿到的任何同学联系方式，不得外传或用于岗位之外的事。</p></div>
+          <div class="li dang"><i>禁</i><p><b>代收钱款</b>。不得以尚贤圈名义向同学收取任何费用。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 五、任务与使命 ═══════════ -->
+<section id="mission">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">伍</span><h2>任务与使命</h2></div>
+    <div class="gridd c2">
+      <div class="card rv">
+        <h3 style="font-size:17px;font-weight:800;margin-bottom:14px">这个月要做的事（具体）</h3>
+        <div class="list">
+          <div class="li"><i>任</i><p>让至少 <b>20 位同学</b>真正用过一次尚贤圈（登录并浏览或发帖）。</p></div>
+          <div class="li"><i>任</i><p>收集并整理 <b>10 条</b>真实反馈（想要什么功能、哪里不好用）。</p></div>
+          <div class="li"><i>任</i><p>产出 <b>1 套</b>物料或 <b>1 篇</b>内容（海报 / 推文 / 月刊，任选）。</p></div>
+          <div class="li"><i>任</i><p>每周在群里同步一次进度，几句话就行。</p></div>
+        </div>
+      </div>
+      <div class="card rv d1">
+        <h3 style="font-size:17px;font-weight:800;margin-bottom:14px">为什么做这件事（大白话版使命）</h3>
+        <p style="font-size:14.8px;color:var(--ink2);line-height:2">让校园里的信息流通顺一点：问作业有人答，丢东西找得回，闲置教材能流转，学校的规则不用翻聊天记录去找。<br><br>这件事不大，也不性感。但它能省下同学很多时间，而时间是最值钱的东西。<br><br>我们不喊「改变校园」这种口号。我们只是想把一件小事做扎实，做久一点。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 六、流程 ═══════════ -->
+<section id="flow" style="background:var(--paper2)">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">陆</span><h2>报名之后会发生什么</h2></div>
+    <div class="flow rv">
+      <div class="step"><b>投递</b><p>填下面的表，或者发邮件、加群</p></div>
+      <div class="step"><b>筛选</b><p>3 天内看材料，合适就约聊</p></div>
+      <div class="step"><b>面谈</b><p>线上聊 20 分钟，确认想法与提成档位</p></div>
+      <div class="step"><b>试用</b><p>两周，做一件真实的小事</p></div>
+      <div class="step"><b>正式</b><p>进贡献者名单，开始按月结算</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 七、答疑 ═══════════ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">柒</span><h2>几个实在的问题</h2></div>
+    <div class="faq rv">
+      <details open><summary>会影响学习吗？</summary><p>会占用时间，任何事都会。所以我们把每周投入压在 2～5 小时，并且明确写了「学业优先」。如果月考掉了，先停手头的事，这不会有任何惩罚。</p></details>
+      <details><summary>要交钱吗？</summary><p>一分钱都不用。没有报名费、押金、培训费、材料费。谁让你交钱谁就是骗子。</p></details>
+      <details><summary>到底能拿多少钱？</summary><p>本页不写具体数字，因为提成档位要在面谈时按你的岗位和产出方式确认，而且它会随项目收入浮动。我们能保证的是：规则透明、按月结算、不拖欠、不画饼。如果你想要的是「稳定的月收入」，那这里不适合你。</p></details>
+      <details><summary>做不好会被怎么样？</summary><p>没有产出就没有那个月的提成，仅此而已。不会有人骂你，也不会有违约金。连续两个月没动静，我们会问一句「还继续吗」，你说不继续就结束。</p></details>
+      <details><summary>为什么没有管理岗、没有头衔？</summary><p>尚贤圈的会员与管理员、月度选举是<b>完全隔离</b>的——花钱买不到权力，参与运营也不换权力。管理岗走的是站内选举，不走招聘。这里只招干活的人。</p></details>
+      <details><summary>为什么代码不一起写？</summary><p>开发由主理人一个人负责，这是刻意的选择：一个人写能保证架构和风格一致，也避免多人协作带来的沟通成本。所以这里没有开发岗位。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 八、报名 ═══════════ -->
+<section id="apply" style="background:var(--paper2)">
+  <div class="wrap">
+    <div class="blk rv"><span class="no">捌</span><h2>报名</h2></div>
+    <div class="card apply rv">
+      <h3>三个入口，挑一个顺手的</h3>
+      <div class="ways">
+        <div class="way"><b>站内表单</b><span>就在下面，填完直接提交</span></div>
+        <div class="way"><b>邮箱投递</b><span><a href="mailto:sxcommunity@outlook.com?subject=%E6%8B%9B%E8%B4%A4%E7%BA%B3%E5%A3%AB%E6%8A%A5%E5%90%8D">sxcommunity@outlook.com</a></span></div>
+        <div class="way"><b>QQ 交流群</b><span>官网页脚公示的群号，进群后私聊主理人</span></div>
+      </div>
+
+      <h3 style="font-size:18px;margin-top:6px">站内报名表</h3>
+      <form id="form" novalidate>
+        <div class="f2">
+          <div><label for="f-name">怎么称呼你 <em>*</em></label><input id="f-name" name="name" maxlength="20" placeholder="昵称就行，不用真名" /></div>
+          <div><label for="f-grade">年级 / 班级（选填）</label><input id="f-grade" name="grade" maxlength="24" placeholder="比如：高二 3 班" /></div>
+        </div>
+        <div class="f2">
+          <div><label for="f-contact">联系方式 <em>*</em></label><input id="f-contact" name="contact" maxlength="60" placeholder="QQ / 微信 / 邮箱，任一" /></div>
+          <div><label for="f-role">想做的岗位 <em>*</em></label>
+            <select id="f-role" name="role">
+              <option value="">请选择</option>
+              <option value="ambassador">校园大使</option>
+              <option value="design">设计</option>
+              <option value="content">运营 / 内容</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="f-intro">自我介绍 <em>*</em> <span class="muted" style="font-weight:500">（至少 20 字：你是谁、为什么想加入、能投入多少时间）</span></label>
+          <textarea id="f-intro" name="intro" maxlength="600" placeholder="不用写得漂亮，写实在的就行。"></textarea>
+        </div>
+        <!-- 蜜罐字段：人看不到，机器人会填 -->
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="msg" id="msg"></div>
+        <button class="btn btn-p" type="submit" id="submit" style="width:100%">提交报名</button>
+        <p class="note">提交即表示你已阅读并同意本页的<b>要求与底线</b>；未满 18 周岁请确认已获得监护人同意。我们只把这些信息用于本次招募，不做其他用途，也不会交给第三方。</p>
+      </form>
+      <div class="fall" id="fall" hidden>
+        <b>站内提交暂时不可用</b>
+        <p>别急，用下面任意一种方式报名，效果一样：<br>
+        · 邮箱：<a href="mailto:sxcommunity@outlook.com?subject=%E6%8B%9B%E8%B4%A4%E7%BA%B3%E5%A3%AB%E6%8A%A5%E5%90%8D" style="color:var(--cinnabar);font-weight:700">sxcommunity@outlook.com</a>（标题写「招贤纳士报名」，正文写称呼 / 班级 / 联系方式 / 想做的岗位 / 自我介绍）<br>
+        · QQ 群：官网页脚公示的群号，进群后私聊主理人</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fl">
+      <a href="../">返回官网</a><a href="https://sxcommunity.github.io/xq-center/" target="_blank" rel="noopener">贤圈中心</a>
+      <a href="https://sxcommunity.github.io/sxq-pwa/" target="_blank" rel="noopener">App 网页版</a>
+      <a href="https://ifdian.net/a/kernthal-sxquan" target="_blank" rel="noopener">爱发电</a>
+      <a href="mailto:sxcommunity@outlook.com">联系我们</a>
+    </div>
+    <div class="cp">© 尚贤圈 · 桂林市尚贤学校校园社区 · 由 Kernthal Studio 开发维护</div>
+  </div>
+</footer>
+
+<script>
+/* ═══ 滚动进度条 ═══ */
+(function () {
+  var bar = document.getElementById('progBar')
+  var raf = null
+  function onScroll () {
+    if (raf) return
+    raf = requestAnimationFrame(function () {
+      raf = null
+      var h = document.documentElement
+      var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)
+      bar.style.width = (p * 100) + '%'
+    })
+  }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
+})()
+
+/* ═══ 滚动入场（明显：位移 + 轻微斜移 + 过冲曲线） ═══ */
+(function () {
+  var els = document.querySelectorAll('.rv')
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(els, function (e) { e.classList.add('in') })
+    return
+  }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target) }
+    })
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
+  Array.prototype.forEach.call(els, function (e) { io.observe(e) })
+})()
+
+/* ═══ 报名表单 ═══ */
+(function () {
+  var form = document.getElementById('form')
+  var msg = document.getElementById('msg')
+  var btn = document.getElementById('submit')
+  var fall = document.getElementById('fall')
+  if (!form) return
+
+  // 新库公开 RPC；未执行 030 补丁时降级到「邮箱 / QQ 群」
+  var ENDPOINT = 'https://ocgqafxaapfzraeiehqg.supabase.co/rest/v1/rpc/xq_career_apply'
+  var KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jZ3FhZnhhYXBmenJhZWllaHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5OTYwOTYsImV4cCI6MjEwMzU3MjA5Nn0.icNXBGRtofllZkvypUvbJqwRxxaLwVLaXC92J5DhKI0'
+
+  function setMsg (t, ok) {
+    msg.textContent = t
+    msg.className = 'msg' + (ok ? ' ok' : '')
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    var f = form.elements
+    // 蜜罐：机器人会填，人不会
+    if (f.website && f.website.value) return
+
+    var name = (f.name.value || '').trim()
+    var grade = (f.grade.value || '').trim()
+    var contact = (f.contact.value || '').trim()
+    var role = f.role.value
+    var intro = (f.intro.value || '').trim()
+
+    if (!name) return setMsg('请填写怎么称呼你')
+    if (!contact) return setMsg('请填写联系方式（QQ / 微信 / 邮箱 任一）')
+    if (!role) return setMsg('请选择想做的岗位')
+    if (intro.replace(/\s/g, '').length < 20) return setMsg('自我介绍至少写 20 个字，让我们认识一下你')
+
+    btn.disabled = true
+    setMsg('提交中…')
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + KEY },
+      body: JSON.stringify({ payload: { name: name, grade: grade, contact: contact, role: role, intro: intro } })
+    }).then(function (r) { return r.json() }).then(function (j) {
+      btn.disabled = false
+      if (j && j.ok) {
+        setMsg('已收到，谢谢！我们会在 3 天内联系你。', true)
+        form.reset()
+        return
+      }
+      var m = (j && (j.message || j.error)) || '提交失败，请稍后再试'
+      if (/Could not find|PGRST202/.test(m)) {
+        setMsg('')
+        fall.hidden = false
+        msg.textContent = ''
+      } else {
+        setMsg(m)
+      }
+    }).catch(function () {
+      btn.disabled = false
+      setMsg('网络异常，请改用邮箱或 QQ 群报名')
+      fall.hidden = false
+    })
+  })
+})()
+</script>
+</body>
+</html>
